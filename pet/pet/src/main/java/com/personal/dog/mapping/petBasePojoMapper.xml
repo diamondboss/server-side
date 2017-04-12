@@ -28,7 +28,7 @@
     delete from pet_base
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.personal.dog.service.petBasePojo" >
+  <insert id="insert" parameterType="com.personal.util.pojo.petBasePojo" >
     insert into pet_base (id, pet_id, kind, 
       birthday, hobby, variety_advantage, 
       variety_defect, photo_url, effective, 
@@ -38,7 +38,7 @@
       #{varietyDefect,jdbcType=VARCHAR}, #{photoUrl,jdbcType=VARCHAR}, #{effective,jdbcType=BIT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.personal.dog.service.petBasePojo" >
+  <insert id="insertSelective" parameterType="com.personal.util.pojo.petBasePojo" >
     insert into pet_base
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -111,7 +111,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.personal.dog.service.petBasePojo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.personal.util.pojo.petBasePojo" >
     update pet_base
     <set >
       <if test="petId != null" >
@@ -147,7 +147,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.personal.dog.service.petBasePojo" >
+  <update id="updateByPrimaryKey" parameterType="com.personal.util.pojo.petBasePojo" >
     update pet_base
     set pet_id = #{petId,jdbcType=INTEGER},
       kind = #{kind,jdbcType=VARCHAR},
@@ -161,4 +161,10 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!--  -->
+   <select id="selectByLimti" resultMap="BaseResultMap">
+   		SELECT * FROM pet_base where effective = '1' limit 0,10  
+   </select>
+  
 </mapper>
