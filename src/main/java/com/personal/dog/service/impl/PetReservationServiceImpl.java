@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.personal.dog.dao.IpetBaseDao;
 import com.personal.dog.service.IPetReservationService;
-import com.personal.util.pojo.petBasePojo;
+import com.personal.util.pojo.PetBasePojo;
 
 @Service("petReservationService")
 public class PetReservationServiceImpl implements IPetReservationService{
@@ -18,7 +18,7 @@ public class PetReservationServiceImpl implements IPetReservationService{
 	private IpetBaseDao petBaseDao;  
 	
 	@Override
-	public petBasePojo queryPetBase(){
+	public PetBasePojo queryPetBase(){
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		

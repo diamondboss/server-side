@@ -1,9 +1,9 @@
 package com.personal.dog.service;
 
-import com.personal.util.pojo.petBasePojo;
+import com.personal.util.pojo.PetBasePojo;
 
 public interface IPetReservationService {
 
-	public petBasePojo queryPetBase();
+	public PetBasePojo queryPetBase();
 	
 }

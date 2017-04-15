@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.personal.dog.service.IPetReservationService;
-import com.personal.util.pojo.petBasePojo;
+import com.personal.util.pojo.PetBasePojo;
 
 @Controller
 @RequestMapping("/reservation")
@@ -19,7 +19,7 @@ public class PetReservationAction {
 
 	@RequestMapping("/showBase")
 	public String toIndex(HttpServletRequest request, Model model) {
-		petBasePojo pojo = this.petReservationService.queryPetBase();
+		PetBasePojo pojo = this.petReservationService.queryPetBase();
 		model.addAttribute("user", pojo);
 		return "showBase";
 	}
