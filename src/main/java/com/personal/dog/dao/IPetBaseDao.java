@@ -1,5 +1,6 @@
 package com.personal.dog.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.personal.util.pojo.PetBasePojo;
@@ -22,6 +23,6 @@ public interface IPetBaseDao {
      * @param param
      * @return
      */
-    PetBasePojo selectByLimti(Map<String, Object> param);
+    List<PetBasePojo> selectByLimit(Map<String, Object> param);
     
 }

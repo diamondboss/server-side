@@ -163,7 +163,7 @@
   </update>
   
   <!--  -->
-   <select id="selectByLimti" resultMap="BaseResultMap">
+   <select id="selectByLimit" resultMap="BaseResultMap">
    		SELECT * FROM pet_base where effective = '1' limit 0,10  
    </select>
   
