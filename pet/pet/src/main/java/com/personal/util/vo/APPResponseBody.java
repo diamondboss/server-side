@@ -16,7 +16,7 @@ public class APPResponseBody {
     /**
      * descripte the retnCode
      */
-    private String retnDesc;
+    private String retnDesc = "";
    
     /**
      * the data server returned
