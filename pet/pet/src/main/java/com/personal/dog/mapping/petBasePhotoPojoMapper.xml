@@ -103,4 +103,17 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <select id ="queryURLById" parameterType="java.lang.Integer" 
+  	resultType="java.lang.String" > 
+  	SELECT
+	    photo_url AS photoUrl
+	FROM
+	    pet_base_photo
+	WHERE
+	    ass_id = #{id}
+	ORDER BY
+	    update_time
+  </select>
+  
 </mapper>
