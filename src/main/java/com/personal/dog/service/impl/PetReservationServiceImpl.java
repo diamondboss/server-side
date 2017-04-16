@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.personal.dog.dao.IpetBaseDao;
+import com.personal.dog.dao.IPetBaseDao;
 import com.personal.dog.service.IPetReservationService;
 import com.personal.util.pojo.PetBasePojo;
 
@@ -15,7 +15,7 @@ import com.personal.util.pojo.PetBasePojo;
 public class PetReservationServiceImpl implements IPetReservationService{
 
 	@Resource  
-	private IpetBaseDao petBaseDao;  
+	private IPetBaseDao petBaseDao;  
 	
 	@Override
 	public PetBasePojo queryPetBase(){
