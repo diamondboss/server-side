@@ -10,7 +10,7 @@ public class PetBaseInfoPojo {
 
     private String text;
 
-    private Boolean textType;
+    private Integer textType;
 
     private Boolean effective;
 
@@ -42,11 +42,11 @@ public class PetBaseInfoPojo {
         this.text = text == null ? null : text.trim();
     }
 
-    public Boolean getTextType() {
+    public Integer getTextType() {
         return textType;
     }
 
-    public void setTextType(Boolean textType) {
+    public void setTextType(Integer textType) {
         this.textType = textType;
     }
 
