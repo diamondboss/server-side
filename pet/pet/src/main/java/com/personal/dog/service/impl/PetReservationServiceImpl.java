@@ -1,6 +1,7 @@
 package com.personal.dog.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -18,11 +19,11 @@ public class PetReservationServiceImpl implements IPetReservationService{
 	private IPetBaseDao petBaseDao;  
 	
 	@Override
-	public PetBasePojo queryPetBase(){
+	public List<PetBasePojo> queryPetBase(){
 		
 		Map<String, Object> param = new HashMap<String, Object>();
 		
-		return petBaseDao.selectByLimti(param);
+		return petBaseDao.selectByLimit(param);
 	}
 	
 	/**
