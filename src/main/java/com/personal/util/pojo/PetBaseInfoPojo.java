@@ -3,6 +3,7 @@ package com.personal.util.pojo;
 import java.util.Date;
 
 public class PetBaseInfoPojo {
+	
     private Long id;
 
     private Long assId;
