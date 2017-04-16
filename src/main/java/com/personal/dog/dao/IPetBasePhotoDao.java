@@ -3,6 +3,7 @@ package com.personal.dog.dao;
 import com.personal.util.pojo.PetBasePhotoPojo;
 
 public interface IPetBasePhotoDao {
+	
     int deleteByPrimaryKey(Long id);
 
     int insert(PetBasePhotoPojo record);
