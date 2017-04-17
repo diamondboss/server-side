@@ -49,8 +49,7 @@ public class PetReservationAction {
 		log.info("查看宠物详情");
 		
 		Integer id = Integer.parseInt(request.getParameter("id"));
-		
-		
+	
 		PetDetailedVo result = this.petReservationService.queryPetDetailed(id);
 		
 		APPResponseBody app = new APPResponseBody();
