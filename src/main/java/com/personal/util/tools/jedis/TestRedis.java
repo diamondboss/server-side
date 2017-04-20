@@ -16,7 +16,7 @@ public class TestRedis {
 	public void testRedis(){
 		RedisBase redisBase = new RedisBase();
 		redisBase.init();
-		cacheFunc.setStr("zbc123", "薛志�?");
+		cacheFunc.setStr("zbc123456", "薛志");
 	}
 
 }
