@@ -1,4 +1,4 @@
-package com.util.sms.aliyun.MsmInterface;
+package com.util.sms;
 
 
 /**

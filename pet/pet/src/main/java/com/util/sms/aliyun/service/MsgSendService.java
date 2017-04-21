@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.personal.util.tools.jedis.CacheFunc;
-import com.util.sms.aliyun.MsmInterface.ISmsSendMsg;
+import com.util.sms.ISmsSendMsg;
 import com.util.sms.aliyun.bean.Constants;
 import com.util.sms.aliyun.bean.StatusCode;
 import com.util.sms.aliyun.core.SmsSenderUtils;
