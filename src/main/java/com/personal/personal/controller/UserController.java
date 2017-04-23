@@ -1,4 +1,4 @@
-package com.personal.personal.action;
+package com.personal.personal.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
