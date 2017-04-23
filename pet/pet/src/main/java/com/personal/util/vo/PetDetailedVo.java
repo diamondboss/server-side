@@ -13,6 +13,7 @@ public class PetDetailedVo {
 	private List<String> healthy;
 
 	public List<String> getPhotoList() {
+		
 		return photoList;
 	}
 
