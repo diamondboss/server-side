@@ -1,4 +1,4 @@
-package com.personal.dog.action;
+package com.personal.dog.controller;
 
 import java.util.List;
 
@@ -20,12 +20,12 @@ import com.personal.util.vo.PetDetailedVo;
 
 @Controller
 @RequestMapping("/reservation")
-public class PetReservationAction {
+public class PetReservationController {
 
 	@Resource
 	private IPetReservationService petReservationService;
 	
-	public static Logger log = LoggerFactory.getLogger(PetReservationAction.class);
+	public static Logger log = LoggerFactory.getLogger(PetReservationController.class);
 
 	@ResponseBody
 	@RequestMapping(value = "/showBase" ,method = RequestMethod.POST)
