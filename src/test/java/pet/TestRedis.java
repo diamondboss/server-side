@@ -7,10 +7,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.personal.util.tools.jedis.CacheFunc;
-import com.personal.util.tools.jedis.RedisBase;
+import com.diamondboss.util.tools.jedis.CacheFunc;
+import com.diamondboss.util.tools.jedis.RedisBase;
 
-@RunWith(SpringJUnit4ClassRunner.class)     //±íÊ¾¼Ì³ÐÁËSpringJUnit4ClassRunnerÀà  
+@RunWith(SpringJUnit4ClassRunner.class)     //ï¿½ï¿½Ê¾ï¿½Ì³ï¿½ï¿½ï¿½SpringJUnit4ClassRunnerï¿½ï¿½  
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"}) 
 public class TestRedis {
 	
@@ -21,7 +21,7 @@ public class TestRedis {
 	public void testRedis(){
 		RedisBase redisBase = new RedisBase();
 		redisBase.init();
-		cacheFunc.setStr("zbc123", "²âÊÔÁ¬½Ó");
+		cacheFunc.setStr("zbc123", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
 		
 		
