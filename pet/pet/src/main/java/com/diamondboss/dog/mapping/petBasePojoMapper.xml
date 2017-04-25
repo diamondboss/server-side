@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.dog.dao.IPetBaseDao" >
+  <resultMap id="BaseResultMap" type="com.diamondboss.util.pojo.PetBasePojo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pet_id" property="petId" jdbcType="INTEGER" />
+    <result column="kind" property="kind" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="variety_advantage" property="varietyAdvantage" jdbcType="VARCHAR" />
+    <result column="variety_defect" property="varietyDefect" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="effective" property="effective" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pet_id, kind, birthday, hobby, variety_advantage, variety_defect, photo_url, 
+    effective, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pet_base
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pet_base
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.diamondboss.util.pojo.PetBasePojo" >
+    insert into pet_base (id, pet_id, kind, 
+      birthday, hobby, variety_advantage, 
+      variety_defect, photo_url, effective, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{petId,jdbcType=INTEGER}, #{kind,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{varietyAdvantage,jdbcType=VARCHAR}, 
+      #{varietyDefect,jdbcType=VARCHAR}, #{photoUrl,jdbcType=VARCHAR}, #{effective,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.diamondboss.util.pojo.PetBasePojo" >
+    insert into pet_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="petId != null" >
+        pet_id,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="varietyAdvantage != null" >
+        variety_advantage,
+      </if>
+      <if test="varietyDefect != null" >
+        variety_defect,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="effective != null" >
+        effective,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="petId != null" >
+        #{petId,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="varietyAdvantage != null" >
+        #{varietyAdvantage,jdbcType=VARCHAR},
+      </if>
+      <if test="varietyDefect != null" >
+        #{varietyDefect,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="effective != null" >
+        #{effective,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diamondboss.util.pojo.PetBasePojo" >
+    update pet_base
+    <set >
+      <if test="petId != null" >
+        pet_id = #{petId,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="varietyAdvantage != null" >
+        variety_advantage = #{varietyAdvantage,jdbcType=VARCHAR},
+      </if>
+      <if test="varietyDefect != null" >
+        variety_defect = #{varietyDefect,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="effective != null" >
+        effective = #{effective,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diamondboss.util.pojo.PetBasePojo" >
+    update pet_base
+    set pet_id = #{petId,jdbcType=INTEGER},
+      kind = #{kind,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      variety_advantage = #{varietyAdvantage,jdbcType=VARCHAR},
+      variety_defect = #{varietyDefect,jdbcType=VARCHAR},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      effective = #{effective,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!--  -->
+   <select id="selectByLimit" resultMap="BaseResultMap">
+   		SELECT * FROM pet_base where effective = '1' limit 0,10  
+   </select>
+  
+</mapper>

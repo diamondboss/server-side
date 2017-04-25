@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.dog.dao.IPetDogBaseDao" >
+  <resultMap id="BaseResultMap" type="com.diamondboss.util.pojo.PetDogBasePojo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="dog_breeds" property="dogBreeds" jdbcType="VARCHAR" />
+    <result column="chinese_name" property="chineseName" jdbcType="VARCHAR" />
+    <result column="alias" property="alias" jdbcType="VARCHAR" />
+    <result column="ancestors" property="ancestors" jdbcType="VARCHAR" />
+    <result column="distribution_area" property="distributionArea" jdbcType="VARCHAR" />
+    <result column="country_of_origin" property="countryOfOrigin" jdbcType="VARCHAR" />
+    <result column="shape" property="shape" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="grouping" property="grouping" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="life" property="life" jdbcType="VARCHAR" />
+    <result column="clingy" property="clingy" jdbcType="TINYINT" />
+    <result column="call" property="call" jdbcType="TINYINT" />
+    <result column="friendliness" property="friendliness" jdbcType="TINYINT" />
+    <result column="hairfalling" property="hairfalling" jdbcType="TINYINT" />
+    <result column="cosmetology" property="cosmetology" jdbcType="TINYINT" />
+    <result column="body_odour" property="bodyOdour" jdbcType="TINYINT" />
+    <result column="saliva" property="saliva" jdbcType="TINYINT" />
+    <result column="trainable" property="trainable" jdbcType="TINYINT" />
+    <result column="vitality" property="vitality" jdbcType="TINYINT" />
+    <result column="adaptive_faculty" property="adaptiveFaculty" jdbcType="TINYINT" />
+    <result column="cold_resistant" property="coldResistant" jdbcType="TINYINT" />
+    <result column="heat_resisting" property="heatResisting" jdbcType="TINYINT" />
+    <result column="kinetism" property="kinetism" jdbcType="TINYINT" />
+    <result column="effective" property="effective" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dog_breeds, chinese_name, alias, ancestors, distribution_area, country_of_origin, 
+    shape, purpose, grouping, height, weight, life, clingy, call, friendliness, hairfalling, 
+    cosmetology, body_odour, saliva, trainable, vitality, adaptive_faculty, cold_resistant, 
+    heat_resisting, kinetism, effective, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from pet_dog_base
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from pet_dog_base
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.diamondboss.util.pojo.PetDogBasePojo" >
+    insert into pet_dog_base (id, dog_breeds, chinese_name, 
+      alias, ancestors, distribution_area, 
+      country_of_origin, shape, purpose, 
+      grouping, height, weight, 
+      life, clingy, call, 
+      friendliness, hairfalling, cosmetology, 
+      body_odour, saliva, trainable, 
+      vitality, adaptive_faculty, cold_resistant, 
+      heat_resisting, kinetism, effective, 
+      create_time, update_time)
+    values (#{id,jdbcType=BIGINT}, #{dogBreeds,jdbcType=VARCHAR}, #{chineseName,jdbcType=VARCHAR}, 
+      #{alias,jdbcType=VARCHAR}, #{ancestors,jdbcType=VARCHAR}, #{distributionArea,jdbcType=VARCHAR}, 
+      #{countryOfOrigin,jdbcType=VARCHAR}, #{shape,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, 
+      #{grouping,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{life,jdbcType=VARCHAR}, #{clingy,jdbcType=TINYINT}, #{call,jdbcType=TINYINT}, 
+      #{friendliness,jdbcType=TINYINT}, #{hairfalling,jdbcType=TINYINT}, #{cosmetology,jdbcType=TINYINT}, 
+      #{bodyOdour,jdbcType=TINYINT}, #{saliva,jdbcType=TINYINT}, #{trainable,jdbcType=TINYINT}, 
+      #{vitality,jdbcType=TINYINT}, #{adaptiveFaculty,jdbcType=TINYINT}, #{coldResistant,jdbcType=TINYINT}, 
+      #{heatResisting,jdbcType=TINYINT}, #{kinetism,jdbcType=TINYINT}, #{effective,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.diamondboss.util.pojo.PetDogBasePojo" >
+    insert into pet_dog_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dogBreeds != null" >
+        dog_breeds,
+      </if>
+      <if test="chineseName != null" >
+        chinese_name,
+      </if>
+      <if test="alias != null" >
+        alias,
+      </if>
+      <if test="ancestors != null" >
+        ancestors,
+      </if>
+      <if test="distributionArea != null" >
+        distribution_area,
+      </if>
+      <if test="countryOfOrigin != null" >
+        country_of_origin,
+      </if>
+      <if test="shape != null" >
+        shape,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="grouping != null" >
+        grouping,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="life != null" >
+        life,
+      </if>
+      <if test="clingy != null" >
+        clingy,
+      </if>
+      <if test="call != null" >
+        call,
+      </if>
+      <if test="friendliness != null" >
+        friendliness,
+      </if>
+      <if test="hairfalling != null" >
+        hairfalling,
+      </if>
+      <if test="cosmetology != null" >
+        cosmetology,
+      </if>
+      <if test="bodyOdour != null" >
+        body_odour,
+      </if>
+      <if test="saliva != null" >
+        saliva,
+      </if>
+      <if test="trainable != null" >
+        trainable,
+      </if>
+      <if test="vitality != null" >
+        vitality,
+      </if>
+      <if test="adaptiveFaculty != null" >
+        adaptive_faculty,
+      </if>
+      <if test="coldResistant != null" >
+        cold_resistant,
+      </if>
+      <if test="heatResisting != null" >
+        heat_resisting,
+      </if>
+      <if test="kinetism != null" >
+        kinetism,
+      </if>
+      <if test="effective != null" >
+        effective,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dogBreeds != null" >
+        #{dogBreeds,jdbcType=VARCHAR},
+      </if>
+      <if test="chineseName != null" >
+        #{chineseName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="ancestors != null" >
+        #{ancestors,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionArea != null" >
+        #{distributionArea,jdbcType=VARCHAR},
+      </if>
+      <if test="countryOfOrigin != null" >
+        #{countryOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="shape != null" >
+        #{shape,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="grouping != null" >
+        #{grouping,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="life != null" >
+        #{life,jdbcType=VARCHAR},
+      </if>
+      <if test="clingy != null" >
+        #{clingy,jdbcType=TINYINT},
+      </if>
+      <if test="call != null" >
+        #{call,jdbcType=TINYINT},
+      </if>
+      <if test="friendliness != null" >
+        #{friendliness,jdbcType=TINYINT},
+      </if>
+      <if test="hairfalling != null" >
+        #{hairfalling,jdbcType=TINYINT},
+      </if>
+      <if test="cosmetology != null" >
+        #{cosmetology,jdbcType=TINYINT},
+      </if>
+      <if test="bodyOdour != null" >
+        #{bodyOdour,jdbcType=TINYINT},
+      </if>
+      <if test="saliva != null" >
+        #{saliva,jdbcType=TINYINT},
+      </if>
+      <if test="trainable != null" >
+        #{trainable,jdbcType=TINYINT},
+      </if>
+      <if test="vitality != null" >
+        #{vitality,jdbcType=TINYINT},
+      </if>
+      <if test="adaptiveFaculty != null" >
+        #{adaptiveFaculty,jdbcType=TINYINT},
+      </if>
+      <if test="coldResistant != null" >
+        #{coldResistant,jdbcType=TINYINT},
+      </if>
+      <if test="heatResisting != null" >
+        #{heatResisting,jdbcType=TINYINT},
+      </if>
+      <if test="kinetism != null" >
+        #{kinetism,jdbcType=TINYINT},
+      </if>
+      <if test="effective != null" >
+        #{effective,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.diamondboss.util.pojo.PetDogBasePojo" >
+    update pet_dog_base
+    <set >
+      <if test="dogBreeds != null" >
+        dog_breeds = #{dogBreeds,jdbcType=VARCHAR},
+      </if>
+      <if test="chineseName != null" >
+        chinese_name = #{chineseName,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null" >
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="ancestors != null" >
+        ancestors = #{ancestors,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionArea != null" >
+        distribution_area = #{distributionArea,jdbcType=VARCHAR},
+      </if>
+      <if test="countryOfOrigin != null" >
+        country_of_origin = #{countryOfOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="shape != null" >
+        shape = #{shape,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="grouping != null" >
+        grouping = #{grouping,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=VARCHAR},
+      </if>
+      <if test="life != null" >
+        life = #{life,jdbcType=VARCHAR},
+      </if>
+      <if test="clingy != null" >
+        clingy = #{clingy,jdbcType=TINYINT},
+      </if>
+      <if test="call != null" >
+        call = #{call,jdbcType=TINYINT},
+      </if>
+      <if test="friendliness != null" >
+        friendliness = #{friendliness,jdbcType=TINYINT},
+      </if>
+      <if test="hairfalling != null" >
+        hairfalling = #{hairfalling,jdbcType=TINYINT},
+      </if>
+      <if test="cosmetology != null" >
+        cosmetology = #{cosmetology,jdbcType=TINYINT},
+      </if>
+      <if test="bodyOdour != null" >
+        body_odour = #{bodyOdour,jdbcType=TINYINT},
+      </if>
+      <if test="saliva != null" >
+        saliva = #{saliva,jdbcType=TINYINT},
+      </if>
+      <if test="trainable != null" >
+        trainable = #{trainable,jdbcType=TINYINT},
+      </if>
+      <if test="vitality != null" >
+        vitality = #{vitality,jdbcType=TINYINT},
+      </if>
+      <if test="adaptiveFaculty != null" >
+        adaptive_faculty = #{adaptiveFaculty,jdbcType=TINYINT},
+      </if>
+      <if test="coldResistant != null" >
+        cold_resistant = #{coldResistant,jdbcType=TINYINT},
+      </if>
+      <if test="heatResisting != null" >
+        heat_resisting = #{heatResisting,jdbcType=TINYINT},
+      </if>
+      <if test="kinetism != null" >
+        kinetism = #{kinetism,jdbcType=TINYINT},
+      </if>
+      <if test="effective != null" >
+        effective = #{effective,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.diamondboss.util.pojo.PetDogBasePojo" >
+    update pet_dog_base
+    set dog_breeds = #{dogBreeds,jdbcType=VARCHAR},
+      chinese_name = #{chineseName,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      ancestors = #{ancestors,jdbcType=VARCHAR},
+      distribution_area = #{distributionArea,jdbcType=VARCHAR},
+      country_of_origin = #{countryOfOrigin,jdbcType=VARCHAR},
+      shape = #{shape,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      grouping = #{grouping,jdbcType=VARCHAR},
+      height = #{height,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      life = #{life,jdbcType=VARCHAR},
+      clingy = #{clingy,jdbcType=TINYINT},
+      call = #{call,jdbcType=TINYINT},
+      friendliness = #{friendliness,jdbcType=TINYINT},
+      hairfalling = #{hairfalling,jdbcType=TINYINT},
+      cosmetology = #{cosmetology,jdbcType=TINYINT},
+      body_odour = #{bodyOdour,jdbcType=TINYINT},
+      saliva = #{saliva,jdbcType=TINYINT},
+      trainable = #{trainable,jdbcType=TINYINT},
+      vitality = #{vitality,jdbcType=TINYINT},
+      adaptive_faculty = #{adaptiveFaculty,jdbcType=TINYINT},
+      cold_resistant = #{coldResistant,jdbcType=TINYINT},
+      heat_resisting = #{heatResisting,jdbcType=TINYINT},
+      kinetism = #{kinetism,jdbcType=TINYINT},
+      effective = #{effective,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
