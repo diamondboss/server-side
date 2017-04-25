@@ -1,4 +1,4 @@
-package com.diamondboss.dog.dao;
+package com.diamondboss.dog.repository;
 
 import java.util.List;
 import java.util.Map;

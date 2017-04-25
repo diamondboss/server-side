@@ -9,9 +9,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.diamondboss.dog.dao.IPetBaseDao;
-import com.diamondboss.dog.dao.IPetBaseInfoDao;
-import com.diamondboss.dog.dao.IPetBasePhotoDao;
+import com.diamondboss.dog.repository.IPetBaseDao;
+import com.diamondboss.dog.repository.IPetBaseInfoDao;
+import com.diamondboss.dog.repository.IPetBasePhotoDao;
 import com.diamondboss.dog.service.IPetReservationService;
 import com.diamondboss.util.dto.PetBaseInfoDto;
 import com.diamondboss.util.pojo.PetBasePojo;

@@ -1,4 +1,4 @@
-package com.diamondboss.dog.dao;
+package com.diamondboss.dog.repository;
 
 import com.diamondboss.util.pojo.PetDogBasePojo;
 

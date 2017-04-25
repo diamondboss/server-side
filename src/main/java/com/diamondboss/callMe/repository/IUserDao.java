@@ -1,4 +1,4 @@
-package com.diamondboss.callMe.dao;
+package com.diamondboss.callMe.repository;
 
 import com.diamondboss.util.User;
 
