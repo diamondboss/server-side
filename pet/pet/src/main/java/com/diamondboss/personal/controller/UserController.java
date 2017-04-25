@@ -3,13 +3,13 @@ package com.diamondboss.personal.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.diamondboss.util.pojo.UserInfoPojo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.diamondboss.callMe.service.IUserService;
-import com.diamondboss.util.User;
+import com.diamondboss.personal.service.IUserService;
 import com.diamondboss.util.vo.APPResponseBody;
 
 @Controller
@@ -17,7 +17,7 @@ import com.diamondboss.util.vo.APPResponseBody;
 public class UserController {
 
 	 @Resource  
-	    private IUserService userService;  
+	 private IUserService userService;
 	/**
 	 * 用户登录模块
 	 * 
@@ -37,10 +37,10 @@ public class UserController {
 		System.out.println(sessionId);
 		System.out.println(code);
 		
-		// 2.登录
-		
+		// 2.记录手机号入库（埋点）
+		boolean loginResult = userService.login(phoneNumber);
 		APPResponseBody app = new APPResponseBody();
-		app.setData("");
+		app.setData(loginResult);
 		app.setRetnCode(0);
 		return app;
 	}
@@ -63,14 +63,11 @@ public class UserController {
 		
 		
 		// 1.插入
-		System.out.println(userName);
-		System.out.println(userPhone);
-		System.out.println(IDnumber);
-		System.out.println(positiveURL);
-		System.out.println(oppositeURL);
-		
+		UserInfoPojo userInfo = new UserInfoPojo(userName, userPhone, IDnumber, positiveURL,oppositeURL);
+		userService.inputUserInfo(userInfo);
+
 		// 2.登录
-		
+
 		APPResponseBody app = new APPResponseBody();
 		app.setData("");
 		app.setRetnCode(0);
@@ -80,10 +77,10 @@ public class UserController {
  	@ResponseBody
     @RequestMapping(value="showUser",method=RequestMethod.POST)
     public String toIndex(HttpServletRequest request){  
-        int userId = 1;  
-        User user = this.userService.getUserById(userId);  
+        long userId = 1;
+        UserInfoPojo user = this.userService.getUserById(userId);
         APPResponseBody app = new APPResponseBody();
-        app.setData(user.getAge());
+        app.setData(user.getName());
         app.setRetnCode(0);
         return "showUser";  
     }  
