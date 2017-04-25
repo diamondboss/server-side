@@ -5,7 +5,7 @@ import java.util.List;
 import com.diamondboss.util.dto.PetBaseInfoDto;
 import com.diamondboss.util.pojo.PetBaseInfoPojo;
 
-public interface IPetBaseInfoDao {
+public interface PetBaseInfoMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(PetBaseInfoPojo record);

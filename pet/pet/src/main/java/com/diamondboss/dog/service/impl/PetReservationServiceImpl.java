@@ -7,11 +7,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.diamondboss.dog.repository.PetBaseInfoMapper;
 import org.springframework.stereotype.Service;
 
-import com.diamondboss.dog.repository.IPetBaseDao;
-import com.diamondboss.dog.repository.IPetBaseInfoDao;
-import com.diamondboss.dog.repository.IPetBasePhotoDao;
+import com.diamondboss.dog.repository.PetBaseMapper;
+import com.diamondboss.dog.repository.PetBasePhotoMapper;
 import com.diamondboss.dog.service.IPetReservationService;
 import com.diamondboss.util.dto.PetBaseInfoDto;
 import com.diamondboss.util.pojo.PetBasePojo;
@@ -21,11 +21,11 @@ import com.diamondboss.util.vo.PetDetailedVo;
 public class PetReservationServiceImpl implements IPetReservationService{
 
 	@Resource  
-	private IPetBaseDao petBaseDao;  	
+	private PetBaseMapper petBaseDao;
 	@Resource  
-	private IPetBasePhotoDao petBasePhotoDao;  
+	private PetBasePhotoMapper petBasePhotoDao;
 	@Resource
-	private IPetBaseInfoDao petBaseInfoDao;
+	private PetBaseInfoMapper petBaseInfoDao;
 	
 	
 	@Override

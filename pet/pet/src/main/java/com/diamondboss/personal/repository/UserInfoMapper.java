@@ -2,7 +2,7 @@ package com.diamondboss.personal.repository;
 
 import com.diamondboss.util.pojo.UserInfoPojo;
 
-public interface IUserInfoDao {
+public interface UserInfoMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(UserInfoPojo record);

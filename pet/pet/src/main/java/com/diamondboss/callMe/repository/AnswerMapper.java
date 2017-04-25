@@ -1,5 +1,5 @@
 package com.diamondboss.callMe.repository;
 
-public interface IAnswerDao {
+public interface AnswerMapper {
 
 }

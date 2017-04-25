@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.diamondboss.callMe.repository.IUserDao;
+import com.diamondboss.callMe.repository.UserMapper;
 import com.diamondboss.callMe.service.IUserService;
 import com.diamondboss.util.User;
 
@@ -12,7 +12,7 @@ import com.diamondboss.util.User;
 public class UserServiceImpl implements IUserService {
 
 	@Resource
-	private IUserDao userDao;
+	private UserMapper userDao;
 
 	@Override
 	public User getUserById(int userId) {

@@ -2,7 +2,7 @@ package com.diamondboss.personal.repository;
 
 import com.diamondboss.util.pojo.PetInfoPojo;
 
-public interface IPetInfoDao {
+public interface PetInfoMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(PetInfoPojo record);
