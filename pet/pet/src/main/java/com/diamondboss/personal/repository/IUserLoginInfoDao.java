@@ -1,4 +1,4 @@
-package com.diamondboss.personal.dao;
+package com.diamondboss.personal.repository;
 
 import com.diamondboss.util.pojo.UserLoginInfoPojo;
 

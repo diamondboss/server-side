@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.diamondboss.callMe.dao.IUserDao;
+import com.diamondboss.callMe.repository.IUserDao;
 import com.diamondboss.callMe.service.IUserService;
 import com.diamondboss.util.User;
 
