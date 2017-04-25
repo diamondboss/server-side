@@ -21,6 +21,16 @@ public class UserInfoPojo {
 
     private Date updateTime;
 
+    public UserInfoPojo(){}
+
+    public UserInfoPojo(String name, String phoneNumber, String IDnumber, String positiveURL, String oppositeURL) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.IDnumber = IDnumber;
+        this.positiveURL = positiveURL;
+        this.oppositeURL = oppositeURL;
+    }
+
     public Long getId() {
         return id;
     }
