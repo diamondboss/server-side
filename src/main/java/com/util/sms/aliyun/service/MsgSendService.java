@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.personal.util.tools.jedis.CacheFunc;
+import com.diamondboss.util.tools.jedis.CacheFunc;
 import com.util.sms.ISmsSendMsg;
 import com.util.sms.aliyun.bean.Constants;
 import com.util.sms.aliyun.bean.StatusCode;
