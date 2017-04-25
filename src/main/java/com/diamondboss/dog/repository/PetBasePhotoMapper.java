@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.diamondboss.util.pojo.PetBasePhotoPojo;
 
-public interface IPetBasePhotoDao {
+public interface PetBasePhotoMapper {
 	
     int deleteByPrimaryKey(Long id);
 

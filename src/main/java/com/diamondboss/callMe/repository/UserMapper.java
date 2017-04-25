@@ -2,7 +2,7 @@ package com.diamondboss.callMe.repository;
 
 import com.diamondboss.util.User;
 
-public interface IUserDao{
+public interface UserMapper {
 	
     int deleteByPrimaryKey(Integer id);
 
