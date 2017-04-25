@@ -9,10 +9,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSON;
-import com.personal.callMe.service.IUserService;
-import com.personal.util.User;  
+import com.diamondboss.callMe.service.IUserService;
+import com.diamondboss.util.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)     //±íÊ¾¼Ì³ÐÁËSpringJUnit4ClassRunnerÀà  
+@RunWith(SpringJUnit4ClassRunner.class)     //ï¿½ï¿½Ê¾ï¿½Ì³ï¿½ï¿½ï¿½SpringJUnit4ClassRunnerï¿½ï¿½  
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})  
 public class TestMyBatis {
 
@@ -31,7 +31,7 @@ public class TestMyBatis {
 	    public void test1() {  
 	        User user = userService.getUserById(1);  
 	        // System.out.println(user.getUserName());  
-	        // logger.info("Öµ£º"+user.getUserName());  
+	        // logger.info("Öµï¿½ï¿½"+user.getUserName());  
 	        logger.info(JSON.toJSONString(user));  
 	    }  
 }
