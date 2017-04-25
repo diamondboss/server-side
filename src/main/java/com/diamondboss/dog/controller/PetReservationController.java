@@ -28,7 +28,7 @@ public class PetReservationController {
 	public static Logger log = LoggerFactory.getLogger(PetReservationController.class);
 
 	@ResponseBody
-	@RequestMapping(value = "/showBase" ,method = RequestMethod.GET)
+	@RequestMapping(value = "/showBase" ,method = RequestMethod.POST)
 	public APPResponseBody showBase(HttpServletRequest request) {
 		
 		List<PetBasePojo> pojoList = this.petReservationService.queryPetBase();
