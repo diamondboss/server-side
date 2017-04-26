@@ -17,6 +17,15 @@ public class UserLoginInfoPojo {
 
     private Date updateTime;
 
+    public UserLoginInfoPojo(){}
+
+    public UserLoginInfoPojo(String phoneNumber, Long userId, Long petId, Boolean effective) {
+        this.phoneNumber = phoneNumber;
+        this.userId = userId;
+        this.petId = petId;
+        this.effective = effective;
+    }
+
     public Long getId() {
         return id;
     }

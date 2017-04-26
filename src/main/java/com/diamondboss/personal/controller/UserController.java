@@ -76,13 +76,13 @@ public class UserController {
 	
  	@ResponseBody
     @RequestMapping(value="showUser",method=RequestMethod.POST)
-    public String toIndex(HttpServletRequest request){  
+    public APPResponseBody toIndex(HttpServletRequest request){
         long userId = 1;
         UserInfoPojo user = this.userService.getUserById(userId);
         APPResponseBody app = new APPResponseBody();
         app.setData(user.getName());
         app.setRetnCode(0);
-        return "showUser";  
+        return app;
     }  
 	
 }

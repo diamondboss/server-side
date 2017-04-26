@@ -31,7 +31,7 @@
       IDnumber, positiveURL, oppositeURL, 
       effective, create_time, update_time
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
       #{IDnumber,jdbcType=VARCHAR}, #{positiveURL,jdbcType=VARCHAR}, #{oppositeURL,jdbcType=VARCHAR},
       #{effective,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -45,7 +45,7 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="phonenumber != null" >
+      <if test="phoneNumber != null" >
         phoneNumber,
       </if>
       <if test="IDnumber != null" >
@@ -74,8 +74,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="phonenumber != null" >
-        #{phonenumber,jdbcType=VARCHAR},
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="IDnumber != null" >
         #{IDnumber,jdbcType=VARCHAR},
@@ -103,8 +103,8 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="phonenumber != null" >
-        phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      <if test="phoneNumber != null" >
+        phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
       </if>
       <if test="IDnumber != null" >
         IDnumber = #{IDnumber,jdbcType=VARCHAR},
@@ -130,7 +130,7 @@
   <update id="updateByPrimaryKey" parameterType="com.diamondboss.util.pojo.UserInfoPojo" >
     update user_info
     set name = #{name,jdbcType=VARCHAR},
-      phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      phoneNumber = #{phoneNumber,jdbcType=VARCHAR},
       IDnumber = #{IDnumber,jdbcType=VARCHAR},
       positiveURL = #{positiveURL,jdbcType=VARCHAR},
       oppositeURL = #{oppositeURL,jdbcType=VARCHAR},
