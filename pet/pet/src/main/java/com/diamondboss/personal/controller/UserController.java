@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.diamondboss.util.pojo.UserInfoPojo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,13 +62,11 @@ public class UserController {
 		String positiveURL = request.getParameter("positiveURL");
 		String oppositeURL = request.getParameter("oppositeURL");
 		
-		
 		// 1.插入
 		UserInfoPojo userInfo = new UserInfoPojo(userName, userPhone, IDnumber, positiveURL,oppositeURL);
 		userService.inputUserInfo(userInfo);
 
 		// 2.登录
-
 		APPResponseBody app = new APPResponseBody();
 		app.setData("");
 		app.setRetnCode(0);
@@ -77,10 +76,14 @@ public class UserController {
  	@ResponseBody
     @RequestMapping(value="showUser",method=RequestMethod.POST)
     public APPResponseBody toIndex(HttpServletRequest request){
-        long userId = 1;
-        UserInfoPojo user = this.userService.getUserById(userId);
-        APPResponseBody app = new APPResponseBody();
-        app.setData(user.getName());
+		String userId = request.getParameter("userId");
+		APPResponseBody app = new APPResponseBody();
+		if (StringUtils.isNotBlank(userId)){
+			UserInfoPojo user = this.userService.getUserById(Long.valueOf(userId));
+			app.setData(user == null ? "用户不存在！" : user.getName());
+		} else {
+			app.setData("用户id不能为空！");
+		}
         app.setRetnCode(0);
         return app;
     }  
