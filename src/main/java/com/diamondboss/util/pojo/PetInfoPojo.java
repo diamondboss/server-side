@@ -25,6 +25,19 @@ public class PetInfoPojo {
 
     private Date updateTime;
 
+    public PetInfoPojo() {
+    }
+
+    public PetInfoPojo(String name, String birthday, String age, String weight, String kind, String varieties, String habit) {
+        this.name = name;
+        this.birthday = birthday;
+        this.age = age;
+        this.weight = weight;
+        this.kind = kind;
+        this.varieties = varieties;
+        this.habit = habit;
+    }
+
     public Long getId() {
         return id;
     }

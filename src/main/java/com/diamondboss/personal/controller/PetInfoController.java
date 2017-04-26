@@ -1,7 +1,10 @@
 package com.diamondboss.personal.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.diamondboss.personal.service.IPetInfoService;
+import com.diamondboss.util.pojo.PetInfoPojo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +16,9 @@ import com.diamondboss.util.vo.APPResponseBody;
 @RequestMapping("/petInfo")
 public class PetInfoController {
 
-	
+	@Resource
+	IPetInfoService petInfoService;
+
 	/**
 	 * 宠物信息录入
 	 * 
@@ -24,7 +29,6 @@ public class PetInfoController {
 	@RequestMapping(value = "/infoInput" ,method = RequestMethod.POST)
 	public APPResponseBody infoInput(HttpServletRequest request) {
 		
-		String phoneNumber = request.getParameter("phoneNumber");
 		String name = request.getParameter("name");
 		String birthday = request.getParameter("birthday");
 		String age = request.getParameter("age");
@@ -41,7 +45,11 @@ public class PetInfoController {
 		
 		
 		// 2.登录
-		
+
+		// 3.插入
+		PetInfoPojo petInfoPojo = new PetInfoPojo(name, birthday, age, weight, type, varieties,habit);
+		petInfoService.inputPetInfo(petInfoPojo);
+
 		APPResponseBody app = new APPResponseBody();
 		app.setData("");
 		app.setRetnCode(0);
