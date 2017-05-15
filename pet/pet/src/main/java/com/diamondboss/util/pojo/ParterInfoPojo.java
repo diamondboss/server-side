@@ -10,8 +10,10 @@ public class ParterInfoPojo {
     private String phonenumber;
 
     private String wxchat;
+    
+    private String communityId;
 
-    private String address;
+	private String address;
 
     private String idnumber;
 
@@ -58,6 +60,14 @@ public class ParterInfoPojo {
     public void setWxchat(String wxchat) {
         this.wxchat = wxchat == null ? null : wxchat.trim();
     }
+    
+    public String getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
+	}
 
     public String getAddress() {
         return address;
