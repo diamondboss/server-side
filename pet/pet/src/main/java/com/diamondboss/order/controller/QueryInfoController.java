@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
+import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommOrderInfoVo;
 
@@ -30,9 +31,15 @@ public class QueryInfoController {
 	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
 	public APPResponseBody queryOrderInfo(HttpServletRequest request) {
 		
+		String communityId = request.getParameter("communityId");
+		
+		ParterInfoPojo parterInfoPojo = new ParterInfoPojo();
+		parterInfoPojo.setCommunityId(communityId);
+		int countParter = orderService.countParter(parterInfoPojo);
 		
 		CommOrderInfoVo vo =  new CommOrderInfoVo();
-		vo.setCommParNum("4");
+		
+		vo.setCommParNum(String.valueOf(countParter));
 		vo.setCommPetNum("13/20");
 		
 		APPResponseBody app = new APPResponseBody();

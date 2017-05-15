@@ -14,4 +14,11 @@ public interface ParterInfoMapper {
     int updateByPrimaryKeySelective(ParterInfoPojo record);
 
     int updateByPrimaryKey(ParterInfoPojo record);
+    
+    /**
+     * 计算某个小区中的合伙人数量
+     * @param parterInfoPojo
+     * @return
+     */
+    int countParter(ParterInfoPojo parterInfoPojo);
 }
