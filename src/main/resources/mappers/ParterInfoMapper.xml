@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="tcom.diamondboss.order.repository.ParterInfoMapper" >
+<mapper namespace="com.diamondboss.order.repository.ParterInfoMapper" >
   <resultMap id="BaseResultMap" type="com.diamondboss.util.pojo.ParterInfoPojo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phoneNumber" property="phonenumber" jdbcType="VARCHAR" />
     <result column="wxchat" property="wxchat" jdbcType="VARCHAR" />
+    <result column="community_id" property="communityId" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="IDNumber" property="idnumber" jdbcType="VARCHAR" />
     <result column="bodySize" property="bodysize" jdbcType="TINYINT" />
@@ -16,7 +17,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, phoneNumber, wxchat, address, IDNumber, bodySize, raiseCycle, raiseNumber, 
+    id, name, phoneNumber, wxchat, community_id, address, IDNumber, bodySize, raiseCycle, raiseNumber, 
     enable, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -31,12 +32,12 @@
   </delete>
   <insert id="insert" parameterType="com.diamondboss.util.pojo.ParterInfoPojo" >
     insert into parter_info (id, name, phoneNumber, 
-      wxchat, address, IDNumber, 
+      wxchat, community_id, address, IDNumber, 
       bodySize, raiseCycle, raiseNumber, 
       enable, create_time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
-      #{wxchat,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, 
+      #{wxchat,jdbcType=VARCHAR}, #{communityId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, 
       #{bodysize,jdbcType=TINYINT}, #{raisecycle,jdbcType=TINYINT}, #{raisenumber,jdbcType=VARCHAR}, 
       #{enable,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -55,6 +56,9 @@
       </if>
       <if test="wxchat != null" >
         wxchat,
+      </if>
+      <if test="communityId != null" >
+        community_id,
       </if>
       <if test="address != null" >
         address,
@@ -94,6 +98,9 @@
       <if test="wxchat != null" >
         #{wxchat,jdbcType=VARCHAR},
       </if>
+      <if test="communityId != null" >
+        #{communityId,jdbcType=VARCHAR},
+      </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
       </if>
@@ -132,6 +139,9 @@
       <if test="wxchat != null" >
         wxchat = #{wxchat,jdbcType=VARCHAR},
       </if>
+      <if test="communityId != null" >
+        community_id,
+      </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
@@ -159,11 +169,12 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.diamondboss.util.pojo.ParterInfoPojo" >
+  <update id="updateByPrimaryKey" parameterType="com.diamondboss.util.pojo.ParterInfoPojo">
     update parter_info
     set name = #{name,jdbcType=VARCHAR},
       phoneNumber = #{phonenumber,jdbcType=VARCHAR},
       wxchat = #{wxchat,jdbcType=VARCHAR},
+      community_id = #{communityId,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       IDNumber = #{idnumber,jdbcType=VARCHAR},
       bodySize = #{bodysize,jdbcType=TINYINT},
@@ -174,4 +185,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 查询指定小区的合伙人数量 -->
+  <select id = "countParter"  parameterType="com.diamondboss.util.pojo.ParterInfoPojo" 
+   resultType = "Integer">
+  	select count(*)
+  	from parter_info
+  	where community_id = #{communityId,jdbcType=VARCHAR}
+  </select>
 </mapper>
