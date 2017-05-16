@@ -11,9 +11,9 @@ public class ParterOrderPojo {
 
     private String petId;
 
-    private Date date;
+    private Date orderTime;
 
-    private Integer enable;
+    private Integer effective;
 
     private Date createTime;
 
@@ -51,20 +51,20 @@ public class ParterOrderPojo {
         this.petId = petId == null ? null : petId.trim();
     }
 
-    public Date getDate() {
-        return date;
+    public Date getOrderTime() {
+        return orderTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
     }
 
-    public Integer getEnable() {
-        return enable;
+    public Integer getEffective() {
+        return effective;
     }
 
-    public void setEnable(Integer enable) {
-        this.enable = enable;
+    public void setEffective(Integer effective) {
+        this.effective = effective;
     }
 
     public Date getCreateTime() {
