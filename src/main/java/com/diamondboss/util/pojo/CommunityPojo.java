@@ -17,7 +17,7 @@ public class CommunityPojo {
 
     private String imagesUrl;
 
-    private Boolean enable;
+    private Integer effective;
 
     private Date createTime;
 
@@ -79,12 +79,12 @@ public class CommunityPojo {
         this.imagesUrl = imagesUrl == null ? null : imagesUrl.trim();
     }
 
-    public Boolean getEnable() {
-        return enable;
+    public Integer getEffective() {
+        return effective;
     }
 
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
+    public void setEffective(Integer effective) {
+        this.effective = effective;
     }
 
     public Date getCreateTime() {

@@ -23,7 +23,7 @@ public class ParterInfoPojo {
 
     private String raisenumber;
 
-    private Boolean enable;
+    private Integer effective;
 
     private Date createTime;
 
@@ -109,12 +109,12 @@ public class ParterInfoPojo {
         this.raisenumber = raisenumber == null ? null : raisenumber.trim();
     }
 
-    public Boolean getEnable() {
-        return enable;
+    public Integer getEffective() {
+        return effective;
     }
 
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
+    public void setEffective(Integer effective) {
+        this.effective = effective;
     }
 
     public Date getCreateTime() {
