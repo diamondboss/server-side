@@ -8,7 +8,7 @@ public interface ISubmitOrderService {
 	 * 根据用户id查询已经预定的订单
 	 * @param userId
 	 */
-	public void queryOrderByUser(String userId);
+	public List<String> queryOrderByUser(String userId);
 	
 	public List SubmitOrderByUser();
 
