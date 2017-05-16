@@ -23,13 +23,13 @@ import com.diamondboss.util.pojo.ParterOrderPojo;
 public class OrderServiceImpl implements IOrderService {
 
 	 @Resource
-	 CommunityMapper communityMapper;
+	 private CommunityMapper communityMapper;
 	 
 	 @Resource
-	 ParterInfoMapper parterInfoMapper;
+	 private ParterInfoMapper parterInfoMapper;
 	 
 	 @Resource
-	 ParterOrderMapper parterOrderMapper;
+	 private ParterOrderMapper parterOrderMapper;
 	
 	/**
 	 * 根据小区ID，查询小区信息
