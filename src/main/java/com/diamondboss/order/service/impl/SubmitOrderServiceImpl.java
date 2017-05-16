@@ -1,20 +1,38 @@
 package com.diamondboss.order.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.diamondboss.order.repository.SubmitOrderMapper;
 import com.diamondboss.order.service.ISubmitOrderService;
 
+@Service
 public class SubmitOrderServiceImpl implements ISubmitOrderService{
 
+	@Autowired
+	private SubmitOrderMapper submitOrder;
+	
 	/**
 	 * 根据用户id查询已经预定的订单
 	 * @param userId
 	 */
 	@Override
-	public void queryOrderByUser(String userId) {
+	public List<String> queryOrderByUser(String petId) {
 		
 		// 1.根据用户id查询已经预定的订单
+		LocalDate today = LocalDate.now();		
+		Map<String, String> map = new HashMap<>();
+		map.put("today", today.toString());
+		map.put("petId", petId);
+		List<String> resultList = submitOrder.queryOrderByUser(map);
+		
+		return resultList;
 		
 	}
 
