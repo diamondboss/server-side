@@ -13,7 +13,7 @@ public class ParterOrderPojo {
 
     private Date date;
 
-    private Boolean enable;
+    private Integer enable;
 
     private Date createTime;
 
@@ -59,11 +59,11 @@ public class ParterOrderPojo {
         this.date = date;
     }
 
-    public Boolean getEnable() {
+    public Integer getEnable() {
         return enable;
     }
 
-    public void setEnable(Boolean enable) {
+    public void setEnable(Integer enable) {
         this.enable = enable;
     }
 
