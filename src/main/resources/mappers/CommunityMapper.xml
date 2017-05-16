@@ -9,12 +9,12 @@
     <result column="street" property="street" jdbcType="VARCHAR" />
     <result column="community_name" property="communityName" jdbcType="VARCHAR" />
     <result column="images_url" property="imagesUrl" jdbcType="VARCHAR" />
-    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="effective" property="effective" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, province, city, area, street, community_name, images_url, enable, create_time, 
+    id, province, city, area, street, community_name, images_url, effective, create_time, 
     update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -30,11 +30,11 @@
   <insert id="insert" parameterType="com.diamondboss.util.pojo.CommunityPojo" >
     insert into community (id, province, city, 
       area, street, community_name, 
-      images_url, enable, create_time, 
+      images_url, effective, create_time, 
       update_time)
     values (#{id,jdbcType=BIGINT}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{area,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{communityName,jdbcType=VARCHAR}, 
-      #{imagesUrl,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{imagesUrl,jdbcType=VARCHAR}, #{effective,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.diamondboss.util.pojo.CommunityPojo" >
@@ -61,8 +61,8 @@
       <if test="imagesUrl != null" >
         images_url,
       </if>
-      <if test="enable != null" >
-        enable,
+      <if test="effective != null" >
+        effective,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -93,8 +93,8 @@
       <if test="imagesUrl != null" >
         #{imagesUrl,jdbcType=VARCHAR},
       </if>
-      <if test="enable != null" >
-        #{enable,jdbcType=BIT},
+      <if test="effective != null" >
+        #{effective,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -125,8 +125,8 @@
       <if test="imagesUrl != null" >
         images_url = #{imagesUrl,jdbcType=VARCHAR},
       </if>
-      <if test="enable != null" >
-        enable = #{enable,jdbcType=BIT},
+      <if test="effective != null" >
+        effective = #{effective,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -145,7 +145,7 @@
       street = #{street,jdbcType=VARCHAR},
       community_name = #{communityName,jdbcType=VARCHAR},
       images_url = #{imagesUrl,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=BIT},
+      effective = #{effective,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

@@ -12,13 +12,13 @@
     <result column="bodySize" property="bodysize" jdbcType="TINYINT" />
     <result column="raiseCycle" property="raisecycle" jdbcType="TINYINT" />
     <result column="raiseNumber" property="raisenumber" jdbcType="VARCHAR" />
-    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="effective" property="effective" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, phoneNumber, wxchat, community_id, address, IDNumber, bodySize, raiseCycle, raiseNumber, 
-    enable, create_time, update_time
+    effective, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -34,12 +34,12 @@
     insert into parter_info (id, name, phoneNumber, 
       wxchat, community_id, address, IDNumber, 
       bodySize, raiseCycle, raiseNumber, 
-      enable, create_time, update_time
+      effective, create_time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, 
       #{wxchat,jdbcType=VARCHAR}, #{communityId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, 
       #{bodysize,jdbcType=TINYINT}, #{raisecycle,jdbcType=TINYINT}, #{raisenumber,jdbcType=VARCHAR}, 
-      #{enable,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{effective,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.diamondboss.util.pojo.ParterInfoPojo" >
@@ -75,8 +75,8 @@
       <if test="raisenumber != null" >
         raiseNumber,
       </if>
-      <if test="enable != null" >
-        enable,
+      <if test="effective != null" >
+        effective,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -116,8 +116,8 @@
       <if test="raisenumber != null" >
         #{raisenumber,jdbcType=VARCHAR},
       </if>
-      <if test="enable != null" >
-        #{enable,jdbcType=BIT},
+      <if test="effective != null" >
+        #{effective,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -157,8 +157,8 @@
       <if test="raisenumber != null" >
         raiseNumber = #{raisenumber,jdbcType=VARCHAR},
       </if>
-      <if test="enable != null" >
-        enable = #{enable,jdbcType=BIT},
+      <if test="effective != null" >
+        effective = #{effective,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -180,7 +180,7 @@
       bodySize = #{bodysize,jdbcType=TINYINT},
       raiseCycle = #{raisecycle,jdbcType=TINYINT},
       raiseNumber = #{raisenumber,jdbcType=VARCHAR},
-      enable = #{enable,jdbcType=BIT},
+      effective = #{effective,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
@@ -188,9 +188,9 @@
   
   <!-- 查询指定小区的合伙人数量 -->
   <select id = "countParter"  parameterType="com.diamondboss.util.pojo.ParterInfoPojo" 
-   resultType = "Integer">
-  	select count(*)
-  	from parter_info
-  	where community_id = #{communityId,jdbcType=VARCHAR}
+   resultMap = "BaseResultMap">
+  	select A.raiseNumber
+  	from parter_info A
+  	where A.community_id = #{communityId,jdbcType=VARCHAR}
   </select>
 </mapper>
