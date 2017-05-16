@@ -1,5 +1,6 @@
 package com.diamondboss.order.controller;
 
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
+import com.diamondboss.util.pojo.ParterOrderPojo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommOrderInfoVo;
 
@@ -35,12 +37,22 @@ public class QueryInfoController {
 		
 		ParterInfoPojo parterInfoPojo = new ParterInfoPojo();
 		parterInfoPojo.setCommunityId(communityId);
-		int countParter = orderService.countParter(parterInfoPojo);
+		List<ParterInfoPojo> listParter = orderService.countParter(parterInfoPojo);
+		int ParterNum = 0;
+		for (ParterInfoPojo parterInfo : listParter) {
+			ParterNum = ParterNum + Integer.valueOf(parterInfo.getRaisenumber());
+		}
+		System.out.println(ParterNum);
+		
+		ParterOrderPojo parterOrderPojo = new ParterOrderPojo();
+		parterOrderPojo.setCommunityId(communityId);
+		parterOrderPojo.setEffective(1);
+		int countParterOrder = orderService.countParterOrder(parterOrderPojo);
 		
 		CommOrderInfoVo vo =  new CommOrderInfoVo();
 		
-		vo.setCommParNum(String.valueOf(countParter));
-		vo.setCommPetNum("13/20");
+		vo.setCommParNum(String.valueOf(listParter.size()));
+		vo.setCommPetNum(String.valueOf(countParterOrder) + "/" + ParterNum);
 		
 		APPResponseBody app = new APPResponseBody();
 		app.setData(vo);
