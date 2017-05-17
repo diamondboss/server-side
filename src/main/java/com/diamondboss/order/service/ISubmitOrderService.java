@@ -10,8 +10,11 @@ public interface ISubmitOrderService {
 	 */
 	public List<String> queryOrderByUser(String userId);
 	
-	public List SubmitOrderByUser();
+	/**
+	 * 根据用户id选择日期预约订单
+	 */
+	public List submitOrderByUser();
 
 	
-	
+	public List queryOrderTotal();
 }
