@@ -6,7 +6,7 @@
     <result column="community_id" property="communityId" jdbcType="VARCHAR" />
     <result column="parter_id" property="parterId" jdbcType="VARCHAR" />
     <result column="pet_id" property="petId" jdbcType="VARCHAR" />
-    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="order_time" property="orderTime" jdbcType="VARCHAR" />
     <result column="effective" property="effective" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -29,7 +29,7 @@
       pet_id, order_time, effective, 
       create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{communityId,jdbcType=VARCHAR}, #{parterId,jdbcType=VARCHAR}, 
-      #{petId,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, #{effective,jdbcType=BIT}, 
+      #{petId,jdbcType=VARCHAR}, #{orderTime,jdbcType=VARCHARVARCHAR}, #{effective,jdbcType=BIT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.diamondboss.util.pojo.ParterOrderPojo" >
@@ -74,7 +74,7 @@
         #{petId,jdbcType=VARCHAR},
       </if>
       <if test="date != null" >
-        #{orderTime,jdbcType=TIMESTAMP},
+        #{orderTime,jdbcType=VARCHAR},
       </if>
       <if test="effective != null" >
         #{effective,jdbcType=BIT},
@@ -100,7 +100,7 @@
         pet_id = #{petId,jdbcType=VARCHAR},
       </if>
       <if test="date != null" >
-        order_time = #{orderTime,jdbcType=TIMESTAMP},
+        order_time = #{orderTime,jdbcType=VARCHAR},
       </if>
       <if test="effective != null" >
         effective = #{effective,jdbcType=BIT},
@@ -119,7 +119,7 @@
     set community_id = #{communityId,jdbcType=VARCHAR},
       parter_id = #{parterId,jdbcType=VARCHAR},
       pet_id = #{petId,jdbcType=VARCHAR},
-      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      order_time = #{orderTime,jdbcType=VARCHAR},
       effective = #{effective,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
@@ -133,5 +133,14 @@
   	from parter_order
   	where community_id = #{communityId,jdbcType=VARCHAR} and 
   		 effective = 	#{effective,jdbcType=BIT}
+  </select>
+  
+   <select id="queryUserDetail" resultMap="BaseResultMap" parameterType="map">
+    select order_time,create_time
+    from parter_order
+    
+    where parter_id = #{parter_id} and
+    	  effective = #{effective}
+    order by create_time desc
   </select>
 </mapper>
