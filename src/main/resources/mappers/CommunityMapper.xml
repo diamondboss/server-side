@@ -150,4 +150,12 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 查询小区列表 -->
+  <select id="queryCommunitys" resultMap="BaseResultMap" parameterType="map">
+    select 
+    <include refid="Base_Column_List" />
+    from community
+    where effective = #{effective}
+  </select>
 </mapper>
