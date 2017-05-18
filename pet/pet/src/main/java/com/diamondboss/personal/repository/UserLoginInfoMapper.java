@@ -1,5 +1,7 @@
 package com.diamondboss.personal.repository;
 
+import java.util.Map;
+
 import com.diamondboss.util.pojo.UserLoginInfoPojo;
 
 public interface UserLoginInfoMapper {
@@ -14,4 +16,8 @@ public interface UserLoginInfoMapper {
     int updateByPrimaryKeySelective(UserLoginInfoPojo record);
 
     int updateByPrimaryKey(UserLoginInfoPojo record);
+    
+    int updateLoginIn(Map<String, String> map);
+    
+    UserLoginInfoPojo queryUserLoginIn(Map<String, String> map);
 }
