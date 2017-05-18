@@ -1,6 +1,5 @@
 package com.diamondboss.order.repository;
 
-import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
 
 public interface ParterOrderMapper {
