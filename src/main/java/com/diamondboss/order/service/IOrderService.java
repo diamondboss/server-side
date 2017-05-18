@@ -7,7 +7,7 @@ import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
 
 /**
- * 小区
+ * 小区订单
  * @author xzf
  *
  */
