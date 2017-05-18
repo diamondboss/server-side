@@ -16,13 +16,14 @@
   </sql>
   
   <select id = "queryParterDetail" resultMap="BaseResultMap" parameterType="map">
-  	select 
-  		<include refid="Base_Column_List" />
+  	select amount,order_time
     from parter_withdraw
     
     where parter_id = #{parter_id} and
-    	  effective = #{effective}
-  
+    	  effective = #{effective} and
+    	  withdraw_state = "1"
+    	  
+    order by create_time desc
   </select>
   
 </mapper>
