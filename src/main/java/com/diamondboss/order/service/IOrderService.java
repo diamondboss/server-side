@@ -33,4 +33,10 @@ public interface IOrderService {
 	 */
 	public int countParterOrder(ParterOrderPojo parterOrderPojo);
 	
+	/**
+	 * 查询用户的预约明细
+	 * @param communityId
+	 * @return
+	 */
+	public List<ParterOrderPojo> queryUserDetail(String parterId);	
 }

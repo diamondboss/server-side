@@ -1,5 +1,6 @@
 package com.diamondboss.order.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +14,11 @@ import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
+import com.diamondboss.util.pojo.ParterWithDrawPojo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommOrderInfoVo;
+import com.diamondboss.util.vo.ParterDetailVo;
+import com.diamondboss.util.vo.UserDetailVo;
 
 @Controller
 @RequestMapping("/queryOrder")
@@ -87,5 +91,33 @@ public class QueryInfoController {
 		return app;
 	}
 	
+	
+	/**
+	 * 查询用户的预算明细记录
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryUserDetail" ,method = RequestMethod.POST)
+	public APPResponseBody queryUserDetail(HttpServletRequest request) {
+		//获取前台传过来的用户ID
+		String parter_id = request.getParameter("parterId");
+		
+		List<ParterOrderPojo> parterOrders = orderService.queryUserDetail(parter_id);
+		
+		List<UserDetailVo> userDetails = new ArrayList<>();
+		for (ParterOrderPojo parterOrder : parterOrders) {
+			UserDetailVo userDetail = new UserDetailVo();
+			userDetail.setOrderTime(parterOrder.getOrderTime());
+			userDetail.setCreateTime(parterOrder.getCreateTime());
+			userDetails.add(userDetail);
+		}
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData(userDetails);
+		app.setRetnCode(0);
+		return app;
+	}
 	
 }
