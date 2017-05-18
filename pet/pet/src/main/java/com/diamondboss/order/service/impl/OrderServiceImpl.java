@@ -1,6 +1,8 @@
 package com.diamondboss.order.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -57,6 +59,21 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public int countParterOrder(ParterOrderPojo parterOrderPojo) {
 		return parterOrderMapper.countParterOrder(parterOrderPojo);
+	}
+
+	/**
+	 * 查询用户的预约明细
+	 * @param communityId
+	 * @return
+	 */
+	@Override
+	public List<ParterOrderPojo> queryUserDetail(String parter_id) {
+		Map<String, String> map = new HashMap<>();
+		map.put("parter_id", parter_id);
+		map.put("effective", "1");
+		
+		List<ParterOrderPojo>  userDetailList = parterOrderMapper.queryUserDetail(map);
+		return userDetailList;
 	}
 	
 }
