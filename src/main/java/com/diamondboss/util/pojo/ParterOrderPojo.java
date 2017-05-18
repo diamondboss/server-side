@@ -11,7 +11,7 @@ public class ParterOrderPojo {
 
     private String petId;
 
-    private Date orderTime;
+    private String orderTime;
 
     private Integer effective;
 
@@ -51,11 +51,11 @@ public class ParterOrderPojo {
         this.petId = petId == null ? null : petId.trim();
     }
 
-    public Date getOrderTime() {
+    public String getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Date orderTime) {
+    public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
     }
 
