@@ -7,6 +7,9 @@ import com.diamondboss.util.pojo.UserInfoPojo;
 import com.diamondboss.util.pojo.UserLoginInfoPojo;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 /**
@@ -51,5 +54,36 @@ public class UserServiceImpl implements IUserService {
     public UserInfoPojo getUserById(long userId) {
         return  userInfoMapper.selectByPrimaryKey(userId);
     }
+
+	@Override
+	public boolean updateUserLoginCount(String phoneNum) {
+		Map<String, String> map = new HashMap<>();
+		map.put("phoneNumber", phoneNum);
+		
+		int result = loginInfoMapper.updateLoginIn(map);
+		if (result > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public UserLoginInfoPojo queryUserLoginIn(String phoneNumber) {
+		Map<String, String> map = new HashMap<>();
+		map.put("phoneNumber", phoneNumber);
+		
+		return loginInfoMapper.queryUserLoginIn(map);
+	}
+
+	@Override
+	public boolean insertUserLoginIn(UserLoginInfoPojo userLoginInfoPojo) {
+		int result = loginInfoMapper.insertSelective(userLoginInfoPojo);
+		if (result > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

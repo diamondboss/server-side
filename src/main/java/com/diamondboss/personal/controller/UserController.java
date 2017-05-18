@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.diamondboss.util.pojo.UserInfoPojo;
+import com.diamondboss.util.pojo.UserLoginInfoPojo;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,11 +40,36 @@ public class UserController {
 		System.out.println(sessionId);
 		System.out.println(code);
 		
-		// 2.记录手机号入库（埋点）
-		boolean loginResult = userService.login(phoneNumber);
+		//调用第三方校验验证码
+		
+		
+		UserLoginInfoPojo resultLoginIn = userService.queryUserLoginIn(phoneNumber);
+		boolean resultState;
+		if(resultLoginIn == null){
+			//新增
+			UserLoginInfoPojo insertLoginIn = new UserLoginInfoPojo();
+			insertLoginIn.setPhoneNumber(phoneNumber);
+			insertLoginIn.setUserId(0L);
+			insertLoginIn.setPetId(0L);
+			insertLoginIn.setLoginCount(1);
+			insertLoginIn.setEffective(true);
+			insertLoginIn.setUserType(false);
+			resultState = userService.insertUserLoginIn(insertLoginIn);
+		}else{
+			//更新手机号用户的loginCount
+			resultState = userService.updateUserLoginCount(phoneNumber);
+		}
 		APPResponseBody app = new APPResponseBody();
-		app.setData(loginResult);
-		app.setRetnCode(0);
+		if(resultState && resultLoginIn == null){
+			app.setData("");
+			app.setRetnCode(0);
+		}else if(!(resultLoginIn == null)){
+			app.setData(resultLoginIn);
+			app.setRetnCode(0);
+		}else{
+			app.setData(phoneNumber);
+			app.setRetnCode(1);
+		}
 		return app;
 	}
 	
