@@ -12,18 +12,25 @@ public class UserLoginInfoPojo {
     private Long petId;
 
     private Boolean effective;
+    
+    private Integer loginCount;
+    
+    private Boolean userType;
 
-    private Date createTime;
+	private Date createTime;
 
     private Date updateTime;
 
     public UserLoginInfoPojo(){}
 
-    public UserLoginInfoPojo(String phoneNumber, Long userId, Long petId, Boolean effective) {
+    public UserLoginInfoPojo(String phoneNumber, Long userId, Long petId, Boolean effective,
+    		Integer loginCount, Boolean userType) {
         this.phoneNumber = phoneNumber;
         this.userId = userId;
         this.petId = petId;
         this.effective = effective;
+        this.loginCount = loginCount;
+        this.userType = userType;
     }
 
     public Long getId() {
@@ -65,6 +72,22 @@ public class UserLoginInfoPojo {
     public void setEffective(Boolean effective) {
         this.effective = effective;
     }
+    
+    public Integer getLoginCount() {
+		return loginCount;
+	}
+
+	public void setLoginCount(Integer loginCount) {
+		this.loginCount = loginCount;
+	}
+	
+	public Boolean getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Boolean userType) {
+		this.userType = userType;
+	}
 
     public Date getCreateTime() {
         return createTime;
