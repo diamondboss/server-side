@@ -36,6 +36,13 @@ public class UserController {
 		String phoneNumber = request.getParameter("phoneNumber");
 		String sessionId = request.getParameter("sessionId");
 		String code = request.getParameter("code");
+		
+		APPResponseBody app = new APPResponseBody();
+		if(phoneNumber == null || "".equals(phoneNumber)){
+			app.setData("参数不合法");
+			app.setRetnCode(1);
+			return app;
+		}
 	
 		// 1.根据sessionId和code验证手机验证码
 		System.out.println(phoneNumber);
@@ -46,7 +53,6 @@ public class UserController {
 		
 		Map map = userService.queryUserLoginIn(phoneNumber);
 		
-		APPResponseBody app = new APPResponseBody();
 		if((boolean)map.get("resultState") && (UserLoginInfoPojo)map.get("UserLoginInfo") == null){
 			app.setData("");
 			app.setRetnCode(0);
