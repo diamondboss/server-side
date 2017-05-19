@@ -21,8 +21,8 @@ import com.diamondboss.util.vo.APPResponseBody;
 @RequestMapping("/user")
 public class UserController {
 
-	 @Resource  
-	 private IUserService userService;
+	@Resource  
+	private IUserService userService;
 	/**
 	 * 用户登录模块
 	 * 
