@@ -37,9 +37,15 @@ public class ParterWithDrawController {
 		//获取前台传过来的用户ID
 		String parter_id = request.getParameter("parterId");
 		
+		APPResponseBody app = new APPResponseBody();
+		if(parter_id == null || "".equals(parter_id)){
+			app.setData("参数不合法");
+			app.setRetnCode(1);
+			return app;
+		}
+		
 		List<ParterDetailVo> parterOrders = parterWithDraw.queryParterDetail(parter_id);
 
-		APPResponseBody app = new APPResponseBody();
 		app.setData(parterOrders);
 		app.setRetnCode(0);
 		return app;
