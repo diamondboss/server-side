@@ -1,6 +1,5 @@
 package com.diamondboss.order.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +15,8 @@ import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
-import com.diamondboss.util.pojo.ParterWithDrawPojo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommOrderInfoVo;
-import com.diamondboss.util.vo.ParterDetailVo;
 import com.diamondboss.util.vo.UserDetailVo;
 
 @Controller
@@ -41,6 +38,13 @@ public class QueryInfoController {
 		
 		String communityId = request.getParameter("communityId");
 		
+		APPResponseBody app = new APPResponseBody();
+		if(communityId == null || "".equals(communityId)){
+			app.setData("参数不合法");
+			app.setRetnCode(1);
+			return app;
+		}
+		
 		ParterInfoPojo parterInfoPojo = new ParterInfoPojo();
 		parterInfoPojo.setCommunityId(communityId);
 		Map map = orderService.countParter(parterInfoPojo);
@@ -54,7 +58,6 @@ public class QueryInfoController {
 		vo.setCommParNum(String.valueOf(map.get("ParterSize")));
 		vo.setCommPetNum(String.valueOf(countParterOrder) + "/" + map.get("ParterNum"));
 		
-		APPResponseBody app = new APPResponseBody();
 		app.setData(vo);
 		app.setRetnCode(0);
 		return app;
@@ -71,6 +74,14 @@ public class QueryInfoController {
 	public APPResponseBody queryCommMap(HttpServletRequest request) {
 		//获取前台传过来的小区ID
 		String id = request.getParameter("communityId");
+		
+		APPResponseBody app = new APPResponseBody();
+		if(id == null || "".equals(id)){
+			app.setData("参数不合法");
+			app.setRetnCode(1);
+			return app;
+		}
+		
 		Long communityId = Long.valueOf(id);
 		
 		CommunityPojo communityPojo = orderService.queryCommunity(communityId);
@@ -81,7 +92,6 @@ public class QueryInfoController {
 		//String result = "\\\\HUMANS\\Users\\Boowen\\Downloads\\1234.jpg";
 		String result = communityPojo.getImagesUrl();
 		
-		APPResponseBody app = new APPResponseBody();
 		app.setData(result);
 		app.setRetnCode(0);
 		return app;
@@ -100,9 +110,15 @@ public class QueryInfoController {
 		//获取前台传过来的用户ID
 		String parter_id = request.getParameter("parterId");
 		
+		APPResponseBody app = new APPResponseBody();
+		if(parter_id == null || "".equals(parter_id)){
+			app.setData("参数不合法");
+			app.setRetnCode(1);
+			return app;
+		}
+		
 		List<UserDetailVo> parterOrders = orderService.queryUserDetail(parter_id);
 		
-		APPResponseBody app = new APPResponseBody();
 		app.setData(parterOrders);
 		app.setRetnCode(0);
 		return app;
