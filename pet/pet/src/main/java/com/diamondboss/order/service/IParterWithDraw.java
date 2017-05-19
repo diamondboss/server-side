@@ -2,7 +2,7 @@ package com.diamondboss.order.service;
 
 import java.util.List;
 
-import com.diamondboss.util.pojo.ParterWithDrawPojo;
+import com.diamondboss.util.vo.ParterDetailVo;
 
 /**
  * 合伙人提现接口
@@ -16,5 +16,5 @@ public interface IParterWithDraw {
 	 * @param communityId
 	 * @return
 	 */
-	public List<ParterWithDrawPojo> queryParterDetail(String parterId);	
+	public List<ParterDetailVo> queryParterDetail(String parterId);	
 }

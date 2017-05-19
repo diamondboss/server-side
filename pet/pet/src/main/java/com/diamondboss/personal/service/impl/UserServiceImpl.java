@@ -23,6 +23,9 @@ public class UserServiceImpl implements IUserService {
 
     @Resource
     UserLoginInfoMapper loginInfoMapper;
+    
+    @Resource  
+	private IUserService userService;
 
     @Override
     public boolean login(String phoneNumber) {
@@ -69,11 +72,33 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public UserLoginInfoPojo queryUserLoginIn(String phoneNumber) {
+	public Map queryUserLoginIn(String phoneNumber) {
 		Map<String, String> map = new HashMap<>();
 		map.put("phoneNumber", phoneNumber);
 		
-		return loginInfoMapper.queryUserLoginIn(map);
+		UserLoginInfoPojo resultLoginIn = loginInfoMapper.queryUserLoginIn(map);
+		
+		boolean resultState;
+		if(resultLoginIn == null){
+			//新增
+			UserLoginInfoPojo insertLoginIn = new UserLoginInfoPojo();
+			insertLoginIn.setPhoneNumber(phoneNumber);
+			insertLoginIn.setUserId(0L);
+			insertLoginIn.setPetId(0L);
+			insertLoginIn.setLoginCount(1);
+			insertLoginIn.setEffective(true);
+			insertLoginIn.setUserType("0");
+			resultState = userService.insertUserLoginIn(insertLoginIn);
+		}else{
+			//更新手机号用户的loginCount
+			resultState = userService.updateUserLoginCount(phoneNumber);
+		}
+		
+		Map<String, Object> resultmap = new HashMap<>();
+		resultmap.put("resultState", resultState);
+		resultmap.put("UserLoginInfo", resultLoginIn);
+		
+		return resultmap;
 	}
 
 	@Override

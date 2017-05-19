@@ -2,6 +2,8 @@ package com.diamondboss.order.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,12 +43,7 @@ public class QueryInfoController {
 		
 		ParterInfoPojo parterInfoPojo = new ParterInfoPojo();
 		parterInfoPojo.setCommunityId(communityId);
-		List<ParterInfoPojo> listParter = orderService.countParter(parterInfoPojo);
-		int ParterNum = 0;
-		for (ParterInfoPojo parterInfo : listParter) {
-			ParterNum = ParterNum + Integer.valueOf(parterInfo.getRaisenumber());
-		}
-		System.out.println(ParterNum);
+		Map map = orderService.countParter(parterInfoPojo);
 		
 		ParterOrderPojo parterOrderPojo = new ParterOrderPojo();
 		parterOrderPojo.setCommunityId(communityId);
@@ -54,9 +51,8 @@ public class QueryInfoController {
 		int countParterOrder = orderService.countParterOrder(parterOrderPojo);
 		
 		CommOrderInfoVo vo =  new CommOrderInfoVo();
-		
-		vo.setCommParNum(String.valueOf(listParter.size()));
-		vo.setCommPetNum(String.valueOf(countParterOrder) + "/" + ParterNum);
+		vo.setCommParNum(String.valueOf(map.get("ParterSize")));
+		vo.setCommPetNum(String.valueOf(countParterOrder) + "/" + map.get("ParterNum"));
 		
 		APPResponseBody app = new APPResponseBody();
 		app.setData(vo);
@@ -104,18 +100,10 @@ public class QueryInfoController {
 		//获取前台传过来的用户ID
 		String parter_id = request.getParameter("parterId");
 		
-		List<ParterOrderPojo> parterOrders = orderService.queryUserDetail(parter_id);
-		
-		List<UserDetailVo> userDetails = new ArrayList<>();
-		for (ParterOrderPojo parterOrder : parterOrders) {
-			UserDetailVo userDetail = new UserDetailVo();
-			userDetail.setOrderTime(parterOrder.getOrderTime());
-			userDetail.setCreateTime(parterOrder.getCreateTime());
-			userDetails.add(userDetail);
-		}
+		List<UserDetailVo> parterOrders = orderService.queryUserDetail(parter_id);
 		
 		APPResponseBody app = new APPResponseBody();
-		app.setData(userDetails);
+		app.setData(parterOrders);
 		app.setRetnCode(0);
 		return app;
 	}

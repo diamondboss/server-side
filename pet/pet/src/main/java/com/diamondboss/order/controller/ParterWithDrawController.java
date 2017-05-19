@@ -1,6 +1,5 @@
 package com.diamondboss.order.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.order.service.IParterWithDraw;
-import com.diamondboss.util.pojo.ParterWithDrawPojo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.ParterDetailVo;
 
@@ -39,20 +37,10 @@ public class ParterWithDrawController {
 		//获取前台传过来的用户ID
 		String parter_id = request.getParameter("parterId");
 		
-		List<ParterWithDrawPojo> parterOrders = parterWithDraw.queryParterDetail(parter_id);
-		
-		List<ParterDetailVo> parterDetails = new ArrayList<>();
-		
-		for (ParterWithDrawPojo parterWithDraw : parterOrders) {
-			ParterDetailVo ParterDetailVo = new ParterDetailVo();
-			ParterDetailVo.setAmount(parterWithDraw.getAmount());
-			ParterDetailVo.setOrderTime(parterWithDraw.getOrderTime());
-			
-			parterDetails.add(ParterDetailVo);
-		}
-		
+		List<ParterDetailVo> parterOrders = parterWithDraw.queryParterDetail(parter_id);
+
 		APPResponseBody app = new APPResponseBody();
-		app.setData(parterDetails);
+		app.setData(parterOrders);
 		app.setRetnCode(0);
 		return app;
 	}

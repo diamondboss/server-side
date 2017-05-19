@@ -1,6 +1,5 @@
 package com.diamondboss.order.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.order.service.ICommunityService;
-import com.diamondboss.util.pojo.CommunityPojo;
-import com.diamondboss.util.pojo.ParterOrderPojo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommunityVo;
-import com.diamondboss.util.vo.UserDetailVo;
 
 /**
  * 小区服务控制类
@@ -39,22 +35,12 @@ public class CommunityController {
 	@RequestMapping(value = "/queryCommunity", method = RequestMethod.POST)
 	public APPResponseBody queryCommunityo(HttpServletRequest request) {
 		
-		List<CommunityPojo> communitys = communityService.queryCommunitys();
+		List<CommunityVo> communitys = communityService.queryCommunitys();
 		
-		List<CommunityVo> communityList = new ArrayList<>();
-		for (CommunityPojo communityPojo : communitys) {
-			CommunityVo community = new CommunityVo();
-			community.setId(communityPojo.getId());
-			community.setCommunityName(communityPojo.getCommunityName());
-			community.setImagesUrl(communityPojo.getImagesUrl());
-			
-			communityList.add(community);
-		}
-		
-		System.out.println(communityList);
+		System.out.println(communitys);
 		
 		APPResponseBody app = new APPResponseBody();
-		app.setData(communityList);
+		app.setData(communitys);
 		app.setRetnCode(0);
 		return app;
 	}
