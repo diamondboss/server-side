@@ -1,5 +1,7 @@
 package com.diamondboss.personal.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,29 +44,14 @@ public class UserController {
 		
 		//调用第三方校验验证码
 		
+		Map map = userService.queryUserLoginIn(phoneNumber);
 		
-		UserLoginInfoPojo resultLoginIn = userService.queryUserLoginIn(phoneNumber);
-		boolean resultState;
-		if(resultLoginIn == null){
-			//新增
-			UserLoginInfoPojo insertLoginIn = new UserLoginInfoPojo();
-			insertLoginIn.setPhoneNumber(phoneNumber);
-			insertLoginIn.setUserId(0L);
-			insertLoginIn.setPetId(0L);
-			insertLoginIn.setLoginCount(1);
-			insertLoginIn.setEffective(true);
-			insertLoginIn.setUserType(false);
-			resultState = userService.insertUserLoginIn(insertLoginIn);
-		}else{
-			//更新手机号用户的loginCount
-			resultState = userService.updateUserLoginCount(phoneNumber);
-		}
 		APPResponseBody app = new APPResponseBody();
-		if(resultState && resultLoginIn == null){
+		if((boolean)map.get("resultState") && (UserLoginInfoPojo)map.get("UserLoginInfo") == null){
 			app.setData("");
 			app.setRetnCode(0);
-		}else if(!(resultLoginIn == null)){
-			app.setData(resultLoginIn);
+		}else if((UserLoginInfoPojo)map.get("UserLoginInfo") != null){
+			app.setData((UserLoginInfoPojo)map.get("UserLoginInfo"));
 			app.setRetnCode(0);
 		}else{
 			app.setData(phoneNumber);

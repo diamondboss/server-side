@@ -2,7 +2,7 @@ package com.diamondboss.order.service;
 
 import java.util.List;
 
-import com.diamondboss.util.pojo.CommunityPojo;
+import com.diamondboss.util.vo.CommunityVo;
 
 /**
  * 小区接口
@@ -15,5 +15,5 @@ public interface ICommunityService {
 	 * 查询小区
 	 * @return
 	 */
-	public List<CommunityPojo> queryCommunitys();
+	public List<CommunityVo> queryCommunitys();
 }

@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
+import com.diamondboss.util.vo.UserDetailVo;
 
 /**
  * 小区服务实现类
@@ -46,8 +48,20 @@ public class OrderServiceImpl implements IOrderService {
 	 * @return
 	 */
 	@Override
-	public List<ParterInfoPojo> countParter(ParterInfoPojo parterInfoPojo) {
-		return parterInfoMapper.countParter(parterInfoPojo);
+	public Map<String, Integer> countParter(ParterInfoPojo parterInfoPojo) {
+		List<ParterInfoPojo> parterInfos = parterInfoMapper.countParter(parterInfoPojo);
+		int ParterNum = 0;
+		for (ParterInfoPojo parterInfo : parterInfos) {
+			ParterNum = ParterNum + Integer.valueOf(parterInfo.getRaisenumber());
+		}
+		
+		
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("ParterNum", ParterNum);
+		map.put("ParterSize", parterInfos.size());
+		
+		return map;
 	}
 
 	/**
@@ -67,13 +81,21 @@ public class OrderServiceImpl implements IOrderService {
 	 * @return
 	 */
 	@Override
-	public List<ParterOrderPojo> queryUserDetail(String parter_id) {
+	public List<UserDetailVo> queryUserDetail(String parter_id) {
 		Map<String, String> map = new HashMap<>();
 		map.put("parter_id", parter_id);
 		map.put("effective", "1");
 		
 		List<ParterOrderPojo>  userDetailList = parterOrderMapper.queryUserDetail(map);
-		return userDetailList;
+		
+		List<UserDetailVo> userDetails = new ArrayList<>();
+		for (ParterOrderPojo parterOrder : userDetailList) {
+			UserDetailVo userDetail = new UserDetailVo();
+			userDetail.setOrderTime(parterOrder.getOrderTime());
+			userDetail.setCreateTime(parterOrder.getCreateTime());
+			userDetails.add(userDetail);
+		}
+		return userDetails;
 	}
 	
 }

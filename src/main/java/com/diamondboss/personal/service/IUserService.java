@@ -1,5 +1,7 @@
 package com.diamondboss.personal.service;
 
+import java.util.Map;
+
 import com.diamondboss.util.pojo.UserInfoPojo;
 import com.diamondboss.util.pojo.UserLoginInfoPojo;
 
@@ -40,7 +42,7 @@ public interface IUserService {
      * @param loginInfoPojo
      * @return
      */
-    public UserLoginInfoPojo queryUserLoginIn(String phoneNumber);
+    public Map queryUserLoginIn(String phoneNumber);
     
     /**
      * 插入用户登录信息

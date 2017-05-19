@@ -15,7 +15,7 @@ public class UserLoginInfoPojo {
     
     private Integer loginCount;
     
-    private Boolean userType;
+    private String userType;
 
 	private Date createTime;
 
@@ -24,7 +24,7 @@ public class UserLoginInfoPojo {
     public UserLoginInfoPojo(){}
 
     public UserLoginInfoPojo(String phoneNumber, Long userId, Long petId, Boolean effective,
-    		Integer loginCount, Boolean userType) {
+    		Integer loginCount, String userType) {
         this.phoneNumber = phoneNumber;
         this.userId = userId;
         this.petId = petId;
@@ -81,11 +81,11 @@ public class UserLoginInfoPojo {
 		this.loginCount = loginCount;
 	}
 	
-	public Boolean getUserType() {
+	public String getUserType() {
 		return userType;
 	}
 
-	public void setUserType(Boolean userType) {
+	public void setUserType(String userType) {
 		this.userType = userType;
 	}
 
