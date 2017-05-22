@@ -20,10 +20,8 @@ public class HttpUtils {
      * 发送post请求
      * 
      * @author zfxue
-     * @param params
-     *            参数
-     * @param requestUrl
-     *            请求地址
+     * @param params  参数
+     * @param requestUrl 请求地址
      * @return 返回结果
      * @throws IOException
      */
