@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AppPush {
+public class AppPush{
 
-    //¶¨Òå³£Á¿, appId¡¢appKey¡¢masterSecret ²ÉÓÃ±¾ÎÄµµ "µÚ¶ş²½ »ñÈ¡·ÃÎÊÆ¾Ö¤ "ÖĞ»ñµÃµÄÓ¦ÓÃÅäÖÃ
+    //å®šä¹‰å¸¸é‡, appIdã€appKeyã€masterSecret é‡‡ç”¨æœ¬æ–‡æ¡£ "ç¬¬äºŒæ­¥ è·å–è®¿é—®å‡­è¯ "ä¸­è·å¾—çš„åº”ç”¨é…ç½®
     private static String appId = "";
     private static String appKey = "";
     private static String masterSecret = "";
@@ -22,18 +22,18 @@ public class AppPush {
 
         IGtPush push = new IGtPush(url, appKey, masterSecret);
 
-        // ¶¨Òå"µã»÷Á´½Ó´ò¿ªÍ¨ÖªÄ£°å"£¬²¢ÉèÖÃ±êÌâ¡¢ÄÚÈİ¡¢Á´½Ó
+        // å®šä¹‰"ç‚¹å‡»é“¾æ¥æ‰“å¼€é€šçŸ¥æ¨¡æ¿"ï¼Œå¹¶è®¾ç½®æ ‡é¢˜ã€å†…å®¹ã€é“¾æ¥
         LinkTemplate template = new LinkTemplate();
         template.setAppId(appId);
         template.setAppkey(appKey);
-        template.setTitle("»¶Ó­Ê¹ÓÃ¸öÍÆ!");
-        template.setText("ÕâÊÇÒ»ÌõÍÆËÍÏûÏ¢~");
+        template.setTitle("æ¬¢è¿ä½¿ç”¨ä¸ªæ¨!");
+        template.setText("è¿™æ˜¯ä¸€æ¡æ¨é€æ¶ˆæ¯~");
         template.setUrl("http://getui.com");
 
         List<String> appIds = new ArrayList<String>();
         appIds.add(appId);
 
-        // ¶¨Òå"AppMessage"ÀàĞÍÏûÏ¢¶ÔÏó£¬ÉèÖÃÏûÏ¢ÄÚÈİÄ£°å¡¢·¢ËÍµÄÄ¿±êAppÁĞ±í¡¢ÊÇ·ñÖ§³ÖÀëÏß·¢ËÍ¡¢ÒÔ¼°ÀëÏßÏûÏ¢ÓĞĞ§ÆÚ(µ¥Î»ºÁÃë)
+        // å®šä¹‰"AppMessage"ç±»å‹æ¶ˆæ¯å¯¹è±¡ï¼Œè®¾ç½®æ¶ˆæ¯å†…å®¹æ¨¡æ¿ã€å‘é€çš„ç›®æ ‡Appåˆ—è¡¨ã€æ˜¯å¦æ”¯æŒç¦»çº¿å‘é€ã€ä»¥åŠç¦»çº¿æ¶ˆæ¯æœ‰æ•ˆæœŸ(å•ä½æ¯«ç§’)
         AppMessage message = new AppMessage();
         message.setData(template);
         message.setAppIdList(appIds);
@@ -44,3 +44,4 @@ public class AppPush {
         System.out.println(ret.getResponse().toString());
     }
 }
+

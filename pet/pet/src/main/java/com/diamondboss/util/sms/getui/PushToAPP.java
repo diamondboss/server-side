@@ -9,8 +9,8 @@ import com.gexin.rp.sdk.http.IGtPush;
 import com.gexin.rp.sdk.template.LinkTemplate;
 import com.gexin.rp.sdk.template.style.Style0;
 
-public class PushtoAPP {    
-    //²ÉÓÃ"Java SDK ¿ìËÙÈëÃÅ"£¬ "µÚ¶ş²½ »ñÈ¡·ÃÎÊÆ¾Ö¤ "ÖĞ»ñµÃµÄÓ¦ÓÃÅäÖÃ£¬ÓÃ»§¿ÉÒÔ×ÔĞĞÌæ»»
+public class PushToAPP {
+    //é‡‡ç”¨"Java SDK å¿«é€Ÿå…¥é—¨"ï¼Œ "ç¬¬äºŒæ­¥ è·å–è®¿é—®å‡­è¯ "ä¸­è·å¾—çš„åº”ç”¨é…ç½®ï¼Œç”¨æˆ·å¯ä»¥è‡ªè¡Œæ›¿æ¢
     private static String appId = "";
     private static String appKey = "";
     private static String masterSecret = "";
@@ -25,26 +25,26 @@ public class PushtoAPP {
         message.setData(template);
 
         message.setOffline(true);
-        //ÀëÏßÓĞĞ§Ê±¼ä£¬µ¥Î»ÎªºÁÃë£¬¿ÉÑ¡
+        //ç¦»çº¿æœ‰æ•ˆæ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’ï¼Œå¯é€‰
         message.setOfflineExpireTime(24 * 1000 * 3600);
-        //ÍÆËÍ¸øAppµÄÄ¿±êÓÃ»§ĞèÒªÂú×ãµÄÌõ¼ş
-        AppConditions cdt = new AppConditions(); 
+        //æ¨é€ç»™Appçš„ç›®æ ‡ç”¨æˆ·éœ€è¦æ»¡è¶³çš„æ¡ä»¶
+        AppConditions cdt = new AppConditions();
         List<String> appIdList = new ArrayList<String>();
         appIdList.add(appId);
         message.setAppIdList(appIdList);
-        //ÊÖ»úÀàĞÍ
+        //æ‰‹æœºç±»å‹
         List<String> phoneTypeList = new ArrayList<String>();
-        //Ê¡·İ
+        //çœä»½
         List<String> provinceList = new ArrayList<String>();
-        //×Ô¶¨Òåtag
+        //è‡ªå®šä¹‰tag
         List<String> tagList = new ArrayList<String>();
 
         cdt.addCondition(AppConditions.PHONE_TYPE, phoneTypeList);
         cdt.addCondition(AppConditions.REGION, provinceList);
         cdt.addCondition(AppConditions.TAG,tagList);
-        message.setConditions(cdt); 
+        message.setConditions(cdt);
 
-        IPushResult ret = push.pushMessageToApp(message,"ÈÎÎñ±ğÃû_toApp");
+        IPushResult ret = push.pushMessageToApp(message,"ä»»åŠ¡åˆ«å_toApp");
         System.out.println(ret.getResponse().toString());
     }
 
@@ -54,14 +54,14 @@ public class PushtoAPP {
         template.setAppkey(appKey);
 
         Style0 style = new Style0();
-        // ÉèÖÃÍ¨ÖªÀ¸±êÌâÓëÄÚÈİ
-        style.setTitle("ÇëÊäÈëÍ¨ÖªÀ¸±êÌâ");
-        style.setText("ÇëÊäÈëÍ¨ÖªÀ¸ÄÚÈİ");
-        // ÅäÖÃÍ¨ÖªÀ¸Í¼±ê
+        // è®¾ç½®é€šçŸ¥æ æ ‡é¢˜ä¸å†…å®¹
+        style.setTitle("è¯·è¾“å…¥é€šçŸ¥æ æ ‡é¢˜");
+        style.setText("è¯·è¾“å…¥é€šçŸ¥æ å†…å®¹");
+        // é…ç½®é€šçŸ¥æ å›¾æ ‡
         style.setLogo("icon.png");
-        // ÅäÖÃÍ¨ÖªÀ¸ÍøÂçÍ¼±ê
+        // é…ç½®é€šçŸ¥æ ç½‘ç»œå›¾æ ‡
         style.setLogoUrl("");
-        // ÉèÖÃÍ¨ÖªÊÇ·ñÏìÁå£¬Õğ¶¯£¬»òÕß¿ÉÇå³ı
+        // è®¾ç½®é€šçŸ¥æ˜¯å¦å“é“ƒï¼Œéœ‡åŠ¨ï¼Œæˆ–è€…å¯æ¸…é™¤
         style.setRing(true);
         style.setVibrate(true);
         style.setClearable(true);
@@ -71,4 +71,5 @@ public class PushtoAPP {
 
         return template;
     }
+
 }

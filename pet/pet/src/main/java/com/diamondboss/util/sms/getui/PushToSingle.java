@@ -8,15 +8,15 @@ import com.gexin.rp.sdk.http.IGtPush;
 import com.gexin.rp.sdk.template.LinkTemplate;
 import com.gexin.rp.sdk.template.style.Style0;
 
-public class PushtoSingle {
-    //²ÉÓÃ"Java SDK ¿ìËÙÈëÃÅ"£¬ "µÚ¶ş²½ »ñÈ¡·ÃÎÊÆ¾Ö¤ "ÖĞ»ñµÃµÄÓ¦ÓÃÅäÖÃ£¬ÓÃ»§¿ÉÒÔ×ÔĞĞÌæ»»
+public class PushToSingle {
+    //é‡‡ç”¨"Java SDK å¿«é€Ÿå…¥é—¨"ï¼Œ "ç¬¬äºŒæ­¥ è·å–è®¿é—®å‡­è¯ "ä¸­è·å¾—çš„åº”ç”¨é…ç½®ï¼Œç”¨æˆ·å¯ä»¥è‡ªè¡Œæ›¿æ¢
     private static String appId = "";
     private static String appKey = "";
     private static String masterSecret = "";
 
     static String CID = "";
-  //±ğÃûÍÆËÍ·½Ê½
-   // static String Alias = "";
+    //åˆ«åæ¨é€æ–¹å¼
+    // static String Alias = "";
     static String host = "http://sdk.open.api.igexin.com/apiex.htm";
 
     public static void main(String[] args) throws Exception {
@@ -24,11 +24,11 @@ public class PushtoSingle {
         LinkTemplate template = linkTemplateDemo();
         SingleMessage message = new SingleMessage();
         message.setOffline(true);
-        // ÀëÏßÓĞĞ§Ê±¼ä£¬µ¥Î»ÎªºÁÃë£¬¿ÉÑ¡
+        // ç¦»çº¿æœ‰æ•ˆæ—¶é—´ï¼Œå•ä½ä¸ºæ¯«ç§’ï¼Œå¯é€‰
         message.setOfflineExpireTime(24 * 3600 * 1000);
         message.setData(template);
-        // ¿ÉÑ¡£¬1Îªwifi£¬0Îª²»ÏŞÖÆÍøÂç»·¾³¡£¸ù¾İÊÖ»ú´¦ÓÚµÄÍøÂçÇé¿ö£¬¾ö¶¨ÊÇ·ñÏÂ·¢
-        message.setPushNetWorkType(0); 
+        // å¯é€‰ï¼Œ1ä¸ºwifiï¼Œ0ä¸ºä¸é™åˆ¶ç½‘ç»œç¯å¢ƒã€‚æ ¹æ®æ‰‹æœºå¤„äºçš„ç½‘ç»œæƒ…å†µï¼Œå†³å®šæ˜¯å¦ä¸‹å‘
+        message.setPushNetWorkType(0);
         Target target = new Target();
         target.setAppId(appId);
         target.setClientId(CID);
@@ -43,30 +43,30 @@ public class PushtoSingle {
         if (ret != null) {
             System.out.println(ret.getResponse().toString());
         } else {
-            System.out.println("·şÎñÆ÷ÏìÓ¦Òì³£");
+            System.out.println("æœåŠ¡å™¨å“åº”å¼‚å¸¸");
         }
     }
     public static LinkTemplate linkTemplateDemo() {
         LinkTemplate template = new LinkTemplate();
-        // ÉèÖÃAPPIDÓëAPPKEY
+        // è®¾ç½®APPIDä¸APPKEY
         template.setAppId(appId);
         template.setAppkey(appKey);
 
         Style0 style = new Style0();
-        // ÉèÖÃÍ¨ÖªÀ¸±êÌâÓëÄÚÈİ
-        style.setTitle("ÇëÊäÈëÍ¨ÖªÀ¸±êÌâ");
-        style.setText("ÇëÊäÈëÍ¨ÖªÀ¸ÄÚÈİ");
-        // ÅäÖÃÍ¨ÖªÀ¸Í¼±ê
+        // è®¾ç½®é€šçŸ¥æ æ ‡é¢˜ä¸å†…å®¹
+        style.setTitle("è¯·è¾“å…¥é€šçŸ¥æ æ ‡é¢˜");
+        style.setText("è¯·è¾“å…¥é€šçŸ¥æ å†…å®¹");
+        // é…ç½®é€šçŸ¥æ å›¾æ ‡
         style.setLogo("icon.png");
-        // ÅäÖÃÍ¨ÖªÀ¸ÍøÂçÍ¼±ê
+        // é…ç½®é€šçŸ¥æ ç½‘ç»œå›¾æ ‡
         style.setLogoUrl("");
-        // ÉèÖÃÍ¨ÖªÊÇ·ñÏìÁå£¬Õğ¶¯£¬»òÕß¿ÉÇå³ı
+        // è®¾ç½®é€šçŸ¥æ˜¯å¦å“é“ƒï¼Œéœ‡åŠ¨ï¼Œæˆ–è€…å¯æ¸…é™¤
         style.setRing(true);
         style.setVibrate(true);
         style.setClearable(true);
         template.setStyle(style);
 
-        // ÉèÖÃ´ò¿ªµÄÍøÖ·µØÖ·
+        // è®¾ç½®æ‰“å¼€çš„ç½‘å€åœ°å€
         template.setUrl("http://www.baidu.com");
         return template;
     }
