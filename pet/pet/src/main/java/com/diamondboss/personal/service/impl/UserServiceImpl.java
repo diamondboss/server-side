@@ -89,6 +89,12 @@ public class UserServiceImpl implements IUserService {
 			insertLoginIn.setEffective(true);
 			insertLoginIn.setUserType("0");
 			resultState = userService.insertUserLoginIn(insertLoginIn);
+			
+			if(resultState){
+				Map<String, String> loginInMap = new HashMap<>();
+				loginInMap.put("phoneNumber", phoneNumber);
+				resultLoginIn = loginInfoMapper.queryUserLoginIn(map);
+			}
 		}else{
 			//更新手机号用户的loginCount
 			resultState = userService.updateUserLoginCount(phoneNumber);
