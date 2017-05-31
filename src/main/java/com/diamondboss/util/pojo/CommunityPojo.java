@@ -15,8 +15,6 @@ public class CommunityPojo {
 
     private String communityName;
 
-    private String imagesUrl;
-
     private Integer effective;
 
     private Date createTime;
@@ -69,14 +67,6 @@ public class CommunityPojo {
 
     public void setCommunityName(String communityName) {
         this.communityName = communityName == null ? null : communityName.trim();
-    }
-
-    public String getImagesUrl() {
-        return imagesUrl;
-    }
-
-    public void setImagesUrl(String imagesUrl) {
-        this.imagesUrl = imagesUrl == null ? null : imagesUrl.trim();
     }
 
     public Integer getEffective() {
