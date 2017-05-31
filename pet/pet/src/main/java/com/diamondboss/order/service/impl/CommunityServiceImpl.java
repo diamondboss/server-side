@@ -37,7 +37,6 @@ public class CommunityServiceImpl implements ICommunityService {
 			CommunityVo community = new CommunityVo();
 			community.setId(communityPojo.getId());
 			community.setCommunityName(communityPojo.getCommunityName());
-			community.setImagesUrl(communityPojo.getImagesUrl());
 			
 			communitys.add(community);
 		}

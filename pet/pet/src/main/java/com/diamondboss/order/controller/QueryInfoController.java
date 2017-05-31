@@ -86,13 +86,7 @@ public class QueryInfoController {
 		
 		CommunityPojo communityPojo = orderService.queryCommunity(communityId);
 		
-		communityPojo.getImagesUrl();
-		// 查询图片
-		// queryMap
-		//String result = "\\\\HUMANS\\Users\\Boowen\\Downloads\\1234.jpg";
-		String result = communityPojo.getImagesUrl();
-		
-		app.setData(result);
+		app.setData(communityPojo);
 		app.setRetnCode(0);
 		return app;
 	}
