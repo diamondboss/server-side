@@ -16,4 +16,52 @@
 		    AND effective = '1'
 	</select>
 
+	<!-- 插入订单  -->
+	<insert id="insertParterOrder"
+		parameterType="java.util.Map">
+		INSERT
+		INTO
+		    parter_order
+		    (
+		        community_id,
+		        parter_id,
+		        pet_id,
+		        order_time,
+		        effective,
+		    )
+		    VALUES
+		    (
+		        #{communityId},
+		        #{parterId},
+		        #{petId},
+		        #{orderTime},
+		        '1'
+		    )
+	</insert>
+
+	<!-- 查询订单  -->
+	<select id="queryParterOrder"
+		resultType="java.lang.Integer">
+		SELECT
+		    COUNT(1)
+		FROM
+		    parter_order
+		WHERE
+		    parter_id =  #{parterId}
+		AND order_time = #{orderTime}
+		AND effective = '1'
+	</select>
+
+	<!-- 更新订单  -->
+	<update id="updateParterOrder">
+		UPDATE
+		    parter_order
+		SET
+		    effective = #{effective} 
+		WHERE
+		   pet_id = #{petId}
+		   AND order_time = #{orderTime}
+	</update>
+
+
 </mapper>
