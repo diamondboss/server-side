@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import com.diamondboss.util.vo.BaseInfoVo;
 @RequestMapping("/userBase")
 public class UserBaseInfoController {
 
+	private final static Logger log = Logger.getLogger(UserBaseInfoController.class);
+	
 	@Autowired
 	private IUserBaseInfoService userBaseInfo;
 	
@@ -30,6 +33,7 @@ public class UserBaseInfoController {
 	private APPResponseBody queryBaseInfo(HttpServletRequest request){
 		
 		String phoneNum = request.getParameter("phoneNum");
+		log.info("查询个人信息:" + phoneNum);
 		
 		BaseInfoVo vo = userBaseInfo.queryBaseInfo(phoneNum);
 		
@@ -56,6 +60,7 @@ public class UserBaseInfoController {
 		String remark = request.getParameter("remark");
 		
 		Map<String, String> map = new HashMap<>();
+		
 		map.put("phoneNum", phoneNum);
 		map.put("name", name);
 		map.put("age", age);
