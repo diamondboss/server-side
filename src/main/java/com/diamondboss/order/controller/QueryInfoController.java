@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
-import com.diamondboss.util.pojo.ParterInfoPojo;
-import com.diamondboss.util.pojo.ParterOrderPojo;
-import com.diamondboss.util.tools.SpinOffAddress;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommOrderInfoVo;
 import com.diamondboss.util.vo.UserDetailVo;
