@@ -16,6 +16,7 @@ import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
+import com.diamondboss.util.tools.SpinOffAddress;
 import com.diamondboss.util.vo.UserDetailVo;
 
 /**
@@ -48,20 +49,28 @@ public class OrderServiceImpl implements IOrderService {
 	 * @return
 	 */
 	@Override
-	public Map<String, Integer> countParter(ParterInfoPojo parterInfoPojo) {
-		List<ParterInfoPojo> parterInfos = parterInfoMapper.countParter(parterInfoPojo);
+	public Map<String, Integer> countParter(String subtitle) {
+		Map<String, String> map = SpinOffAddress.getCountryMap(subtitle);
+		Map<String, String> requestMap = new HashMap<>();
+		requestMap.put("provinces" , map.get("provinces"));
+		requestMap.put("city" , map.get("city"));
+		requestMap.put("area" , map.get("area"));
+		requestMap.put("street" , map.get("street"));
+		requestMap.put("country" , map.get("country"));
+		requestMap.put("effective", "1");
+		
+		List<ParterInfoPojo> parterInfos = parterInfoMapper.countParter(requestMap);
+	
 		int ParterNum = 0;
 		for (ParterInfoPojo parterInfo : parterInfos) {
 			ParterNum = ParterNum + Integer.valueOf(parterInfo.getRaisenumber());
 		}
 		
+		Map<String, Integer> responseMap = new HashMap<>();
+		responseMap.put("ParterNum", ParterNum);
+		responseMap.put("ParterSize", parterInfos.size());
 		
-		
-		Map<String, Integer> map = new HashMap<>();
-		map.put("ParterNum", ParterNum);
-		map.put("ParterSize", parterInfos.size());
-		
-		return map;
+		return responseMap;
 	}
 
 	/**
@@ -71,8 +80,19 @@ public class OrderServiceImpl implements IOrderService {
 	 * @return
 	 */
 	@Override
-	public int countParterOrder(ParterOrderPojo parterOrderPojo) {
-		return parterOrderMapper.countParterOrder(parterOrderPojo);
+	public int countParterOrder(String subtitle) {
+		Map<String, String> map = SpinOffAddress.getCountryMap(subtitle);
+		Map<String, String> requestMap = new HashMap<>();
+		requestMap.put("provinces" , map.get("provinces"));
+		requestMap.put("city" , map.get("city"));
+		requestMap.put("area" , map.get("area"));
+		requestMap.put("street" , map.get("street"));
+		requestMap.put("country" , map.get("country"));
+		requestMap.put("effective", "1");
+		
+		int countParterOrder = parterOrderMapper.countParterOrder(requestMap);
+		
+		return countParterOrder;
 	}
 
 	/**

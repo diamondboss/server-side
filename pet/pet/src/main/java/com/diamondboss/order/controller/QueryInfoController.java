@@ -15,6 +15,7 @@ import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
+import com.diamondboss.util.tools.SpinOffAddress;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommOrderInfoVo;
 import com.diamondboss.util.vo.UserDetailVo;
@@ -36,23 +37,24 @@ public class QueryInfoController {
 	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
 	public APPResponseBody queryOrderInfo(HttpServletRequest request) {
 		
-		String communityId = request.getParameter("communityId");
-		
+		String subtitle = request.getParameter("subtitle");
+		String name = request.getParameter("name");
+		//String address = request.getParameter("address");
+				
 		APPResponseBody app = new APPResponseBody();
-		if(communityId == null || "".equals(communityId)){
+		if(subtitle == null || "".equals(subtitle)){
 			app.setData("参数不合法");
 			app.setRetnCode(1);
 			return app;
 		}
 		
-		ParterInfoPojo parterInfoPojo = new ParterInfoPojo();
-		parterInfoPojo.setCommunityId(communityId);
-		Map map = orderService.countParter(parterInfoPojo);
+		@SuppressWarnings("rawtypes")
+		Map map = orderService.countParter(subtitle);
 		
 		ParterOrderPojo parterOrderPojo = new ParterOrderPojo();
-		parterOrderPojo.setCommunityId(communityId);
+		parterOrderPojo.setCommunityId(subtitle);
 		parterOrderPojo.setEffective(1);
-		int countParterOrder = orderService.countParterOrder(parterOrderPojo);
+		int countParterOrder = orderService.countParterOrder(subtitle);
 		
 		CommOrderInfoVo vo =  new CommOrderInfoVo();
 		vo.setCommParNum(String.valueOf(map.get("ParterSize")));
