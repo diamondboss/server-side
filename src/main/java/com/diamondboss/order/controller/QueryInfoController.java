@@ -35,7 +35,7 @@ public class QueryInfoController {
 	public APPResponseBody queryOrderInfo(HttpServletRequest request) {
 		
 		String subtitle = request.getParameter("subtitle");
-		String name = request.getParameter("name");
+		//String name = request.getParameter("name");
 		//String address = request.getParameter("address");
 				
 		APPResponseBody app = new APPResponseBody();
