@@ -26,7 +26,6 @@ public class QueryInfoController {
 	
 	/**
 	 * 首页查询获得该小区社区合伙人数量跟已预订宠物量
-	 * 
 	 * @param request
 	 * @return
 	 */
