@@ -1,6 +1,7 @@
 package com.diamondboss.order.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import com.diamondboss.util.pojo.ParterInfoPojo;
 
@@ -22,5 +23,5 @@ public interface ParterInfoMapper {
      * @param parterInfoPojo
      * @return
      */
-    List<ParterInfoPojo> countParter(ParterInfoPojo parterInfoPojo);
+    List<ParterInfoPojo> countParter(Map<String, String> map);
 }

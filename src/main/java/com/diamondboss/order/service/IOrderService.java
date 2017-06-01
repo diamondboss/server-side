@@ -26,14 +26,14 @@ public interface IOrderService {
 	 * 根据小区ID，查询该小区有多少位合伙人
 	 * @return
 	 */
-	public Map countParter(ParterInfoPojo parterInfoPojo);
+	public Map countParter(String subtitle);
 	
 	/**
 	 * 根据小区ID，查询该小区有多少狗已预约
 	 * @param parterOrderPojo
 	 * @return
 	 */
-	public int countParterOrder(ParterOrderPojo parterOrderPojo);
+	public int countParterOrder(String subtitle);
 	
 	/**
 	 * 查询用户的预约明细

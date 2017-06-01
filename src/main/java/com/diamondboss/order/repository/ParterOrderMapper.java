@@ -23,7 +23,7 @@ public interface ParterOrderMapper {
      * @param parterInfoPojo
      * @return
      */
-    int countParterOrder(ParterOrderPojo parterOrderPojo);
+    int countParterOrder(Map<String, String> map);
     
     /**
      * 查询用户的预约明细
