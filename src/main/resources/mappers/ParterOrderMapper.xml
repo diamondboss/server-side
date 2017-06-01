@@ -126,12 +126,22 @@
   </update>
   
   
-  <select id="countParterOrder" parameterType="com.diamondboss.util.pojo.ParterOrderPojo" 
+  <select id="countParterOrder" parameterType="map" 
   	resultType="Integer">
-  	select count(*)
-  	from parter_order
-  	where community_id = #{communityId,jdbcType=VARCHAR} and 
-  		 effective = 	#{effective,jdbcType=BIT}
+  		SELECT COUNT(*)
+		FROM parter_order A
+		INNER JOIN community B
+		ON A.community_id = B.id
+		WHERE 
+		<if test="provinces != null and provinces != ''" >
+        	B.province = #{provinces}
+        	AND
+      	</if> 
+		B.city = #{city}
+		AND B.area = #{area}
+		<!-- AND B.street = #{street} -->
+		AND B.community_name = #{country} 
+		AND A.effective = #{effective}
   </select>
   
    <select id="queryUserDetail" resultMap="BaseResultMap" parameterType="map">
