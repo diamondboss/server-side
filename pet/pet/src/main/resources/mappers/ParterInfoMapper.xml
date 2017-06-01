@@ -187,10 +187,21 @@
   </update>
   
   <!-- 查询指定小区的合伙人数量 -->
-  <select id = "countParter"  parameterType="com.diamondboss.util.pojo.ParterInfoPojo" 
+  <select id = "countParter"  parameterType="map" 
    resultMap = "BaseResultMap">
-  	select A.raiseNumber
-  	from parter_info A
-  	where A.community_id = #{communityId,jdbcType=VARCHAR}
+	  	SELECT A.raiseNumber
+		FROM parter_info A
+		INNER JOIN community B
+		ON A.community_id = B.id
+		WHERE 
+		<if test="provinces != null and provinces != ''" >
+        	B.province = #{provinces}
+        	AND
+      	</if>
+		B.city = #{city}
+		AND B.area = #{area}
+		<!-- AND B.street = #{street} -->
+		AND B.community_name = #{country} 
+		AND A.effective = #{effective}
   </select>
 </mapper>
