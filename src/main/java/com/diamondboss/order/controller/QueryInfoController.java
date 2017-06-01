@@ -47,13 +47,10 @@ public class QueryInfoController {
 			app.setRetnCode(1);
 			return app;
 		}
-		
-		@SuppressWarnings("rawtypes")
+		//获取指定地址小区的合伙人数量和每个合伙人和饲养的宠物数量
 		Map map = orderService.countParter(subtitle);
 		
-		ParterOrderPojo parterOrderPojo = new ParterOrderPojo();
-		parterOrderPojo.setCommunityId(subtitle);
-		parterOrderPojo.setEffective(1);
+		//获取指定小区的订单数
 		int countParterOrder = orderService.countParterOrder(subtitle);
 		
 		CommOrderInfoVo vo =  new CommOrderInfoVo();
