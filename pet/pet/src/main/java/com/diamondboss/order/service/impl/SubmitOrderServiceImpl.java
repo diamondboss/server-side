@@ -64,10 +64,16 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		String parId = parList.get(i);
 		
 		// 新增订单
+		// 插入订单临时表
+		submitOrder.insertParterOrder();
 		
-		// 查询是否超过订单数量
+		// 再查询该合伙人是否超过订单数量
+		submitOrder.queryParterOrder();
 		
 		// 如果超过删除该订单
+		if(false){// false
+			
+		}
 		
 		// 将该订单日期加入列表
 			
