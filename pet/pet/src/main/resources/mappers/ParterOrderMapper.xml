@@ -152,4 +152,16 @@
     	  effective = #{effective}
     order by create_time desc
   </select>
+
+
+  <select id="queryCountsByPartnerAndDate" parameterType="map"
+          resultType="Integer">
+    SELECT COUNT(1)
+    FROM #{tableName}
+    WHERE
+    parter_id = #{partnerId}
+    AND order_date = #{currentDate}
+    AND effctive = '1'
+
+  </select>
 </mapper>

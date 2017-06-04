@@ -11,7 +11,7 @@ public interface ISubmitOrderService {
 	public List<String> queryOrderByUser(String userId);
 	
 	/**
-	 * 根据用户id选择日期预约订单
+	 * 用户提交订单流程
 	 */
 	public List submitOrderByUser();
 
