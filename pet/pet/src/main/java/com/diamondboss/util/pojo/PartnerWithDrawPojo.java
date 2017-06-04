@@ -3,7 +3,7 @@ package com.diamondboss.util.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ParterWithDrawPojo {
+public class PartnerWithDrawPojo {
 
 	private Long id;
 	
