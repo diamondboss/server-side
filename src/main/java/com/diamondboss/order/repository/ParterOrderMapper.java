@@ -23,7 +23,7 @@ public interface ParterOrderMapper {
      * @param parterInfoPojo
      * @return
      */
-    int countParterOrder(Map<String, String> map);
+    int countParterOrder(ParterOrderPojo parterOrderPojo);
     
     /**
      * 查询用户的预约明细
@@ -31,4 +31,6 @@ public interface ParterOrderMapper {
      * @return
      */
     List<ParterOrderPojo> queryUserDetail(Map<String, String> map);
+    
+    public List<PartnerOrderVo> queryTodayOrder(Map<String, Object> param);
 }
