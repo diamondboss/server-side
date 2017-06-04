@@ -18,6 +18,13 @@ public interface SubmitOrderMapper {
 	 * @return
 	 */
 	List<String> queryParByComm(Map<String, String> map);
+
+	/**
+	 * 查询指定合伙人在指定日期的有效订单数
+	 * @param map
+	 * @return
+	 */
+	int queryCountsByPartnerAndDate(Map<String, Object> map);
 	
 	/**
 	 * 插入订单

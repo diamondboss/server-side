@@ -76,7 +76,7 @@ public class OrderServiceImpl implements IOrderService {
 	/**
 	 * /**
 	 * 根据小区ID，查询该小区有多少狗已预约
-	 * @param parterOrderPojo
+	 * @param subtitle
 	 * @return
 	 */
 	@Override
@@ -89,15 +89,15 @@ public class OrderServiceImpl implements IOrderService {
 		requestMap.put("street" , map.get("street"));
 		requestMap.put("country" , map.get("country"));
 		requestMap.put("effective", "1");
+
+//TODO		int countParterOrder = parterOrderMapper.countParterOrder(requestMap);
 		
-		int countParterOrder = parterOrderMapper.countParterOrder(requestMap);
-		
-		return countParterOrder;
+		return 0;
 	}
 
 	/**
 	 * 查询用户的预约明细
-	 * @param communityId
+	 * @param parter_id
 	 * @return
 	 */
 	@Override

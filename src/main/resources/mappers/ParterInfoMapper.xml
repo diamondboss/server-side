@@ -204,4 +204,14 @@
 		AND B.community_name = #{country} 
 		AND A.effective = #{effective}
   </select>
+
+  <!-- 查询指定小区的合伙人信息 -->
+  <select id = "queryPartnerByCommunityId"  parameterType="String"
+   resultMap = "BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM parter_info
+    WHERE community_id = #{communityId}
+    AND effctive = '1'
+  </select>
 </mapper>

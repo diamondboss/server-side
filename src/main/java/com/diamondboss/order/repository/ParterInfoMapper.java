@@ -20,8 +20,14 @@ public interface ParterInfoMapper {
     
     /**
      * 计算某个小区中的合伙人数量
-     * @param parterInfoPojo
+     * @param map
      * @return
      */
     List<ParterInfoPojo> countParter(Map<String, String> map);
+
+    /**
+     * 根据小区id，查询小区人的合伙人信息
+     * @return
+     */
+    List<ParterInfoPojo> queryPartnerByCommunityId(String communityId);
 }

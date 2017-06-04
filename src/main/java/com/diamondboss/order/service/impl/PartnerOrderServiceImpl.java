@@ -8,7 +8,9 @@ import java.util.Map;
 import com.diamondboss.order.repository.ParterOrderMapper;
 import com.diamondboss.order.service.IPartnerOrderService;
 import com.diamondboss.util.vo.PartnerOrderVo;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PartnerOrderServiceImpl implements IPartnerOrderService{
 
 	public ParterOrderMapper parterOrder;
