@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.diamondboss.order.repository.ParterWithDrawMapper" >
-  <resultMap id="BaseResultMap" type="com.diamondboss.util.pojo.ParterWithDrawPojo" >
+<mapper namespace="com.diamondboss.order.repository.PartnerWithDrawMapper" >
+  <resultMap id="BaseResultMap" type="com.diamondboss.util.pojo.PartnerWithDrawPojo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="parter_id" property="parterId" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
     id, parter_id, amount, order_time, withdraw_state, effective, create_time, update_time
   </sql>
   
-  <select id = "queryParterDetail" resultMap="BaseResultMap" parameterType="map">
+  <select id = "queryPartnerDetail" resultMap="BaseResultMap" parameterType="map">
   	select amount,order_time
     from parter_withdraw
     

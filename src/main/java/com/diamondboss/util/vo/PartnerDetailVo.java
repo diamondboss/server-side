@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @author xzf
  *
  */
-public class ParterDetailVo {
+public class PartnerDetailVo {
 	private BigDecimal amount;
 	
 	private String orderTime;

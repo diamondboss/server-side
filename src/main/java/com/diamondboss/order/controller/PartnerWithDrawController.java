@@ -5,14 +5,15 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.diamondboss.order.service.IParterWithDraw;
+import com.diamondboss.order.service.IPartnerWithDraw;
 import com.diamondboss.util.vo.APPResponseBody;
-import com.diamondboss.util.vo.ParterDetailVo;
+import com.diamondboss.util.vo.PartnerDetailVo;
 
 /**
  * 合伙人提现控制器
@@ -21,10 +22,10 @@ import com.diamondboss.util.vo.ParterDetailVo;
  */
 @Controller
 @RequestMapping("/withDraw")
-public class ParterWithDrawController {
+public class PartnerWithDrawController {
 	
 	@Resource  
-	 private IParterWithDraw parterWithDraw;
+	 private IPartnerWithDraw partnerWithDraw;
 	/**
 	 * 查询用户的预算明细记录
 	 * 
@@ -32,21 +33,21 @@ public class ParterWithDrawController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/queryParterDetail" ,method = RequestMethod.POST)
+	@RequestMapping(value = "/queryPartnerDetail" ,method = RequestMethod.POST)
 	public APPResponseBody queryUserDetail(HttpServletRequest request) {
 		//获取前台传过来的用户ID
-		String parter_id = request.getParameter("parterId");
+		String partner_id = request.getParameter("partnerId");
 		
 		APPResponseBody app = new APPResponseBody();
-		if(parter_id == null || "".equals(parter_id)){
+		if(StringUtils.isBlank(partner_id)){
 			app.setData("参数不合法");
 			app.setRetnCode(1);
 			return app;
 		}
 		
-		List<ParterDetailVo> parterOrders = parterWithDraw.queryParterDetail(parter_id);
+		List<PartnerDetailVo> partnerOrders = partnerWithDraw.queryPartnerDetail(partner_id);
 
-		app.setData(parterOrders);
+		app.setData(partnerOrders);
 		app.setRetnCode(0);
 		return app;
 	}
