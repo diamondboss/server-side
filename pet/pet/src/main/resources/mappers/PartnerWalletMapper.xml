@@ -13,12 +13,14 @@
 	<sql id="Base_Column_List" >
    		id, partner_id, amt, effective, create_time, update_time
   	</sql>
-  	<select id="queryPartnerWalletAmount" resultMap="BaseResultMap" parameterType="map" >
+  	<select id="queryPartnerWalletAmount" resultType="com.diamondboss.util.vo.PartnerWalletVo" parameterType="map" >
     	select 
-    	<include refid="Base_Column_List" />
-    	from partner_wallet
-    	where partner_id = #{partnerId}
-    	and effective = #{effective}
+	    	A.id as id,
+	    	A.partner_id as partnerId,
+	    	A.amt as amount
+    	from partner_wallet A
+    	where A.partner_id = #{partnerId}
+    	and A.effective = #{effective}
   	</select>
   	
 </mapper>
