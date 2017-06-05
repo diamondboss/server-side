@@ -12,6 +12,8 @@ import com.diamondboss.order.repository.PartnerWalletDetailMapper;
 import com.diamondboss.order.repository.PartnerWalletMapper;
 import com.diamondboss.order.service.IPartnerWalletService;
 import com.diamondboss.util.pojo.PartnerWalletPojo;
+import com.diamondboss.util.vo.PartnerWalletDetailVo;
+import com.diamondboss.util.vo.PartnerWalletVo;
 
 /**
  * 合伙人钱包
@@ -38,9 +40,9 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		map.put("effective", "1");
 		
 		// 查询合伙人钱包
-		PartnerWalletPojo partnerWalletPojo = partnerWallet.queryPartnerWalletAmount(map);
+		PartnerWalletVo partnerWalletVo = partnerWallet.queryPartnerWalletAmount(map);
 		
-		LocalDate currentDate = LocalDate.now();
+		LocalDate today = LocalDate.now();
 		
 		// 根据合伙人id算出合伙人钱包明细表表明
 		int temp = (Integer.valueOf(partnerId)/100) + 1;
@@ -50,11 +52,11 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		parmMap.put("partnerId", partnerId);
 		parmMap.put("effective", "1");
 		parmMap.put("tableName", tableName);
-		parmMap.put("currentDate", currentDate);
+		parmMap.put("orderDate", today);
 		
-		List<PartnerWalletPojo> partnerAmountDetails = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
+		List<PartnerWalletDetailVo> partnerAmountDetails = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
 		
-		System.out.println(partnerWalletPojo);
+		System.out.println(partnerWalletVo);
 		System.out.println(partnerAmountDetails);
 		
 		

@@ -2,7 +2,7 @@ package com.diamondboss.order.repository;
 
 import java.util.Map;
 
-import com.diamondboss.util.pojo.PartnerWalletPojo;
+import com.diamondboss.util.vo.PartnerWalletVo;
 
 public interface PartnerWalletMapper {
 
@@ -11,5 +11,5 @@ public interface PartnerWalletMapper {
 	 * @param map
 	 * @return
 	 */
-	PartnerWalletPojo queryPartnerWalletAmount(Map<String, Object> map);
+	PartnerWalletVo queryPartnerWalletAmount(Map<String, Object> map);
 }
