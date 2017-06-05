@@ -7,4 +7,6 @@ public class PetConstants {
     public static final String ORDER_PARTNER_TABLE_PREFIX = "order_partner_";
 
     public static final String ORDER_USER_TABLE_PREFIX = "order_user_";
+    
+    public static final String PARTNER_WALLET_DETAIL = "partner_wallet_detail_";
 }

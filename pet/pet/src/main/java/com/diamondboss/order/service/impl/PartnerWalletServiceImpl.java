@@ -8,10 +8,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.PartnerWalletDetailMapper;
 import com.diamondboss.order.repository.PartnerWalletMapper;
 import com.diamondboss.order.service.IPartnerWalletService;
 import com.diamondboss.util.pojo.PartnerWalletPojo;
+import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.vo.PartnerWalletDetailVo;
 import com.diamondboss.util.vo.PartnerWalletVo;
 
@@ -33,7 +35,7 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 	 * 合伙人首页-查询合伙人钱包
 	 */
 	@Override
-	public PartnerWalletPojo queryPartnerWalletAmount(String partnerId){
+	public Map<String, Object> queryPartnerWalletAmount(String partnerId){
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("partnerId", partnerId);
@@ -42,11 +44,11 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		// 查询合伙人钱包
 		PartnerWalletVo partnerWalletVo = partnerWallet.queryPartnerWalletAmount(map);
 		
-		LocalDate today = LocalDate.now();
+		String today = LocalDate.now().toString();
 		
-		// 根据合伙人id算出合伙人钱包明细表表明
-		int temp = (Integer.valueOf(partnerId)/100) + 1;
-		String  tableName = "partner_wallet_detail_" + temp;
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(partnerId),
+				PetConstants.PARTNER_WALLET_DETAIL);
+	
 		//根据合伙人id查询合伙人钱包明细表
 		Map<String, Object> parmMap = new HashMap<>();
 		parmMap.put("partnerId", partnerId);
@@ -56,11 +58,11 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		
 		List<PartnerWalletDetailVo> partnerAmountDetails = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
 		
-		System.out.println(partnerWalletVo);
-		System.out.println(partnerAmountDetails);
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("WalletAmount", partnerWalletVo);
+		responseMap.put("partnerAmountDetails", partnerAmountDetails);
 		
-		
-		return null;
+		return responseMap;
 		
 	}
 	
