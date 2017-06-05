@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.order.repository.PartnerOrderMapper" >
+
+	<!-- 查询合伙人首页订单信息 -->
+	<select id="queryTodayOrder"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.util.vo.PartnerOrderVo" >
+		SELECT
+		    id AS id,
+		    receive_time AS receiveTime,
+		    return_time AS returnTime,
+		    pet_name AS petName,
+		    sex AS sex,
+		    age AS age,
+		    phone AS phone,
+		    user_name AS userName,
+		    remark AS remark
+		FROM
+		    ${orderPartner}
+		WHERE
+			partenr_id = #{partnerId}
+			AND order_date = #{orderDate}
+			AND order_status = '4'
+			AND effective = '1'
+	</select>
+
+
+</mapper>
+
+
