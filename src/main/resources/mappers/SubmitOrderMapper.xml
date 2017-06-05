@@ -16,31 +16,8 @@
 		    AND effective = '1'
 	</select>
 
-	<!-- 插入订单  -->
-	<insert id="insertParterOrder"
-		parameterType="java.util.Map">
-		INSERT
-		INTO
-		    parter_order
-		    (
-		        community_id,
-		        parter_id,
-		        pet_id,
-		        order_time,
-		        effective,
-		    )
-		    VALUES
-		    (
-		        #{communityId},
-		        #{parterId},
-		        #{petId},
-		        #{orderTime},
-		        '1'
-		    )
-	</insert>
-
 	<!-- 查询订单  -->
-	<select id="queryParterOrder"
+	<select id="queryPartnerOrder"
 		resultType="java.lang.Integer">
 		SELECT
 		    COUNT(1)
@@ -52,16 +29,39 @@
 		AND effective = '1'
 	</select>
 
+	<!-- 插入订单  -->
+	<insert id="insertPartnerOrder" parameterType="java.util.Map">
+		INSERT INTO  #{tableName}
+		(id, receive_time, return_time, pet_name, sex, age,
+		phone, user_name, remark, user_id, partenr_id, order_date,
+		order_status, amt, effective, create_time, update_time)
+		VALUES
+		(#{id,jdbcType=BIGINT},#{receiveTime}, #{returnTime}, #{petName}, #{sex}, #{age},
+		#{phone}, #{userName}, #{remark},#{userId},#{partenrId}, #{orderDate},
+		#{orderDate}, #{orderStatus},#{amt}, '1', #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP});
+	</insert>
+
 	<!-- 更新订单  -->
-	<update id="updateParterOrder">
+	<update id="updatePartnerOrder">
 		UPDATE
-		    parter_order
+		    #{tableName}
 		SET
 		    effective = #{effective} 
 		WHERE
-		   pet_id = #{petId}
-		   AND order_time = #{orderTime}
+		   user_id = #{userId}
+		   AND partenr_id = #{partnerId}
+		   AND order_date = #{orderDate}
+		   AND order_status = #{orderStatus}
 	</update>
 
+	<select id="queryCountsByPartnerAndDate" parameterType="map"
+			resultType="Integer">
+		SELECT COUNT(1)
+		FROM #{tableName}
+		WHERE
+		parter_id = #{partnerId}
+		AND order_date = #{currentDate}
+		AND effctive = '1'
+	</select>
 
 </mapper>

@@ -29,17 +29,17 @@ public interface SubmitOrderMapper {
 	/**
 	 * 插入订单
 	 */
-	void insertParterOrder();
+	void insertPartnerOrder(Map<String, Object> map);
 	
 	/**
 	 * 查询订单
-	 * @return
+	 * @returnn
 	 */
-	int queryParterOrder();
+	int queryPartnerOrder();
 	
 	/**
-	 * 查询订单
+	 * 修改订单
 	 * @return
 	 */
-	int updateParterOrder();
+	int updatePartnerOrder(Map<String, Object> map);
 }
