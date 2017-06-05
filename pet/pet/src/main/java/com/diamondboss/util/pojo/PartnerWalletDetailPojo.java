@@ -17,7 +17,7 @@ public class PartnerWalletDetailPojo {
 	
 	private Integer kind;
 	
-	private Date orderDate;
+	private String orderDate;
 	
 	private Integer effective;
 
@@ -57,11 +57,11 @@ public class PartnerWalletDetailPojo {
 		this.kind = kind;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
