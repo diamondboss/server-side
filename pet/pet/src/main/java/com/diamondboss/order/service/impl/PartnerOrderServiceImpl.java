@@ -23,7 +23,7 @@ public class PartnerOrderServiceImpl implements IPartnerOrderService{
 	public List<PartnerOrderVo> queryTodayOrder(String partnerId){
 		
 		// 根据合伙人id查询合伙人订单表
-		LocalDate today = LocalDate.now();
+		String today = LocalDate.now().toString();
 		
 		String orderPartner = TableUtils.getOrderTableName(Long.valueOf(partnerId),
 				PetConstants.ORDER_PARTNER_TABLE_PREFIX);
