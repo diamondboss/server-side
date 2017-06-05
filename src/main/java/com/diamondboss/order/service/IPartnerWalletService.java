@@ -1,6 +1,6 @@
 package com.diamondboss.order.service;
 
-import com.diamondboss.util.pojo.PartnerWalletPojo;
+import java.util.Map;
 
 /**
  * 合伙人钱包
@@ -12,5 +12,5 @@ public interface IPartnerWalletService {
 	/**
 	 * 合伙人首页-查询合伙人钱包
 	 */
-	public PartnerWalletPojo queryPartnerWalletAmount(String partnerId);
+	public Map<String, Object> queryPartnerWalletAmount(String partnerId);
 }
