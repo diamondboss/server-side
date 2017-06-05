@@ -30,5 +30,6 @@
 	    	and A.effective = #{effective}
     	order by 
     		A.update_time desc
+    	limit 0,1
   	</select>
 </mapper>
