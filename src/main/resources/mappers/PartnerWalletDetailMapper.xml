@@ -26,10 +26,9 @@
     	from ${tableName} A
     	where 
     		A.order_date = #{orderDate}
-	    	<!-- A.order_date = "2017-06-05" -->
 	    	and A.partner_id = #{partnerId}
 	    	and A.effective = #{effective}
     	order by 
-    		A.order_date desc
+    		A.update_time desc
   	</select>
 </mapper>
