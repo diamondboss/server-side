@@ -39,7 +39,7 @@ public class QueryOrderController {
 		app.setData(list);
 		app.setRetnCode(0);
 		
-		return null;
+		return app;
 	}
 	
 }
