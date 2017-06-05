@@ -31,7 +31,7 @@ public interface ParterOrderMapper {
      * @param communityId
      * @return
      */
-    List<ParterOrderPojo> queryUserDetail(Map<String, String> map);
+    public List<ParterOrderPojo> queryUserDetail(Map<String, String> map);
     
     public List<PartnerOrderVo> queryTodayOrder(Map<String, Object> param);
 }
