@@ -2,17 +2,13 @@ package com.diamondboss.order.service.impl;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.PartnerWalletDetailMapper;
 import com.diamondboss.order.repository.PartnerWalletMapper;
 import com.diamondboss.order.service.IPartnerWalletService;
-import com.diamondboss.util.pojo.PartnerWalletPojo;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.vo.PartnerWalletDetailVo;
 import com.diamondboss.util.vo.PartnerWalletVo;
@@ -56,11 +52,11 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		parmMap.put("tableName", tableName);
 		parmMap.put("orderDate", today);
 		
-		List<PartnerWalletDetailVo> partnerAmountDetails = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
+		PartnerWalletDetailVo partnerAmountDetail = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
 		
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("WalletAmount", partnerWalletVo);
-		responseMap.put("partnerAmountDetails", partnerAmountDetails);
+		responseMap.put("partnerAmountDetail", partnerAmountDetail);
 		
 		return responseMap;
 		
