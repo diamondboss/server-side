@@ -27,9 +27,14 @@ public interface SubmitOrderMapper {
 	int queryCountsByPartnerAndDate(Map<String, Object> map);
 	
 	/**
-	 * 插入订单
+	 * 插入合伙人订单
 	 */
 	void insertPartnerOrder(Map<String, Object> map);
+
+	/**
+	 * 插入用户订单
+	 */
+	void insertUserOrder(Map<String, Object> map);
 	
 	/**
 	 * 查询订单
@@ -38,8 +43,14 @@ public interface SubmitOrderMapper {
 	int queryPartnerOrder();
 	
 	/**
-	 * 修改订单
+	 * 修改合伙人订单
 	 * @return
 	 */
 	int updatePartnerOrder(Map<String, Object> map);
+
+	/**
+	 * 修改用户订单
+	 * @return
+	 */
+	int updateUserOrder(Map<String, Object> map);
 }
