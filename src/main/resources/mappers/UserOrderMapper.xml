@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.order.repository.UserOrderServiceMapper" >
+ 	
+ 	<!-- 查询合伙人首页订单信息 -->
+	<select id="queryUserOrderService"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
+		SELECT
+		    B.id AS id,
+		    B.name AS partnerName,
+		    B.phoneNumber AS phoneNum
+
+		FROM
+		    ${tableName} A INNER JOIN parter_info B ON A.partner_id = B.id
+		WHERE
+			A.user_id = #{userId}
+			AND A.order_date = #{orderDate}
+			AND effective = '1'
+	</select>
+  
+</mapper>

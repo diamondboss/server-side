@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.diamondboss.util.pojo.CommunityPojo;
-import com.diamondboss.util.pojo.ParterInfoPojo;
-import com.diamondboss.util.pojo.ParterOrderPojo;
 import com.diamondboss.util.vo.UserDetailVo;
+import com.diamondboss.util.vo.UserOrderServiceVo;
 
 /**
  * 小区订单
@@ -41,4 +40,12 @@ public interface IOrderService {
 	 * @return
 	 */
 	public List<UserDetailVo> queryUserDetail(String parterId);	
+	
+	/**
+	 * 查询用户的实时名单
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public UserOrderServiceVo queryUserOrderService(String userId, String orderDate);
 }
