@@ -79,25 +79,32 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		String maxRaise = partner.getRaisenumber();
 
 		// 4、订单入库
-		String tableName = TableUtils.getOrderTableName(partnerId, PetConstants.ORDER_PARTNER_TABLE_PREFIX);
+		String partnerTableName = TableUtils.getOrderTableName(partnerId, PetConstants.ORDER_PARTNER_TABLE_PREFIX);
+		String userTableName = TableUtils.getOrderTableName(partnerId, PetConstants.ORDER_USER_TABLE_PREFIX);
 		Map<String, Object> params = new HashMap<>();
 		// TODO 前端传过来的订单信息参数
-		params.put("tableName", tableName);
+		params.put("tableName", partnerTableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", LocalDate.now());
 		submitOrderMapper.insertPartnerOrder(params);
-		
+
+		params.put("tableName", userTableName);
+		submitOrderMapper.insertUserOrder(params);
+
 		// 5、再查询该合伙人是否超过订单数量,如果超过则将该订单置为无效
 		if(!checkOrderCountsOfPartner(partnerId,maxRaise)){
 			Map<String, Object> updateParams = new HashMap<>();
 			// TODO 确定订单信息的参数
-			updateParams.put("tableName", tableName);
+			updateParams.put("tableName", partnerTableName);
 			updateParams.put("effective", "1");
 //			updateParams.put("userId", userId);
 			updateParams.put("partnerId", partnerId);
 			updateParams.put("orderDate", partnerId);
 //			updateParams.put("orderStatus", orderStatus);
 			submitOrderMapper.updatePartnerOrder(updateParams);
+
+			updateParams.put("tableName", userTableName);
+			submitOrderMapper.updateUserOrder(updateParams);
 		}
 		return result;
 	}

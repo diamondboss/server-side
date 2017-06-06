@@ -29,8 +29,20 @@
 		AND effective = '1'
 	</select>
 
-	<!-- 插入订单  -->
+	<!-- 插入合伙人订单  -->
 	<insert id="insertPartnerOrder" parameterType="java.util.Map">
+		INSERT INTO  #{tableName}
+		(id, receive_time, return_time, pet_name, sex, age,
+		phone, user_name, remark, user_id, partenr_id, order_date,
+		order_status, amt, effective, create_time, update_time)
+		VALUES
+		(#{id,jdbcType=BIGINT},#{receiveTime}, #{returnTime}, #{petName}, #{sex}, #{age},
+		#{phone}, #{userName}, #{remark},#{userId},#{partenrId}, #{orderDate},
+		#{orderDate}, #{orderStatus},#{amt}, '1', #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP});
+	</insert>
+
+	<!-- 插入用户订单  -->
+	<insert id="insertUserOrder" parameterType="java.util.Map">
 		INSERT INTO  #{tableName}
 		(id, receive_time, return_time, pet_name, sex, age,
 		phone, user_name, remark, user_id, partenr_id, order_date,
@@ -47,6 +59,18 @@
 		    #{tableName}
 		SET
 		    effective = #{effective} 
+		WHERE
+		   user_id = #{userId}
+		   AND partenr_id = #{partnerId}
+		   AND order_date = #{orderDate}
+		   AND order_status = #{orderStatus}
+	</update>
+	<!-- 更新用户订单  -->
+	<update id="updateUserOrder">
+		UPDATE
+		    #{tableName}
+		SET
+		    effective = #{effective}
 		WHERE
 		   user_id = #{userId}
 		   AND partenr_id = #{partnerId}

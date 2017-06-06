@@ -1,9 +1,7 @@
 package com.diamondboss.order.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.diamondboss.constants.PetConstants;
@@ -144,4 +142,13 @@ public class OrderServiceImpl implements IOrderService {
 		
 		return null;
 	}
+
+	@Override
+	public void synchronizedPaymentResult(String orderId, Map<String, Objects> params) {
+		//TODO 如何判定订单属于哪张表
+		//更新支付结果到对应的表的记录中
+
+		//如果为支付成功，还要继续出发推送任务
+	}
+
 }
