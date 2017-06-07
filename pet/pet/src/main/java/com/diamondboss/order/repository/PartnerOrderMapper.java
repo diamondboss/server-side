@@ -14,4 +14,13 @@ public interface PartnerOrderMapper {
 	 */
 	public List<PartnerOrderVo> queryTodayOrder(Map<String, Object> param);
 	
+	/**
+	 * 查询合伙人历史订单明细
+	 * @param param
+	 * @return
+	 */
+	public List<PartnerOrderVo> queryTodayOrderDetail(Map<String, Object> param);
+	
+	
+	
 }
