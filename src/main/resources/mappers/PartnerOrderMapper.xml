@@ -25,6 +25,28 @@
 			AND effective = '1'
 	</select>
 
+	<!-- 查询合伙人历史订单明细  -->
+	<select id="queryTodayOrder"
+			parameterType="java.util.Map"
+			resultType="com.diamondboss.util.vo.PartnerOrderVo" >
+		SELECT
+		    id AS id,
+		    receive_time AS receiveTime,
+		    return_time AS returnTime,
+		    pet_name AS petName,
+		    sex AS sex,
+		    age AS age,
+		    phone AS phone,
+		    user_name AS userName,
+		    remark AS remark
+		FROM
+		    ${orderPartner}
+		WHERE
+			partenr_id = #{partnerId}
+			AND order_status = '4'
+			AND effective = '1'
+		ORDER BY order_date DESC
+	</select>
 
 </mapper>
 
