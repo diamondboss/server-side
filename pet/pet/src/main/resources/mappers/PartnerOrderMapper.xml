@@ -42,7 +42,7 @@
 		FROM
 		    ${orderPartner}
 		WHERE
-			partenr_id = #{partnerId}
+			partner_id = #{partnerId}
 			AND order_status = '4'
 			AND effective = '1'
 		ORDER BY order_date DESC
