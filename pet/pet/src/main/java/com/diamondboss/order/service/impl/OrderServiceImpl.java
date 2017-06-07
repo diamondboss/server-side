@@ -17,6 +17,7 @@ import com.diamondboss.util.tools.SpinOffAddress;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.vo.UserDetailVo;
 import com.diamondboss.util.vo.UserOrderServiceVo;
+import com.diamondboss.util.vo.UserOrdersServiceVo;
 
 /**
  * 小区服务实现类
@@ -126,7 +127,7 @@ public class OrderServiceImpl implements IOrderService {
 	 * @param orderDate
 	 * @return
 	 */
-	public UserOrderServiceVo queryUserOrderService(String userId, String orderDate){
+	public Map<String, Object> queryUserOrderService(String userId, String orderDate){
 		
 		String tableName = TableUtils.getOrderTableName(Long.valueOf(userId),
 				PetConstants.ORDER_USER_TABLE_PREFIX);
@@ -138,9 +139,18 @@ public class OrderServiceImpl implements IOrderService {
 		
 		UserOrderServiceVo userOrder= userOrderServiceMapper.queryUserOrderService(map);
 		
-		System.out.println(userOrder);
+		Map<String, Object> parmMap = new HashMap<>();
+		parmMap.put("userId", userId);
+		parmMap.put("partnerId", userOrder.getPartnerId());
+		parmMap.put("orderDate", orderDate);
+		parmMap.put("tableName", tableName);
+		List<UserOrdersServiceVo> userOrders = userOrderServiceMapper.queryUserOrders(parmMap);
 		
-		return null;
+		Map<String, Object> responseMap = new HashMap<>();
+		responseMap.put("userOrder", userOrder);
+		responseMap.put("userOrders", userOrders);
+		
+		return responseMap;
 	}
 
 	@Override
