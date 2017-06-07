@@ -7,7 +7,7 @@
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
 		SELECT
-		    B.id AS id,
+		    B.id AS partnerId,
 		    B.name AS partnerName,
 		    B.phoneNumber AS phoneNum,
 			(
@@ -22,7 +22,22 @@
 		WHERE
 			A.user_id = #{userId}
 			AND A.order_date = #{orderDate}
-			AND effective = '1'
+			AND A.effective = '1'
+	</select>
+	
+	<!-- 查询用户的当日合伙人下的宠物订单 -->
+	<select id="queryUserOrders"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.util.vo.UserOrdersServiceVo" >
+		SELECT
+		    A.pet_name AS pname,
+		    A.sex AS sex
+		FROM
+		    ${tableName} A
+		WHERE
+			A.partner_id = #{partnerId}
+			AND A.order_date = #{orderDate}
+			AND A.effective = '1'
 	</select>
   
 </mapper>
