@@ -47,6 +47,26 @@ public class QueryOrderController {
 		return app;
 	}
 	
+	/**
+	 * 查询合伙人首页订单
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/partnerOrderDetail", method = RequestMethod.POST)
+	public APPResponseBody partnerOrderDetail(HttpServletRequest request) {
+		
+		String partnerId = request.getParameter("partnerId");
+		
+		List<PartnerOrderVo> list = partnerOrderService.queryTodayOrderDetail(partnerId);
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData(list);
+		app.setRetnCode(0);
+		
+		return app;
+	}
 	
 	/**
 	 * 查询用户的实时名单
