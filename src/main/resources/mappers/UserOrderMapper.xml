@@ -9,8 +9,14 @@
 		SELECT
 		    B.id AS id,
 		    B.name AS partnerName,
-		    B.phoneNumber AS phoneNum
-
+		    B.phoneNumber AS phoneNum,
+			(
+				SELECT count(*)
+				FROM ${tableName} A
+				WHERE A.user_id = #{userId}
+				AND A.order_date = #{orderDate}
+				AND A.effective = '1'
+			) AS orderCount
 		FROM
 		    ${tableName} A INNER JOIN parter_info B ON A.partner_id = B.id
 		WHERE
