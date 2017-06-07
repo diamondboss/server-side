@@ -26,7 +26,7 @@
 	</select>
 
 	<!-- 查询合伙人历史订单明细  -->
-	<select id="queryTodayOrder"
+	<select id="queryTodayOrderDetail"
 			parameterType="java.util.Map"
 			resultType="com.diamondboss.util.vo.PartnerOrderVo" >
 		SELECT
