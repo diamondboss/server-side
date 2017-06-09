@@ -11,6 +11,7 @@ import com.diamondboss.order.repository.PartnerWalletDetailMapper;
 import com.diamondboss.order.repository.PartnerWalletMapper;
 import com.diamondboss.order.service.IPartnerWalletService;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.util.vo.PartnerDetailIsNullVo;
 import com.diamondboss.util.vo.PartnerWalletDetailVo;
 import com.diamondboss.util.vo.PartnerWalletVo;
 
@@ -53,14 +54,17 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		parmMap.put("tableName", tableName);
 		parmMap.put("orderDate", today);
 		
-		PartnerWalletDetailVo partnerAmountDetail = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
-		if(partnerAmountDetail.getAmount() == null){
-			partnerAmountDetail.setAmount(BigDecimal.valueOf(0));
-		}
-		
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("WalletAmount", partnerWalletVo);
-		responseMap.put("partnerAmountDetail", partnerAmountDetail);
+		
+		PartnerWalletDetailVo partnerAmountDetail = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
+		if(partnerAmountDetail == null){
+			PartnerDetailIsNullVo partnerAmountDetailOfNull = new PartnerDetailIsNullVo();
+			partnerAmountDetailOfNull.setAmount(0);
+			responseMap.put("partnerAmountDetail", partnerAmountDetailOfNull);
+		}else{
+			responseMap.put("partnerAmountDetail", partnerAmountDetail);
+		}
 		
 		return responseMap;
 		
