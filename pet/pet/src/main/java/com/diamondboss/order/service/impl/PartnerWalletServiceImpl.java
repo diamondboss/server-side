@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +54,9 @@ public class PartnerWalletServiceImpl implements IPartnerWalletService{
 		parmMap.put("orderDate", today);
 		
 		PartnerWalletDetailVo partnerAmountDetail = partnerWalletDetail.queryPartnerAmountDetails(parmMap);
+		if(partnerAmountDetail.getAmount() == null){
+			partnerAmountDetail.setAmount(BigDecimal.valueOf(0));
+		}
 		
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("WalletAmount", partnerWalletVo);
