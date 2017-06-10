@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.getui;
+package com.diamondboss.util.push.getui;
 
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;

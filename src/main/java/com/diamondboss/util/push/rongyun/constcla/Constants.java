@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.rongyun.constcla;
+package com.diamondboss.util.push.rongyun.constcla;
 
 /**
  * 

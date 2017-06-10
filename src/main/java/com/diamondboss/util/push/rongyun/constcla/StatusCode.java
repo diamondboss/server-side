@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.rongyun.constcla;
+package com.diamondboss.util.push.rongyun.constcla;
 
 public class StatusCode {
 	public static Integer SUCCESS_CODE = 200;					//请求操作成功

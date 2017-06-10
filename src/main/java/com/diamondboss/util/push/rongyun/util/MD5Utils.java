@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.rongyun.util;
+package com.diamondboss.util.push.rongyun.util;
 
 import java.net.URLEncoder;
 import java.security.MessageDigest;

@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.rongyun.core;
+package com.diamondboss.util.push.rongyun.core;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.rongyun.util;
+package com.diamondboss.util.push.rongyun.util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,9 +8,9 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.diamondboss.util.sms.rongyun.constcla.Constants;
-import com.diamondboss.util.sms.rongyun.constcla.StatusCode;
-import com.diamondboss.util.sms.rongyun.core.HttpUtils;
+import com.diamondboss.util.push.rongyun.constcla.Constants;
+import com.diamondboss.util.push.rongyun.constcla.StatusCode;
+import com.diamondboss.util.push.rongyun.core.HttpUtils;
 import com.diamondboss.util.tools.jedis.CacheFunc;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -36,7 +36,7 @@ public class SmsSenderUtils {
 	public int send(String appKey, String nonce, String Timestamp, String hash, String mobile){
 		try {
 			//url
-			String requestUrl = "http://api.sms.ronghub.com/sendCode.json";
+			String requestUrl = "http://api.push.ronghub.com/sendCode.json";
 			//手机号（参数已传）
 			//模板ID
 			//手机地区编码（86）
