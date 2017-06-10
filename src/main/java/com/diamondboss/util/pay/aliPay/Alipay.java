@@ -1,11 +1,18 @@
 package com.diamondboss.util.pay.aliPay;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 
@@ -19,6 +26,8 @@ public class Alipay {
 	private String CHARSET = "";
 	private String ALIPAY_PUBLIC_KEY = "";
 	
+	private String alipaypublicKey = "";
+	private String charset = "";
 	
 	public void orderPay(){
 		//实例化客户端
@@ -45,5 +54,31 @@ public class Alipay {
 		}
 	}
 
+	public void hehe(HttpServletRequest request){
+		//获取支付宝POST过来反馈信息
+		Map<String,String> params = new HashMap<String,String>();
+		Map requestParams = request.getParameterMap();
+		for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+		    String name = (String) iter.next();
+		    String[] values = (String[]) requestParams.get(name);
+		    String valueStr = "";
+		    for (int i = 0; i < values.length; i++) {
+		        valueStr = (i == values.length - 1) ? valueStr + values[i]
+		                    : valueStr + values[i] + ",";
+		  }
+		  //乱码解决，这段代码在出现乱码时使用。
+		  //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+		  params.put(name, valueStr);
+		 }
+		//切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
+		//boolean AlipaySignature.rsaCheckV1(Map<String, String> params, String publicKey, String charset, String sign_type)
+		try {
+			boolean flag = AlipaySignature.rsaCheckV1(params, alipaypublicKey, charset, "RSA2");
+		} catch (AlipayApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
