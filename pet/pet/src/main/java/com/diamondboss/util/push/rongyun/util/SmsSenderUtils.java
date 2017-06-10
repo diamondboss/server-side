@@ -31,12 +31,20 @@ public class SmsSenderUtils {
 	
 	@Resource(name = "cacheFunc")
 	private CacheFunc cacheFunc = null;
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+
+	/**
+	 *
+	 * @param appKey
+	 * @param nonce
+	 * @param Timestamp
+	 * @param hash
+	 * @param mobile
+	 * @return
+	 */
 	public int send(String appKey, String nonce, String Timestamp, String hash, String mobile){
 		try {
 			//url
-			String requestUrl = "http://api.push.ronghub.com/sendCode.json";
+			String requestUrl = "http://api.sms.ronghub.com/sendNotify.json";
 			//手机号（参数已传）
 			//模板ID
 			//手机地区编码（86）

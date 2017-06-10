@@ -12,10 +12,10 @@ import com.diamondboss.util.push.rongyun.util.SmsSenderUtils;
 import com.diamondboss.util.push.rongyun.util.StringTools;
 
 @Service(value="msgSendServiceImpl")
-public class MsgSendServiceImpl implements ISendMsgService {
+public class SendMsgServiceImpl implements ISendMsgService {
 	
 	// 日志记录器
-	private final static Logger logger = Logger.getLogger(MsgSendServiceImpl.class);
+	private final static Logger logger = Logger.getLogger(SendMsgServiceImpl.class);
 	
 	@Resource(name = "cacheFunc")
 	private CacheFunc cacheFunc = null;
