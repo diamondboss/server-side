@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.getui;
+package com.diamondboss.util.push.getui;
 
 import java.util.ArrayList;
 import java.util.List;

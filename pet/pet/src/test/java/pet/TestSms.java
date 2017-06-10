@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.diamondboss.util.sms.rongyun.service.impl.MsgSendService;
+import com.diamondboss.util.push.rongyun.service.impl.MsgSendServiceImpl;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)     
@@ -15,7 +15,7 @@ import com.diamondboss.util.sms.rongyun.service.impl.MsgSendService;
 public class TestSms {
 	
 	@Resource(name = "sMSSendService")
-	private MsgSendService sMSSendService = null;
+	private MsgSendServiceImpl sMSSendService = null;
 	
 	@Test 
 	public void testRedis(){

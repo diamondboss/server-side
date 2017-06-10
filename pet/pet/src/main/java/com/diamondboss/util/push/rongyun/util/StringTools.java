@@ -1,4 +1,4 @@
-package com.diamondboss.util.sms.rongyun.util;
+package com.diamondboss.util.push.rongyun.util;
 
 import java.util.Random;
 import java.util.regex.Matcher;

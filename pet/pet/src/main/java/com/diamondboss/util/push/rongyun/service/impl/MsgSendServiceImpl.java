@@ -1,21 +1,21 @@
-package com.diamondboss.util.sms.rongyun.service.impl;
+package com.diamondboss.util.push.rongyun.service.impl;
 
 import javax.annotation.Resource;
 
+import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.diamondboss.util.tools.jedis.CacheFunc;
-import com.diamondboss.util.sms.rongyun.constcla.StatusCode;
-import com.diamondboss.util.sms.rongyun.service.ISmsSendMsg;
-import com.diamondboss.util.sms.rongyun.util.SmsSenderUtils;
-import com.diamondboss.util.sms.rongyun.util.StringTools;
+import com.diamondboss.util.push.rongyun.constcla.StatusCode;
+import com.diamondboss.util.push.rongyun.util.SmsSenderUtils;
+import com.diamondboss.util.push.rongyun.util.StringTools;
 
-@Service(value="sMSSendService")
-public class MsgSendService implements ISmsSendMsg {
+@Service(value="msgSendServiceImpl")
+public class MsgSendServiceImpl implements ISendMsgService {
 	
 	// 日志记录器
-	private final static Logger logger = Logger.getLogger(MsgSendService.class);
+	private final static Logger logger = Logger.getLogger(MsgSendServiceImpl.class);
 	
 	@Resource(name = "cacheFunc")
 	private CacheFunc cacheFunc = null;

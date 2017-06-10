@@ -1,16 +1,16 @@
-package com.diamondboss.util.sms.rongyun.service;
+package com.diamondboss.util.push.rongyun.service;
 
 
 /**
  * 
  * All rights Reserved, Designed By alsfox.com   
- * @ClassName:  ISmsSendMsg   
+ * @ClassName:  ISendMsgService
  * @Description:TODO(发送短信通道接口)   
  * @author: Lynn  
  * @date:   2016-12-24 下午2:44:37   
  *
  */
-public interface ISmsSendMsg {
+public interface ISendMsgService {
 
 	/**
 	 * 
