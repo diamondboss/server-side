@@ -200,7 +200,7 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		}
 		
 		// 如果插入失败,则查询该订单，分支判断
-		if(!(insertResult > 0)){
+		if(!(insertResult < 0)){
 			
 		}
 		
