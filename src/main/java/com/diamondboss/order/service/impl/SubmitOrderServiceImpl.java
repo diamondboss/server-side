@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.ParterInfoMapper;
+import com.diamondboss.util.pojo.OrderUserPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.tools.UUIDUtil;
@@ -168,18 +169,40 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 	 * @param param
 	 */
 	public void submitOrder(Object param){
-		
-		// 检查登录表是否有未接单的订单,如果有，提示用户
-		
 		// 检查小区宠物总数
 		if(cheakCommunityOrderNum("")){
 			return; 
 		}
 		
 		// 插入订单（用户）表
+		OrderUserPojo orderUser = new OrderUserPojo();
+		/*orderUser.setId();
+		orderUser.setReceiveTime(receiveTime);
+		orderUser.setReturnTime(returnTime);
+		orderUser.setPetName(petName);
+		orderUser.setSex(sex);
+		orderUser.setAge(age);
+		orderUser.setPhone(phone);
+		orderUser.setUserName(userName);
+		orderUser.setRemark(remark);
+		orderUser.userId();
+		orderUser.partnerId();
+		orderUser.setOrderDate(orderDate);
+		orderUser.setOrderStatus(orderStatus);
+		orderUser.setAmt(amt);
+		orderUser.setOrderUser(orderUser);*/
+		
+		int insertResult = 0;
+		try{
+			insertResult = submitOrderMapper.insertOrderUser(orderUser);
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		// 如果插入失败,则查询该订单，分支判断
-		
+		if(!(insertResult > 0)){
+			
+		}
 		
 		// 检查小区宠物总数
 		if(cheakCommunityOrderNum("")){
@@ -194,12 +217,10 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 	 * @param userId
 	 * @return false-允许下单/true-宠物已满不允许下单
 	 */
-	private final static Boolean cheakCommunityOrderNum(String userId){
-		
-		// 根据用户id查询该小区id
+	private Boolean cheakCommunityOrderNum(String community){
 		
 		// 根据小区id查询合伙人表获取小区宠物饲养上限
-		int total = 5;
+		int total = submitOrderMapper.queryTotalByCommunityId(community);
 		
 		// 根据小区id查询用户表获取小区目前订单数量
 		int num = 3;// TODO
@@ -231,7 +252,7 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		List partnerList = getPartnerList("");
 		
 		if(partnerList == null || partnerList.size() ==0){
-			// 不做处理等待轮询
+			// 不做处理等待轮询5
 		}
 		
 		
