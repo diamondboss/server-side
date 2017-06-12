@@ -96,7 +96,7 @@
 		parameterType="com.diamondboss.util.pojo.OrderUserPojo">
 		INSERT
 		INTO
-		    order_user_1
+		    ${orderUser}
 		    (
 		        pet_name,
 		        sex,
@@ -124,8 +124,36 @@
 		    );
 	</insert>
 
+	<!-- 根据小区id查询合伙人表获取小区宠物饲养上限  -->
+	<select id="queryTotalByCommunityId"
+		parameterType="java.lang.String"
+		resultType="java.lang.Integer" >
+		SELECT 
+			SUM(raiseNumber) 
+		FROM 
+			parter_info 
+		WHERE 
+			community_id = #{communityId}
+			AND effective = '1'
+	</select>
 
-
+	<!-- 更新订单（用户）表  -->
+	<update id="updateOrderUser"
+		parameterType="com.diamondboss.util.pojo.OrderUserPojo">
+		UPDATE
+		    ${orderUser}
+		SET
+		    user_id = #{userId},
+		    order_status = #{orderStatus}
+		WHERE
+		    id = #{id};
+	</update>
+	
+	<!-- 更新用户登录表(下单时间、下单数量、下单数量+1)  -->
+	<update id="updateUserLogin">
+		
+	
+	</update>
 	
 	<!-- john end -->
 	
