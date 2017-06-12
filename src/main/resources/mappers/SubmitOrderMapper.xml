@@ -88,4 +88,45 @@
 		AND effctive = '1'
 	</select>
 
+
+	<!-- john begin -->
+	
+	<!-- 插入订单（用户）表  -->
+	<insert id="insertOrderUser"
+		parameterType="com.diamondboss.util.pojo.OrderUserPojo">
+		INSERT
+		INTO
+		    order_user_1
+		    (
+		        pet_name,
+		        sex,
+		        age,
+		        phone,
+		        user_name,
+		        remark,
+		        order_date,
+		        order_status,
+		        amt,
+		        effective,
+		    )
+		    VALUES
+		    (
+		        #{petName},
+		        #{sex},
+		        #{age},
+		        #{phone},
+		        #{userName},
+		        #{remark},
+		        #{orderDate},
+		        #{orderStatus},
+		        #{amt},
+		        '1'
+		    );
+	</insert>
+
+
+
+	
+	<!-- john end -->
+	
 </mapper>
