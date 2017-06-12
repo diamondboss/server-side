@@ -53,4 +53,39 @@ public interface SubmitOrderMapper {
 	 * @return
 	 */
 	int updateUserOrder(Map<String, Object> map);
+	
+	/********************************************************/
+	/********************************************************/
+	/********************************************************/
+	/********************************************************/
+	/********************************************************/
+	
+	/**
+	 * 检查登录表是否有未接单的订单
+	 * @param userId 用户id
+	 * @return int 记录数量
+	 */
+	public int cheakUserLogin(String userId);
+	
+	/**
+	 * 插入订单（用户）表
+	 */
+	public int insertOrderUser();
+	
+	/**
+	 * 根据小区id查询合伙人表获取小区宠物饲养上限
+	 */
+	public int queryTotalByCommunityId(String community);
+	
+	/**
+	 * 更新用户登录表(下单时间、下单数量、下单数量+1)
+	 * @param userId
+	 */
+	public void updateUserLogin(String userId);
+	
+	/**
+	 * 更新订单表
+	 */
+	public int uodateOrderUser();
+	
 }
