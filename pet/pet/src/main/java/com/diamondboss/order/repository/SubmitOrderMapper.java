@@ -85,7 +85,7 @@ public interface SubmitOrderMapper {
 	 * 更新用户登录表(下单时间、下单数量、下单数量+1)
 	 * @param userId
 	 */
-	public void updateUserLogin(String userId);
+	public void updateUserLogin(Map<String, Object> map);
 	
 	/**
 	 * 更新订单（用户）表
