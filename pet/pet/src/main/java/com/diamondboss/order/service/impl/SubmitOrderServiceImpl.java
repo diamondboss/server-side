@@ -7,11 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.ParterInfoMapper;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.util.tools.UUIDUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +64,6 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		}
 
 		// 2、查询该小区符合条件的社区合伙人
-		//TODO 小区id
 		String commId = "3000004";
 		List<ParterInfoPojo> partnerList = getPartnerList(commId);
 
@@ -82,7 +84,6 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		String partnerTableName = TableUtils.getOrderTableName(partnerId, PetConstants.ORDER_PARTNER_TABLE_PREFIX);
 		String userTableName = TableUtils.getOrderTableName(partnerId, PetConstants.ORDER_USER_TABLE_PREFIX);
 		Map<String, Object> params = new HashMap<>();
-		// TODO 前端传过来的订单信息参数
 		params.put("tableName", partnerTableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", LocalDate.now());
@@ -94,7 +95,6 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		// 5、再查询该合伙人是否超过订单数量,如果超过则将该订单置为无效
 		if(!checkOrderCountsOfPartner(partnerId,maxRaise)){
 			Map<String, Object> updateParams = new HashMap<>();
-			// TODO 确定订单信息的参数
 			updateParams.put("tableName", partnerTableName);
 			updateParams.put("effective", "1");
 //			updateParams.put("userId", userId);
@@ -152,13 +152,112 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		return counts < Integer.valueOf(riseNo) ? true : false;
 	}
 
-
-	// 根据小区筛选黑名单
-	private void blacklist(){
-		
-	}
-
 	public List queryOrderTotal(){
 		return null;
 	}
+	
+	/********************************************************/
+	/********************************************************/
+	/********************************************************/
+	/********************************************************/
+	/********************************************************/
+	
+	// TODO
+	/**
+	 * 用户下单
+	 * @param param
+	 */
+	public void submitOrder(Object param){
+		
+		// 检查登录表是否有未接单的订单,如果有，提示用户
+		
+		// 检查小区宠物总数
+		if(cheakCommunityOrderNum("")){
+			return; 
+		}
+		
+		// 插入订单（用户）表
+		
+		// 如果插入失败,则查询该订单，分支判断
+		
+		
+		// 检查小区宠物总数
+		if(cheakCommunityOrderNum("")){
+			return; 
+		}
+		
+		return;// 调用支付
+	}
+	
+	/**
+	 * 检查小区宠物的总数
+	 * @param userId
+	 * @return false-允许下单/true-宠物已满不允许下单
+	 */
+	private final static Boolean cheakCommunityOrderNum(String userId){
+		
+		// 根据用户id查询该小区id
+		
+		// 根据小区id查询合伙人表获取小区宠物饲养上限
+		int total = 5;
+		
+		// 根据小区id查询用户表获取小区目前订单数量
+		int num = 3;// TODO
+		
+		if(num < total){
+			return false;
+		}
+		
+		return true;
+		
+		
+	}
+	
+	/**
+	 * 付款完成更新订单
+	 * @param param
+	 */
+	public void paymentUpdateOrder(Object param){
+		
+		String outTradeNo = "123";
+		
+		Map<String, Object> map = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+		
+		// 更新用户登录表(下单时间、下单数量、下单数量+1)
+		
+		// 更新订单表
+		
+		// 检查合适的合伙人
+		List partnerList = getPartnerList("");
+		
+		if(partnerList == null || partnerList.size() ==0){
+			// 不做处理等待轮询
+		}
+		
+		
+		// 推送对应合伙人
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
