@@ -150,9 +150,17 @@
 	</update>
 	
 	<!-- 更新用户登录表(下单时间、下单数量、下单数量+1)  -->
-	<update id="updateUserLogin">
-		
-	
+	<update id="updateUserLogin"
+		parameterType="java.util.Map">
+		UPDATE
+		    user_login_info
+		SET
+		    order_time = #{orderTime},
+		    order_num = orderNum + 1,
+		    order_total = orderTotal + 1 
+		WHERE
+		    id = #{id}
+		    AND effective = '1'
 	</update>
 	
 	<!-- john end -->
