@@ -3,6 +3,8 @@ package com.diamondboss.order.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.diamondboss.util.pojo.OrderUserPojo;
+
 public interface SubmitOrderMapper {
 
 	/**
@@ -60,17 +62,19 @@ public interface SubmitOrderMapper {
 	/********************************************************/
 	/********************************************************/
 	
-	/**
-	 * 检查登录表是否有未接单的订单
-	 * @param userId 用户id
-	 * @return int 记录数量
-	 */
-	public int cheakUserLogin(String userId);
+	// TODO
+	
+//	/**
+//	 * 检查登录表是否有未接单的订单
+//	 * @param userId 用户id
+//	 * @return int 记录数量
+//	 */
+//	public int cheakUserLogin(String userId);
 	
 	/**
 	 * 插入订单（用户）表
 	 */
-	public int insertOrderUser();
+	public int insertOrderUser(OrderUserPojo pojo);
 	
 	/**
 	 * 根据小区id查询合伙人表获取小区宠物饲养上限
@@ -84,8 +88,8 @@ public interface SubmitOrderMapper {
 	public void updateUserLogin(String userId);
 	
 	/**
-	 * 更新订单表
+	 * 更新订单（用户）表
 	 */
-	public int uodateOrderUser();
+	public int updateOrderUser(OrderUserPojo pojo);
 	
 }
