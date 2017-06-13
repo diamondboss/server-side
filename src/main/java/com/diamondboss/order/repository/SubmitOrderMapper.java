@@ -79,7 +79,7 @@ public interface SubmitOrderMapper {
 	/**
 	 * 根据小区id查询合伙人表获取小区宠物饲养上限
 	 */
-	public int queryTotalByCommunityId(String community);
+	public int queryTotalByCommunityId(String communityId);
 	
 	/**
 	 * 更新用户登录表(下单时间、下单数量、下单数量+1)
