@@ -175,34 +175,18 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		}
 		
 		// 插入订单（用户）表
-		OrderUserPojo orderUser = new OrderUserPojo();
-		/*orderUser.setId();
-		orderUser.setReceiveTime(receiveTime);
-		orderUser.setReturnTime(returnTime);
-		orderUser.setPetName(petName);
-		orderUser.setSex(sex);
-		orderUser.setAge(age);
-		orderUser.setPhone(phone);
-		orderUser.setUserName(userName);
-		orderUser.setRemark(remark);
-		orderUser.userId();
-		orderUser.partnerId();
-		orderUser.setOrderDate(orderDate);
-		orderUser.setOrderStatus(orderStatus);
-		orderUser.setAmt(amt);
-		orderUser.setOrderUser(orderUser);*/
+		OrderUserPojo orderUser  = this.creatOrderUserPojo(param);
 		
 		int insertResult = 0;
 		try{
 			insertResult = submitOrderMapper.insertOrderUser(orderUser);
 		}catch (Exception e) {
-			// TODO: handle exception
+			// 如果插入失败,则查询该订单，分支判断
+			if(!(insertResult < 0)){
+				
+			}
 		}
 		
-		// 如果插入失败,则查询该订单，分支判断
-		if(!(insertResult < 0)){
-			
-		}
 		
 		// 检查小区宠物总数
 		if(cheakCommunityOrderNum("")){
@@ -229,9 +213,32 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 			return false;
 		}
 		
-		return true;
+		return true;		
+	}
+	
+	/**
+	 * 创建用户订单的POJO
+	 * @return
+	 */
+	private OrderUserPojo creatOrderUserPojo(Object param){
+		OrderUserPojo orderUser = new OrderUserPojo();
+		/*orderUser.setId();
+		orderUser.setReceiveTime(receiveTime);
+		orderUser.setReturnTime(returnTime);
+		orderUser.setPetName(petName);
+		orderUser.setSex(sex);
+		orderUser.setAge(age);
+		orderUser.setPhone(phone);
+		orderUser.setUserName(userName);
+		orderUser.setRemark(remark);
+		orderUser.userId();
+		orderUser.partnerId();
+		orderUser.setOrderDate(orderDate);
+		orderUser.setOrderStatus(orderStatus);
+		orderUser.setAmt(amt);
+		orderUser.setOrderUser(orderUser);*/
 		
-		
+		return orderUser;
 	}
 	
 	/**
@@ -245,20 +252,16 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		Map<String, Object> map = UUIDUtil.getInfoFromTradeNo(outTradeNo);
 		
 		// 更新用户登录表(下单时间、下单数量、下单数量+1)
-		
+		//submitOrderMapper.updateUserLogin(userId);
 		// 更新订单表
-		
+		submitOrderMapper.updateUserOrder(map);
 		// 检查合适的合伙人
 		List partnerList = getPartnerList("");
 		
 		if(partnerList == null || partnerList.size() ==0){
 			// 不做处理等待轮询5
 		}
-		
-		
 		// 推送对应合伙人
-		
-		
 	}
 	
 	
