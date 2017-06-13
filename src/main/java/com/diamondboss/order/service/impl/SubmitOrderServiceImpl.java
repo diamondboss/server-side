@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -170,7 +171,7 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 	 */
 	public void submitOrder(Object param){
 		// 检查小区宠物总数
-		if(cheakCommunityOrderNum("")){
+		if(cheakCommunityOrderNum("3000003")){
 			return; 
 		}
 		
@@ -189,10 +190,9 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		
 		
 		// 检查小区宠物总数
-		if(cheakCommunityOrderNum("")){
+		if(cheakCommunityOrderNum("3000003")){
 			return; 
-		}
-		
+		}		
 		return;// 调用支付
 	}
 	
@@ -201,10 +201,10 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 	 * @param userId
 	 * @return false-允许下单/true-宠物已满不允许下单
 	 */
-	private Boolean cheakCommunityOrderNum(String community){
+	private Boolean cheakCommunityOrderNum(String communityId){
 		
 		// 根据小区id查询合伙人表获取小区宠物饲养上限
-		int total = submitOrderMapper.queryTotalByCommunityId(community);
+		int total = submitOrderMapper.queryTotalByCommunityId(communityId);
 		
 		// 根据小区id查询用户表获取小区目前订单数量
 		int num = 3;// TODO
@@ -265,11 +265,26 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 	}
 	
 	
-	
-	
-	
-	
-	
+	public static void main(String[] args) {
+		OrderUserPojo orderUser = new OrderUserPojo();
+		orderUser.setReceiveTime("09:00");
+		orderUser.setReturnTime("19:30");
+		orderUser.setPetName("祁大");
+		orderUser.setSex(1);
+		orderUser.setAge(2);
+		orderUser.setPhone("15026795750");
+		orderUser.setUserName("薛志方");
+		orderUser.setRemark("爱闹");
+		orderUser.setUserId(4);
+		orderUser.setPartnerId(23);
+		orderUser.setOrderDate("2016-06-13");
+		orderUser.setOrderStatus("1");
+		orderUser.setAmt(new BigDecimal("20"));
+		orderUser.setOrderUser("order_user_1");
+		
+		SubmitOrderServiceImpl SubmitOrder = new SubmitOrderServiceImpl();
+		SubmitOrder.submitOrder(orderUser);
+	}
 	
 	
 	
