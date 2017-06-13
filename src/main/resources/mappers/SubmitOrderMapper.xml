@@ -98,25 +98,33 @@
 		INTO
 		    ${orderUser}
 		    (
+		        receive_time,
+		        return_time,
 		        pet_name,
 		        sex,
 		        age,
 		        phone,
 		        user_name,
 		        remark,
+		        user_id,
+		        partner_id,
 		        order_date,
 		        order_status,
 		        amt,
-		        effective,
+		        effective
 		    )
 		    VALUES
 		    (
+		    	#{receiveTime},
+		    	#{returnTime},
 		        #{petName},
 		        #{sex},
 		        #{age},
 		        #{phone},
 		        #{userName},
 		        #{remark},
+		        "",
+		        "",
 		        #{orderDate},
 		        #{orderStatus},
 		        #{amt},
