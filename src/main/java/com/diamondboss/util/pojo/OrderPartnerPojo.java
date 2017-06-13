@@ -7,7 +7,7 @@ public class OrderPartnerPojo {
 	/**
 	 * 主键id
 	 */
-	public int id;
+	public String id;
 	
 	/**
 	 * 宠物接收时间
@@ -52,12 +52,12 @@ public class OrderPartnerPojo {
 	/**
 	 * 用户id
 	 */
-	public int userId;
+	public String userId;
 	
 	/**
 	 * 合伙人id
 	 */
-	public int partnerId;
+	public String partnerId;
 	
 	/**
 	 * 订单日期
@@ -89,7 +89,7 @@ public class OrderPartnerPojo {
 	 * 主键id
 	 * @return
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -97,7 +97,7 @@ public class OrderPartnerPojo {
 	 * 主键id
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -233,7 +233,7 @@ public class OrderPartnerPojo {
 	 * 用户id
 	 * @return
 	 */
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
@@ -241,7 +241,7 @@ public class OrderPartnerPojo {
 	 * 用户id
 	 * @param userId
 	 */
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -249,7 +249,7 @@ public class OrderPartnerPojo {
 	 * 合伙人id
 	 * @return
 	 */
-	public int getPartnerId() {
+	public String getPartnerId() {
 		return partnerId;
 	}
 
@@ -257,7 +257,7 @@ public class OrderPartnerPojo {
 	 * 合伙人id
 	 * @param partnerId
 	 */
-	public void setPartnerId(int partnerId) {
+	public void setPartnerId(String partnerId) {
 		this.partnerId = partnerId;
 	}
 
