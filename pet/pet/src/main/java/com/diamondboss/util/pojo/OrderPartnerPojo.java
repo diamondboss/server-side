@@ -2,7 +2,7 @@ package com.diamondboss.util.pojo;
 
 import java.math.BigDecimal;
 
-public class OrderUserPojo {
+public class OrderPartnerPojo {
 
 	/**
 	 * 主键id
@@ -79,6 +79,12 @@ public class OrderUserPojo {
 	 */
 	public String orderUser;
 
+	/**
+	 * 对应合伙人表名(非字段)
+	 */
+	public String orderPartner;
+	
+	
 	/**
 	 * 主键id
 	 * @return
@@ -257,7 +263,6 @@ public class OrderUserPojo {
 
 	/**
 	 * 订单日期
-
 	 * @return
 	 */
 	public String getOrderDate() {
@@ -319,4 +324,21 @@ public class OrderUserPojo {
 	public void setOrderUser(String orderUser) {
 		this.orderUser = orderUser;
 	}
+
+	/**
+	 * 对应合伙人表名(非字段)
+	 * @return
+	 */
+	public String getOrderPartner() {
+		return orderPartner;
+	}
+
+	/**
+	 * 对应合伙人表名(非字段)
+	 * @param orderPartner
+	 */
+	public void setOrderPartner(String orderPartner) {
+		this.orderPartner = orderPartner;
+	}
+	
 }
