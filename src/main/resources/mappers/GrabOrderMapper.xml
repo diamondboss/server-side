@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.order.repository.GrabOrderMapper" >
+
+	<!-- 更新用户登录表 -->
+	<update id="updateUserLogin"
+		parameterType="java.lang.String">
+		UPDATE
+		    user_login_info
+		SET
+		    order_num = order_num - 1 
+		WHERE
+		    id = #{id}
+		    AND effective = '1'
+	</update>
+
+	<!-- 更新用户订单表  -->
+	<update id="updateOrderUser" 
+		parameterMap="com.diamondboss.util.pojo.OrderUserPojo">
+		UPDATE
+		    ${orderUser}
+		SET
+		    user_id =  #{userId},
+		    partner_id = #{partnerId},
+		    order_status = #{orderStatus}
+		WHERE
+		    id = #{id}
+		    AND  effective =  '1'
+	</update>
+
+	<insert id="insertOrderPartner"
+		parameterType="com.diamondboss.util.pojo.OrderPartnerPojo">
+		INSERT
+		INTO
+		    ${orderPartner}
+		    (
+		        pet_name,
+		        sex,
+		        age,
+		        phone,
+		        user_name,
+		        remark,
+		        user_id,
+		        partner_id,
+		        order_date,
+		        order_status,
+		        amt,
+		        effective,
+		    )
+		SELECT
+		    pet_name,
+		    sex,
+		    age,
+		    phone,
+		    user_name,
+		    remark,
+		    user_id,
+		    partner_id,
+		    order_date,
+		    order_status,
+		    amt,
+		    effective
+		FROM
+		    ${orderUser}
+		WHERE
+			id = #{id}
+	</insert>
+
+
+
+
+
+</mapper>
