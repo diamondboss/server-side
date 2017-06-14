@@ -22,25 +22,33 @@ public class HttpUtils {
      * @author zfxue
      * @param params  参数
      * @param requestUrl 请求地址
+     * @param isVerify 是否是验证：false-发短信，true-验证
      * @return 返回结果
      * @throws IOException
      */
-    public static String sendPost(Map params, String requestUrl/*,
-            String authorization*/) throws IOException {
+    public static String sendPost(Map params, String requestUrl, Boolean isVerify) throws IOException {
+        byte[] requestBytes;
+        if (isVerify){
+            byte[] params1 = ((String) params.get("mobile")).getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params2 = ((String) params.get("templateId")).getBytes("utf-8"); // 将参数转为二进制流
 
-        byte[] params1 = ((String) params.get("mobile")).getBytes("utf-8"); // 将参数转为二进制流
-        byte[] params2 = "001".getBytes("utf-8"); // 将参数转为二进制流
-        byte[] params3 = "86".getBytes("utf-8"); // 将参数转为二进制流
-        
-        byte[] requestBytes = new byte[params1.length + params2.length + params3.length];  
-        System.arraycopy(params1, 0, requestBytes, 0, params1.length);  
-        System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
-        System.arraycopy(params3, 0, requestBytes, params2.length, params3.length);
+            requestBytes = new byte[params1.length + params2.length];
+            System.arraycopy(params1, 0, requestBytes, 0, params1.length);
+            System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
+        } else {
+            byte[] params1 = ((String) params.get("mobile")).getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params2 = ((String) params.get("templateId")).getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params3 = ((String) params.get("region")).getBytes("utf-8"); // 将参数转为二进制流
+
+            requestBytes = new byte[params1.length + params2.length + params3.length];
+            System.arraycopy(params1, 0, requestBytes, 0, params1.length);
+            System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
+            System.arraycopy(params3, 0, requestBytes, params2.length, params3.length);
+        }
+
         
         HttpClient httpClient = new HttpClient();// 客户端实例化
         PostMethod postMethod = new PostMethod(requestUrl);
-        //设置请求头Authorization
-        //postMethod.setRequestHeader("Authorization", "Basic " + authorization);
         // 设置请求头  Content-Type
         postMethod.setRequestHeader("Content-Type", "application/json");
         
@@ -49,7 +57,7 @@ public class HttpUtils {
         //设置请求头Nonce
         postMethod.setRequestHeader("Nonce", (String) params.get("nonce"));
         //设置请求头Timestamp
-        postMethod.setRequestHeader("Timestamp", (String) params.get("Timestamp"));
+        postMethod.setRequestHeader("Timestamp", (String) params.get("timestamp"));
         //设置请求头Signature
         postMethod.setRequestHeader("Signature", (String) params.get("hash"));
         
@@ -67,9 +75,6 @@ public class HttpUtils {
             e.printStackTrace();
         }
         String result = new String(datas, "UTF-8");// 将二进制流转为String
-        // 打印返回结果
-        System.out.println(result);
-
         return result;
 
     }
