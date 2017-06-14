@@ -1,6 +1,8 @@
 package com.diamondboss.util.push.rongyun.service;
 
 
+import com.diamondboss.util.pojo.SmsReturnInfo;
+
 /**
  * 
  * All rights Reserved, Designed By alsfox.com   
@@ -14,11 +16,30 @@ public interface ISendMsgService {
 
 	/**
 	 * 
-	 * @Title: sendMsg   
-	 * @Description: TODO(短信发送方法，phone为短信接收人手机号)   
+	 * @Title: sendVerifyMsg
+	 * @Description: 验证码短信发送方法，phone为短信接收人手机号
 	 * @param:      
 	 * @throws
 	 */
-	public int sendMsg(String phone);
+	public SmsReturnInfo sendVerifyMsg(String phone);
+
+	/**
+	 *
+	 * @Title: verifyCode
+	 * @Description: 验证验证码方法
+	 * @param: sessionId 回话id
+	 * @param: code 验证码
+	 * @throws
+	 */
+	public SmsReturnInfo verifyCode(String sessionId, String code);
+
+	/**
+	 *
+	 * @Title: sendNotifyMsg
+	 * @Description: 通知类短信发送方法，phone为短信接收人手机号
+	 * @param:
+	 * @throws
+	 */
+	public SmsReturnInfo sendNotifyMsg(String phone);
 	
 }
