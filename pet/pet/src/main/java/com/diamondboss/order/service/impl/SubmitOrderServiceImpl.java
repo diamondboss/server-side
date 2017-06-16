@@ -222,21 +222,20 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 	 */
 	private OrderUserPojo creatOrderUserPojo(Object param){
 		OrderUserPojo orderUser = new OrderUserPojo();
-		/*orderUser.setId();
-		orderUser.setReceiveTime(receiveTime);
-		orderUser.setReturnTime(returnTime);
-		orderUser.setPetName(petName);
-		orderUser.setSex(sex);
-		orderUser.setAge(age);
-		orderUser.setPhone(phone);
-		orderUser.setUserName(userName);
-		orderUser.setRemark(remark);
-		orderUser.userId();
-		orderUser.partnerId();
-		orderUser.setOrderDate(orderDate);
-		orderUser.setOrderStatus(orderStatus);
-		orderUser.setAmt(amt);
-		orderUser.setOrderUser(orderUser);*/
+		orderUser.setReceiveTime("09:00");
+		orderUser.setReturnTime("19:30");
+		orderUser.setPetName("John");
+		orderUser.setSex(1);
+		orderUser.setAge(2);
+		orderUser.setPhone("15026795750");
+		orderUser.setUserName("薛志方");
+		orderUser.setRemark("爱闹");
+		orderUser.setUserId("4");
+		orderUser.setPartnerId("23");
+		orderUser.setOrderDate("2016-06-13");
+		orderUser.setOrderStatus("1");
+		orderUser.setAmt(new BigDecimal("20"));
+		orderUser.setOrderUser("order_user_1");
 		
 		return orderUser;
 	}
@@ -275,8 +274,8 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		orderUser.setPhone("15026795750");
 		orderUser.setUserName("薛志方");
 		orderUser.setRemark("爱闹");
-		orderUser.setUserId(4);
-		orderUser.setPartnerId(23);
+		orderUser.setUserId("4");
+		orderUser.setPartnerId("23");
 		orderUser.setOrderDate("2016-06-13");
 		orderUser.setOrderStatus("1");
 		orderUser.setAmt(new BigDecimal("20"));
