@@ -42,9 +42,9 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		}
 		
 		OrderPartnerPojo partnerPojo = new OrderPartnerPojo();
+		partnerPojo.setOrderUser(userTableId);
+		partnerPojo.setOrderPartner(partnerTableId);
 		partnerPojo.setId(orderUserId);
-		
-		
 		
 		// 插入合伙人表
 		grabOrder.insertOrderPartner(partnerPojo);
