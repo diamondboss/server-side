@@ -49,7 +49,7 @@ public class SmsSenderUtils {
 			params.put("timestamp", timestamp);
 			params.put("hash", hash);
 
-			params.put("region", 86);
+			params.put("region", "86");
 			params.put("mobile", mobile);
 			params.put("templateId", templateId);
 

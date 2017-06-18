@@ -29,28 +29,28 @@ public class HttpUtils {
     public static String sendPost(Map params, String requestUrl, Boolean isVerify) throws IOException {
         byte[] requestBytes;
         if (isVerify){
-            byte[] params1 = ((String) params.get("mobile")).getBytes("utf-8"); // 将参数转为二进制流
-            byte[] params2 = ((String) params.get("templateId")).getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params1 = ("sessionId=" + params.get("sessionId") + "&").getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params2 = ("code=" + params.get("code")).getBytes("utf-8"); // 将参数转为二进制流
 
             requestBytes = new byte[params1.length + params2.length];
             System.arraycopy(params1, 0, requestBytes, 0, params1.length);
             System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
         } else {
-            byte[] params1 = ((String) params.get("mobile")).getBytes("utf-8"); // 将参数转为二进制流
-            byte[] params2 = ((String) params.get("templateId")).getBytes("utf-8"); // 将参数转为二进制流
-            byte[] params3 = ((String) params.get("region")).getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params1 = ("mobile=" + params.get("mobile") + "&").getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params2 = ("templateId=" + params.get("templateId") + "&").getBytes("utf-8"); // 将参数转为二进制流
+            byte[] params3 = ("region=" + params.get("region")).getBytes("utf-8"); // 将参数转为二进制流
 
             requestBytes = new byte[params1.length + params2.length + params3.length];
             System.arraycopy(params1, 0, requestBytes, 0, params1.length);
             System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
-            System.arraycopy(params3, 0, requestBytes, params2.length, params3.length);
+            System.arraycopy(params3, 0, requestBytes, params1.length+params2.length, params3.length);
         }
 
         
         HttpClient httpClient = new HttpClient();// 客户端实例化
         PostMethod postMethod = new PostMethod(requestUrl);
         // 设置请求头  Content-Type
-        postMethod.setRequestHeader("Content-Type", "application/json");
+        postMethod.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         
         //设置请求头App-Key
         postMethod.setRequestHeader("App-Key", (String) params.get("appKey"));
@@ -64,7 +64,7 @@ public class HttpUtils {
         InputStream inputStream = new ByteArrayInputStream(requestBytes, 0,
                 requestBytes.length);
         RequestEntity requestEntity = new InputStreamRequestEntity(inputStream,
-                requestBytes.length, "application/json; charset=utf-8"); // 请求体
+                requestBytes.length, "application/x-www-form-urlencoded"); // 请求体
         postMethod.setRequestEntity(requestEntity);
         httpClient.executeMethod(postMethod);// 执行请求
         InputStream soapResponseStream = postMethod.getResponseBodyAsStream();// 获取返回的流
