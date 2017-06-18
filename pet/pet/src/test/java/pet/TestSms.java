@@ -14,11 +14,23 @@ import com.diamondboss.util.push.rongyun.service.impl.SendMsgServiceImpl;
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"}) 
 public class TestSms {
 	
-	@Resource(name = "sMSSendService")
+	@Resource(name = "msgSendServiceImpl")
 	private SendMsgServiceImpl sMSSendService = null;
 	
 	@Test 
-	public void testRedis(){
-		sMSSendService.sendMsg("15026842350");
+	public void testSendVerifyMsg(){
+		sMSSendService.sendVerifyMsg("18701997602");
 	}
+
+	@Test
+	public void testSendNotifyMsg(){
+		sMSSendService.sendNotifyMsg("18701997602");
+	}
+
+
+	@Test
+	public void testVerifyCode(){
+		sMSSendService.verifyCode("1314","254732");
+	}
+
 }
