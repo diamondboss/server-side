@@ -16,7 +16,7 @@
 
 	<!-- 更新用户订单表  -->
 	<update id="updateOrderUser" 
-		parameterType="com.diamondboss.util.pojo.OrderUserPojo">
+		parameterMap="com.diamondboss.util.pojo.OrderUserPojo">
 		UPDATE
 		    ${orderUser}
 		SET
@@ -28,6 +28,7 @@
 		    AND  effective =  '1'
 	</update>
 
+	<!-- 更新合伙人订单表  -->
 	<insert id="insertOrderPartner"
 		parameterType="com.diamondboss.util.pojo.OrderPartnerPojo">
 		INSERT
@@ -66,8 +67,32 @@
 			id = #{id}
 	</insert>
 
+	<!-- 查询合伙人能容纳数量  -->
+	<select id="querySelfOrdertotal"
+		parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		SELECT 
+			raiseNumber 
+		FROM 
+			parter_info 
+		WHERE 
+			id = #{id}
+	</select>
 
-
+	<!-- 查询合伙人接单数量 -->
+	<select id="querySelfOrderNum"
+		parameterType = "java.util.Map" 
+		resultType = "java.lang.Integer">
+		SELECT
+		    COUNT(1) 
+		FROM
+		    ${orderPartner}
+		WHERE
+		    partner_id = #{partnerId}
+		    AND order_date = #{orderDate}
+		    AND order_status = #{orderStatus}
+		    AND effective = #{effective}
+	</select>
 
 
 </mapper>
