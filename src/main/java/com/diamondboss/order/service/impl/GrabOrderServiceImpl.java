@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.service.IGrabOrderService;
+import com.diamondboss.util.bo.GrabOrderBo;
 import com.diamondboss.util.pojo.OrderPartnerPojo;
 import com.diamondboss.util.pojo.OrderUserPojo;
 
@@ -13,7 +14,7 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	private GrabOrderMapper grabOrder;
 	
 	@Override
-	public void grabOrder(){
+	public void grabOrder(GrabOrderBo bo){
 		
 		String date = "";
 		String partnerId = "";// APP 传入
@@ -22,8 +23,9 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		String userTableId = ""; // UUID获取
 		String partnerTableId = ""; // UUID获取
 		
+		
 		// 检查自己是否能接单
-		if(cheakSelfOrderNum(partnerId, date)){
+		if(cheakSelfOrderNum(bo.getPartnerId(), bo.getDate())){
 			return; // 接单数量已满,接单失败
 		}
 		
@@ -35,7 +37,7 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		userPojo.setOrderUser(userTableId);
 		
 		// 更新用户订单表
-		int i = grabOrder.updateOrderUser(userPojo);
+		int i = updateOrderUser(bo);
 		
 		if(i==0){
 			return;
@@ -49,7 +51,6 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		// 插入合伙人表
 		grabOrder.insertOrderPartner(partnerPojo);
 		
-		
 		// 更新用户登录表
 		grabOrder.updateUserLogin(userId);
 		
@@ -59,11 +60,10 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	
 	/**
 	 * 检查自己是否能接单
-	 * true - 接单数量已满,接单失败
-	 * false - 运行接单
+	 * 
 	 * @param partnerId 合伙人id
 	 * @param date 订单日期
-	 * @return
+	 * @return true 接单数量已满,接单失败;false 运行接单
 	 */
 	private Boolean cheakSelfOrderNum(String partnerId, String orderDate){
 		
@@ -75,10 +75,24 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		
 		if(total > num){
 			return false;
-		}
+		}     
 		
 		return true;
 		
 	}
 	
+	private int updateOrderUser(GrabOrderBo bo){
+		
+		OrderUserPojo userPojo = new OrderUserPojo();
+		userPojo.setId(bo.getOrderUserId());
+		userPojo.setPartnerId(bo.getPartnerId());
+		userPojo.setUserId(bo.getUserId());
+		userPojo.setOrderStatus("1");
+		userPojo.setOrderUser(bo.getUserTableId());
+		
+		// 更新用户订单表
+		int i = grabOrder.updateOrderUser(userPojo);
+		
+		return i;
+	}
 }
