@@ -20,7 +20,7 @@ public class TestSms {
 	@Test 
 
 	public void testSendVerifyMsg(){
-		sMSSendService.sendVerifyMsg("18701997602");
+		sMSSendService.sendVerifyMsg("18238954989");
 	}
 	
 	@Test
@@ -32,6 +32,11 @@ public class TestSms {
 	@Test
 	public void testVerifyCode(){
 		sMSSendService.verifyCode("1314","254732");
+	}
+	
+	@Test
+	public void testRYGetToken(){
+		sMSSendService.getToken("000001", "我", "http://zfxue-test.oss-cn-shanghai.aliyuncs.com/dbmap/map1.jpg");
 	}
 
 }
