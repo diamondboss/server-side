@@ -26,25 +26,34 @@ public class HttpUtils {
      * @return 返回结果
      * @throws IOException
      */
-    public static String sendPost(Map params, String requestUrl, Boolean isVerify) throws IOException {
+    public static String sendPost(Map params, String requestUrl, int flag) throws IOException {
         byte[] requestBytes;
-        if (isVerify){
+        if (flag == 1){
             byte[] params1 = ("sessionId=" + params.get("sessionId") + "&").getBytes("utf-8"); // 将参数转为二进制流
             byte[] params2 = ("code=" + params.get("code")).getBytes("utf-8"); // 将参数转为二进制流
 
             requestBytes = new byte[params1.length + params2.length];
             System.arraycopy(params1, 0, requestBytes, 0, params1.length);
-            System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
-        } else {
-            byte[] params1 = ("mobile=" + params.get("mobile") + "&").getBytes("utf-8"); // 将参数转为二进制流
-            byte[] params2 = ("templateId=" + params.get("templateId") + "&").getBytes("utf-8"); // 将参数转为二进制流
-            byte[] params3 = ("region=" + params.get("region")).getBytes("utf-8"); // 将参数转为二进制流
+			System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
+		} else if (flag == 0) {
+			byte[] params1 = ("mobile=" + params.get("mobile") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params2 = ("templateId=" + params.get("templateId") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params3 = ("region=" + params.get("region")).getBytes("utf-8"); // 将参数转为二进制流
 
-            requestBytes = new byte[params1.length + params2.length + params3.length];
-            System.arraycopy(params1, 0, requestBytes, 0, params1.length);
-            System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
-            System.arraycopy(params3, 0, requestBytes, params1.length+params2.length, params3.length);
-        }
+			requestBytes = new byte[params1.length + params2.length + params3.length];
+			System.arraycopy(params1, 0, requestBytes, 0, params1.length);
+			System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
+			System.arraycopy(params3, 0, requestBytes, params1.length + params2.length, params3.length);
+		} else {
+			byte[] params1 = ("userId=" + params.get("userId") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params2 = ("name=" + params.get("name") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params3 = ("portraitUri=" + params.get("portraitUri")).getBytes("utf-8"); // 将参数转为二进制流
+
+			requestBytes = new byte[params1.length + params2.length + params3.length];
+			System.arraycopy(params1, 0, requestBytes, 0, params1.length);
+			System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
+			System.arraycopy(params3, 0, requestBytes, params1.length + params2.length, params3.length);
+		}
 
         
         HttpClient httpClient = new HttpClient();// 客户端实例化
