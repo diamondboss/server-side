@@ -58,12 +58,12 @@ public class LoginController {
 		if(false == info.getSuccess()){
 			
 		}
+		vo = partnerLoginService.login(vo);
 		
-		vo = userLoginService.login(vo);// 查询
 		
 		if(vo == null){
 			
-			vo = partnerLoginService.login(vo);
+			vo = userLoginService.login(vo);// 查询
 			
 		}
 		
