@@ -49,7 +49,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//数据签名
 		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
-		//String strHash = String.valueOf(hash);
 
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.send(appKey, nonce, timestamp, strHash, phone, verifyTemplateId,sendVerifyUrl);
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
@@ -67,7 +66,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//数据签名
 		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
-		//String strHash = String.valueOf(hash);
 
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.verifySmsCode(appKey, nonce, timestamp, strHash, verifyUrl ,sessionId, code);
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
@@ -85,7 +83,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//数据签名
 		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
-		//String strHash = String.valueOf(hash);
 
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.send(appKey, nonce, timestamp, strHash, phone, notifyTemplateId, sendNotifyUrl);
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
@@ -103,7 +100,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		// 数据签名
 		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
-		 //= String.valueOf(hash);
 		
 		RYGetTokenReturnInfo ryGetTokenReturnInfo = SmsSenderUtils.RYGetToken(appKey, nonce, timestamp, strHash , RYGetTokenUri, userId, name, portraitUri);
 	
