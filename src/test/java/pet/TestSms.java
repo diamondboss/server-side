@@ -18,10 +18,11 @@ public class TestSms {
 	private SendMsgServiceImpl sMSSendService = null;
 	
 	@Test 
+
 	public void testSendVerifyMsg(){
 		sMSSendService.sendVerifyMsg("18701997602");
 	}
-
+	
 	@Test
 	public void testSendNotifyMsg(){
 		sMSSendService.sendNotifyMsg("18701997602");
