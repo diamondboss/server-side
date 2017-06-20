@@ -1,6 +1,7 @@
 package com.diamondboss.util.push.rongyun.service;
 
 
+import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 
 /**
@@ -41,5 +42,15 @@ public interface ISendMsgService {
 	 * @throws
 	 */
 	public SmsReturnInfo sendNotifyMsg(String phone);
+	
+	/**
+	 * 
+	 * @Title: getToken
+	 * @param userId 用户ID
+	 * @param name	用户名字
+	 * @param portraitUri	用户头像路径
+	 * @return
+	 */
+	public RYGetTokenReturnInfo getToken(String userId, String name, String portraitUri);
 	
 }
