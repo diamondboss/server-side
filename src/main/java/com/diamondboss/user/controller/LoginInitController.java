@@ -19,7 +19,30 @@ public class LoginInitController {
 	private LoginInitService loginInitService;
 	
 	/**
-	 * 首页查询获得该小区社区合伙人数量跟已预订宠物量
+	 * 查询进行中的订单
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
+	public APPResponseBody queryOrderInHand(HttpServletRequest request) {
+
+		String userId = ""; // 合伙人id
+		
+		// 查询用户正在进行中的订单
+		loginInitService.queryOrderInHand(userId);
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData("");
+		app.setRetnCode(0);
+		return app;
+	}
+	
+	
+	
+	
+	/**
+	 * 首页查询获得该小区社区合伙人
 	 * @param request
 	 * @return
 	 */
@@ -37,4 +60,26 @@ public class LoginInitController {
 		app.setRetnCode(0);
 		return app;
 	}
+	
+	/**
+	 * 获取指定合伙人的明细信息
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
+	public APPResponseBody queryPartnerDetail(HttpServletRequest request) {
+
+		String partnerId = ""; // 合伙人id
+		
+		// 获取指定合伙人的明细信息
+		loginInitService.queryPartnerDetail(partnerId);
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData("");
+		app.setRetnCode(0);
+		return app;
+	}
+	
+	
 }
