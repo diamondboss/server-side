@@ -55,7 +55,7 @@ public class SmsSenderUtils {
 			params.put("templateId", templateId);
 
 			//发送
-			String result = HttpUtils.sendPost(params, requestUrl,0);
+			String result = HttpUtils.sendPost(params, requestUrl, 0);
 
 			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
 			String code = obj.get("code").getAsString();
