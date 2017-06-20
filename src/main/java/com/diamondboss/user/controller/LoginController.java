@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.user.service.PartnerLoginService;
 import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.user.util.vo.LoginVo;
+import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.vo.APPResponseBody;
 
@@ -50,11 +51,19 @@ public class LoginController {
 	public APPResponseBody login(@RequestBody LoginVo vo, 
 			HttpServletRequest request){
 		
-		vo = userLoginService.login();
+		// 短信验证码
+		SmsReturnInfo info = sendMsgService.verifyCode(
+				vo.getSessionId(), vo.getCode());
+		
+		if(false == info.getSuccess()){
+			
+		}
+		
+		vo = userLoginService.login(vo);// 查询
 		
 		if(vo == null){
 			
-			vo = partnerLoginService.login();
+			vo = partnerLoginService.login(vo);
 			
 		}
 		
