@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -54,7 +55,7 @@ public class SmsSenderUtils {
 			params.put("templateId", templateId);
 
 			//发送
-			String result = HttpUtils.sendPost(params, requestUrl,false);
+			String result = HttpUtils.sendPost(params, requestUrl,0);
 
 			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
 			String code = obj.get("code").getAsString();
@@ -94,7 +95,7 @@ public class SmsSenderUtils {
 			params.put("code", code);
 
 			//发送
-			String result = HttpUtils.sendPost(params, requestUrl, true);
+			String result = HttpUtils.sendPost(params, requestUrl, 1);
 
 			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
 			String returnCode = obj.get("code").getAsString();
@@ -118,5 +119,52 @@ public class SmsSenderUtils {
 
 		}
 		return smsReturnInfo;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static RYGetTokenReturnInfo RYGetToken(String appKey, String nonce, String timestamp, String hash, String requestUrl,
+			String userId, String name, String portraitUri){
+		RYGetTokenReturnInfo ryGetTokenReturnInfo = new RYGetTokenReturnInfo();
+		try{
+			//将发送参数appKey + nonce + Timestamp + hash 放入到request请求头中
+			Map params = new HashMap();
+			params.put("appKey", appKey);
+			params.put("nonce", nonce);
+			params.put("timestamp", timestamp);
+			params.put("hash", hash);
+
+			params.put("userId", userId);
+			params.put("name", name);
+			params.put("portraitUri", portraitUri);
+
+			//发送
+			String result = HttpUtils.sendPost(params, requestUrl, 2);
+			
+			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
+			String returnCode = obj.get("code").getAsString();
+			String token = obj.get("token").getAsString();
+			String usrId = obj.get("userId").getAsString();
+			
+			if(returnCode != null && StringUtils.equals(Constants.SUCCES, returnCode)){
+				//接收返回结果，并处理
+				logger.info("获取Token成功："+ returnCode);
+				logger.info("获取Token用户ID："+ usrId);
+				logger.info("Token："+ token);
+				ryGetTokenReturnInfo.setCode(StatusCode.SUCCESS_CODE);
+			}else{
+				//接收返回结果，并处理
+				logger.info("获取Token返回错误码："+ returnCode);
+				ryGetTokenReturnInfo.setCode(StatusCode.ERROR_CODE);
+			}
+			return ryGetTokenReturnInfo;  // 发送成功	
+		}catch (Exception e) {
+			ryGetTokenReturnInfo.setCode(StatusCode.ERROR_CODE);
+			logger.error("获取token失败，用户ID:" + userId );
+			logger.error(e.getMessage());
+
+		}
+		
+		
+		return ryGetTokenReturnInfo;
 	}
 }
