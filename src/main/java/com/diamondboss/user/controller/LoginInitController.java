@@ -38,9 +38,6 @@ public class LoginInitController {
 		return app;
 	}
 	
-	
-	
-	
 	/**
 	 * 首页查询获得该小区社区合伙人
 	 * @param request
