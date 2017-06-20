@@ -47,7 +47,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数。
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		//数据签名
-		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
 
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.send(appKey, nonce, timestamp, strHash, phone, verifyTemplateId,sendVerifyUrl);
@@ -64,7 +63,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数。
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		//数据签名
-		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
 
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.verifySmsCode(appKey, nonce, timestamp, strHash, verifyUrl ,sessionId, code);
@@ -81,7 +79,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数。
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		//数据签名
-		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
 
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.send(appKey, nonce, timestamp, strHash, phone, notifyTemplateId, sendNotifyUrl);
@@ -98,7 +95,6 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		// 时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数。
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		// 数据签名
-		//int hash = (RYAppSecret + nonce + timestamp).hashCode();
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
 		
 		RYGetTokenReturnInfo ryGetTokenReturnInfo = SmsSenderUtils.RYGetToken(appKey, nonce, timestamp, strHash , RYGetTokenUri, userId, name, portraitUri);
