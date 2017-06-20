@@ -7,7 +7,9 @@ import java.util.Map;
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.user.service.LoginInitService;
 import com.diamondboss.util.tools.TableUtils;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LoginInitServiceImpl implements LoginInitService{
 
 	@Override
