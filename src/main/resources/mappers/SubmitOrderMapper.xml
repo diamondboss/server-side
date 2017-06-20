@@ -78,8 +78,8 @@
 		   AND order_status = #{orderStatus}
 	</update>
 
-	<select id="queryCountsByPartnerAndDate" parameterType="map"
-			resultType="Integer">
+	<select id="queryCountsByPartnerAndDate" parameterType="java.util.Map"
+			resultType="java.lang.Integer">
 		SELECT COUNT(1)
 		FROM #{tableName}
 		WHERE
@@ -123,8 +123,8 @@
 		        #{phone},
 		        #{userName},
 		        #{remark},
-		        "",
-		        "",
+		        #{userId},
+		        #{partnerId},
 		        #{orderDate},
 		        #{orderStatus},
 		        #{amt},
