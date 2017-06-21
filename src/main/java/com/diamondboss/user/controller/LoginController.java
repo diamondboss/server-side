@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.diamondboss.user.pojo.PartnerLoginPojo;
+import com.diamondboss.user.pojo.UserLoginPojo;
 import com.diamondboss.user.service.PartnerLoginService;
 import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.user.util.vo.LoginVo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
+import com.diamondboss.util.push.rongyun.constcla.StatusCode;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.vo.APPResponseBody;
 
@@ -50,28 +53,35 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public APPResponseBody login(@RequestBody LoginVo vo, 
 			HttpServletRequest request){
+		APPResponseBody app = new APPResponseBody();
 		
 		// 短信验证码
 		SmsReturnInfo info = sendMsgService.verifyCode(
 				vo.getSessionId(), vo.getCode());
 		
 		if(false == info.getSuccess()){
-			
-		}
-		vo = partnerLoginService.login(vo);
-		
-		
-		if(vo == null){
-			
-			vo = userLoginService.login(vo);// 查询
-			
+			app.setData(vo);
+			app.setRetnCode(1);
+			app.setRetnDesc("验证码校验错误");
+			log.info("短信验证码校验错误，手机号：" + vo.getPhone());
+			return app;
 		}
 		
-		APPResponseBody app = new APPResponseBody();
-		app.setData(vo);
+		PartnerLoginPojo partnerLogin = partnerLoginService.login(vo);
+		if(partnerLogin == null){
+			UserLoginPojo userLogin = userLoginService.login(vo);
+			if(userLogin == null ){
+				if(userLoginService.insertUser(vo) < 1){
+					app.setRetnCode(1);
+					return app;
+				}
+			}
+			userLogin = userLoginService.login(vo);
+			app.setData(userLogin);
+		}
 		app.setRetnCode(0);
-		return app;
-		
+		app.setData(partnerLogin);
+		return app;	
 	}
 	
 	/**
@@ -79,10 +89,17 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/sendVerify", method = RequestMethod.POST)
-	public void sendMsg(){
+	public APPResponseBody sendMsg(@RequestBody LoginVo vo, 
+			HttpServletRequest request){
+		APPResponseBody app = new APPResponseBody();
 		
-		sendMsgService.sendVerifyMsg("18621705751");
-		
+		SmsReturnInfo smsReturnInfo = sendMsgService.sendVerifyMsg(vo.getPhone());
+		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
+			app.setRetnCode(0);
+			log.info("短信验证码发送成功");
+		}
+		app.setData(smsReturnInfo);
+		return app;	
 	}
 	
 	/**
