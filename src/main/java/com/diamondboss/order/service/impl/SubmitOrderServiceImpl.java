@@ -260,7 +260,7 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		if(partnerList == null || partnerList.size() ==0){
 			// 不做处理等待轮询5
 		}
-		// 推送对应合伙人
+		// 推送对应合伙人 
 	}
 	
 	
