@@ -1,4 +1,4 @@
-package com.diamondboss.user.util.vo;
+package com.diamondboss.user.vo;
 
 public class RequestTokenVo {
 	/**

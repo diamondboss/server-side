@@ -3,7 +3,7 @@ package com.diamondboss.user.service.impl;
 import com.diamondboss.user.pojo.PartnerLoginPojo;
 import com.diamondboss.user.repository.PartnerLoginMapper;
 import com.diamondboss.user.service.PartnerLoginService;
-import com.diamondboss.user.util.vo.LoginVo;
+import com.diamondboss.user.vo.LoginVo;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

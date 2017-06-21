@@ -1,7 +1,7 @@
 package com.diamondboss.user.service;
 
 import com.diamondboss.user.pojo.UserLoginPojo;
-import com.diamondboss.user.util.vo.LoginVo;
+import com.diamondboss.user.vo.LoginVo;
 
 public interface UserLoginService {
 

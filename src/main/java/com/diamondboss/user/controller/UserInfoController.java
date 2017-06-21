@@ -16,7 +16,7 @@ public class UserInfoController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
+	@RequestMapping(value = "/inputInfo" ,method = RequestMethod.POST)
 	public APPResponseBody input(HttpServletRequest request) {
 		
 		APPResponseBody app = new APPResponseBody();
@@ -34,8 +34,10 @@ public class UserInfoController {
 	@ResponseBody
 	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
 	public APPResponseBody query(HttpServletRequest request) {
-		
 		APPResponseBody app = new APPResponseBody();
+		
+		
+		
 		app.setData("");
 		app.setRetnCode(0);
 		return app;

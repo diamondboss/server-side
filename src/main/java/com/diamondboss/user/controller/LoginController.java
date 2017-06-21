@@ -14,7 +14,7 @@ import com.diamondboss.user.pojo.PartnerLoginPojo;
 import com.diamondboss.user.pojo.UserLoginPojo;
 import com.diamondboss.user.service.PartnerLoginService;
 import com.diamondboss.user.service.UserLoginService;
-import com.diamondboss.user.util.vo.LoginVo;
+import com.diamondboss.user.vo.LoginVo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
