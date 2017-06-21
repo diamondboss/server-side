@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.diamondboss.user.util.vo.RequestTokenVo;
+import com.diamondboss.user.vo.RequestTokenVo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.vo.APPResponseBody;
