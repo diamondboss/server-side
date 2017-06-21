@@ -6,11 +6,10 @@ import com.diamondboss.util.pojo.SmsReturnInfo;
 
 /**
  * 
- * All rights Reserved, Designed By alsfox.com   
  * @ClassName:  ISendMsgService
- * @Description:TODO(发送短信通道接口)   
- * @author: Lynn  
- * @date:   2016-12-24 下午2:44:37   
+ * @Description: 发送短信通道接口
+ * @author: focus.liu
+ * @date:   2017-06-21 下午2:44:37
  *
  */
 public interface ISendMsgService {
@@ -22,7 +21,7 @@ public interface ISendMsgService {
 	 * @param:      
 	 * @throws
 	 */
-	public SmsReturnInfo sendVerifyMsg(String phone);
+	SmsReturnInfo sendVerifyMsg(String phone);
 
 	/**
 	 *
@@ -32,7 +31,7 @@ public interface ISendMsgService {
 	 * @param: code 验证码
 	 * @throws
 	 */
-	public SmsReturnInfo verifyCode(String sessionId, String code);
+	SmsReturnInfo verifyCode(String sessionId, String code);
 
 	/**
 	 *
@@ -41,7 +40,7 @@ public interface ISendMsgService {
 	 * @param:
 	 * @throws
 	 */
-	public SmsReturnInfo sendNotifyMsg(String phone);
+	SmsReturnInfo sendNotifyMsg(String phone);
 	
 	/**
 	 * 
@@ -51,6 +50,6 @@ public interface ISendMsgService {
 	 * @param portraitUri	用户头像路径
 	 * @return
 	 */
-	public RYGetTokenReturnInfo getToken(String userId, String name, String portraitUri);
+	RYGetTokenReturnInfo getToken(String userId, String name, String portraitUri);
 	
 }
