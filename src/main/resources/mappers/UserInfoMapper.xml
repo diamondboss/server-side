@@ -41,7 +41,7 @@
 		        #{name},
 		        #{phoneNumber},
 		        '1'
-		    );
+		    )
   	</insert>
   
   	<!-- 更新用户信息 -->
@@ -57,7 +57,7 @@
 		    industry = #{industry},
 		    remark = #{remark}
 		WHERE
-		    id = #{id};
+		    id = #{id}
   	</update>
   
 </mapper>
