@@ -1,16 +1,18 @@
 package com.diamondboss.user.repository;
 
+import com.diamondboss.user.pojo.UserLoginPojo;
+
 public interface UserLoginMapper {
 	
 	/**
 	 * 登录查询
 	 */
-	public void queryUserLoginByPhone(String phoneNumber);
+	public UserLoginPojo queryUserLoginByPhone(String phoneNumber);
 	
 	/**
 	 * 登录插入
 	 */
-	public void insertUserLoginByPhone(String phoneNumber);
+	public int insertUserLoginByPhone(String phoneNumber);
 	
 	
 	
