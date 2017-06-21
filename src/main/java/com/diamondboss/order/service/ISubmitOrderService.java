@@ -17,4 +17,6 @@ public interface ISubmitOrderService {
 
 	
 	public List queryOrderTotal();
+	
+	public void submitOrder(Object param);
 }
