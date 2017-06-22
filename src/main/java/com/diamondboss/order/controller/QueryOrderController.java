@@ -66,7 +66,7 @@ public class QueryOrderController {
 	}
 	
 	/**
-	 * 查询用户的实时名单
+	 * 查询用户的实时订单
 	 * 
 	 * @param request
 	 * @return
