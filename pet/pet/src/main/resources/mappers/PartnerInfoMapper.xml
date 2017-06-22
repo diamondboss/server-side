@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.user.repository.PartnerInfoMapper" >
+
+	<!-- 根据合伙人id查询用户信息  -->
+	<select id="queryInfoByPartnerId"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.user.pojo.PartnerInfoPojo">
+		SELECT
+		    id AS id,
+		    parter_id AS parterId,
+		    name AS name,
+		    phone_number AS phoneNumber,
+		    age AS age,
+		    sex AS sex,
+		    address AS address,
+		    industry AS industry,
+		    remark AS remark
+		FROM
+		    partner_info
+		WHERE
+			parter_id = #{parterId}
+			effective = '1'
+	</select>
+
+
+
+
+</mapper>
