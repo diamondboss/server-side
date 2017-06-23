@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,8 @@ import com.diamondboss.user.vo.UserInfoVo;
 import com.diamondboss.util.tools.UUIDUtil;
 import com.diamondboss.util.vo.APPResponseBody;
 
+@Controller
+@RequestMapping("/userInfo")
 public class UserInfoController {
 	
 	private static final Logger log = Logger.getLogger(UserInfoController.class);
