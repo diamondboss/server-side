@@ -19,14 +19,14 @@ public class Alipay {
 	
 	
 	private static final String APP_ID = PropertyUtil.getProperty("alipay.appId");
-	private static final String PAY_URL = PropertyUtil.getProperty("alipay.payUrl");
+	private static final String SERVERURL = PropertyUtil.getProperty("alipay.serverUrl");
 	private static final String APP_PRIVATE_KEY = PropertyUtil.getProperty("alipay.app.privateKey");
 	private static final String ALIPAY_PUBLIC_KEY = PropertyUtil.getProperty("alipay.publicKey");
 	private static final String CHARSET = PropertyUtil.getProperty("alipay.charset");
 	private static final String SIGNTYPE = PropertyUtil.getProperty("alipay.signType");
 	private static final String FORMAT = PropertyUtil.getProperty("alipay.format");
 	//实例化客户端，只需要初始化一次，后续调用不同的API都可以使用同一个alipayClient对象
-	private static  AlipayClient alipayClient = new DefaultAlipayClient(PAY_URL,
+	private static  AlipayClient alipayClient = new DefaultAlipayClient(SERVERURL,
 			APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGNTYPE);
 
 
