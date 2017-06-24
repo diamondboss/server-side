@@ -2,7 +2,7 @@ package com.diamondboss.util.pay.aliPay;
 
 import java.util.Map;
 
-import com.diamondboss.util.tools.PropertyUtil;
+import com.diamondboss.util.tools.PropsUtil;
 import org.apache.log4j.Logger;
 
 import com.alipay.api.AlipayApiException;
@@ -18,17 +18,14 @@ public class Alipay {
 	private static final Logger logger = Logger.getLogger(Alipay.class);
 	
 	
-	private static final String APP_ID = PropertyUtil.getProperty("alipay.appId");
-	private static final String SERVERURL = PropertyUtil.getProperty("alipay.serverUrl");
-	private static final String APP_PRIVATE_KEY = PropertyUtil.getProperty("alipay.app.privateKey");
-	private static final String ALIPAY_PUBLIC_KEY = PropertyUtil.getProperty("alipay.publicKey");
-	private static final String CHARSET = PropertyUtil.getProperty("alipay.charset");
-	private static final String SIGNTYPE = PropertyUtil.getProperty("alipay.signType");
-	private static final String FORMAT = PropertyUtil.getProperty("alipay.format");
+	private static final String ALIPAY_PUBLIC_KEY = PropsUtil.getProperty("alipay.publicKey");
+	private static final String CHARSET = PropsUtil.getProperty("alipay.charset");
+	private static final String SIGNTYPE = PropsUtil.getProperty("alipay.signType");
 	//实例化客户端，只需要初始化一次，后续调用不同的API都可以使用同一个alipayClient对象
-	private static  AlipayClient alipayClient = new DefaultAlipayClient(SERVERURL,
-			APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGNTYPE);
-
+	private static  AlipayClient alipayClient = new DefaultAlipayClient(PropsUtil.getProperty("alipay.serverUrl"),
+			PropsUtil.getProperty("alipay.appId"), PropsUtil.getProperty("alipay.app.privateKey"),
+			PropsUtil.getProperty("alipay.format"), PropsUtil.getProperty("alipay.charset"),
+			PropsUtil.getProperty("alipay.publicKey"), PropsUtil.getProperty("alipay.signType"));
 
 	/**
 	 * 获得支付订单
@@ -75,7 +72,8 @@ public class Alipay {
 //		}
 		//切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
 		try {
-			flag = AlipaySignature.rsaCheckV1(params, ALIPAY_PUBLIC_KEY, CHARSET, SIGNTYPE);
+			flag = AlipaySignature.rsaCheckV1(params, PropsUtil.getProperty("alipay.publicKey"),
+					PropsUtil.getProperty("alipay.charset"), PropsUtil.getProperty("alipay.signType"));
 		} catch (AlipayApiException e) {
 			logger.error("校验支付宝的请求失败");
 			logger.error(e.getMessage());

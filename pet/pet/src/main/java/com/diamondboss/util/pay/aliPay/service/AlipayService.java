@@ -7,10 +7,10 @@ package com.diamondboss.util.pay.aliPay.service;
 public interface AlipayService {
 
     /**
-     * 获取支付订单信息
+     * 获取预支付订单信息
      * @return
      */
-    String getPayOrderInfo();
+    String aliPayPreOrder(String orderId);
 
     /**
      * 解析支付结果（延签与解析）

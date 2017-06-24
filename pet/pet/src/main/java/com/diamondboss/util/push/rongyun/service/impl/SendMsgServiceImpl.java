@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
-import com.diamondboss.util.tools.PropertyUtil;
+import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.SHA1Utils;
 
 import org.apache.log4j.Logger;
@@ -23,15 +23,15 @@ public class SendMsgServiceImpl implements ISendMsgService {
 	private final static Logger logger = Logger.getLogger(SendMsgServiceImpl.class);
 
 	//融云的appKey
-	private static final String appKey = PropertyUtil.getProperty("rongyun.appkey");
-	private static final String sendVerifyUrl = PropertyUtil.getProperty("rongyun.sendVerifyUrl");
-	private static final String verifyUrl = PropertyUtil.getProperty("rongyun.verifyUrl");
-	private static final String sendNotifyUrl = PropertyUtil.getProperty("rongyun.sendNotifyUrl");
-	private static final String verifyTemplateId = PropertyUtil.getProperty("rongyun.verifyTemplateId");
-	private static final String notifyTemplateId = PropertyUtil.getProperty("rongyun.notifyTemplateId");
-	private static final String RYGetTokenUri = PropertyUtil.getProperty("rongyun.RYGetToken");
+	private static final String appKey = PropsUtil.getProperty("rongyun.appkey");
+	private static final String sendVerifyUrl = PropsUtil.getProperty("rongyun.sendVerifyUrl");
+	private static final String verifyUrl = PropsUtil.getProperty("rongyun.verifyUrl");
+	private static final String sendNotifyUrl = PropsUtil.getProperty("rongyun.sendNotifyUrl");
+	private static final String verifyTemplateId = PropsUtil.getProperty("rongyun.verifyTemplateId");
+	private static final String notifyTemplateId = PropsUtil.getProperty("rongyun.notifyTemplateId");
+	private static final String RYGetTokenUri = PropsUtil.getProperty("rongyun.RYGetToken");
 	
-	private static final String RYAppSecret = PropertyUtil.getProperty("rongyun.RYAppSecret");
+	private static final String RYAppSecret = PropsUtil.getProperty("rongyun.RYAppSecret");
 
 	@Resource(name = "cacheFunc")
 	private CacheFunc cacheFunc = null;
