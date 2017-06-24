@@ -28,11 +28,19 @@
 		    pet_info
 		    (
 		        user_id,
+		        name,
+		        age,
+		        sex,
+		        varieties,
 		        effective
 		    )
 		    VALUES
 		    (
 		      	#{userId},
+		      	#{name},
+		      	#{age},
+		      	#{sex},
+		      	#{varieties},
 		    	'1'
 		    )
  	</insert>	
