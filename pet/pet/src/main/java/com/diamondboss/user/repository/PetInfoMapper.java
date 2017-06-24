@@ -1,6 +1,7 @@
 package com.diamondboss.user.repository;
 
 import com.diamondboss.user.pojo.PetInfoPojo;
+import com.diamondboss.user.vo.InputPetInfoVo;
 
 /**
  * 宠物信息数据访问
@@ -14,17 +15,18 @@ public interface PetInfoMapper {
 	/**
 	 * 根据用户id查询宠物信息
 	 * @param userId
+	 * @return 
 	 */
-	public void queryPetInfoByUserId(String userId);
+	public PetInfoPojo queryPetInfoByUserId(String userId);
 	
 	/**
 	 * 插入宠物信息
 	 */
-	public void insertPetInfo(PetInfoPojo pojo);
+	public int insertPetInfo(InputPetInfoVo vo);
 	
 	/**
 	 * 更新宠物信息
 	 */
-	public void updatePetInfo(PetInfoPojo pojo);
+	public int updatePetInfo(PetInfoPojo pojo);
 	
 }
