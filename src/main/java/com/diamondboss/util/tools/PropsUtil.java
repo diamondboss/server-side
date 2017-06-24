@@ -12,8 +12,8 @@ import java.util.Properties;
  * Desc:properties文件获取工具类
  * Created by liuzifu on 2017/6/14.
  */
-public class PropertyUtil {
-    private static final Logger logger = LoggerFactory.getLogger(PropertyUtil.class);
+public class PropsUtil {
+    private static final Logger logger = LoggerFactory.getLogger(PropsUtil.class);
     private static Properties props;
     static {
         loadProps();
@@ -24,8 +24,8 @@ public class PropertyUtil {
         props = new Properties();
         InputStream in = null;
         try {
-            //第一种，通过类加载器进行获取properties文件流-->
-            in = PropertyUtil.class.getClassLoader().getResourceAsStream("product.properties");
+            //通过类加载器进行获取properties文件流-->
+            in = PropsUtil.class.getClassLoader().getResourceAsStream("product.properties");
             props.load(in);
         } catch (FileNotFoundException e) {
             logger.error("product.properties文件未找到");

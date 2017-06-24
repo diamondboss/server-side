@@ -1,6 +1,6 @@
 package com.diamondboss.util.push.getui;
 
-import com.diamondboss.util.tools.PropertyUtil;
+import com.diamondboss.util.tools.PropsUtil;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 public class GetuiService {
     private static final Logger logger = LoggerFactory.getLogger(GetuiService.class);
 
-    private static final String appId = PropertyUtil.getProperty("getui.appId");
-    private static final String appKey = PropertyUtil.getProperty("getui.appKey");
-    private static final String masterSecret = PropertyUtil.getProperty("getui.masterSecret");
-    private static final String host = PropertyUtil.getProperty("getui.host");
+    private static final String appId = PropsUtil.getProperty("getui.appId");
+    private static final String appKey = PropsUtil.getProperty("getui.appKey");
+    private static final String masterSecret = PropsUtil.getProperty("getui.masterSecret");
+    private static final String host = PropsUtil.getProperty("getui.host");
 
 
     /**

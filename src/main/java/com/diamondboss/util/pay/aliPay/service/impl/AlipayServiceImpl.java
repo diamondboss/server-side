@@ -3,6 +3,7 @@ package com.diamondboss.util.pay.aliPay.service.impl;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.aliPay.service.AlipayService;
+import com.diamondboss.util.tools.PropsUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +19,29 @@ public class AlipayServiceImpl implements AlipayService {
     private static final Logger logger = Logger.getLogger(AlipayServiceImpl.class);
 
     @Override
-    public String getPayOrderInfo() {
+    public String aliPayPreOrder(String orderId) {
         String notifyUrl = "localhost:8080/alipay/acceptPayNotice";
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         //TODO 组装订单数据
-        model.setBody("我是测试数据");
-        model.setSubject("App支付测试Java");
-        model.setOutTradeNo("");
-        model.setTimeoutExpress("30m");
+        model.setBody("我是测试数据的描述信息");
+        model.setSubject("我是测试数据的交易标题");
+        model.setOutTradeNo(orderId);
+        model.setSellerId(PropsUtil.getProperty("alipay.sellerid"));
+        model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
         model.setTotalAmount("0.01");
-        model.setProductCode("QUICK_MSECURITY_PAY");
+        model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
         String orderInfo = Alipay.getPayOrder(model, notifyUrl);
 
         return orderInfo;
     }
+
+//    public static void main(String[] args){
+//
+//        AlipayServiceImpl alipayService = new AlipayServiceImpl();
+//       System.out.println(alipayService.aliPayPreOrder("2017062497017"));
+//    }
+
 
     @Override
     public boolean analysisPayResult() {
