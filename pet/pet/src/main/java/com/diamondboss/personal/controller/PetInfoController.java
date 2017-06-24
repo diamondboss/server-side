@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.util.vo.APPResponseBody;
 
 @Controller
-@RequestMapping("/petInfo")
+@RequestMapping("/petInfoPersonal")
 public class PetInfoController {
 
 	@Resource
