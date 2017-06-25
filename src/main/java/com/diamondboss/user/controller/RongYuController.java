@@ -34,7 +34,7 @@ public class RongYuController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/smsSendOfToken", method = RequestMethod.POST)
-	public APPResponseBody login(@RequestBody RequestTokenVo vo, 
+	public APPResponseBody login(RequestTokenVo vo, 
 			HttpServletRequest request){
 		APPResponseBody app =  new APPResponseBody();
 		
