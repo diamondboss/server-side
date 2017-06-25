@@ -7,7 +7,8 @@
 		parameterType="java.lang.String"
 		resultType="com.diamondboss.user.pojo.UserLoginPojo">
 		SELECT
-		    id AS id
+		    id AS id,
+		    phone_number AS phoneNumber
 		FROM
 		    user_login
 		WHERE
