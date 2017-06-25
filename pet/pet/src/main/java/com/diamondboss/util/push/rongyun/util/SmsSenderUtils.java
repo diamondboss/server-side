@@ -154,6 +154,8 @@ public class SmsSenderUtils {
 				logger.info("获取Token用户ID："+ usrId);
 				logger.info("Token："+ token);
 				ryGetTokenReturnInfo.setCode(StatusCode.SUCCESS_CODE);
+				ryGetTokenReturnInfo.setUserId(usrId);
+				ryGetTokenReturnInfo.setToken(token);
 			}else{
 				//接收返回结果，并处理
 				logger.info("获取Token返回错误码："+ returnCode);
