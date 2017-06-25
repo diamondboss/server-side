@@ -66,14 +66,17 @@ public class SmsSenderUtils {
 				logger.info("短信发送返回验证ID："+ sessionId);
 				smsReturnInfo.setCode(StatusCode.SUCCESS_CODE);
 				smsReturnInfo.setSessionId(sessionId);
+				smsReturnInfo.setSuccess(true);
 			}else{
 				//接收返回结果，并处理
 				logger.info("短信发送返回状态码："+ code);
 				smsReturnInfo.setCode(StatusCode.ERROR_CODE);
+				smsReturnInfo.setSuccess(false);
 			}
 			return smsReturnInfo;  // 发送成功
 		} catch (Exception e) {
 			smsReturnInfo.setCode(StatusCode.ERROR_CODE);
+			smsReturnInfo.setSuccess(false);
 			logger.error("短信平台发送异常！发送手机号：" + mobile );
 			logger.error(e.getMessage());
 
