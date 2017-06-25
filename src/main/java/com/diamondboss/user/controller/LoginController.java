@@ -81,20 +81,9 @@ public class LoginController {
 			}
 			userLogin = userLoginService.login(vo);
 
-			String today = LocalDate.now().toString();
-			UserOrderServiceVo userOrder = partnerLoginService.queryUserOrderService(userLogin.getId(), today);
-
-			Map<String, Object> resultDate = new HashMap<>();
-			
-			resultDate.put("userLogin", userLogin);
-			if(userOrder == null){
-				resultDate.put("userOrder", "");
-			}else{
-				resultDate.put("userOrder", userOrder);
-			}
 			app.setRetnCode(0);
 			app.setRetnDesc("0");
-			app.setData(resultDate);
+			app.setData(userLogin);
 			return app;
 		}
 		app.setRetnCode(0);
