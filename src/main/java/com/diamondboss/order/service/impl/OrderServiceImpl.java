@@ -132,7 +132,7 @@ public class OrderServiceImpl implements IOrderService {
 		String tableName = TableUtils.getOrderTableName(Long.valueOf(userId),
 				PetConstants.ORDER_USER_TABLE_PREFIX);
 		
-		Map<String, String> map = new HashMap<>();
+		/*Map<String, String> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("orderDate", orderDate);
 		map.put("tableName", tableName);
@@ -144,12 +144,12 @@ public class OrderServiceImpl implements IOrderService {
 		parmMap.put("partnerId", userOrder.getPartnerId());
 		parmMap.put("orderDate", orderDate);
 		parmMap.put("tableName", tableName);
-		List<UserOrdersServiceVo> userOrders = userOrderServiceMapper.queryUserOrders(parmMap);
+		List<UserOrdersServiceVo> userOrders = userOrderServiceMapper.queryUserOrders(parmMap);*/
 		
 		Map<String, Object> responseMap = new HashMap<>();
-		responseMap.put("userOrder", userOrder);
+		/*responseMap.put("userOrder", userOrder);
 		responseMap.put("userOrders", userOrders);
-		
+		*/
 		return responseMap;
 	}
 
