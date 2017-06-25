@@ -7,7 +7,7 @@
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
 		SELECT
-		    B.id AS userId,
+		    B.user_id AS userId,
 		    B.name AS userName,
 		    B.phone_number AS phoneNum,
 		    A.receive_time AS receiveTime,
