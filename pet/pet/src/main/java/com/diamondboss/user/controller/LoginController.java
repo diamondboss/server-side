@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.user.pojo.PartnerLoginPojo;
 import com.diamondboss.user.pojo.UserLoginPojo;
@@ -53,7 +54,7 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public APPResponseBody login(@RequestBody LoginVo vo, 
+	public APPResponseBody login(LoginVo vo,
 			HttpServletRequest request){
 		APPResponseBody app = new APPResponseBody();
 		
@@ -61,13 +62,13 @@ public class LoginController {
 		SmsReturnInfo info = sendMsgService.verifyCode(
 				vo.getSessionId(), vo.getCode());
 		
-		if (false == info.getSuccess()) {
+		/*if (false == info.getSuccess()) {
 			app.setData(vo);
 			app.setRetnCode(1);
 			app.setRetnDesc("验证码校验错误");
 			log.info("短信验证码校验错误，手机号：" + vo.getPhone());
 			return app;
-		}
+		}*/
 
 		PartnerLoginPojo partnerLogin = partnerLoginService.login(vo);
 		if (partnerLogin == null) {
@@ -84,9 +85,13 @@ public class LoginController {
 			UserOrderServiceVo userOrder = partnerLoginService.queryUserOrderService(userLogin.getId(), today);
 
 			Map<String, Object> resultDate = new HashMap<>();
+			
 			resultDate.put("userLogin", userLogin);
-			resultDate.put("userOrder", userOrder);
-
+			if(userOrder == null){
+				resultDate.put("userOrder", "");
+			}else{
+				resultDate.put("userOrder", userOrder);
+			}
 			app.setRetnCode(0);
 			app.setData(resultDate);
 			return app;
@@ -99,10 +104,9 @@ public class LoginController {
 	/**
 	 * 发送短信验证码
 	 */
-	@ResponseBody
+	
 	@RequestMapping(value = "/sendVerify", method = RequestMethod.POST)
-	public APPResponseBody sendMsg(@RequestBody LoginVo vo, 
-			HttpServletRequest request){
+	public @ResponseBody APPResponseBody sendMsg(LoginVo vo, HttpServletRequest request){
 		APPResponseBody app = new APPResponseBody();
 		
 		SmsReturnInfo smsReturnInfo = sendMsgService.sendVerifyMsg(vo.getPhone());
@@ -122,8 +126,7 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/userLogin", method = RequestMethod.POST)
-	public void userLogin(@RequestBody LoginVo vo, 
-			HttpServletRequest request){
+	public void userLogin(LoginVo vo){
 	
 		
 	}
@@ -136,8 +139,7 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/partnerLogin", method = RequestMethod.POST)
-	public void partnerLogin(@RequestBody LoginVo vo, 
-			HttpServletRequest request){
+	public void partnerLogin(LoginVo vo){
 	
 		
 	}
