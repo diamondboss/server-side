@@ -7,10 +7,12 @@
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
 		SELECT
-		    B.id AS partnerId,
-		    B.name AS partnerName,
-		    B.phoneNumber AS phoneNum,
-			(
+		    B.id AS userId,
+		    B.name AS userName,
+		    B.phone_number AS phoneNum,
+		    A.receive_time AS receiveTime,
+		    A.return_time AS returnTime,
+		    (
 				SELECT count(*)
 				FROM ${tableName} A
 				WHERE A.user_id = #{userId}
@@ -18,7 +20,7 @@
 				AND A.effective = '1'
 			) AS orderCount
 		FROM
-		    ${tableName} A INNER JOIN parter_info B ON A.partner_id = B.id
+		     ${tableName} A INNER JOIN user_info B ON A.user_id = B.user_id
 		WHERE
 			A.user_id = #{userId}
 			AND A.order_date = #{orderDate}
