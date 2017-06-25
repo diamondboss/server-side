@@ -8,7 +8,7 @@ package com.diamondboss.util.pojo;
 public class RYGetTokenReturnInfo {
 	private int code;
 	private String token;
-	private Boolean userId;
+	private String userId;
 
 	public int getCode() {
 		return code;
@@ -26,11 +26,11 @@ public class RYGetTokenReturnInfo {
 		this.token = token;
 	}
 
-	public Boolean getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Boolean userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 }
