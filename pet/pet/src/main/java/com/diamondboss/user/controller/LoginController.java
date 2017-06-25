@@ -130,9 +130,10 @@ public class LoginController {
 		
 		if(userOrder != null){
 			app.setData(userOrder);
+			app.setRetnCode(0);
+		}else{
+			app.setRetnCode(1);
 		}
-		app.setRetnCode(0);
-		
 		return app;
 	}
 	
