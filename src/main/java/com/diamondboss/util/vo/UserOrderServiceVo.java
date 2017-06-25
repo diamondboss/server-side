@@ -2,28 +2,49 @@ package com.diamondboss.util.vo;
 
 public class UserOrderServiceVo {
 
-	private Long partnerId;
+	private Long userId;
 	
-	private String partnerName;
-	
+	private String userName;
+
 	private String phoneNum;
 	
-	private int orderCount;
+	private String receiveTime;
+	
+	private String returnTime;
 
-	public Long getPartnerId() {
-		return partnerId;
+	private String orderCount;
+	
+	
+	public String getReceiveTime() {
+		return receiveTime;
 	}
 
-	public void setPartnerId(Long partnerId) {
-		this.partnerId = partnerId;
+	public void setReceiveTime(String receiveTime) {
+		this.receiveTime = receiveTime;
 	}
 
-	public String getPartnerName() {
-		return partnerName;
+	public String getReturnTime() {
+		return returnTime;
 	}
 
-	public void setPartnerName(String partnerName) {
-		this.partnerName = partnerName;
+	public void setReturnTime(String returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPhoneNum() {
@@ -33,14 +54,13 @@ public class UserOrderServiceVo {
 	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
-
-	public int getOrderCount() {
+	
+	public String getOrderCount() {
 		return orderCount;
 	}
 
-	public void setOrderCount(int orderCount) {
+	public void setOrderCount(String orderCount) {
 		this.orderCount = orderCount;
 	}
-	
 	
 }
