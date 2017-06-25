@@ -14,6 +14,7 @@ import com.diamondboss.user.pojo.PartnerLoginPojo;
 import com.diamondboss.user.pojo.UserLoginPojo;
 import com.diamondboss.user.service.PartnerLoginService;
 import com.diamondboss.user.service.UserLoginService;
+import com.diamondboss.user.vo.IndexOrderOfUserVo;
 import com.diamondboss.user.vo.LoginVo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
@@ -57,8 +58,8 @@ public class LoginController {
 		APPResponseBody app = new APPResponseBody();
 		
 		// 短信验证码
-		SmsReturnInfo info = sendMsgService.verifyCode(
-				vo.getSessionId(), vo.getCode());
+		/*SmsReturnInfo info = sendMsgService.verifyCode(
+				vo.getSessionId(), vo.getCode());*/
 		
 		/*if (false == info.getSuccess()) {
 			app.setData(vo);
@@ -74,6 +75,7 @@ public class LoginController {
 			if (userLogin == null) {
 				if (userLoginService.insertUser(vo) < 1) {
 					app.setRetnCode(1);
+					app.setRetnDesc("0");
 					return app;
 				}
 			}
@@ -91,13 +93,18 @@ public class LoginController {
 				resultDate.put("userOrder", userOrder);
 			}
 			app.setRetnCode(0);
+			app.setRetnDesc("0");
 			app.setData(resultDate);
 			return app;
 		}
 		app.setRetnCode(0);
+		app.setRetnDesc("1");
 		app.setData(partnerLogin);
 		return app;
 	}
+	
+	
+	
 	
 	/**
 	 * 发送短信验证码
@@ -114,6 +121,30 @@ public class LoginController {
 		}
 		app.setData(smsReturnInfo);
 		return app;	
+	}
+	
+	
+	/**
+	 * 用户首页订单
+	 * 
+	 * @param vo
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/userLoginInit", method = RequestMethod.POST)
+	public APPResponseBody userLoginInit(IndexOrderOfUserVo vo, HttpServletRequest request){
+		APPResponseBody app = new APPResponseBody();
+		
+		String today = LocalDate.now().toString();
+		UserOrderServiceVo userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
+		
+		if(userOrder != null){
+			app.setData(userOrder);
+		}
+		app.setRetnCode(0);
+		
+		return app;
 	}
 	
 	/**
