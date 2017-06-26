@@ -8,6 +8,10 @@ public class PartnerWalletVo {
 	private String partnerId;
 	
 	private BigDecimal amount;
+	
+	public PartnerWalletVo(){
+		
+	}
 
 	public Long getId() {
 		return id;

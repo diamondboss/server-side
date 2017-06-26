@@ -13,6 +13,10 @@ public class PartnerWalletDetailVo {
 	private Integer kind;
 	
 	private String orderDate;
+	
+	public PartnerWalletDetailVo(){
+		
+	}
 
 	public Long getId() {
 		return id;

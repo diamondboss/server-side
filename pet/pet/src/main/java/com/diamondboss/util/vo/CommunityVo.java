@@ -4,6 +4,10 @@ public class CommunityVo {
 	private Long id;
 
 	private String communityName;
+	
+	public CommunityVo(){
+		
+	}
 
 	public Long getId() {
 		return id;

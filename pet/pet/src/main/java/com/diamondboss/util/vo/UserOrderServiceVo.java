@@ -16,6 +16,10 @@ public class UserOrderServiceVo {
 
 	private String orderCount;
 	
+	public UserOrderServiceVo(){
+		
+	}
+	
 	
 	public String getReceiveTime() {
 		return receiveTime;

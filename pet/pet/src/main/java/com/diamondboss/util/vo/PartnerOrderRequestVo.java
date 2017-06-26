@@ -10,6 +10,10 @@ public class PartnerOrderRequestVo {
 	 * 合伙人ID
 	 */
 	private String partnerId;
+	
+	public PartnerOrderRequestVo(){
+		
+	}
 
 	public String getPartnerId() {
 		return partnerId;

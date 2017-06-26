@@ -11,6 +11,10 @@ public class UserDetailVo {
 	private String orderTime;
 
     private Date createTime;
+    
+    public UserDetailVo(){
+    	
+    }
 
 	public String getOrderTime() {
 		return orderTime;
