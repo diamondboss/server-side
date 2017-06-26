@@ -61,34 +61,30 @@ public class UserInfoController {
 		APPResponseBody app = new APPResponseBody();
 		
 		UserInfoPojo userInfo = userInfoService.queryUserInfo(vo);
-		if(userInfo != null){
+		UserInfoPojo queryUserInfo = new UserInfoPojo();
+		
+		if(userInfo == null){
 			log.info("查询用户信息不存在，生成默认用户信息并保存，UserId：" + vo.getUserId());
-			app.setData(userInfo);
+			
+			UserInfoPojo UserInfoPojo = new UserInfoPojo();
+			UserInfoPojo.setUserId(vo.getUserId());
+			UserInfoPojo.setName(UUIDUtil.getOrderIdByUUID());
+			UserInfoPojo.setPhoneNumber("");
+			UserInfoPojo.setAge("");
+			UserInfoPojo.setSex("");
+			UserInfoPojo.setAddress("");
+			UserInfoPojo.setIndustry("");
+			UserInfoPojo.setRemark("");
+			
+			if(userInfoService.inputUserInfo(UserInfoPojo) < 1){
+				log.info("生成默认用户信息保存失败,UserId：" + vo.getUserId());
+				app.setRetnCode(1);
+				return app;
+			}
+			
+			log.info("生成默认信息后，处理成功");
+			app.setData(UserInfoPojo);
 			app.setRetnCode(0);
-			return app;
-		}
-		
-		UserInfoPojo UserInfoPojo = new UserInfoPojo();
-		UserInfoPojo.setUserId(vo.getUserId());
-		UserInfoPojo.setName(UUIDUtil.getOrderIdByUUID());
-		UserInfoPojo.setPhoneNumber("");
-		UserInfoPojo.setAge("");
-		UserInfoPojo.setSex("");
-		UserInfoPojo.setAddress("");
-		UserInfoPojo.setIndustry("");
-		UserInfoPojo.setRemark("");
-		
-		if(userInfoService.inputUserInfo(UserInfoPojo) < 1){
-			log.info("生成默认用户信息保存失败,UserId：" + vo.getUserId());
-			app.setRetnCode(1);
-			return app;
-		}
-		
-		UserInfoPojo queryUserInfo = userInfoService.queryUserInfo(vo);
-		
-		if(queryUserInfo == null){
-			log.info("保存后，再查询处理失败,UserId：" + vo.getUserId());
-			app.setRetnCode(1);
 			return app;
 		}
 		
