@@ -37,21 +37,16 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	public boolean appointPartner(OrderUserVo vo){
 		
 		// 查询该合伙人是否满足条件
-		if(checkOrderCountsOfPartner(vo.getPartnerId())){
-			
+		if(checkOrderCountsOfPartner(vo.getPartnerId(), vo.getOrderDate())){
 			// 如果不满足
 			return false;
 		}
 		
 		// 插入用户订单
 		int i = placeOrderMapper.insertUserOrder(vo.voToPojo(vo));
-		
 		if(i==0){
-			
 			return false;
-			
 		}
-		
 		return true;
 		
 	}
@@ -66,7 +61,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	public boolean randomPartner(OrderUserVo vo){
 		
 		// 查询小区允许下单总数
-		if(cheakCommunityOrderNum(vo.getCommunityId())){
+		if(cheakCommunityOrderNum(vo.getCommunityId(), vo.getOrderDate())){
 			return false;
 		}
 		
@@ -85,7 +80,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * @param riseNo
 	 * @return true--不可下单;false--可以下单
 	 */
-	private boolean checkOrderCountsOfPartner(String partnerId){
+	private boolean checkOrderCountsOfPartner(String partnerId, String orderDate){
 		
 		if(StringUtils.isBlank(partnerId)){
 			return true;
@@ -98,7 +93,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		Map<String, Object> params = new HashMap<>();
 		params.put("tableName", tableName);
 		params.put("partnerId", partnerId);
-		params.put("currentDate", LocalDate.now());
+		params.put("orderDate", orderDate);
 		int counts = placeOrderMapper.queryCountsByPartnerAndDate(params);// 当前订单数量
 		
 		int riseNo = placeOrderMapper.queryPartnerCondition(partnerId);// 可接受订单数量
@@ -112,7 +107,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * @param userId
 	 * @return false-允许下单/true-宠物已满不允许下单
 	 */
-	private Boolean cheakCommunityOrderNum(String communityId){
+	private Boolean cheakCommunityOrderNum(String communityId, String orderDate){
+		
+		if(StringUtils.isBlank(communityId)){
+			return true;
+		}
 		
 		// 根据小区id查询合伙人表获取小区宠物饲养上限
 		List<RaiseNumberPojo> partnerlist = 
@@ -127,9 +126,17 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		int total = 0;// 小区接单总数 
 		
 		for(RaiseNumberPojo i:partnerlist){
+			
 			total += Integer.valueOf(i.getorderNum());// 总数
-			// TODO
-			num += 	placeOrderMapper.querNumByPartnerId(null);
+			
+			// 查询合伙人的当日订单数量
+			String tableName = TableUtils.getOrderTableName(Long.valueOf(i.getId()), 
+					PetConstants.ORDER_PARTNER_TABLE_PREFIX);
+			Map<String, Object> params = new HashMap<>();
+			params.put("tableName", tableName);
+			params.put("partnerId", i.getId());
+			params.put("orderDate", orderDate);
+			num += 	placeOrderMapper.queryCountsByPartnerAndDate(params);
 		}
 		
 		if(num < total){
