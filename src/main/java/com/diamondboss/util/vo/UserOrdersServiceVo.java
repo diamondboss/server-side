@@ -4,6 +4,10 @@ public class UserOrdersServiceVo {
 	private String pname;
 	
 	private int sex;
+	
+	public UserOrdersServiceVo(){
+		
+	}
 
 	public String getPname() {
 		return pname;

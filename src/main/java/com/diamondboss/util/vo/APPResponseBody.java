@@ -23,6 +23,10 @@ public class APPResponseBody {
      */
     private Object data;
 
+    public APPResponseBody(){
+    	
+    }
+    
     public int getRetnCode() {
         return retnCode;
     }

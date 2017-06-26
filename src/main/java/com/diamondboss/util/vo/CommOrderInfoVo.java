@@ -11,6 +11,10 @@ public class CommOrderInfoVo {
 	 * 已预订宠物量
 	 */
 	public String commPetNum;
+	
+	public CommOrderInfoVo(){
+		
+	}
 
 	/**
 	 * 小区社区合伙人数量

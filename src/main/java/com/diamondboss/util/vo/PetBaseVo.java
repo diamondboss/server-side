@@ -22,6 +22,10 @@ public class PetBaseVo {
     private String varietyDefect;
 
     private String photoUrl;
+    
+    public PetBaseVo(){
+    	
+    }
 
     public Long getId() {
         return id;

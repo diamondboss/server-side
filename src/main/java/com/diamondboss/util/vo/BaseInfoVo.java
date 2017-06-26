@@ -27,6 +27,10 @@ public class BaseInfoVo {
 	 */
 	private String remark = "";
 
+	public BaseInfoVo(){
+		
+	}
+	
 	/**
 	 * 昵称
 	 * @return

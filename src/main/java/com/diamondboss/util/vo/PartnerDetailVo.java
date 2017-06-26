@@ -11,6 +11,10 @@ public class PartnerDetailVo {
 	private BigDecimal amount;
 	
 	private String orderTime;
+	
+	public PartnerDetailVo(){
+		
+	}
 
 	public BigDecimal getAmount() {
 		return amount;

@@ -46,6 +46,10 @@ public class PartnerOrderVo {
 	 * 备注
 	 */
 	private String remark;
+	
+	public PartnerOrderVo(){
+		
+	}
  
 	public String getId() {
 		return id;

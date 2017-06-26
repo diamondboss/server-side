@@ -11,6 +11,10 @@ public class PetDetailedVo {
 	private List<String> introduce;
 	
 	private List<String> healthy;
+	
+	public PetDetailedVo(){
+		
+	}
 
 	public List<String> getPhotoList() {
 		
