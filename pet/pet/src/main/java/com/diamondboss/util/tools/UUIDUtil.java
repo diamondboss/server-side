@@ -31,7 +31,7 @@ public class UUIDUtil {
     } 
     
     /**
-     * 标志 + 合伙人表 xx + 分隔符 + 对应表id + 随机数
+     * 标志 + 用户表 xx + 分隔符 + 对应表id + 随机数
      */
     public static String makeTradeNo(int tableId, String id){
     	Random rd = new Random();
@@ -42,7 +42,7 @@ public class UUIDUtil {
     }
     
     /**
-     * 标志 + 合伙人表 xx + 分隔符 + 对应表id + 随机数
+     * 标志 + 用户表 xx + 分隔符 + 对应表id + 随机数
      */
     public static Map<String, Object> getInfoFromTradeNo(String outTradeNo){
     	
