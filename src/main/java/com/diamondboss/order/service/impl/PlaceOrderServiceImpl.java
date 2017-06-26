@@ -9,12 +9,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.OrderUserVo;
+import com.diamondboss.util.pay.aliPay.Alipay;
+import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
 
 /**
@@ -149,11 +152,22 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * 创建订单信息
 	 * @param vo
 	 */
-	private OrderUserPojo combinationOrderInfo(OrderUserVo vo){
+	private String combinationOrderInfo(OrderUserVo vo){
 		
-		
-		
-		return null;
+		String notifyUrl = "localhost:8080/alipay/acceptPayNotice";
+
+        AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
+        //TODO 组装订单数据
+        model.setBody("我是测试数据的描述信息");
+        model.setSubject("我是测试数据的交易标题");
+        model.setOutTradeNo("");// 订单编号
+        model.setSellerId(PropsUtil.getProperty("alipay.sellerid"));
+        model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
+        model.setTotalAmount("0.01");
+        model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
+        String orderInfo = Alipay.getPreOrder(model, notifyUrl);
+
+	    return orderInfo;
 	}
 	
 }
