@@ -8,6 +8,7 @@
 		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
 		SELECT
 		    B.user_id AS userId,
+		    B.partner_id AS partnerId,
 		    B.name AS userName,
 		    B.phone_number AS phoneNum,
 		    A.receive_time AS receiveTime,
@@ -26,6 +27,30 @@
 			AND A.order_date = #{orderDate}
 			AND A.effective = '1'
 	</select>
+	
+	
+	<!-- 查询合伙人首页订单信息 -->
+	<select id="queryPartnerOrderService"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.util.vo.PartnerOrderServiceVo" >
+		SELECT
+		    B.id AS partnerId,
+		    B.name AS partnerName,
+		    B.phoneNumber AS phoneNum,
+			(
+				SELECT count(*)
+				FROM ${tableName} A
+				WHERE A.partner_id = #{partnerId}
+				AND A.effective = '1'
+			) AS orderCount
+		FROM
+		    ${tableName} A INNER JOIN parter_info B ON A.partner_id = B.id
+		WHERE
+			A.partner_id = #{partnerId}
+			AND A.effective = '1'
+		GROUP BY A.partner_id
+	</select>
+	
 	
 	<!-- 查询用户的当日合伙人下的宠物订单 -->
 	<select id="queryUserOrders"
