@@ -18,6 +18,11 @@ public class UserLoginPojo {
 	 * 电话号码
 	 */
 	private String phoneNumber;
+	
+	/**
+	 * 用户类型	0：用户
+	 */
+	private String userType;
 
 	/**
 	 * 用户id
@@ -49,6 +54,14 @@ public class UserLoginPojo {
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 	
 }
