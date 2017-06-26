@@ -4,15 +4,15 @@ public class PartnerOrderServiceVo {
 
 	private Long partnerId;
 
-	private String userName;
+	private String partnerName;
 
 	private String phoneNum;
-	
-	private String receiveTime;
-	
-	private String returnTime;
 
 	private String orderCount;
+	
+	public PartnerOrderServiceVo(){
+		
+	}
 	
 	public Long getPartnerId() {
 		return partnerId;
@@ -21,30 +21,15 @@ public class PartnerOrderServiceVo {
 	public void setPartnerId(Long partnerId) {
 		this.partnerId = partnerId;
 	}
-	
-	public String getReceiveTime() {
-		return receiveTime;
+
+	public String getPartnerName() {
+		return partnerName;
 	}
 
-	public void setReceiveTime(String receiveTime) {
-		this.receiveTime = receiveTime;
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
 	}
 
-	public String getReturnTime() {
-		return returnTime;
-	}
-
-	public void setReturnTime(String returnTime) {
-		this.returnTime = returnTime;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 
 	public String getPhoneNum() {
 		return phoneNum;
