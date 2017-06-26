@@ -141,8 +141,7 @@ public class OrderServiceImpl implements IOrderService {
 		
 		Map<String, Object> parmMap = new HashMap<>();
 		parmMap.put("userId", userId);
-		//TODO: 待处理
-		parmMap.put("partnerId", userOrder.getUserId());
+		parmMap.put("partnerId", userOrder.getPartnerId());
 		parmMap.put("orderDate", orderDate);
 		parmMap.put("tableName", tableName);
 		List<UserOrdersServiceVo> userOrders = userOrderServiceMapper.queryUserOrders(parmMap);
