@@ -58,8 +58,8 @@ public class LoginController {
 		APPResponseBody app = new APPResponseBody();
 		
 		// 短信验证码
-		/*SmsReturnInfo info = sendMsgService.verifyCode(
-				vo.getSessionId(), vo.getCode());*/
+		SmsReturnInfo info = sendMsgService.verifyCode(
+				vo.getSessionId(), vo.getCode());
 		
 		/*if (false == info.getSuccess()) {
 			app.setData(vo);
