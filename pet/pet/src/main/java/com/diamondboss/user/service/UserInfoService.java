@@ -12,6 +12,13 @@ public interface UserInfoService {
 	public UserInfoPojo queryUserInfo(UserInfoVo vo);
 	
 	/**
+	 * 根据UserId返回修改后的用户信息
+	 * @param pojo
+	 * @return
+	 */
+	public UserInfoPojo queryUserInfoOfUpdate(UserInfoPojo pojo);
+	
+	/**
 	 * 插入用户信息
 	 * @param pojo
 	 * @return
