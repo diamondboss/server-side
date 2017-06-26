@@ -8,7 +8,6 @@
 		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
 		SELECT
 		    B.user_id AS userId,
-		    B.partner_id AS partnerId,
 		    B.name AS userName,
 		    B.phone_number AS phoneNum,
 		    A.receive_time AS receiveTime,
