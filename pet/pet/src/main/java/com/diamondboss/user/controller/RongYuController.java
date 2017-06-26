@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,8 +37,8 @@ public class RongYuController {
 			HttpServletRequest request){
 		APPResponseBody app =  new APPResponseBody();
 		
-		RYGetTokenReturnInfo ryGetTokenReturnInfo = sendMsgService.getToken(vo.getUserId(), "我", 
-				"http://zfxue-test.oss-cn-shanghai.aliyuncs.com/dbmap/map1.jpg");
+		RYGetTokenReturnInfo ryGetTokenReturnInfo = sendMsgService.getToken(vo.getUserId(), "用户", 
+				"http://zfxue-test.oss-cn-shanghai.aliyuncs.com/dbmap/logo.jpg");
 		app.setRetnCode(0);
 		app.setRetnDesc("发送成功");
 		app.setData(ryGetTokenReturnInfo);
