@@ -11,6 +11,10 @@ public class UserFeedBackVo {
 	private String phoneNum;
 	
 	private String context;
+	
+	public UserFeedBackVo(){
+		
+	}
 
 	public String getUserId() {
 		return userId;
