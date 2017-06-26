@@ -27,10 +27,10 @@ public class PlaceOrderController {
 	private PlaceOrderService placeOrderService;
 	
 	/**
-	 * 用户下班-制定合伙人
+	 * 用户下班-指定合伙人
 	 * 
 	 * @param request
-	 * @return
+	 * @return 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/appoint", method = RequestMethod.POST)

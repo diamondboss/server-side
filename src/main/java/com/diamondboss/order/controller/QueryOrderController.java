@@ -82,6 +82,9 @@ public class QueryOrderController {
 		
 		PartnerOrderServiceVo partnerOrder = orderService.queryPartnerOrderService(partnerId);
 		
+		Map<String, String> map = orderService.NumByPartnerOrder(partnerId);
+		partnerOrder.setNumByPartnerOrder(map.get("num") + "/" + map.get("total"));
+		
 		app.setData(partnerOrder);
 		app.setRetnCode(0);
 		

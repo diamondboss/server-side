@@ -61,7 +61,6 @@ public class UserInfoController {
 		APPResponseBody app = new APPResponseBody();
 		
 		UserInfoPojo userInfo = userInfoService.queryUserInfo(vo);
-		UserInfoPojo queryUserInfo = new UserInfoPojo();
 		
 		if(userInfo == null){
 			log.info("查询用户信息不存在，生成默认用户信息并保存，UserId：" + vo.getUserId());
@@ -89,7 +88,7 @@ public class UserInfoController {
 		}
 		
 		log.info("处理成功");
-		app.setData(queryUserInfo);
+		app.setData(userInfo);
 		app.setRetnCode(0);
 		return app;
 		

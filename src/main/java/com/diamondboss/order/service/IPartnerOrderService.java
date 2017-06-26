@@ -13,6 +13,7 @@ public interface IPartnerOrderService {
 
 	public List<PartnerOrderVo> queryTodayOrder(String partnerId);
 	
+	
 	public List<PartnerOrderVo> queryTodayOrderDetail(String partnerId);
 	
 }
