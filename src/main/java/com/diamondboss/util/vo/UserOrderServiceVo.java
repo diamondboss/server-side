@@ -4,6 +4,8 @@ public class UserOrderServiceVo {
 
 	private Long userId;
 	
+	private Long partnerId;
+
 	private String userName;
 
 	private String phoneNum;
@@ -37,6 +39,14 @@ public class UserOrderServiceVo {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public Long getPartnerId() {
+		return partnerId;
+	}
+
+	public void setPartnerId(Long partnerId) {
+		this.partnerId = partnerId;
 	}
 
 	public String getUserName() {
