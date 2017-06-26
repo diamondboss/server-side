@@ -50,8 +50,8 @@ public class PetInfoController {
 			return app;
 		}
 		
-		//PetInfoPojo petInfo = petInfoService.queryPetInfo(vo.getUserId());
-		app.setData("更新宠物信息成功");
+		PetInfoPojo petInfo = petInfoService.queryPetInfo(pojo.getUserId());
+		app.setData(petInfo);
 		app.setRetnCode(0);
 		return app;
 		
@@ -87,7 +87,7 @@ public class PetInfoController {
 		InputPetInfoVo inputVo =  new InputPetInfoVo();
 		inputVo.setUserId(vo.getUserId());
 		inputVo.setName("");
-		inputVo.setAge("");
+		inputVo.setAge("99");
 		inputVo.setSex(2);
 		inputVo.setVarieties("");
 		
