@@ -42,8 +42,11 @@ public class UserInfoController {
 			return app;
 		}
 		
+		UserInfoPojo userInfo = userInfoService.queryUserInfoOfUpdate(pojo);
+		
 		log.info("处理成功");
 		app.setRetnCode(0);
+		app.setData(userInfo);
 		return app;	
 	}
 	
