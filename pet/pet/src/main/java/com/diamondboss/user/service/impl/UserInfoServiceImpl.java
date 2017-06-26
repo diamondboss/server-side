@@ -30,4 +30,10 @@ public class UserInfoServiceImpl implements UserInfoService{
 		return userInfoMapper.updateInfoByUserId(pojo);
 	}
 
+	@Override
+	public UserInfoPojo queryUserInfoOfUpdate(UserInfoPojo pojo) {
+		UserInfoPojo UserInfoPojo = userInfoMapper.queryInfoByUserId(pojo.getUserId());
+		return UserInfoPojo;
+	}
+
 }
