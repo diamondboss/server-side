@@ -1,12 +1,17 @@
 package com.diamondboss.order.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
+import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.service.IGrabOrderService;
 import com.diamondboss.util.bo.GrabOrderBo;
 import com.diamondboss.util.pojo.OrderPartnerPojo;
 import com.diamondboss.util.pojo.OrderUserPojo;
+import com.diamondboss.util.tools.TableUtils;
 
 @Service
 public class GrabOrderServiceImpl implements IGrabOrderService{
@@ -67,11 +72,21 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	 */
 	private Boolean cheakSelfOrderNum(String partnerId, String orderDate){
 		
+		String orderPartner = TableUtils.getOrderTableName(Long.valueOf(partnerId),
+				PetConstants.ORDER_USER_TABLE_PREFIX);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("partnerId", partnerId);
+		map.put("orderDate", orderDate);
+		map.put("orderPartner", orderPartner);
+		map.put("orderStatus", "1");
+		map.put("effective", "1");
+		
 		// 查询合伙人能容纳数量
 		int total = grabOrder.querySelfOrdertotal(partnerId);
 		
 		// 查询合伙人接单数量
-		int num = grabOrder.querySelfOrderNum(partnerId, orderDate);
+		int num = grabOrder.querySelfOrderNum(map);
 		
 		if(total > num){
 			return false;

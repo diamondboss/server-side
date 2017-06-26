@@ -1,11 +1,12 @@
 package com.diamondboss.order.service.impl;
 
+import java.time.LocalDate;
 import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.CommunityMapper;
+import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.repository.ParterInfoMapper;
 import com.diamondboss.order.repository.ParterOrderMapper;
 import com.diamondboss.order.repository.UserOrderServiceMapper;
@@ -39,6 +40,9 @@ public class OrderServiceImpl implements IOrderService {
 	 
 	 @Autowired
 	 private UserOrderServiceMapper userOrderServiceMapper;
+	 
+	 @Autowired
+	 private GrabOrderMapper grabOrder;
 	
 	/**
 	 * 根据小区ID，查询小区信息
@@ -180,5 +184,36 @@ public class OrderServiceImpl implements IOrderService {
 		PartnerOrderServiceVo partnerOrder= userOrderServiceMapper.queryPartnerOrderService(map);
 		return partnerOrder;
 	}
+
+	@Override
+	public Map<String, String> NumByPartnerOrder(String partnerId) {
+
+		String orderDate = LocalDate.now().toString();
+		
+		String orderPartner = TableUtils.getOrderTableName(Long.valueOf(partnerId),
+				PetConstants.ORDER_USER_TABLE_PREFIX);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("partnerId", partnerId);
+		map.put("orderDate", orderDate);
+		map.put("orderPartner", orderPartner);
+		map.put("orderStatus", "1");
+		map.put("effective", "1");
+		
+		
+		
+		
+		// 查询合伙人能容纳数量
+		int total = grabOrder.querySelfOrdertotal(partnerId);		
+		// 查询合伙人接单数量
+		int num = grabOrder.querySelfOrderNum(map);
+		
+		Map<String, String> resultmap = new HashMap<String, String>();
+		resultmap.put("total", String.valueOf(total));
+		resultmap.put("num", String.valueOf(num));
+		
+		return resultmap;
+	}
+
 
 }

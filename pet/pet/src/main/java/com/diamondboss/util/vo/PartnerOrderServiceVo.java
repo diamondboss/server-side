@@ -10,6 +10,8 @@ public class PartnerOrderServiceVo {
 
 	private String orderCount;
 	
+	private String numByPartnerOrder;
+
 	public PartnerOrderServiceVo(){
 		
 	}
@@ -45,5 +47,13 @@ public class PartnerOrderServiceVo {
 
 	public void setOrderCount(String orderCount) {
 		this.orderCount = orderCount;
+	}
+	
+	public String getNumByPartnerOrder() {
+		return numByPartnerOrder;
+	}
+
+	public void setNumByPartnerOrder(String numByPartnerOrder) {
+		this.numByPartnerOrder = numByPartnerOrder;
 	}
 }

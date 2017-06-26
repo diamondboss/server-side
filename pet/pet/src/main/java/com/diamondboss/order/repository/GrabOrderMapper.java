@@ -1,5 +1,7 @@
 package com.diamondboss.order.repository;
 
+import java.util.Map;
+
 import com.diamondboss.util.pojo.OrderPartnerPojo;
 import com.diamondboss.util.pojo.OrderUserPojo;
 
@@ -35,5 +37,5 @@ public interface GrabOrderMapper {
 	 * @param date
 	 * @return
 	 */
-	public int querySelfOrderNum(String partnerId, String date);
+	public int querySelfOrderNum(Map<String, String> map);
 }

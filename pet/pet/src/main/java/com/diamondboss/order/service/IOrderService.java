@@ -56,6 +56,13 @@ public interface IOrderService {
 	 * @return
 	 */
 	public PartnerOrderServiceVo queryPartnerOrderService(String partnerId);
+	
+	/**
+	 * 根据合伙人Id查询合伙人的当日的订单数量
+	 * @param partnerId
+	 * @return
+	 */
+	public Map<String, String> NumByPartnerOrder(String partnerId);
 
 	/**
 	 *
