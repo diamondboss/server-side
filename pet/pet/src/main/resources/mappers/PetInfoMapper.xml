@@ -17,7 +17,7 @@
 		    pet_info
 		WHERE
 		    user_id = #{userId}
-		    effective = '1'
+		    and effective = '1'
 	</select>
  
  	<!-- 插入宠物信息  -->
@@ -55,7 +55,7 @@
 		    sex = #{sex},
 		    varieties = #{varieties}
 		WHERE
-		    id = #{id}
+		    user_id = #{userId}
 		    AND effective = '1'
  	</update>
  	

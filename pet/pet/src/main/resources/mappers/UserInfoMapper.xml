@@ -20,7 +20,7 @@
 		    user_info
 		WHERE
 			user_id = #{userId}
-			effective = '1'
+			and effective = '1'
   	</select>
   	
   	<!-- 插入用户信息  -->
@@ -33,6 +33,11 @@
 		        user_id,
 		        name,
 		        phone_number,
+		        age,
+		        sex,
+		        address,
+		        industry,
+		        remark,
 		        effective
 		    )
 		    VALUES
@@ -40,6 +45,11 @@
 		        #{userId},
 		        #{name},
 		        #{phoneNumber},
+		        #{age},
+		        #{sex},
+		        #{address},
+		        #{industry},
+		        #{remark},
 		        '1'
 		    )
   	</insert>
@@ -51,13 +61,14 @@
 		    user_info
 		SET
 		    name = #{name},
+		    phone_number = #{phoneNumber},
 		    age = #{age},
 		    sex = #{sex},
 		    address = #{address},
 		    industry = #{industry},
 		    remark = #{remark}
 		WHERE
-		    id = #{id}
+		    user_id = #{userId}
   	</update>
   
 </mapper>
