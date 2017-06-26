@@ -10,6 +10,10 @@ public class UserInfoVo {
 	 * 用户ID
 	 */
 	private String userId;
+	
+	public UserInfoVo(){
+		
+	}
 
 	public String getUserId() {
 		return userId;
