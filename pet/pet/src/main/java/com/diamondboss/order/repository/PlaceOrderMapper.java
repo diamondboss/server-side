@@ -40,11 +40,11 @@ public interface PlaceOrderMapper {
 	 */
 	public List<RaiseNumberPojo> queryTotalByCommunityId(String communityId);
 	
-	/**
-	 * 查询合伙人接单数量
-	 * @param communityId
-	 */
-	public int querNumByPartnerId(Map<String, Object> map);
+//	/**
+//	 * 查询合伙人接单数量
+//	 * @param communityId
+//	 */
+//	public int querNumByPartnerId(Map<String, Object> map);
 	
 	
 	
