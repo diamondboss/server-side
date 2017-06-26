@@ -15,6 +15,7 @@ import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
 import com.diamondboss.util.tools.SpinOffAddress;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.util.vo.PartnerOrderServiceVo;
 import com.diamondboss.util.vo.UserDetailVo;
 import com.diamondboss.util.vo.UserOrderServiceVo;
 import com.diamondboss.util.vo.UserOrdersServiceVo;
@@ -159,6 +160,25 @@ public class OrderServiceImpl implements IOrderService {
 		//更新支付结果到对应的表的记录中
 
 		//如果为支付成功，还要继续出发推送任务
+	}
+
+	/**
+	 * 查询合伙人的实时订单
+	 * @param userId
+	 * @param orderDate
+	 * @return
+	 */
+	@Override
+	public PartnerOrderServiceVo queryPartnerOrderService(String partnerId) {
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(partnerId),
+				PetConstants.ORDER_USER_TABLE_PREFIX);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("partnerId", partnerId);
+		map.put("tableName", tableName);
+		
+		PartnerOrderServiceVo partnerOrder= userOrderServiceMapper.queryPartnerOrderService(map);
+		return partnerOrder;
 	}
 
 }
