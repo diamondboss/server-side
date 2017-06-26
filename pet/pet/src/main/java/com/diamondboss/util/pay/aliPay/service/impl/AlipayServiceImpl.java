@@ -31,16 +31,16 @@ public class AlipayServiceImpl implements AlipayService {
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
         model.setTotalAmount("0.01");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
-        String orderInfo = Alipay.getPayOrder(model, notifyUrl);
+        String orderInfo = Alipay.getPreOrder(model, notifyUrl);
 
         return orderInfo;
     }
 
-//    public static void main(String[] args){
-//
-//        AlipayServiceImpl alipayService = new AlipayServiceImpl();
-//       System.out.println(alipayService.aliPayPreOrder("2017062497017"));
-//    }
+    public static void main(String[] args){
+
+        AlipayServiceImpl alipayService = new AlipayServiceImpl();
+       System.out.println(alipayService.aliPayPreOrder("2017062497017"));
+    }
 
 
     @Override
