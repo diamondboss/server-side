@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.order.repository.PlaceOrderMapper" >
+	
+	<!-- 查询该合伙人是否满足条件  -->
+	<select id="queryPartnerCondition"
+		parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+	 	SELECT
+		    order_num AS orderNum
+		FROM
+		    partner_login
+	 	WHERE
+	 		id = #{PartnerId}
+	 		AND effective ='1' 
+	</select>
+
+	<!-- 查询指定合伙人在指定日期的有效订单数 -->
+	<select id="queryCountsByPartnerAndDate"
+		parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+		    ${orderPartner}
+		WHERE
+			partner_id = #{partnerId}
+			AND order_date = #{orderDate}
+			AND order_status = #{orderStatus}
+			AND effective = '1'
+	</select>
+
+	<!-- 插入用户订单 -->
+	<insert id="insertUserOrder"
+		parameterType="com.diamondboss.order.pojo.OrderUserPojo">
+		INSERT
+		INTO
+		    ${orderUser}
+		    (
+		        receive_time,
+		        return_time,
+		        pet_name,
+		        sex,
+		        age,
+		        phone,
+		        user_name,
+		        remark,
+		        user_id,
+		        partner_id,
+		        order_date,
+		        order_status,
+		        amt,
+		        effective
+		    )
+		    VALUES
+		    (
+		        #{receiveTime},
+		        #{returnTime},
+		        #{petName},
+		        #{sex},
+		        #{age},
+		        #{phone},
+		        #{user_name},
+		        #{remark},
+		        #{userId},
+		        #{partnerId},
+		        #{orderDate},
+		        #{orderStatus},
+		        #{amt},
+		        '1'
+		    )
+	</insert>
+
+	<!-- 查询小区合伙人允许下单合伙人信息  -->
+	<select id="queryTotalByCommunityId"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.order.pojo.RaiseNumberPojo">
+		SELECT
+		    B.id AS id, 
+		    B.order_num AS orderNum
+		FROM
+		    community A
+		LEFT JOIN
+		    partner_info B
+		ON
+		    A.id = B.community_id
+		WHERE
+		    A.id = #{communityId}
+		AND A.effective = '1'
+		AND B.effective = '1'
+	</select>
+
+</mapper>
