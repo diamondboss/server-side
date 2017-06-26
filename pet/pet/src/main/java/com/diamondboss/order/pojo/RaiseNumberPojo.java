@@ -9,6 +9,10 @@ package com.diamondboss.order.pojo;
  */
 public class RaiseNumberPojo {
 
+	public RaiseNumberPojo(){
+		
+	}
+	
 	/**
 	 * 合伙人id
 	 */
@@ -17,7 +21,7 @@ public class RaiseNumberPojo {
 	/**
 	 * 合伙人可接单数
 	 */
-	private String raiseNumber;
+	private String orderNum;
 
 	/**
 	 * 合伙人id
@@ -39,16 +43,16 @@ public class RaiseNumberPojo {
 	 * 合伙人可接单数
 	 * @return
 	 */
-	public String getRaiseNumber() {
-		return raiseNumber;
+	public String getorderNum() {
+		return orderNum;
 	}
 
 	/**
 	 * 合伙人可接单数
-	 * @param raiseNumber
+	 * @param orderNum
 	 */
-	public void setRaiseNumber(String raiseNumber) {
-		this.raiseNumber = raiseNumber;
+	public void setorderNum(String orderNum) {
+		this.orderNum = orderNum;
 	}
 	
 }
