@@ -31,7 +31,7 @@ public class PetInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updatePetInfo" ,method = RequestMethod.POST)
-	public APPResponseBody updatePetInfo(@RequestBody PetInfoPojo pojo, HttpServletRequest request) {
+	public APPResponseBody updatePetInfo(PetInfoPojo pojo, HttpServletRequest request) {
 		APPResponseBody app = new APPResponseBody();
 		
 		if(pojo == null){
@@ -64,7 +64,7 @@ public class PetInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryPetInfo" ,method = RequestMethod.POST)
-	public APPResponseBody queryPetInfo(@RequestBody PetInfoRequstVo vo,HttpServletRequest request) {
+	public APPResponseBody queryPetInfo(PetInfoRequstVo vo,HttpServletRequest request) {
 		APPResponseBody app = new APPResponseBody();
 		
 		if(vo.getUserId() == null){
@@ -83,7 +83,6 @@ public class PetInfoController {
 			return app;
 		}
 		log.info("查询成功，但没有查到宠物信息");
-		app.setData("");
 		app.setRetnCode(0);
 		return app;
 	}
@@ -95,12 +94,12 @@ public class PetInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/inputPetInfo" ,method = RequestMethod.POST)
-	public APPResponseBody inputPetInfo(@RequestBody InputPetInfoVo vo, HttpServletRequest request) {
+	public APPResponseBody inputPetInfo(InputPetInfoVo vo, HttpServletRequest request) {
 		APPResponseBody app = new APPResponseBody();
 		
 		if(vo == null){
 			log.info("请求参数非法，userId为空");
-			app.setRetnCode(1);
+			app.setRetnCode(1);	
 			app.setRetnDesc("请求参数非法");
 			return app;
 		}

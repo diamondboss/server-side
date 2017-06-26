@@ -32,7 +32,7 @@ public class UserInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateInfo" ,method = RequestMethod.POST)
-	public APPResponseBody input(@RequestBody UserInfoPojo pojo,
+	public APPResponseBody updateUserInfo(UserInfoPojo pojo,
 			 HttpServletRequest request) {
 		APPResponseBody app = new APPResponseBody();
 		
@@ -54,7 +54,7 @@ public class UserInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
-	public APPResponseBody query(@RequestBody UserInfoVo vo,
+	public APPResponseBody queryUserInfo(UserInfoVo vo,
 			HttpServletRequest request) {
 		APPResponseBody app = new APPResponseBody();
 		
@@ -70,6 +70,11 @@ public class UserInfoController {
 		UserInfoPojo.setUserId(vo.getUserId());
 		UserInfoPojo.setName(UUIDUtil.getOrderIdByUUID());
 		UserInfoPojo.setPhoneNumber("");
+		UserInfoPojo.setAge("");
+		UserInfoPojo.setSex("");
+		UserInfoPojo.setAddress("");
+		UserInfoPojo.setIndustry("");
+		UserInfoPojo.setRemark("");
 		
 		if(userInfoService.inputUserInfo(UserInfoPojo) < 1){
 			log.info("生成默认用户信息保存失败,UserId：" + vo.getUserId());
