@@ -30,6 +30,10 @@ public class InputPetInfoVo {
 	 * 宠物品种
 	 */
 	private String varieties;
+	
+	public InputPetInfoVo(){
+		
+	}
 
 	public String getUserId() {
 		return userId;

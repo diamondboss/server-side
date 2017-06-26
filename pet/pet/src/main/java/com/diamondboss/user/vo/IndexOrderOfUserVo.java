@@ -8,6 +8,10 @@ package com.diamondboss.user.vo;
 public class IndexOrderOfUserVo {
 	
 	private String userId;
+	
+	public IndexOrderOfUserVo(){
+		
+	}
 
 	public String getUserId() {
 		return userId;

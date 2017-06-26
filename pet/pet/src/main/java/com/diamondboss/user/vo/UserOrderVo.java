@@ -4,6 +4,10 @@ public class UserOrderVo {
 	private String userId;
 	
 	private String orderDate;
+	
+	public UserOrderVo(){
+		
+	}
 
 	public String getUserId() {
 		return userId;

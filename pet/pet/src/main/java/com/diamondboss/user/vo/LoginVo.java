@@ -16,6 +16,10 @@ public class LoginVo {
 	 * 电话验证编号
 	 */
 	private String sessionId;
+	
+	public LoginVo(){
+		
+	}
 
 	public String getPhone() {
 		return phone;
