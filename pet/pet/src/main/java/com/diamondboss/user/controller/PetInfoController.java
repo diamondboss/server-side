@@ -87,8 +87,8 @@ public class PetInfoController {
 		InputPetInfoVo inputVo =  new InputPetInfoVo();
 		inputVo.setUserId(vo.getUserId());
 		inputVo.setName("");
-		inputVo.setAge("99");
-		inputVo.setSex(2);
+		inputVo.setAge("空");
+		inputVo.setSex(9); //9为默认，新纪录没性别
 		inputVo.setVarieties("");
 		
 		int result = petInfoService.inputPetInfo(inputVo);
