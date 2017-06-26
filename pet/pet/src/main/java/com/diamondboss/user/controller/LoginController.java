@@ -74,25 +74,23 @@ public class LoginController {
 			UserLoginPojo userLogin = userLoginService.login(vo);
 			if (userLogin == null) {
 				if (userLoginService.insertUser(vo) < 1) {
+					userLogin.setUserType("0");
 					app.setRetnCode(1);
-					app.setRetnDesc("0");
 					return app;
 				}
 			}
 			userLogin = userLoginService.login(vo);
-
+			
+			userLogin.setUserType("0");
 			app.setRetnCode(0);
-			app.setRetnDesc("0");
 			app.setData(userLogin);
 			return app;
 		}
+		partnerLogin.setUserType("1");
 		app.setRetnCode(0);
-		app.setRetnDesc("1");
 		app.setData(partnerLogin);
 		return app;
 	}
-	
-	
 	
 	
 	/**
