@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.order.service.IPartnerOrderService;
 import com.diamondboss.util.vo.APPResponseBody;
+import com.diamondboss.util.vo.PartnerOrderRequestVo;
+import com.diamondboss.util.vo.PartnerOrderServiceVo;
 import com.diamondboss.util.vo.PartnerOrderVo;
 
 @Controller
@@ -66,22 +68,21 @@ public class QueryOrderController {
 	}
 	
 	/**
-	 * 查询用户的实时订单
+	 * 查询合伙人的实时订单
 	 * 
 	 * @param request
 	 * @return
 	 */
-	@ResponseBody
-	@RequestMapping(value = "/userOrder", method = RequestMethod.POST)
-	public APPResponseBody userOrder(HttpServletRequest request) {
-		
-		String userId = request.getParameter("userId");
-		String orderDate = request.getParameter("orderDate");
-		
-		Map<String, Object> responseMap = orderService.queryUserOrderService(userId, orderDate);
+	@RequestMapping(value = "/PartnerOrder", method = RequestMethod.POST)
+	public @ResponseBody APPResponseBody PartnerOrder(PartnerOrderRequestVo vo, HttpServletRequest request) {
 		
 		APPResponseBody app = new APPResponseBody();
-		app.setData(responseMap);
+		
+		String partnerId = request.getParameter("partnerId");
+		
+		PartnerOrderServiceVo partnerOrder = orderService.queryPartnerOrderService(partnerId);
+		
+		app.setData(partnerOrder);
 		app.setRetnCode(0);
 		
 		return app;
