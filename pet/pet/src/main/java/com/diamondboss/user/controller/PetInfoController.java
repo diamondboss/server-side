@@ -82,13 +82,31 @@ public class PetInfoController {
 			app.setRetnCode(0);
 			return app;
 		}
-		log.info("查询成功，但没有查到宠物信息");
+		
+		//默认一条宠物记录，除了用户id，其他都为空
+		InputPetInfoVo inputVo =  new InputPetInfoVo();
+		inputVo.setUserId(vo.getUserId());
+		inputVo.setName("");
+		inputVo.setAge("");
+		inputVo.setSex(2);
+		inputVo.setVarieties("");
+		
+		int result = petInfoService.inputPetInfo(inputVo);
+		
+		if(result < 1){
+			log.info("插入宠物信息失败，petInfo：" + vo.getUserId());
+			app.setRetnCode(1);
+			app.setRetnDesc("处理异常");
+			return app;
+		}
+		
+		log.info("处理成功，用户Id: " + vo.getUserId());
 		app.setRetnCode(0);
 		return app;
 	}
 	
 	/**
-	 * 插入宠物信息
+	 * 插入宠物信息（没用）
 	 * @param request
 	 * @return
 	 */
