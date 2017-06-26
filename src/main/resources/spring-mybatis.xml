@@ -37,7 +37,7 @@
 
 		<!-- 测试 -->
    		<property name="driverClassName" value="com.mysql.jdbc.Driver" />  
-        <property name="url" value="jdbc:mysql://182.92.149.119:3306/pet" />  
+        <property name="url" value="jdbc:mysql://182.92.149.119:3306/pet?characterEncoding=UTF-8" />  
         <property name="username" value="root" />  
         <property name="password" value="zfxue123" />  
         <!-- 初始化连接大小 -->  
