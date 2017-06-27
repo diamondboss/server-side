@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.order.repository.DistributeOrderMapper" >
+
+	<!-- 插入合伙人订单信息  -->
+	<insert id="insertOrderPartner"
+		parameterType="com.diamondboss.order.pojo.OrderPartnerPojo">
+		INSERT
+		INTO
+		    ${orderPartner}
+		    (
+		        receive_time,
+		        return_time,
+		        pet_name,
+		        sex,
+		        age,
+		        phone,
+		        user_name,
+		        remark,
+		        user_id,
+		        partner_id,
+		        order_date,
+		        order_status,
+		        amt,
+		        effective,
+		    )
+		    VALUES
+		    (
+		        #{receiveTime},
+		        #{returnTime},
+		        #{petName},
+		        #{sex},
+		        #{age},
+		        #{phone},
+		        #{userName},
+		        #{remark},
+		        #{userId},
+		        #{partnerId},
+		        #{orderDate},
+		        #{orderStatus},
+		        #{amt},
+		        '1'
+		    )
+	</insert>
+	
+	<!-- 更新用户订单信息  -->
+	<update id="updateOrderUser"
+		parameterType="com.diamondboss.order.pojo.updateOrderUser">
+		UPDATE
+		    ${orderUser}
+		SET
+		    partner_id = #{partnerId},
+		    order_status = #{orderStatus},
+		WHERE
+		    id = #{id}
+		    AND effective = '1'
+	</update>
+
+</mapper>
