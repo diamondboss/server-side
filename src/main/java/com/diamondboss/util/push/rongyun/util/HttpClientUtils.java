@@ -18,6 +18,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -32,7 +33,7 @@ import org.apache.logging.log4j.Logger;
 public class HttpClientUtils {
 	
 	// 日志记录器
-	private final static Logger logger = Logger.getLogger(HttpClientUtils.class);
+	private static Logger logger = LogManager.getLogger(HttpClientUtils.class);
 	
 	// 锁对象
 	private static final Object lock = new Object();
