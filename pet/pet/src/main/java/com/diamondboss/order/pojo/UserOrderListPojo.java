@@ -1,0 +1,265 @@
+package com.diamondboss.order.pojo;
+
+/**
+ * 用户订单展示列表pojo
+ * 
+ * @author John
+ * @since 2017-06-27
+ *  
+ */
+public class UserOrderListPojo {
+
+	/**
+	 * 订单编号
+	 */
+	private String id;
+	
+	/**
+	 * 送宠时间
+	 */
+	private String receiveTime;
+	
+	/**
+	 * 取宠时间
+	 */
+	private String returnTime;
+	
+	/**
+	 * 订单金额
+	 */
+	private String amt;
+	
+	/**
+	 * 合伙人姓名
+	 */
+	private String partnerName;
+	
+	/**
+	 * 订单状态
+	 */
+	private String orderStatus;
+	
+	/**
+	 * 宠物性别
+	 */
+	private String sex;
+	
+	/**
+	 * 宠物年龄
+	 */
+	private String age;
+	
+	/**
+	 * 宠物品种
+	 */
+	private String varieties;
+	
+	/**
+	 * 订单备注
+	 */
+	private String remark;
+	
+	/**
+	 * 订单日期
+	 */
+	private String orderDate;
+	
+	/**
+	 * 订单创建时间
+	 */
+	private String createTime;
+
+	/**
+	 * 订单编号
+	 * @return
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * 订单编号
+	 * @param id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * 订单金额
+	 * @return
+	 */
+	public String getAmt() {
+		return amt;
+	}
+
+	/**
+	 * 订单金额
+	 * @param amt
+	 */
+	public void setAmt(String amt) {
+		this.amt = amt;
+	}
+
+	/**
+	 * 合伙人姓名
+	 * @return
+	 */
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	/**
+	 * 合伙人姓名
+	 * @param partnerName
+	 */
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
+
+	/**
+	 * 订单状态
+	 * @return
+	 */
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	/**
+	 * 订单状态
+	 * @param orderStatus
+	 */
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
+	/**
+	 * 送宠时间
+	 * @return
+	 */
+	public String getReceiveTime() {
+		return receiveTime;
+	}
+
+	/**
+	 * 送宠时间
+	 * @param receiveTime
+	 */
+	public void setReceiveTime(String receiveTime) {
+		this.receiveTime = receiveTime;
+	}
+
+	/**
+	 * 取宠时间
+	 * @return
+	 */
+	public String getReturnTime() {
+		return returnTime;
+	}
+
+	/**
+	 * 取宠时间
+	 * @param returnTime
+	 */
+	public void setReturnTime(String returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	/**
+	 * 宠物性别
+	 * @return
+	 */
+	public String getSex() {
+		return sex;
+	}
+
+	/**
+	 * 宠物性别
+	 * @param sex
+	 */
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	/**
+	 * 宠物年龄
+	 * @return
+	 */
+	public String getAge() {
+		return age;
+	}
+
+	/**
+	 * 宠物年龄
+	 * @param age
+	 */
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	/**
+	 * 宠物品种
+	 * @return
+	 */
+	public String getVarieties() {
+		return varieties;
+	}
+
+	/**
+	 * 宠物品种
+	 * @param varieties
+	 */
+	public void setVarieties(String varieties) {
+		this.varieties = varieties;
+	}
+
+	/**
+	 * 订单备注
+	 * @return
+	 */
+	public String getRemark() {
+		return remark;
+	}
+
+	/**
+	 * 订单备注
+	 * @param remark
+	 */
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	/**
+	 * 订单日期
+	 * @return
+	 */
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	/**
+	 * 订单日期
+	 * @param orderDate
+	 */
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	/**
+	 * 订单创建时间
+	 * @return
+	 */
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	/**
+	 * 订单创建时间
+	 * @param createTime
+	 */
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	
+	
+}
