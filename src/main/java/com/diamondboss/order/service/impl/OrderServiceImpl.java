@@ -5,12 +5,14 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.diamondboss.constants.PetConstants;
+import com.diamondboss.order.pojo.UserOrderListPojo;
 import com.diamondboss.order.repository.CommunityMapper;
 import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.repository.ParterInfoMapper;
 import com.diamondboss.order.repository.ParterOrderMapper;
 import com.diamondboss.order.repository.UserOrderServiceMapper;
 import com.diamondboss.order.service.IOrderService;
+import com.diamondboss.order.vo.UserOrderListVo;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.pojo.ParterOrderPojo;
@@ -212,5 +214,23 @@ public class OrderServiceImpl implements IOrderService {
 		return resultmap;
 	}
 
+	/**
+	 * 查询用户订单列表
+	 * 
+	 * @param userId 用户id
+	 * @return 用户订单列表
+	 */
+	@Override
+	public UserOrderListVo queryUserOrderList(String userId){
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("userId", userId);
+		param.put("orderUser", TableUtils.getOrderTableName(
+				Long.valueOf(userId), PetConstants.ORDER_USER_TABLE_PREFIX));
+		
+		List<UserOrderListPojo> list = userOrderServiceMapper.queryUserOrderList(param);
+		UserOrderListVo vo = new UserOrderListVo(list);
+		return vo;
+	}
 
 }
