@@ -40,6 +40,13 @@ public interface PlaceOrderMapper {
 	 */
 	public List<RaiseNumberPojo> queryTotalByCommunityId(String communityId);
 	
+	/**
+	 * 根据用户Id和订单日期查出订单记录的主键Id
+	 * @param map
+	 * @return
+	 */
+	public String queryOrderPartnerId(Map<String, Object> map);
+	
 //	/**
 //	 * 查询合伙人接单数量
 //	 * @param communityId

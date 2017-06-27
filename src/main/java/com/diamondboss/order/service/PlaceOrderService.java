@@ -1,5 +1,6 @@
 package com.diamondboss.order.service;
 
+import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
 
 /**
@@ -29,6 +30,6 @@ public interface PlaceOrderService {
 	 * 签名生成订单信息
 	 * @param vo
 	 */
-	public String combinationOrderInfo(OrderUserVo vo);
+	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserVo vo);
 	
 }

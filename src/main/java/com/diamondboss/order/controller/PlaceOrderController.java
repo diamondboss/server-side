@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.order.service.PlaceOrderService;
+import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
 import com.diamondboss.util.vo.APPResponseBody;
 
@@ -49,7 +50,7 @@ public class PlaceOrderController {
 		if(is){
 			
 			// 签名生成订单信息
-			String orderInfo = placeOrderService.combinationOrderInfo(vo);
+			AlipayOrderSubmitVo orderInfo = placeOrderService.combinationOrderInfo(vo);
 			
 			app.setData(orderInfo);
 			app.setRetnCode(0);
@@ -85,7 +86,7 @@ public class PlaceOrderController {
 		if(is){
 			
 			// 签名生成订单信息
-			String orderInfo = placeOrderService.combinationOrderInfo(vo);
+			AlipayOrderSubmitVo orderInfo = placeOrderService.combinationOrderInfo(vo);
 			
 			app.setData(orderInfo);
 			app.setRetnCode(0);
