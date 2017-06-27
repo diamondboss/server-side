@@ -60,7 +60,7 @@
 		        #{sex},
 		        #{age},
 		        #{phone},
-		        #{user_name},
+		        #{userName},
 		        #{remark},
 		        #{userId},
 		        #{partnerId},
