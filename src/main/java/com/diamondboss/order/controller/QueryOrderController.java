@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.order.service.IPartnerOrderService;
+import com.diamondboss.order.vo.UserOrderListVo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.PartnerOrderRequestVo;
 import com.diamondboss.util.vo.PartnerOrderServiceVo;
@@ -90,4 +91,24 @@ public class QueryOrderController {
 		
 		return app;
 	}
+	
+	/**
+	 * 查询用户订单列表
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/userOrderList", method = RequestMethod.POST)
+	public @ResponseBody APPResponseBody queryUserOrderList(String userId) {
+		
+		APPResponseBody app = new APPResponseBody();
+		
+		UserOrderListVo vo = orderService.queryUserOrderList(userId);
+		
+		app.setData(vo);
+		app.setRetnCode(0);
+		
+		return app;
+	}
+	
 }
