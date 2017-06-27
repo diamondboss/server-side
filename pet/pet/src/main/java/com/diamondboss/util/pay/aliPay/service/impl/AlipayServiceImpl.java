@@ -4,7 +4,7 @@ import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.aliPay.service.AlipayService;
 import com.diamondboss.util.tools.PropsUtil;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 import com.diamondboss.util.push.rongyun.constcla.Constants;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;

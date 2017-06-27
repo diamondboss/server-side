@@ -153,7 +153,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 */
 	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserVo vo){
 		
-		String notifyUrl = "localhost:8080/alipay/acceptPayNotice";
+		String notifyUrl = "182.92.149.119:8080/app/ali/payConfirm";
 		
 		//表Id，tableId。
 		int tableId =  Integer.valueOf(vo.getPartnerId()) / 100 + 1;

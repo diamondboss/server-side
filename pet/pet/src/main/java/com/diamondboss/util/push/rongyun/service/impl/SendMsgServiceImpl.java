@@ -8,7 +8,7 @@ import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.SHA1Utils;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.diamondboss.util.tools.jedis.CacheFunc;

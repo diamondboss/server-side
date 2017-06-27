@@ -12,14 +12,15 @@ import com.diamondboss.util.vo.UserOrderServiceVo;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PartnerLoginServiceImpl implements PartnerLoginService{
 
-	private static final Logger log = Logger.getLogger(PartnerLoginServiceImpl.class);
+	private static final Logger log = LogManager.getLogger(PartnerLoginServiceImpl.class);
 	
 	@Autowired
 	private PartnerLoginMapper partnerLoginMapper;
