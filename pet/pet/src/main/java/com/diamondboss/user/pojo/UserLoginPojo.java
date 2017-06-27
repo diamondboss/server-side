@@ -15,6 +15,11 @@ public class UserLoginPojo {
 	private String id;
 	
 	/**
+	 * 用户名
+	 */
+	private String name;
+
+	/**
 	 * 电话号码
 	 */
 	private String phoneNumber;
@@ -38,6 +43,14 @@ public class UserLoginPojo {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
