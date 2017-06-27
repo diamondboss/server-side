@@ -24,5 +24,11 @@ public interface PlaceOrderService {
 	 * @return
 	 */
 	public boolean randomPartner(OrderUserVo vo);
+
+	/**
+	 * 签名生成订单信息
+	 * @param vo
+	 */
+	public String combinationOrderInfo(OrderUserVo vo);
 	
 }

@@ -94,6 +94,11 @@ public class OrderUserPojo {
 	 * 更新时间
 	 */
 	private String updateTime;
+	
+	/**
+	 * 表名
+	 */
+	private String orderUser;
 
 	/**
 	 * 主键
@@ -349,6 +354,14 @@ public class OrderUserPojo {
 	 */
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
+	}
+	
+	public String getOrderUser() {
+		return orderUser;
+	}
+
+	public void setOrderUser(String orderUser) {
+		this.orderUser = orderUser;
 	}
 	
 }

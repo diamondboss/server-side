@@ -2,7 +2,9 @@ package com.diamondboss.order.vo;
 
 import java.math.BigDecimal;
 
+import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.util.tools.TableUtils;
 
 /**
  * 用户下单
@@ -80,7 +82,7 @@ public class OrderUserVo {
 	/**
 	 * 订单状态
 	 */
-	private String orderStatus;
+	private String orderStatus = "1";
 	
 	/**
 	 * 金额
@@ -101,9 +103,6 @@ public class OrderUserVo {
 	 * 小区id
 	 */
 	private String communityId;
-	
-	
-	
 	
 	/**
 	 * 主键
@@ -380,6 +379,28 @@ public class OrderUserVo {
 	public OrderUserPojo voToPojo(OrderUserVo vo){
 		
 		OrderUserPojo pojo = new  OrderUserPojo();
+		
+		if(vo == null){
+			return pojo;
+		}
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getPartnerId()), 
+				PetConstants.ORDER_PARTNER_TABLE_PREFIX);
+		
+		pojo.setReceiveTime(vo.getReceiveTime());
+		pojo.setReturnTime(vo.getReturnTime());
+		pojo.setPetName(vo.getPetName());
+		pojo.setSex(vo.getSex());
+		pojo.setAge(vo.getAge());
+		pojo.setPhone(vo.getPhone());
+		pojo.setUserName(vo.getUserName());
+		pojo.setRemark(vo.getRemark());
+		pojo.setUserId(vo.getUserId());
+		pojo.setPartnerId(vo.getPartnerId());
+		pojo.setOrderDate(vo.getOrderDate());
+		pojo.setOrderStatus(vo.getOrderStatus());
+		pojo.setAmt(vo.getAmt());
+		pojo.setOrderUser(tableName);
 		
 		return pojo;
 	}

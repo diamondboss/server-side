@@ -27,7 +27,7 @@ public class PlaceOrderController {
 	private PlaceOrderService placeOrderService;
 	
 	/**
-	 * 用户下班-指定合伙人
+	 * 用户下单-指定合伙人
 	 * 
 	 * @param request
 	 * @return 
@@ -49,8 +49,9 @@ public class PlaceOrderController {
 		if(is){
 			
 			// 签名生成订单信息
+			String orderInfo = placeOrderService.combinationOrderInfo(vo);
 			
-			app.setData("");
+			app.setData(orderInfo);
 			app.setRetnCode(0);
 		}else{
 			app.setData("该合伙人订单已满");
@@ -79,9 +80,21 @@ public class PlaceOrderController {
 			return app;
 		}	
 		
+		boolean is = placeOrderService.randomPartner(vo);
 		
+		if(is){
+			
+			// 签名生成订单信息
+			String orderInfo = placeOrderService.combinationOrderInfo(vo);
+			
+			app.setData(orderInfo);
+			app.setRetnCode(0);
+		}else{
+			app.setData("该合伙人订单已满");
+			app.setRetnCode(1);
+		}
 		
-		return null;
+		return app;
 	
 	}
 }
