@@ -45,7 +45,7 @@
 	
 	<!-- 更新用户订单信息  -->
 	<update id="updateOrderUser"
-		parameterType="com.diamondboss.order.pojo.updateOrderUser">
+		parameterType="com.diamondboss.order.pojo.OrderUserPojo">
 		UPDATE
 		    ${orderUser}
 		SET
