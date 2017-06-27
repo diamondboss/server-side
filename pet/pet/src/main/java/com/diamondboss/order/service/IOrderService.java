@@ -3,6 +3,8 @@ package com.diamondboss.order.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import com.diamondboss.order.vo.UserOrderListVo;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.vo.PartnerOrderServiceVo;
 import com.diamondboss.util.vo.UserDetailVo;
@@ -70,4 +72,15 @@ public interface IOrderService {
 	 * @param params
 	 */
 	public void synchronizedPaymentResult(String orderId, Map<String, Objects> params);
+	
+	/**
+	 * 查询用户订单列表
+	 * 
+	 * @param userId
+	 * @return 用户订单列表
+	 */
+	public UserOrderListVo queryUserOrderList(String userId);
+	
+	
+	
 }
