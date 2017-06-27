@@ -7,13 +7,15 @@
 		parameterType="java.lang.String"
 		resultType="com.diamondboss.user.pojo.UserLoginPojo">
 		SELECT
-		    id AS id,
-		    phone_number AS phoneNumber
+		  A.id AS id,
+		  A.phone_number AS phoneNumber,
+		  B.name AS name
 		FROM
-		    user_login
+		    user_login A
+		INNER JOIN user_info B ON A.id = B.user_id
 		WHERE
-			phone_number = #{phoneNumber}
-			AND effective = '1'
+			A.phone_number = #{phoneNumber}
+			AND A.effective = '1'
 	</select>
 
 	<!-- 登录插入 -->
