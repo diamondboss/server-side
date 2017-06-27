@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,12 @@ import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
+import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.util.tools.UUIDUtil;
 
 /**
  * 用户下单
@@ -148,22 +151,43 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * 创建订单信息
 	 * @param vo
 	 */
-	public String combinationOrderInfo(OrderUserVo vo){
+	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserVo vo){
 		
 		String notifyUrl = "localhost:8080/alipay/acceptPayNotice";
+		
+		//表Id，tableId。
+		int tableId =  Integer.valueOf(vo.getPartnerId()) / 100 + 1;
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getPartnerId()),
+				PetConstants.ORDER_USER_TABLE_PREFIX);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("tableName", tableName);
+		map.put("userId", vo.getUserId());
+		map.put("orderDate", LocalDate.now().toString());
+		
+		//订单主键ID
+		String idKey = placeOrderMapper.queryOrderPartnerId(map);
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         //TODO 组装订单数据
         model.setBody("我是测试数据的描述信息");
         model.setSubject("我是测试数据的交易标题");
-        model.setOutTradeNo("");// 订单编号
+        model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setSellerId(PropsUtil.getProperty("alipay.sellerid"));
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
-        model.setTotalAmount("0.01");
+        model.setTotalAmount("19.99");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
         String orderInfo = Alipay.getPreOrder(model, notifyUrl);
+        
+        AlipayOrderSubmitVo alipayOrderSubmitVo = new AlipayOrderSubmitVo();
+        alipayOrderSubmitVo.setOrderInfo(model.getBody());
+        alipayOrderSubmitVo.setOrderAmt(model.getTotalAmount());
+        alipayOrderSubmitVo.setAlipaySign(orderInfo);
 
-	    return orderInfo;
+	    return alipayOrderSubmitVo;
 	}
+	
+	
 	
 }
