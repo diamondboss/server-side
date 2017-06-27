@@ -7,13 +7,16 @@
 		parameterType="java.lang.String"
 		resultType="com.diamondboss.user.pojo.PartnerLoginPojo">
 		SELECT
-		    id AS id,
-		    phone_number As phoneNum
+		    A.id AS id,
+		    B.name AS name,
+		    A.phone_number AS phoneNum
 		FROM
-		    partner_login
+		    partner_login A 
+		INNER JOIN partner_info B 
+		ON A.id = B.parter_id
 		WHERE
-			phone_number = #{phoneNumber}
-			AND effective = '1'
+			A.phone_number = #{phoneNumber}
+			AND A.effective = '1'
 	</select>
 
 
