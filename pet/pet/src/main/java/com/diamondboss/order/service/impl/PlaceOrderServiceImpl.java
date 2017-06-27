@@ -1,17 +1,13 @@
 package com.diamondboss.order.service.impl;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.diamondboss.constants.PetConstants;
-import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
@@ -94,7 +90,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
 		// 查询合伙人的当日订单数量
 		Map<String, Object> params = new HashMap<>();
-		params.put("tableName", tableName);
+		params.put("orderPartner", tableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", orderDate);
 		int counts = placeOrderMapper.queryCountsByPartnerAndDate(params);// 当前订单数量
@@ -136,7 +132,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 			String tableName = TableUtils.getOrderTableName(Long.valueOf(i.getId()), 
 					PetConstants.ORDER_PARTNER_TABLE_PREFIX);
 			Map<String, Object> params = new HashMap<>();
-			params.put("tableName", tableName);
+			params.put("orderPartner", tableName);
 			params.put("partnerId", i.getId());
 			params.put("orderDate", orderDate);
 			num += 	placeOrderMapper.queryCountsByPartnerAndDate(params);
@@ -152,7 +148,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * 创建订单信息
 	 * @param vo
 	 */
-	private String combinationOrderInfo(OrderUserVo vo){
+	public String combinationOrderInfo(OrderUserVo vo){
 		
 		String notifyUrl = "localhost:8080/alipay/acceptPayNotice";
 
