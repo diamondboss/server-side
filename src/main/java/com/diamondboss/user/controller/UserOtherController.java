@@ -2,13 +2,12 @@ package com.diamondboss.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.diamondboss.user.vo.LoginVo;
 import com.diamondboss.user.vo.UserFeedBackVo;
 import com.diamondboss.util.vo.APPResponseBody;
 
@@ -23,7 +22,7 @@ import com.diamondboss.util.vo.APPResponseBody;
 @RequestMapping("/userOther")
 public class UserOtherController {
 	
-	private static final Logger log = Logger.getLogger(UserOtherController.class);
+	private static Logger logger = LogManager.getLogger(UserOtherController.class);
 	
 	@ResponseBody
 	@RequestMapping(value = "/userFeedBack", method = RequestMethod.POST)
@@ -33,7 +32,7 @@ public class UserOtherController {
 		
 		//1.将用户反馈信息插入到数据库中
 		
-		log.info("用户反馈信息写入数据库成功！");
+		logger.info("用户反馈信息写入数据库成功！");
 		app.setRetnCode(0);
 		app.setData("");
 		return app;
