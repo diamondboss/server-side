@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.diamondboss.util.push.rongyun.constcla.Constants;
@@ -29,7 +30,7 @@ import com.google.gson.JsonParser;
 public class SmsSenderUtils {
 	
 	// 日志记录器
-	private static final Logger logger = Logger.getLogger(SmsSenderUtils.class);
+	private static Logger logger = LogManager.getLogger(SmsSenderUtils.class);
 
 	/**
 	 *

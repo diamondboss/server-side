@@ -2,12 +2,14 @@ package com.diamondboss.util.push.rongyun.service.impl;
 
 import javax.annotation.Resource;
 
+import com.diamondboss.personal.controller.UserBaseInfoController;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.SHA1Utils;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,8 @@ import com.diamondboss.util.push.rongyun.util.StringTools;
 @Service(value="msgSendServiceImpl")
 public class SendMsgServiceImpl implements ISendMsgService {
 	
-	// 日志记录器
-	private final static Logger logger = Logger.getLogger(SendMsgServiceImpl.class);
+	// 日志记录器	
+	private static Logger logger = LogManager.getLogger(SendMsgServiceImpl.class);
 
 	//融云的appKey
 	private static final String appKey = PropsUtil.getProperty("rongyun.appkey");

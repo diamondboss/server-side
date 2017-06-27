@@ -1,9 +1,13 @@
 package com.diamondboss.util.pay.aliPay.service.impl;
 
 import com.alipay.api.domain.AlipayTradeAppPayModel;
+import com.diamondboss.user.controller.UserOtherController;
+import com.diamondboss.user.service.impl.UserLoginServiceImpl;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.aliPay.service.AlipayService;
 import com.diamondboss.util.tools.PropsUtil;
+
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +20,8 @@ import java.util.Map;
  */
 @Service
 public class AlipayServiceImpl implements AlipayService {
-    private static final Logger logger = Logger.getLogger(AlipayServiceImpl.class);
+    
+    private static Logger logger = LogManager.getLogger(AlipayServiceImpl.class);
 
     @Override
     public String aliPayPreOrder(String orderId) {
