@@ -32,7 +32,7 @@ public class PetInfoPojo {
 	/**
 	 * 宠物性别
 	 */
-	private int sex;
+	private String sex;
 	
 	/**
 	 * 宠物品种
@@ -107,7 +107,7 @@ public class PetInfoPojo {
 	 * 宠物性别
 	 * @return
 	 */
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
 
@@ -115,7 +115,7 @@ public class PetInfoPojo {
 	 * 宠物性别
 	 * @param sex
 	 */
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
