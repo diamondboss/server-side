@@ -3,6 +3,8 @@ package com.diamondboss.order.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.diamondboss.order.pojo.UserOrderListPojo;
+import com.diamondboss.order.vo.UserOrderListVo;
 import com.diamondboss.util.vo.PartnerOrderServiceVo;
 import com.diamondboss.util.vo.UserOrderServiceVo;
 import com.diamondboss.util.vo.UserOrdersServiceVo;
@@ -29,4 +31,12 @@ public interface UserOrderServiceMapper {
 	 * @return
 	 */
 	List<UserOrdersServiceVo> queryUserOrders(Map<String, Object> map);
+	
+	/**
+	 * 查询用户订单列表
+	 * @param userId
+	 */
+	public List<UserOrderListPojo> queryUserOrderList(Map<String, Object> map);
+	
+	
 }
