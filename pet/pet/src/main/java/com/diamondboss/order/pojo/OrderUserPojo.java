@@ -68,7 +68,7 @@ public class OrderUserPojo {
 	/**
 	 * 合伙人id
 	 */
-	private String partnerId;
+	private String partnerId = "";
 	
 	/**
 	 * 订单日期
