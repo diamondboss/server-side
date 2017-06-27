@@ -398,8 +398,8 @@ public class OrderUserVo {
 		pojo.setUserId(vo.getUserId());
 		pojo.setPartnerId(vo.getPartnerId());
 		pojo.setOrderDate(vo.getOrderDate());
-		pojo.setOrderStatus(vo.getOrderStatus());
-		pojo.setAmt(vo.getAmt());
+		pojo.setOrderStatus("0");
+		pojo.setAmt(new BigDecimal("0.01"));
 		pojo.setOrderUser(tableName);
 		
 		return pojo;
