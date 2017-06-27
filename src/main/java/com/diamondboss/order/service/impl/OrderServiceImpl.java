@@ -200,9 +200,6 @@ public class OrderServiceImpl implements IOrderService {
 		map.put("orderStatus", "1");
 		map.put("effective", "1");
 		
-		
-		
-		
 		// 查询合伙人能容纳数量
 		int total = grabOrder.querySelfOrdertotal(partnerId);		
 		// 查询合伙人接单数量
