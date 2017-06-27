@@ -396,7 +396,9 @@ public class OrderUserVo {
 		pojo.setUserName(vo.getUserName());
 		pojo.setRemark(vo.getRemark());
 		pojo.setUserId(vo.getUserId());
-		pojo.setPartnerId(vo.getPartnerId());
+		if(vo.getPartnerId() != null){
+			pojo.setPartnerId(vo.getPartnerId());
+		}
 		pojo.setOrderDate(vo.getOrderDate());
 		pojo.setOrderStatus("0");
 		pojo.setAmt(new BigDecimal("0.01"));
