@@ -3,6 +3,7 @@ package pet;
 import javax.annotation.Resource;
 
 import com.diamondboss.util.pojo.UserInfoPojo;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,8 +16,8 @@ import com.diamondboss.personal.service.IUserService;
 @RunWith(SpringJUnit4ClassRunner.class)     //��ʾ�̳���SpringJUnit4ClassRunner��  
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})  
 public class TestMyBatis {
-
-	 private static Logger logger = Logger.getLogger(TestMyBatis.class);  
+	 
+	 private static Logger logger = LogManager.getLogger(TestMyBatis.class);
 	//  private ApplicationContext ac = null;  
 	    @Resource  
 	    private IUserService userService = null;  
