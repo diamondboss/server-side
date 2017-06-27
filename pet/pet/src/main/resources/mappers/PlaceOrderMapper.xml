@@ -89,5 +89,15 @@
 		AND A.effective = '1'
 		AND B.effective = '1'
 	</select>
-
+	
+	<!-- 查询小区合伙人允许下单合伙人信息  -->
+	<select id="queryOrderPartnerId"
+		parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT A.id AS id
+		FROM ${tableName} A
+		WHERE A.user_id = #{userId} 
+		AND A.order_date = ${orderDate}
+		AND A.effective = "1"
+	</select>
 </mapper>
