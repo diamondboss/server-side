@@ -1,6 +1,9 @@
 package com.diamondboss.user.repository;
 
+import java.util.List;
+
 import com.diamondboss.user.pojo.PartnerInfoPojo;
+import com.diamondboss.user.vo.ResponsePartnerOfCommunityVo;
 
 /**
  * 合伙人信息数据访问
@@ -18,5 +21,12 @@ public interface PartnerInfoMapper {
 	 * @return
 	 */
 	public PartnerInfoPojo queryInfoByPartnerId(String partnerId);
+	
+	/**
+	 * 根据小区名字，返回该小区的所有合伙人
+	 * @param communityName
+	 * @return
+	 */
+	public List<ResponsePartnerOfCommunityVo> queryPartnerOfCommunityList(String communityName);
 	
 }
