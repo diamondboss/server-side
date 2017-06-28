@@ -66,4 +66,30 @@
 			AND A.effective = '1'
 	</select>
   
+  	<!-- 查询用户订单列表  -->
+	<select id="queryUserOrderList"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.order.pojo.UserOrderListPojo">
+		SELECT
+		    id AS id,
+		    receive_time AS receiveTime,
+		    return_time AS returnTime,
+		    pet_name AS petName,
+		    sex AS sex,
+		    age AS age,
+		    varieties AS varieties,
+		    partner_name AS partnerName,
+		    remark AS remark,
+		    order_date AS orderDate,
+		    order_status AS orderStatus,
+		    amt AS amt,
+		    create_time AS createTime
+		FROM
+		    ${orderUser}
+		WHERE
+		    user_id = #{userId}
+		    AND effective = '1'
+		ORDER BY create_time DESC
+	</select>
+	  	
 </mapper>
