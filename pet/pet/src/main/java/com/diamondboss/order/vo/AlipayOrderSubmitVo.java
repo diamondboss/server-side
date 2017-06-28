@@ -12,17 +12,17 @@ public class AlipayOrderSubmitVo {
 	/**
 	 * 订单信息
 	 */
-	private String orderInfo;
+	private String orderInfo = "";
 	
 	/**
 	 * 订单金额
 	 */
-	private String orderAmt;
+	private String orderAmt = "";
 	
 	/**
 	 * 支付宝支付签名
 	 */
-	private String alipaySign;
+	private String alipaySign = "";
 
 	/**
 	 * 订单信息

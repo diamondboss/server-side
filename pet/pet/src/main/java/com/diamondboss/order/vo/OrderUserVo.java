@@ -40,6 +40,11 @@ public class OrderUserVo {
 	private String petName;
 	
 	/**
+	 * 品种
+	 */
+	private String varieties;
+
+	/**
 	 * 宠物性别
 	 */
 	private String sex;
@@ -75,6 +80,11 @@ public class OrderUserVo {
 	private String partnerId;
 	
 	/**
+	 * 合伙人名字
+	 */
+	private String partnerName;
+
+	/**
 	 * 订单日期
 	 */
 	private String orderDate;
@@ -103,6 +113,14 @@ public class OrderUserVo {
 	 * 小区id
 	 */
 	private String communityId;
+	
+	public String getVarieties() {
+		return varieties;
+	}
+
+	public void setVarieties(String varieties) {
+		this.varieties = varieties;
+	}
 	
 	/**
 	 * 主键
@@ -279,6 +297,14 @@ public class OrderUserVo {
 	public void setPartnerId(String partnerId) {
 		this.partnerId = partnerId;
 	}
+	
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
 
 	/**
 	 * 订单日期
@@ -384,14 +410,15 @@ public class OrderUserVo {
 			return pojo;
 		}
 		
-		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getPartnerId()), 
-				PetConstants.ORDER_PARTNER_TABLE_PREFIX);
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getUserId()), 
+				PetConstants.ORDER_USER_TABLE_PREFIX);
 		
 		pojo.setReceiveTime(vo.getReceiveTime());
 		pojo.setReturnTime(vo.getReturnTime());
 		pojo.setPetName(vo.getPetName());
 		pojo.setSex(vo.getSex());
 		pojo.setAge(vo.getAge());
+		pojo.setVarieties(vo.getVarieties());
 		pojo.setPhone(vo.getPhone());
 		pojo.setUserName(vo.getUserName());
 		pojo.setRemark(vo.getRemark());
@@ -404,6 +431,9 @@ public class OrderUserVo {
 		pojo.setAmt(new BigDecimal("0.01"));
 		pojo.setOrderUser(tableName);
 		
+		if(vo.getPartnerName() != null){
+			pojo.setPartnerName(vo.getPartnerName());
+		}
 		return pojo;
 	}
 }

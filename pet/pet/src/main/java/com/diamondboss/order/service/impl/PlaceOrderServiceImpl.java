@@ -156,9 +156,9 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		String notifyUrl = "182.92.149.119:8080/app/ali/payConfirm";
 		
 		//表Id，tableId。
-		int tableId =  Integer.valueOf(vo.getPartnerId()) / 100 + 1;
+		int tableId =  Integer.valueOf(vo.getUserId()) / 100 + 1;
 		
-		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getPartnerId()),
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getUserId()),
 				PetConstants.ORDER_USER_TABLE_PREFIX);
 		
 		Map<String, Object> map = new HashMap<>();
@@ -176,7 +176,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setSellerId(PropsUtil.getProperty("alipay.sellerid"));
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
-        model.setTotalAmount("19.99");
+        model.setTotalAmount("0.01");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
         String orderInfo = Alipay.getPreOrder(model, notifyUrl);
         

@@ -3,6 +3,7 @@ package com.diamondboss.order.repository;
 import java.util.List;
 import java.util.Map;
 
+import com.diamondboss.order.vo.CommunityResponseVo;
 import com.diamondboss.util.pojo.CommunityPojo;
 
 public interface CommunityMapper {
@@ -19,4 +20,6 @@ public interface CommunityMapper {
     int updateByPrimaryKey(CommunityPojo record);
     
     List<CommunityPojo> queryCommunitys(Map<String, String> map);
+    
+    CommunityResponseVo queryCommunityId(String communityName);
 }

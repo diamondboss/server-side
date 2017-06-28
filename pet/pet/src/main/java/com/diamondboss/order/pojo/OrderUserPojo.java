@@ -36,6 +36,11 @@ public class OrderUserPojo {
 	private String petName;
 	
 	/**
+	 * 品种
+	 */
+	private String varieties;
+
+	/**
 	 * 宠物性别
 	 */
 	private String sex;
@@ -68,8 +73,13 @@ public class OrderUserPojo {
 	/**
 	 * 合伙人id
 	 */
-	private String partnerId = "";
+	private String partnerId;
 	
+	/**
+	 * 合伙人名字
+	 */
+	private String partnerName;
+
 	/**
 	 * 订单日期
 	 */
@@ -106,6 +116,14 @@ public class OrderUserPojo {
 	 */
 	public String getId() {
 		return id;
+	}
+	
+	public String getVarieties() {
+		return varieties;
+	}
+
+	public void setVarieties(String varieties) {
+		this.varieties = varieties;
 	}
 
 	/**
@@ -276,6 +294,14 @@ public class OrderUserPojo {
 		this.partnerId = partnerId;
 	}
 
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
+	
 	/**
 	 * 订单日期
 	 * @return

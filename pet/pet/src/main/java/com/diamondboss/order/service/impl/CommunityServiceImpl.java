@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.diamondboss.order.repository.CommunityMapper;
 import com.diamondboss.order.service.ICommunityService;
+import com.diamondboss.order.vo.CommunityResponseVo;
 import com.diamondboss.util.pojo.CommunityPojo;
 import com.diamondboss.util.vo.CommunityVo;
 
@@ -41,6 +42,11 @@ public class CommunityServiceImpl implements ICommunityService {
 			communitys.add(community);
 		}
 		return communitys;
+	}
+
+	@Override
+	public CommunityResponseVo queryCommunityId(String communityName) {
+		return communityMapper.queryCommunityId(communityName);
 	}
 
 }

@@ -21,6 +21,8 @@ public class ResponsePartnerOfCommunityVo {
 	 * 合伙人手机号
 	 */
 	private String phonenumber;
+	
+	private String communityId;
 
 	public Long getPartnerId() {
 		return partnerId;
@@ -46,5 +48,12 @@ public class ResponsePartnerOfCommunityVo {
 		this.phonenumber = phonenumber;
 	}
 
+	public String getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
+	}
 
 }

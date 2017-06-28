@@ -2,6 +2,7 @@ package com.diamondboss.order.service;
 
 import java.util.List;
 
+import com.diamondboss.order.vo.CommunityResponseVo;
 import com.diamondboss.util.vo.CommunityVo;
 
 /**
@@ -16,4 +17,11 @@ public interface ICommunityService {
 	 * @return
 	 */
 	public List<CommunityVo> queryCommunitys();
+	
+	/**
+	 * 根据小区名字，获得小区的Id
+	 * @param communityName
+	 * @return
+	 */
+	public CommunityResponseVo queryCommunityId(String communityName);
 }
