@@ -146,4 +146,19 @@
     from community
     where effective = #{effective}
   </select>
+  
+  <!-- 根据小区名字查找小区Id  -->
+  <select id="queryCommunityId"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.order.vo.CommunityResponseVo">
+		SELECT
+		    id AS communityId,
+		    community_name AS communityName
+		FROM
+		    community
+		WHERE
+			community_name = #{communityName} and
+			effective = '1'
+	</select>
+  
 </mapper>
