@@ -70,6 +70,11 @@ public class UserOrderListPojo{
 	private String createTime;
 
 	/**
+	 * 宠物名称
+	 */
+	private String petName;
+	
+	/**
 	 * 订单编号
 	 * @return
 	 */
@@ -259,6 +264,22 @@ public class UserOrderListPojo{
 	 */
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	/**
+	 * 宠物名称
+	 * @return
+	 */
+	public String getPetName() {
+		return petName;
+	}
+
+	/**
+	 * 宠物名称
+	 * @param petName
+	 */
+	public void setPetName(String petName) {
+		this.petName = petName;
 	}
 	
 	
