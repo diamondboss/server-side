@@ -7,6 +7,7 @@ import com.diamondboss.constants.PetConstants;
 import com.diamondboss.constants.PetInfoConstants;
 import com.diamondboss.order.pojo.UserOrderListPojo;
 
+
 /**
  * 用户订单展示列表vo
  * 
@@ -14,7 +15,7 @@ import com.diamondboss.order.pojo.UserOrderListPojo;
  * @since 2017-06-27
  *  
  */
-public class UserOrderListVo {
+public class UserOrderListVo{
 
 	public UserOrderListVo(){
 		
@@ -86,6 +87,30 @@ public class UserOrderListVo {
 	 * 已完成的订单
 	 */
 	private List<UserOrderListPojo> finish = new ArrayList<>();
-		
+
+	public List<UserOrderListPojo> getUnderway() {
+		return underway;
+	}
+
+	public void setUnderway(List<UserOrderListPojo> underway) {
+		this.underway = underway;
+	}
+
+	public List<UserOrderListPojo> getCanceled() {
+		return canceled;
+	}
+
+	public void setCanceled(List<UserOrderListPojo> canceled) {
+		this.canceled = canceled;
+	}
+
+	public List<UserOrderListPojo> getFinish() {
+		return finish;
+	}
+
+	public void setFinish(List<UserOrderListPojo> finish) {
+		this.finish = finish;
+	}
+	
 }
 

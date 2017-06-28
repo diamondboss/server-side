@@ -7,7 +7,7 @@ package com.diamondboss.order.pojo;
  * @since 2017-06-27
  *  
  */
-public class UserOrderListPojo {
+public class UserOrderListPojo{
 
 	/**
 	 * 订单编号
