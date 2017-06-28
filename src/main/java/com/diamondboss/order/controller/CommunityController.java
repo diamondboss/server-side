@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.order.service.ICommunityService;
+import com.diamondboss.order.vo.CommunityIdVo;
+import com.diamondboss.order.vo.CommunityResponseVo;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CommunityVo;
 
@@ -44,4 +46,33 @@ public class CommunityController {
 		app.setRetnCode(0);
 		return app;
 	}
+	
+	/**
+	 * 根据小区名字，获取小区Id
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryCommunityId", method = RequestMethod.POST)
+	public APPResponseBody queryCommunityId(CommunityIdVo vo, HttpServletRequest request) {
+		APPResponseBody app = new APPResponseBody();
+		
+		if(vo.getCommunityName() == null){
+			app.setRetnDesc("请求参数非法");
+			app.setRetnCode(0);
+			return app;
+		}
+		
+		CommunityResponseVo community = communityService.queryCommunityId(vo.getCommunityName());
+		if(community != null){
+			app.setData(community);
+			app.setRetnCode(0);
+			return app;
+		}
+		app.setRetnCode(1);
+		return app;
+	}
+	
+	
 }

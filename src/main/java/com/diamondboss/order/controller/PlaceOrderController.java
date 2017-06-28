@@ -55,7 +55,9 @@ public class PlaceOrderController {
 			app.setData(orderInfo);
 			app.setRetnCode(0);
 		}else{
-			app.setData("该合伙人订单已满");
+			AlipayOrderSubmitVo orderIsNull = new AlipayOrderSubmitVo();
+			app.setData(orderIsNull);
+			app.setRetnDesc("该合伙人订单已满");
 			app.setRetnCode(1);
 		}
 		
@@ -91,7 +93,9 @@ public class PlaceOrderController {
 			app.setData(orderInfo);
 			app.setRetnCode(0);
 		}else{
-			app.setData("该合伙人订单已满");
+			AlipayOrderSubmitVo orderIsNull = new AlipayOrderSubmitVo();
+			app.setData(orderIsNull);
+			app.setRetnDesc("该合伙人订单已满");
 			app.setRetnCode(1);
 		}
 		
