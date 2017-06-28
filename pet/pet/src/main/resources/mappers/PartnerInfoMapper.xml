@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.diamondboss.user.repository.PartnerInfoMapper" >
 
+	<resultMap id="BaseResultMap" type="com.diamondboss.user.vo.ResponsePartnerOfCommunityVo" >
+	    <id column="parter_id" property="id" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+  	</resultMap>
+
 	<!-- 根据合伙人id查询用户信息  -->
 	<select id="queryInfoByPartnerId"
 		parameterType="java.lang.String"
@@ -21,6 +27,18 @@
 		WHERE
 			parter_id = #{parterId}
 			effective = '1'
+	</select>
+	
+	<!-- 根据小区名字，返回该小区的所有合伙人  -->
+	<select id="queryPartnerOfCommunityList"
+		parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT  A.parter_id AS partnerId,
+				A.name AS partnerName,
+				A.phone_number AS phoneNumber
+		FROM partner_info A INNER JOIN	community B ON A.community_id = B.id
+		
+		WHERE B.community_name = #{communityName}
 	</select>
 
 
