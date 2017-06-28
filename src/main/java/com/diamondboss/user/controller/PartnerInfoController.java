@@ -24,7 +24,6 @@ public class PartnerInfoController {
 		app.setData("");
 		app.setRetnCode(0);
 		return app;
-		
 	}
 	
 }
