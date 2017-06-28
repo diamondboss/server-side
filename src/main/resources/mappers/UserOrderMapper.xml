@@ -25,6 +25,7 @@
 			A.user_id = #{userId}
 			AND A.order_date = #{orderDate}
 			AND A.effective = '1'
+		LIMIT 1
 	</select>
 	
 	

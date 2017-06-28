@@ -35,7 +35,8 @@
 		resultMap="BaseResultMap">
 		SELECT  A.parter_id AS partnerId,
 				A.name AS partnerName,
-				A.phone_number AS phoneNumber
+				A.phone_number AS phoneNumber,
+				A.community_id AS communityId
 		FROM partner_info A INNER JOIN	community B ON A.community_id = B.id
 		
 		WHERE B.community_name = #{communityName}
