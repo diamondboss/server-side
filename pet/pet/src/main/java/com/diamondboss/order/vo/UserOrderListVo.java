@@ -1,5 +1,6 @@
 package com.diamondboss.order.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.diamondboss.constants.PetConstants;
@@ -74,17 +75,17 @@ public class UserOrderListVo {
 	/**
 	 * 进行中的订单
 	 */
-	private List<UserOrderListPojo> underway;
+	private List<UserOrderListPojo> underway = new ArrayList<>();
 	
 	/**
 	 * 已取消的订单
 	 */
-	private List<UserOrderListPojo> canceled;
+	private List<UserOrderListPojo> canceled = new ArrayList<>();
 	
 	/**
 	 * 已完成的订单
 	 */
-	private List<UserOrderListPojo> finish;
+	private List<UserOrderListPojo> finish = new ArrayList<>();
 		
 }
 
