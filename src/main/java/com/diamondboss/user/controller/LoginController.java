@@ -61,13 +61,13 @@ public class LoginController {
 		SmsReturnInfo info = sendMsgService.verifyCode(
 				vo.getSessionId(), vo.getCode());
 		
-		/*if (false == info.getSuccess()) {
+		if (false == info.getSuccess()) {
 			app.setData(vo);
 			app.setRetnCode(1);
 			app.setRetnDesc("验证码校验错误");
 			log.info("短信验证码校验错误，手机号：" + vo.getPhone());
 			return app;
-		}*/
+		}
 
 		PartnerLoginPojo partnerLogin = partnerLoginService.login(vo);
 		if (partnerLogin == null) {
