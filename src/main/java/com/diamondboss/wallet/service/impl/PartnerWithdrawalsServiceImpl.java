@@ -57,7 +57,7 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包汇总
 	 */
 	@Override
-	public void querySummaryInfo() {
+	public void querySummaryInfo(String partnerId) {
 		
 		partnerWithdrawalsMapper.queryPartnerWallet(null);
 		
