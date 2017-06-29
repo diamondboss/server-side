@@ -2,6 +2,13 @@ package com.diamondboss.wallet.vo;
 
 import java.math.BigDecimal;
 
+/**
+ * 合伙人钱包vo
+ * 
+ * @author John
+ * @since 2017-06-29
+ *  
+ */
 public class PartnerWalletVo {
 
 	/**
