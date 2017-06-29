@@ -31,6 +31,12 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 		 
 		// 查询可提现额度
 		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryPartnerWallet(null);
+		if(pojo == null || pojo.getAmt() == null){
+			pojo = new PartnerWalletPojo();
+			pojo.setAmt(new BigDecimal("0"));
+		}
+		
+		
 		List<PartnerWalletPojo> pojoList = 
 				partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
 		BigDecimal unavailable = new BigDecimal("0");
@@ -57,10 +63,14 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包汇总
 	 */
 	@Override
-	public void querySummaryInfo(String partnerId) {
+	public String querySummaryInfo(String partnerId) {
 		
-		partnerWithdrawalsMapper.queryPartnerWallet(null);
-		
+		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryPartnerWallet(partnerId);
+		if(pojo == null || pojo.getAmt() == null){
+			return "0";
+		}else{
+			return pojo.getAmt().toString();
+		}
 	}
 
 	/**

@@ -13,7 +13,12 @@ import com.diamondboss.wallet.pojo.PartnerWalletPojo;
  */
 public interface PartnerWithdrawalsMapper {
 
-	public PartnerWalletPojo queryPartnerWallet(PartnerWalletPojo Pojo);
+	/**
+	 * 根据合伙人id查询钱包汇总
+	 * @param partnerId
+	 * @return
+	 */
+	public PartnerWalletPojo queryPartnerWallet(String partnerId);
 	
 	public int updatePartnerWallet(PartnerWalletPojo Pojo);
 	
