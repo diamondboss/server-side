@@ -17,7 +17,7 @@ public interface PartnerWithdrawalsService {
 	/**
 	 * 查询钱包汇总
 	 */
-	public void querySummaryInfo(String partnerId);
+	public String querySummaryInfo(String partnerId);
 	
 	/**
 	 * 查询钱包明细
