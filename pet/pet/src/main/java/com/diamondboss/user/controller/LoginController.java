@@ -1,6 +1,8 @@
 package com.diamondboss.user.controller;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
@@ -61,14 +63,14 @@ public class LoginController {
 		SmsReturnInfo info = sendMsgService.verifyCode(
 				vo.getSessionId(), vo.getCode());
 		
-		if (false == info.getSuccess()) {
+		/*if (false == info.getSuccess()) {
 			app.setData(vo);
 			app.setRetnCode(1);
 			app.setRetnDesc("验证码校验错误");
 			log.info("短信验证码校验错误，手机号：" + vo.getPhone());
 			return app;
 		}
-
+*/
 		PartnerLoginPojo partnerLogin = partnerLoginService.login(vo);
 		if (partnerLogin == null) {
 			UserLoginPojo userLogin = userLoginService.login(vo);
@@ -124,7 +126,7 @@ public class LoginController {
 		APPResponseBody app = new APPResponseBody();
 		
 		String today = LocalDate.now().toString();
-		UserOrderServiceVo userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
+		List<UserOrderServiceVo> userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
 		
 		if(userOrder != null){
 			app.setData(userOrder);
@@ -144,7 +146,6 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(value = "/userLogin", method = RequestMethod.POST)
 	public void userLogin(LoginVo vo){
-	
 		
 	}
 	
@@ -157,7 +158,6 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(value = "/partnerLogin", method = RequestMethod.POST)
 	public void partnerLogin(LoginVo vo){
-	
 		
 	}
 	
