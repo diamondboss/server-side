@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
@@ -14,6 +16,7 @@ import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
+import com.diamondboss.user.controller.LoginController;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
@@ -28,6 +31,8 @@ import com.diamondboss.util.tools.UUIDUtil;
  */
 @Service
 public class PlaceOrderServiceImpl implements PlaceOrderService{
+	
+	private static final Logger log = LogManager.getLogger(PlaceOrderServiceImpl.class);
 
 	@Autowired
 	public PlaceOrderMapper placeOrderMapper;
@@ -183,7 +188,9 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         AlipayOrderSubmitVo alipayOrderSubmitVo = new AlipayOrderSubmitVo();
         alipayOrderSubmitVo.setOrderInfo(model.getBody());
         alipayOrderSubmitVo.setOrderAmt(model.getTotalAmount());
-        alipayOrderSubmitVo.setAlipaySign(orderInfo);
+        alipayOrderSubmitVo.setAlipaySign(orderInfo.substring(orderInfo.indexOf("&") + 1));
+        
+        log.info("支付宝签名：" + orderInfo.indexOf("&") + 1);
 
 	    return alipayOrderSubmitVo;
 	}
