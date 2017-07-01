@@ -22,6 +22,6 @@ public interface PartnerWithdrawalsService {
 	/**
 	 * 查询钱包明细
 	 */
-	public void queryDetailed();
+	public void queryDetailed(String partnerId);
 	
 }

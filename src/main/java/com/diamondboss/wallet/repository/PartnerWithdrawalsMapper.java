@@ -20,11 +20,24 @@ public interface PartnerWithdrawalsMapper {
 	 */
 	public PartnerWalletPojo queryPartnerWallet(String partnerId);
 	
+	/**
+	 * 根据合伙人id更新合伙人钱包
+	 * @param Pojo
+	 * @return
+	 */
 	public int updatePartnerWallet(PartnerWalletPojo Pojo);
 	
-	public List<PartnerWalletPojo> queryPartnerWalletDetailed(PartnerWalletPojo Pojo);
+	/**
+	 * 根据合伙人id查询钱包明细
+	 * @param Pojo
+	 * @return
+	 */
+	public List<PartnerWalletPojo> queryPartnerWalletDetailed(String partnerId);
 	
-//	public int updatePartnerWalletDetailed(PartnerWalletPojo Pojo);
-	
+	/**
+	 * 根据合伙人id插入合伙人钱包明细
+	 * @param Pojo
+	 * @return
+	 */
 	public int insertPartnerWalletDetailed(PartnerWalletPojo Pojo);
 }
