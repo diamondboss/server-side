@@ -10,6 +10,7 @@ import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.vo.UserOrderServiceVo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -48,7 +49,7 @@ public class PartnerLoginServiceImpl implements PartnerLoginService{
 	 * @return
 	 */
 	@Override
-	public UserOrderServiceVo queryUserOrderService(String userId, String orderDate) {
+	public List<UserOrderServiceVo> queryUserOrderService(String userId, String orderDate) {
 
 		String tableName = TableUtils.getOrderTableName(Long.valueOf(userId), PetConstants.ORDER_USER_TABLE_PREFIX);
 
@@ -57,7 +58,7 @@ public class PartnerLoginServiceImpl implements PartnerLoginService{
 		map.put("orderDate", orderDate);
 		map.put("tableName", tableName);
 
-		UserOrderServiceVo userOrder = userOrderServiceMapper.queryUserOrderService(map);
+		List<UserOrderServiceVo> userOrder = userOrderServiceMapper.queryUserOrderService(map);
 
 		return userOrder;
 
