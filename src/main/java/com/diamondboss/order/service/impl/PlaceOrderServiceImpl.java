@@ -16,7 +16,6 @@ import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
-import com.diamondboss.user.controller.LoginController;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
@@ -84,7 +83,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	/**
 	 * 确认合伙人是否可以接受订单
 	 * @param partnerId
-	 * @param riseNo
+	 * @param orderDate
 	 * @return true--不可下单;false--可以下单
 	 */
 	private boolean checkOrderCountsOfPartner(String partnerId, String orderDate){
@@ -111,7 +110,8 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
 	/**
 	 * 检查小区宠物的总数
-	 * @param userId
+	 * @param communityId
+	 * @param orderDate
 	 * @return false-允许下单/true-宠物已满不允许下单
 	 */
 	private Boolean cheakCommunityOrderNum(String communityId, String orderDate){
@@ -158,7 +158,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 */
 	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserVo vo){
 		
-		String notifyUrl = "182.92.149.119:8080/app/ali/payConfirm";
+		String notifyUrl = PropsUtil.getProperty("alipay.notifyUrl");
 		
 		//表Id，tableId。
 		int tableId =  Integer.valueOf(vo.getUserId()) / 100 + 1;

@@ -76,6 +76,11 @@ public class Alipay {
 		return tradeStatus;
 	}
 
+	public static String refund(){
+
+		return "";
+	}
+
 	public static boolean checkAlipayRequest(Map<String,String> params){
 		//获取支付宝POST过来反馈信息
 		boolean flag = false;
