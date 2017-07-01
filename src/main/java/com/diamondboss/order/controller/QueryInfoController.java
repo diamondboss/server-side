@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,8 @@ import com.diamondboss.util.vo.UserDetailVo;
 @RequestMapping("/queryOrder")
 public class QueryInfoController {
 
+	private static final Logger log = Logger.getLogger(QueryInfoController.class);
+	
 	 @Resource  
 	 private IOrderService orderService;
 	
@@ -96,6 +99,9 @@ public class QueryInfoController {
 	@ResponseBody
 	@RequestMapping(value = "/queryUserDetail" ,method = RequestMethod.POST)
 	public APPResponseBody queryUserDetail(HttpServletRequest request) {
+		
+		log.debug("测试数据");
+		log.info("测试数据");
 		//获取前台传过来的用户ID
 		String parter_id = request.getParameter("parterId");
 		

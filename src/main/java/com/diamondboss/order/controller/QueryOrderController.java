@@ -2,12 +2,16 @@ package com.diamondboss.order.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.diamondboss.order.service.IOrderService;
 import com.diamondboss.order.service.IPartnerOrderService;
 import com.diamondboss.order.vo.UserOrderListVo;
@@ -20,6 +24,8 @@ import com.diamondboss.util.vo.PartnerOrderVo;
 @RequestMapping("/queryOrder")
 public class QueryOrderController {
 
+	private static final Logger log = Logger.getLogger(QueryOrderController.class);
+	
 	@Autowired
 	private IPartnerOrderService partnerOrderService;
 	
@@ -100,6 +106,10 @@ public class QueryOrderController {
 	 */
 	@RequestMapping(value = "/userOrderList", method = RequestMethod.POST)
 	public @ResponseBody APPResponseBody queryUserOrderList(String userId) {
+		
+
+		log.debug("测试数据");
+		log.info("测试数据");
 		
 		APPResponseBody app = new APPResponseBody();
 		
