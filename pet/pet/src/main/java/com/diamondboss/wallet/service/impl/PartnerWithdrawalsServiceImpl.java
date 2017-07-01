@@ -7,6 +7,7 @@ import java.util.List;
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.repository.PartnerWithdrawalsMapper;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
+import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
  * 合伙人提现
@@ -25,38 +26,19 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	@Override
 	public void withdrawals() {
 		
-		BigDecimal value = new BigDecimal("0");
-		
-		String date = LocalDate.now().toString(); 
-		 
-		// 查询可提现额度
-		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryPartnerWallet(null);
-		if(pojo == null || pojo.getAmt() == null){
-			pojo = new PartnerWalletPojo();
-			pojo.setAmt(new BigDecimal("0"));
-		}
-		
-		
-		List<PartnerWalletPojo> pojoList = 
-				partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
-		BigDecimal unavailable = new BigDecimal("0");
-		for(PartnerWalletPojo i:pojoList){
-			unavailable = unavailable.add(i.getAmt());
-		}
-		
-		BigDecimal quota = pojo.getAmt().subtract(unavailable);
-		
-		
-		if(value.compareTo(quota) < 1){
+		WithdrawalsVo vo = new WithdrawalsVo();
+		if(isAvailable(vo)){
 			
+			PartnerWalletPojo pojo = voTopojo(vo);
+			
+			partnerWithdrawalsMapper.insertPartnerWalletDetailed(null);
+			
+			partnerWithdrawalsMapper.updatePartnerWallet(null);
+			
+		}else{
+			// 不可提现
 		}
 		
-		
-		
-		
-		partnerWithdrawalsMapper.insertPartnerWalletDetailed(null);
-		
-		partnerWithdrawalsMapper.updatePartnerWallet(null);
 	}
 
 	/**
@@ -77,9 +59,58 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包明细
 	 */
 	@Override
-	public void queryDetailed() {
+	public void queryDetailed(String partnerId) {
 		
-		partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
+		partnerWithdrawalsMapper.queryPartnerWalletDetailed(partnerId);
 	}
 
+	/**
+	 * 提现金额是否可用
+	 * @param vo
+	 * @return true-可以提现;false-不可提现
+	 */
+	private Boolean isAvailable(WithdrawalsVo vo){
+		
+		BigDecimal value = new BigDecimal(vo.getValue());
+		
+		String date = LocalDate.now().toString();// 获取当前日期
+		 
+		// 查询可提现额度
+		PartnerWalletPojo pojo = 
+				partnerWithdrawalsMapper.queryPartnerWallet(vo.getPartnerId());
+		
+		if(pojo == null || pojo.getAmt() == null){
+			pojo = new PartnerWalletPojo();
+			pojo.setAmt(new BigDecimal("0"));
+		}
+		
+		List<PartnerWalletPojo> pojoList = 
+				partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
+		
+		BigDecimal unavailable = new BigDecimal("0");// 没有超过7天不可提现金额
+		for(PartnerWalletPojo i:pojoList){
+			unavailable = unavailable.add(i.getAmt());
+		}
+		
+		BigDecimal quota = pojo.getAmt().subtract(unavailable);// 可提现金额
+		
+		if(value.compareTo(quota) < 1)
+			return true;
+		
+		return false;
+		
+	}
+	
+	private PartnerWalletPojo voTopojo(WithdrawalsVo vo){
+		
+		PartnerWalletPojo pojo = new PartnerWalletPojo();
+		pojo.setAmt(new BigDecimal("-" + vo.getValue()));
+		pojo.setKind("提现");
+		pojo.setOrderDate(LocalDate.now().toString());
+		pojo.setPartnerId(vo.getPartnerId());
+		pojo.setPartnerWalletDetail("");
+		pojo.setStatus("申请提现");
+		
+		return pojo;
+	}
 }

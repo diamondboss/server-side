@@ -35,7 +35,7 @@ public class PartnerWithdrawalsController {
 	 */
 	public void queryDetailed(PartnerWalletVo vo){
 		
-		withdrawalsService.queryDetailed();
+		withdrawalsService.queryDetailed(vo.getPartnerId());
 	}
 	
 }
