@@ -111,4 +111,23 @@ public class QueryOrderController {
 		return app;
 	}
 	
+	/**
+	 * 查询用户订单列表
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/partnerOrderList", method = RequestMethod.POST)
+	public @ResponseBody APPResponseBody queryPartnerOrderList(String partnerId) {
+		
+		APPResponseBody app = new APPResponseBody();
+		
+		UserOrderListVo vo = orderService.queryUserOrderList(partnerId);
+		
+		app.setData(vo);
+		app.setRetnCode(0);
+		
+		return app;
+	}
+	
 }
