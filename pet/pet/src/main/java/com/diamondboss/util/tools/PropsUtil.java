@@ -1,20 +1,19 @@
 package com.diamondboss.util.tools;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.apache.log4j.Logger;
 
 /**
  * Desc:properties文件获取工具类
  * Created by liuzifu on 2017/6/14.
  */
 public class PropsUtil {
-    private static final Logger logger = LogManager.getLogger(PropsUtil.class);
+    private static final Logger logger = Logger.getLogger(PropsUtil.class);
     private static Properties props;
     static {
         loadProps();
