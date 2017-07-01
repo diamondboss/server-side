@@ -1,5 +1,6 @@
 package com.diamondboss.payment.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -21,13 +22,15 @@ import java.util.Map;
 public class AppAliOrderPayConfirmController {
     private static Logger logger = LogManager.getLogger(AppAliOrderPayConfirmController.class);
 
-    @RequestMapping("payConfirm")
+    @RequestMapping("/payConfirm")
     public void payConfirm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         StringBuilder reqStr = new StringBuilder();
         try {
             // 获取支付宝POST过来反馈信息
             Map<String, String> params = new HashMap<String, String>();
             Map<String, String[]> requestParams = request.getParameterMap();
+            logger.info("支付宝充值订单支付通知:{}", JSONObject.toJSONString(request.getParameterMap()));
             for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
                 String name = iter.next();
                 String[] values = requestParams.get(name);
