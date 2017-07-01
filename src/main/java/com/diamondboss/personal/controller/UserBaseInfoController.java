@@ -5,13 +5,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.diamondboss.personal.service.IUserBaseInfoService;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.BaseInfoVo;
@@ -19,7 +19,7 @@ import com.diamondboss.util.vo.BaseInfoVo;
 @Controller
 @RequestMapping("/userBase")
 public class UserBaseInfoController {
-	private static Logger logger = LogManager.getLogger(UserBaseInfoController.class);
+	private static Logger logger = Logger.getLogger(UserBaseInfoController.class);
 	
 	@Autowired
 	private IUserBaseInfoService userBaseInfo;
