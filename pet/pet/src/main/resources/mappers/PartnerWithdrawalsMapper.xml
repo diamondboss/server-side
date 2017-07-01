@@ -17,7 +17,7 @@
 
 	<!-- 根据合伙人id查询钱包明细  -->
 	<select id="queryPartnerWalletDetailed"
-		parameterType="java.lang.String"
+		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo"
 		resultType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
 		SELECT
 		    id AS id,
@@ -27,7 +27,7 @@
 		    order_date AS orderDate,
 		    effective AS effective
 		FROM
-		    ${partnerWalletDetail};
+		    ${partnerWalletDetail}
 		WHERE
 			partner_id = #{partnerId}
 			AND effective = '1'
