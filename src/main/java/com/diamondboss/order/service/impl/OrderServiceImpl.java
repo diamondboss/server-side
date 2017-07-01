@@ -233,4 +233,24 @@ public class OrderServiceImpl implements IOrderService {
 		return vo;
 	}
 
+	/**
+	 * 查询合伙人订单列表
+	 * 
+	 * @param userId
+	 * @return 用户订单列表
+	 */
+	@Override
+	public UserOrderListVo queryPartnerOrderList(String partnerId){
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("partnerId", partnerId);
+		param.put("orderUser", TableUtils.getOrderTableName(
+				Long.valueOf(partnerId), PetConstants.ORDER_PARTNER_TABLE_PREFIX));
+		
+		List<UserOrderListPojo> list = userOrderServiceMapper.queryUserOrderList(param);
+		UserOrderListVo vo = new UserOrderListVo(list);
+		return vo;
+	}
+	
+	
 }
