@@ -81,6 +81,12 @@ public interface IOrderService {
 	 */
 	public UserOrderListVo queryUserOrderList(String userId);
 	
-	
+	/**
+	 * 查询合伙人订单列表
+	 * 
+	 * @param userId
+	 * @return 用户订单列表
+	 */
+	public UserOrderListVo queryPartnerOrderList(String partnerId);
 	
 }
