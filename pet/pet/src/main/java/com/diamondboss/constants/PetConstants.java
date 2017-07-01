@@ -4,10 +4,20 @@ package com.diamondboss.constants;
  * Created by liuzifu on 2017/6/5.
  */
 public class PetConstants {
+	
+	/**
+	 * 合伙人订单表名称
+	 */
     public static final String ORDER_PARTNER_TABLE_PREFIX = "order_partner_";
 
+    /**
+     * 用户订单表名称
+     */
     public static final String ORDER_USER_TABLE_PREFIX = "order_user_";
     
+    /**
+     * 合伙人钱包表名称
+     */
     public static final String PARTNER_WALLET_DETAIL = "partner_wallet_detail_";
     
     /**
