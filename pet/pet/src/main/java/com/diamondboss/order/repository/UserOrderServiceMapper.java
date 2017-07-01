@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.diamondboss.order.pojo.UserOrderListPojo;
-import com.diamondboss.order.vo.UserOrderListVo;
 import com.diamondboss.util.vo.PartnerOrderServiceVo;
 import com.diamondboss.util.vo.UserOrderServiceVo;
 import com.diamondboss.util.vo.UserOrdersServiceVo;
@@ -16,7 +15,7 @@ public interface UserOrderServiceMapper {
 	 * @param map
 	 * @return
 	 */
-	UserOrderServiceVo queryUserOrderService(Map<String, String> map);
+	List<UserOrderServiceVo> queryUserOrderService(Map<String, String> map);
 	
 	/**
 	 * 查询合伙人当日订单
