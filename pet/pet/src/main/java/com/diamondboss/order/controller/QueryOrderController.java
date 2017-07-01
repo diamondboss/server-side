@@ -107,10 +107,6 @@ public class QueryOrderController {
 	@RequestMapping(value = "/userOrderList", method = RequestMethod.POST)
 	public @ResponseBody APPResponseBody queryUserOrderList(String userId) {
 		
-
-		log.debug("测试数据");
-		log.info("测试数据");
-		
 		APPResponseBody app = new APPResponseBody();
 		
 		UserOrderListVo vo = orderService.queryUserOrderList(userId);
