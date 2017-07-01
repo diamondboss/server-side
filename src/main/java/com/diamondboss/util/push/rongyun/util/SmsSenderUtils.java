@@ -3,18 +3,14 @@ package com.diamondboss.util.push.rongyun.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.diamondboss.util.push.rongyun.constcla.Constants;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
 import com.diamondboss.util.push.rongyun.core.HttpUtils;
-import com.diamondboss.util.tools.jedis.CacheFunc;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -30,7 +26,7 @@ import com.google.gson.JsonParser;
 public class SmsSenderUtils {
 	
 	// 日志记录器
-	private static Logger logger = LogManager.getLogger(SmsSenderUtils.class);
+	private static Logger logger = Logger.getLogger(SmsSenderUtils.class);
 
 	/**
 	 *
