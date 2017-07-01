@@ -64,9 +64,13 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包明细
 	 */
 	@Override
-	public void queryDetailed(String partnerId) {
+	public List<PartnerWalletPojo> queryDetailed(String partnerId) {
 		
-		partnerWithdrawalsMapper.queryPartnerWalletDetailed(partnerId);
+		PartnerWalletPojo pojo = new PartnerWalletPojo();
+		pojo.setPartnerId(partnerId);
+		pojo.setPartnerWalletDetail("partner_wallet_detail_1");
+		return partnerWithdrawalsMapper.queryPartnerWalletDetailed(pojo);
+		
 	}
 
 	/**
