@@ -1,5 +1,7 @@
 package com.diamondboss.user.service;
 
+import java.util.List;
+
 import com.diamondboss.user.pojo.PartnerLoginPojo;
 import com.diamondboss.user.vo.LoginVo;
 import com.diamondboss.util.vo.UserOrderServiceVo;
@@ -18,6 +20,6 @@ public interface PartnerLoginService {
 	 * @param map
 	 * @return
 	 */
-	public UserOrderServiceVo queryUserOrderService(String userId, String orderDate);
+	public List<UserOrderServiceVo> queryUserOrderService(String userId, String orderDate);
 	
 }
