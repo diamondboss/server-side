@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.diamondboss.order.repository.UserOrderServiceMapper" >
+
+	 <resultMap id="BaseResultMap" type="com.diamondboss.util.vo.UserOrderServiceVo" >
+	    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+	    <result column="name" property="userName" jdbcType="VARCHAR" />
+	    <result column="phone_number" property="phoneNum" jdbcType="VARCHAR" />
+	    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
+	    <result column="return_time" property="returnTime" jdbcType="VARCHAR" />
+ 	 </resultMap>
  	
  	<!-- 查询合伙人首页订单信息 -->
 	<select id="queryUserOrderService"
 		parameterType="java.util.Map"
-		resultType="com.diamondboss.util.vo.UserOrderServiceVo" >
+		resultMap="BaseResultMap" >
 		SELECT
 		    B.user_id AS userId,
 		    B.name AS userName,
 		    B.phone_number AS phoneNum,
+		    A.partner_id AS partnerId,
 		    A.receive_time AS receiveTime,
 		    A.return_time AS returnTime,
 		    (
@@ -25,7 +34,6 @@
 			A.user_id = #{userId}
 			AND A.order_date = #{orderDate}
 			AND A.effective = '1'
-		LIMIT 1
 	</select>
 	
 	
