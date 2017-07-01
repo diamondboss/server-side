@@ -2,8 +2,7 @@ package com.diamondboss.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,7 @@ import com.diamondboss.util.vo.APPResponseBody;
 @RequestMapping("/userInfo")
 public class UserInfoController {
 	
-	private static final Logger log = LogManager.getLogger(UserInfoController.class);
+	private static final Logger log = Logger.getLogger(UserInfoController.class);
 	
 	@Autowired
 	private UserInfoService userInfoService;
