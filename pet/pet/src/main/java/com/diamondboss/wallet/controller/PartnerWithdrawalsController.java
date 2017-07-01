@@ -1,5 +1,12 @@
 package com.diamondboss.wallet.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
 
@@ -10,32 +17,56 @@ import com.diamondboss.wallet.vo.PartnerWalletVo;
  * @since 2017-06-29
  *  
  */
+@Controller
+@RequestMapping("/partnerWithdrawals")
 public class PartnerWithdrawalsController {
 
+	@Autowired
 	private PartnerWithdrawalsService withdrawalsService;
 	
 	/**
 	 * 提现
 	 */
-	public void withdrawals(PartnerWalletVo vo){
+	@ResponseBody
+	@RequestMapping(value = "/withdrawals" ,method = RequestMethod.POST)
+	public APPResponseBody withdrawals(PartnerWalletVo vo){
 		
 		withdrawalsService.withdrawals();
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData("");
+		app.setRetnCode(0);
+		return app;
 	}
 	
 	/**
 	 * 查询钱包汇总
 	 */
-	public void querySummaryInfo(String partnerId){
+	@ResponseBody
+	@RequestMapping(value = "/querySummaryInfo" ,method = RequestMethod.POST)
+	public APPResponseBody querySummaryInfo(String partnerId){
 		
 		withdrawalsService.querySummaryInfo(partnerId);
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData("");
+		app.setRetnCode(0);
+		return app;
 	}
 	
 	/**
 	 * 查询钱包明细
 	 */
-	public void queryDetailed(PartnerWalletVo vo){
+	@ResponseBody
+	@RequestMapping(value = "/queryDetailed" ,method = RequestMethod.POST)
+	public APPResponseBody queryDetailed(PartnerWalletVo vo){
 		
 		withdrawalsService.queryDetailed(vo.getPartnerId());
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData("");
+		app.setRetnCode(0);
+		return app;
 	}
 	
 }
