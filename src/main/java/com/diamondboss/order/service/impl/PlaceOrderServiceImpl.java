@@ -179,7 +179,6 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         model.setBody("我是测试数据的描述信息");
         model.setSubject("我是测试数据的交易标题");
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
-        model.setSellerId(PropsUtil.getProperty("alipay.sellerid"));
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
         model.setTotalAmount("0.01");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
