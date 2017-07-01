@@ -15,5 +15,62 @@
 			AND effective = '1'
 	</select>
 
+	<!-- 根据合伙人id查询钱包明细  -->
+	<select id="queryPartnerWalletDetailed"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		SELECT
+		    id AS id,
+		    partner_id AS partnerId,
+		    amt AS amt,
+		    kind AS kind,
+		    order_date AS orderDate,
+		    effective AS effective
+		FROM
+		    ${partnerWalletDetail};
+		WHERE
+			partner_id = #{partnerId}
+			AND effective = '1'
+		ORDER BY
+			create_time
+		DESC
+	</select>
+
+	<!-- 根据合伙人id更新合伙人钱包 -->
+	<update id="updatePartnerWallet"
+		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		UPDATE
+		    partner_wallet
+		SET
+		    partner_id = 0,
+		    amt = amt + #{amt}
+		WHERE
+		    partner_id = #{partnerId}
+			AND effective = '1'
+	</update>
+
+	<!-- 根据合伙人id插入合伙人钱包明细  -->
+	<insert id="insertPartnerWalletDetailed"
+		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		INSERT
+		INTO
+		    ${partnerWalletDetail}
+		    (
+		        partner_id,
+		        amt,
+		        kind,
+		        order_date,
+		        effective,
+		    )
+		    VALUES
+		    (
+		        #{partnerId},
+		        #{amt},
+		        #{kind},
+		        #{orderDate},
+		        '1'
+		    )
+	</insert>
+
 
 </mapper>
