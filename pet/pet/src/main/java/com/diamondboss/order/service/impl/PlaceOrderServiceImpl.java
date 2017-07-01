@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
@@ -31,7 +32,7 @@ import com.diamondboss.util.tools.UUIDUtil;
 @Service
 public class PlaceOrderServiceImpl implements PlaceOrderService{
 	
-	private static final Logger log = LogManager.getLogger(PlaceOrderServiceImpl.class);
+	private static final Logger log = Logger.getLogger(PlaceOrderServiceImpl.class);
 
 	@Autowired
 	public PlaceOrderMapper placeOrderMapper;
@@ -189,7 +190,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         alipayOrderSubmitVo.setOrderAmt(model.getTotalAmount());
         alipayOrderSubmitVo.setAlipaySign(orderInfo);
         
-        log.info("支付宝签名：{}", orderInfo);
+        log.info("支付宝签名：" + orderInfo);
 
 	    return alipayOrderSubmitVo;
 	}
