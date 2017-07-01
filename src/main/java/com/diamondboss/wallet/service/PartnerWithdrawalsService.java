@@ -1,5 +1,9 @@
 package com.diamondboss.wallet.service;
 
+import java.util.List;
+
+import com.diamondboss.wallet.pojo.PartnerWalletPojo;
+
 /**
  * 合伙人提现
  * 
@@ -22,6 +26,6 @@ public interface PartnerWithdrawalsService {
 	/**
 	 * 查询钱包明细
 	 */
-	public void queryDetailed(String partnerId);
+	public List<PartnerWalletPojo> queryDetailed(String partnerId);
 	
 }

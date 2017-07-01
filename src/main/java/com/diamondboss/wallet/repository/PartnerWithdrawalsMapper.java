@@ -32,7 +32,7 @@ public interface PartnerWithdrawalsMapper {
 	 * @param Pojo
 	 * @return
 	 */
-	public List<PartnerWalletPojo> queryPartnerWalletDetailed(String partnerId);
+	public List<PartnerWalletPojo> queryPartnerWalletDetailed(PartnerWalletPojo pojo);
 	
 	/**
 	 * 根据合伙人id插入合伙人钱包明细
