@@ -187,9 +187,9 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         AlipayOrderSubmitVo alipayOrderSubmitVo = new AlipayOrderSubmitVo();
         alipayOrderSubmitVo.setOrderInfo(model.getBody());
         alipayOrderSubmitVo.setOrderAmt(model.getTotalAmount());
-        alipayOrderSubmitVo.setAlipaySign(orderInfo.substring(orderInfo.indexOf("&") + 1));
+        alipayOrderSubmitVo.setAlipaySign(orderInfo);
         
-        log.info("支付宝签名：" + orderInfo.indexOf("&") + 1);
+        log.info("支付宝签名：{}", orderInfo);
 
 	    return alipayOrderSubmitVo;
 	}
