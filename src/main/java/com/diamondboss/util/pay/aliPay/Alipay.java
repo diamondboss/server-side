@@ -2,24 +2,23 @@ package com.diamondboss.util.pay.aliPay;
 
 import java.util.Map;
 
-import com.alipay.api.domain.AlipayTradeQueryModel;
-import com.alipay.api.request.AlipayTradeQueryRequest;
-import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.diamondboss.util.tools.PropsUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
+import com.alipay.api.domain.AlipayTradeQueryModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
+import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
+import com.alipay.api.response.AlipayTradeQueryResponse;
+import com.diamondboss.util.tools.PropsUtil;
 
 public class Alipay {
 
-	private static final Logger logger = LogManager.getLogger(Alipay.class);
+	private static final Logger logger = Logger.getLogger(Alipay.class);
 	
 	
 	private static final String ALIPAY_PUBLIC_KEY = PropsUtil.getProperty("alipay.publicKey");
@@ -68,7 +67,7 @@ public class Alipay {
 			//交易状态：WAIT_BUYER_PAY（交易创建，等待买家付款）、TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、
 			// TRADE_SUCCESS（交易支付成功）、TRADE_FINISHED（交易结束，不可退款）
 			tradeStatus = response.getTradeStatus();
-			logger.info("支付宝订单号[{}]的交易状态:{}", out_trade_no, tradeStatus);
+			logger.info("支付宝订单号"+out_trade_no+ "的交易状态:"+tradeStatus);
 		} catch (AlipayApiException e){
 			logger.error("支付宝查询交易状态错误");
 			logger.error(e.getMessage());
