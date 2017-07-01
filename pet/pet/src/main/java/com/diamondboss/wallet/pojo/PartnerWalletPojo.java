@@ -42,6 +42,11 @@ public class PartnerWalletPojo {
 	private String status;
 
 	/**
+	 * 合伙人钱包明细表
+	 */
+	private String partnerWalletDetail;
+	
+	/**
 	 * 主键id
 	 * @return
 	 */
@@ -136,5 +141,22 @@ public class PartnerWalletPojo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	/**
+	 * 合伙人钱包明细表
+	 * @return
+	 */
+	public String getPartnerWalletDetail() {
+		return partnerWalletDetail;
+	}
+
+	/**
+	 * 合伙人钱包明细表
+	 * @param partnerWalletDetail
+	 */
+	public void setPartnerWalletDetail(String partnerWalletDetail) {
+		this.partnerWalletDetail = partnerWalletDetail;
+	}
+	
 	
 }
