@@ -32,10 +32,7 @@
 
 	<!-- 插入用户订单 -->
 	<insert id="insertUserOrder"
-		parameterType="com.diamondboss.order.pojo.OrderUserPojo">
-		<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-			SELECT LAST_INSERT_ID() AS id
-		</selectKey>
+		parameterType="com.diamondboss.order.pojo.OrderUserPojo" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO
 		    ${orderUser}
