@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
@@ -44,13 +45,13 @@ public class PlaceOrderController {
 			app.setRetnCode(1);
 			return app;
 		}
-		
-		boolean is = placeOrderService.appointPartner(vo);
+		OrderUserPojo pojo = vo.voToPojo(vo);
+		boolean is = placeOrderService.appointPartner(pojo);
 		
 		if(is){
 			
 			// 签名生成订单信息
-			AlipayOrderSubmitVo orderInfo = placeOrderService.combinationOrderInfo(vo);
+			AlipayOrderSubmitVo orderInfo = placeOrderService.combinationOrderInfo(pojo);
 			
 			app.setData(orderInfo);
 			app.setRetnCode(0);
@@ -83,12 +84,13 @@ public class PlaceOrderController {
 			return app;
 		}	
 		
-		boolean is = placeOrderService.randomPartner(vo);
+		OrderUserPojo pojo = vo.voToPojo(vo);
+		boolean is = placeOrderService.randomPartner(pojo);
 		
 		if(is){
 			
 			// 签名生成订单信息
-			AlipayOrderSubmitVo orderInfo = placeOrderService.combinationOrderInfo(vo);
+			AlipayOrderSubmitVo orderInfo = placeOrderService.combinationOrderInfo(pojo);
 			
 			app.setData(orderInfo);
 			app.setRetnCode(0);

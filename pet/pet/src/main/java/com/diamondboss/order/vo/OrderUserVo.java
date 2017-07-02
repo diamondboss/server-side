@@ -423,6 +423,10 @@ public class OrderUserVo {
 		pojo.setUserName(vo.getUserName());
 		pojo.setRemark(vo.getRemark());
 		pojo.setUserId(vo.getUserId());
+		pojo.setCommunityId(vo.getCommunityId());
+		
+		
+		
 		if(vo.getPartnerId() != null){
 			pojo.setPartnerId(vo.getPartnerId());
 		}

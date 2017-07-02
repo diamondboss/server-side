@@ -1,5 +1,6 @@
 package com.diamondboss.order.service;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
 
@@ -17,19 +18,19 @@ public interface PlaceOrderService {
 	 * @param vo
 	 * @return
 	 */
-	public boolean appointPartner(OrderUserVo vo);
+	public boolean appointPartner(OrderUserPojo pojo);
 	
 	/**
 	 * 不指定合伙人
 	 * @param vo
 	 * @return
 	 */
-	public boolean randomPartner(OrderUserVo vo);
+	public boolean randomPartner(OrderUserPojo pojo);
 
 	/**
 	 * 签名生成订单信息
 	 * @param vo
 	 */
-	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserVo vo);
+	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserPojo pojo);
 	
 }

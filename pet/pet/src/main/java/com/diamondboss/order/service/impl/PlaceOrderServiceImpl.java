@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.diamondboss.constants.PetConstants;
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
@@ -41,16 +42,17 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * 用户下单-指定合伙人
 	 */
 	@Override
-	public boolean appointPartner(OrderUserVo vo){
+	public boolean appointPartner(OrderUserPojo pojo){
 		
 		// 查询该合伙人是否满足条件
-		if(checkOrderCountsOfPartner(vo.getPartnerId(), vo.getOrderDate())){
+		if(checkOrderCountsOfPartner(pojo.getPartnerId(), pojo.getOrderDate())){
 			// 如果不满足
 			return false;
 		}
 		
 		// 插入用户订单
-		int i = placeOrderMapper.insertUserOrder(vo.voToPojo(vo));
+//		OrderUserPojo pojo = vo.voToPojo(vo);
+		int i = placeOrderMapper.insertUserOrder(pojo);
 		if(i==0){
 			return false;
 		}
@@ -65,15 +67,15 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * @return true-下单成功 false-小区合伙人订单已满
 	 */
 	@Override
-	public boolean randomPartner(OrderUserVo vo){
+	public boolean randomPartner(OrderUserPojo pojo){
 		
 		// 查询小区允许下单总数
-		if(cheakCommunityOrderNum(vo.getCommunityId(), vo.getOrderDate())){
+		if(cheakCommunityOrderNum(pojo.getCommunityId(), pojo.getOrderDate())){
 			return false;
 		}
 		
 		// 插入用户订单表
-		int i = placeOrderMapper.insertUserOrder(vo.voToPojo(vo));
+		int i = placeOrderMapper.insertUserOrder(pojo);
 		
 		if(i==0){
 			return false;
@@ -157,23 +159,23 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * 创建订单信息
 	 * @param vo
 	 */
-	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserVo vo){
+	public AlipayOrderSubmitVo combinationOrderInfo(OrderUserPojo pojo){
 		
 		String notifyUrl = PropsUtil.getProperty("alipay.notifyUrl");
 		
 		//表Id，tableId。
-		int tableId =  Integer.valueOf(vo.getUserId()) / 100 + 1;
+		int tableId =  Integer.valueOf(pojo.getUserId()) / 100 + 1;
 		
-		String tableName = TableUtils.getOrderTableName(Long.valueOf(vo.getUserId()),
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(pojo.getUserId()),
 				PetConstants.ORDER_USER_TABLE_PREFIX);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("tableName", tableName);
-		map.put("userId", vo.getUserId());
+		map.put("userId", pojo.getUserId());
 		map.put("orderDate", LocalDate.now().toString());
 		
 		//订单主键ID
-		String idKey = placeOrderMapper.queryOrderPartnerId(map);
+		String idKey = pojo.getId();
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         //TODO 组装订单数据

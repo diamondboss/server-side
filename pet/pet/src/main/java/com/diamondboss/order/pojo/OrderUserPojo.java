@@ -111,6 +111,11 @@ public class OrderUserPojo {
 	private String orderUser;
 
 	/**
+	 * 小区id
+	 */
+	private String communityId;
+	
+	/**
 	 * 主键
 	 * @return
 	 */
@@ -389,5 +394,14 @@ public class OrderUserPojo {
 	public void setOrderUser(String orderUser) {
 		this.orderUser = orderUser;
 	}
+
+	public String getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
+	}
+	
 	
 }
