@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.diamondboss.payment.service.IPayConfirmService;
 import com.diamondboss.util.pay.aliPay.EnumAlipayResult;
 import com.diamondboss.util.vo.APPResponseBody;
+import com.diamondboss.util.vo.checkAliPayVo;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,18 +49,23 @@ public class AppAliOrderPayConfirmController {
 
     @ResponseBody
     @RequestMapping("/checkAliPayResult")
-    public APPResponseBody analysisPayResult(HttpServletRequest request, String resultStatus, String result, String memo){
+    public APPResponseBody analysisPayResult(checkAliPayVo vo, HttpServletRequest request){
         APPResponseBody app = new APPResponseBody();
-        if (StringUtils.isNotBlank(resultStatus) || StringUtils.isNotBlank(result)
-                || StringUtils.isNotBlank(memo)){
+        logger.info("------------------- checkAliPayResult参数 -------------------------------");
+        logger.info("resultStatus:" + vo.getResultStatus());
+        logger.info("result:" + vo.getResult());
+        logger.info("memo:" + vo.getMemo());
+        logger.info("------------------------end--------------------------");
+        if (StringUtils.isNotBlank(vo.getResultStatus()) || StringUtils.isNotBlank(vo.getResult())){
+        	
             app.setRetnDesc("参数缺失");
             app.setRetnCode(1);
             return app;
         }
 
         boolean flag = false;
-        if (StringUtils.equals(EnumAlipayResult.SUCCESS.status, resultStatus)){
-                flag = payConfirmService.analysisAliPayResult(result);
+        if (StringUtils.equals(EnumAlipayResult.SUCCESS.status, vo.getResultStatus())){
+                flag = payConfirmService.analysisAliPayResult(vo.getResult());
         }
 
         if(flag){
