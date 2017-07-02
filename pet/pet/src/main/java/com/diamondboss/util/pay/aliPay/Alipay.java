@@ -1,5 +1,6 @@
 package com.diamondboss.util.pay.aliPay;
 
+import com.diamondboss.threads.QueryAlipayTradeStatus;
 import org.apache.log4j.Logger;
 
 import com.alipay.api.AlipayApiException;
@@ -50,10 +51,10 @@ public class Alipay {
 		return respBody;
 	}
 
-	public static String queryTradeStatus(String out_trade_no){
+	public static String queryTradeStatus(String tradeNo){
 		AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
 		AlipayTradeQueryModel model = new AlipayTradeQueryModel();
-		model.setOutTradeNo(out_trade_no);
+		model.setTradeNo(tradeNo);
 		request.setBizModel(model);
 		String tradeStatus = "";
 		try {
@@ -61,7 +62,7 @@ public class Alipay {
 			//交易状态：WAIT_BUYER_PAY（交易创建，等待买家付款）、TRADE_CLOSED（未付款交易超时关闭，或支付完成后全额退款）、
 			// TRADE_SUCCESS（交易支付成功）、TRADE_FINISHED（交易结束，不可退款）
 			tradeStatus = response.getTradeStatus();
-			logger.info("支付宝订单号"+out_trade_no+ "的交易状态:"+tradeStatus);
+			logger.info("支付宝订单号"+tradeNo+ "的交易状态:"+tradeStatus);
 		} catch (AlipayApiException e){
 			logger.error("支付宝查询交易状态错误");
 			logger.error(e.getMessage());
@@ -73,6 +74,14 @@ public class Alipay {
 		String str = "alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017061207471974&biz_content=%7B%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF%22%2C%22out_trade_no%22%3A%2215orderPay1synull7687%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BA%A4%E6%98%93%E6%A0%87%E9%A2%98%22%2C%22timeout_express%22%3A%225m%22%2C%22total_amount%22%3A%220.01%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=182.92.149.119%3A8080%2Fapp%2Fali%2FpayConfirm&sign=OLCYdnIFneA35PNAwYyfk13QNXhxUGudpudP2tph8Jcqsi01X4gwgUgDtgTXd%2FO96HGBPzB0hjdBsfn5oen9H5tTBHichNu97OkKbD9fJaYlw3Kz536kt3E9yL4HJkFBGMP2L%2B%2FMSEtSyO%2BrzngfJLV7o5inJPp28nYb%2BbvCy1XHjmUAsgs0PNW8PM3hkVI3PwMypz3fIcVXtHydsESD%2F8I1FIHBiSughGorw1zRleHqEMrChatI6igiXSJenhHRvwEYx9Kh92wE0Vcu2mRtB4z1giY7EbbBx4G0DuENCw0LKC6w7wjAe3TkPth6GRBqxZWtnYIJCXNUsNXjSYA0Fg%3D%3D&sign_type=RSA2&timestamp=2017-07-01+17%3A23%3A39&version=1.0\n";
 
 		return "";
+	}
+
+
+	public static void main(String[] args){
+		Thread queryThread = new Thread(new QueryAlipayTradeStatus("2017070221001004940279085648"));
+		queryThread.start();
+
+		System.out.println(queryThread.getName());
 	}
 	
 }

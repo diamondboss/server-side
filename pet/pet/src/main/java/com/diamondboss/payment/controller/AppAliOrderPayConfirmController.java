@@ -21,7 +21,7 @@ import java.util.Map;
  * Created by liuzifu on 2017/6/27.
  */
 @Controller
-@RequestMapping("/app/ali")
+    @RequestMapping("/app/ali")
 public class AppAliOrderPayConfirmController {
     private static Logger logger = Logger.getLogger(AppAliOrderPayConfirmController.class);
     @Autowired
@@ -32,12 +32,12 @@ public class AppAliOrderPayConfirmController {
         try {
             // 获取支付宝POST过来反馈信息
             Map<String, String[]> requestParams = request.getParameterMap();
-            logger.info("支付宝充值订单支付通知:"+JSONObject.toJSONString(requestParams));
+            logger.info("支付宝订单支付通知:"+JSONObject.toJSONString(requestParams));
             String confirmResult = payConfirmService.alipayConfirm(requestParams);
 
             response.getWriter().write(confirmResult);
         } catch (Exception ex) {
-            logger.error("支付宝充值订单支付通知错误,requestBody:"+ JSONObject.toJSONString(request.getParameterMap()));
+            logger.error("支付宝订单支付通知错误,requestBody:"+ JSONObject.toJSONString(request.getParameterMap()));
             response.getWriter().write("fail");
             return;
         } finally {
@@ -49,10 +49,9 @@ public class AppAliOrderPayConfirmController {
     @RequestMapping("/checkAliPayResult")
     public APPResponseBody analysisPayResult(HttpServletRequest request, String resultStatus, String result, String memo){
         APPResponseBody app = new APPResponseBody();
-
         if (StringUtils.isNotBlank(resultStatus) || StringUtils.isNotBlank(result)
                 || StringUtils.isNotBlank(memo)){
-            app.setData("参数缺失");
+            app.setRetnDesc("参数缺失");
             app.setRetnCode(1);
             return app;
         }
@@ -62,8 +61,14 @@ public class AppAliOrderPayConfirmController {
                 flag = payConfirmService.analysisAliPayResult(result);
         }
 
-        app.setRetnCode(0);
-        app.setData(flag);
+        if(flag){
+            app.setRetnCode(0);
+            app.setRetnDesc("支付成功");
+        } else {
+            app.setRetnCode(1);
+            app.setRetnDesc("支付失败");
+        }
+
         return app;
     }
 }
