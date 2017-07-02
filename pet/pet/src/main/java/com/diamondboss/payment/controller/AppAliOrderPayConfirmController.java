@@ -51,6 +51,7 @@ public class AppAliOrderPayConfirmController {
     @RequestMapping("/checkAliPayResult")
     public APPResponseBody analysisPayResult(CheckAliPayVo vo, HttpServletRequest request){
         APPResponseBody app = new APPResponseBody();
+
         if (StringUtils.isBlank(vo.getResultStatus()) || StringUtils.isBlank(vo.getResult())){
             app.setRetnDesc("参数缺失");
             app.setRetnCode(1);
