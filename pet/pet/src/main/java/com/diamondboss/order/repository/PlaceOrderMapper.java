@@ -7,7 +7,6 @@ import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
 
 /**
- * 用户下单
  * 
  * @author John
  * @since 2017-06-24
