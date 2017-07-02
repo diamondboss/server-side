@@ -34,8 +34,7 @@ import com.diamondboss.util.vo.UserOrderServiceVo;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-
-	private static final Logger log = Logger.getLogger(LoginController.class);
+	private static final Logger log =  Logger.getLogger(LoginController.class);
 	
 	@Autowired
 	private PartnerLoginService partnerLoginService;
@@ -59,6 +58,8 @@ public class LoginController {
 			HttpServletRequest request){
 		APPResponseBody app = new APPResponseBody();
 		
+		log.info("登录");
+		
 		// 短信验证码
 		SmsReturnInfo info = sendMsgService.verifyCode(
 				vo.getSessionId(), vo.getCode());
@@ -77,6 +78,7 @@ public class LoginController {
 			if (userLogin == null) {
 				if (userLoginService.insertUser(vo) < 1) {
 					userLogin.setUserType("0");
+					log.info("登录失败");
 					app.setRetnCode(1);
 					return app;
 				}
@@ -84,10 +86,12 @@ public class LoginController {
 			userLogin = userLoginService.login(vo);
 			
 			userLogin.setUserType("0");
+			log.info("登录成功");
 			app.setRetnCode(0);
 			app.setData(userLogin);
 			return app;
 		}
+		log.info("登录成功");
 		partnerLogin.setUserType("1");
 		app.setRetnCode(0);
 		app.setData(partnerLogin);
