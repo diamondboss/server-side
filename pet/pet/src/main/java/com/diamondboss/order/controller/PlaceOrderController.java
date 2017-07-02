@@ -46,6 +46,7 @@ public class PlaceOrderController {
 			return app;
 		}
 		OrderUserPojo pojo = vo.voToPojo(vo);
+		
 		boolean is = placeOrderService.appointPartner(pojo);
 		
 		if(is){
