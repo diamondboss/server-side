@@ -1,7 +1,5 @@
 package com.diamondboss.util.pay.aliPay;
 
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 
 import com.alipay.api.AlipayApiException;
@@ -9,21 +7,17 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.alipay.api.domain.AlipayTradeQueryModel;
-import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.alipay.api.response.AlipayTradeQueryResponse;
+
 import com.diamondboss.util.tools.PropsUtil;
 
 public class Alipay {
 
 	private static final Logger logger = Logger.getLogger(Alipay.class);
 	
-	
-	private static final String ALIPAY_PUBLIC_KEY = PropsUtil.getProperty("alipay.publicKey");
-	private static final String CHARSET = PropsUtil.getProperty("alipay.charset");
-	private static final String SIGNTYPE = PropsUtil.getProperty("alipay.signType");
 	//实例化客户端，只需要初始化一次，后续调用不同的API都可以使用同一个alipayClient对象
 	private static  AlipayClient alipayClient = new DefaultAlipayClient(PropsUtil.getProperty("alipay.serverUrl"),
 			PropsUtil.getProperty("alipay.appId"), PropsUtil.getProperty("alipay.app.privateKey"),
@@ -76,37 +70,9 @@ public class Alipay {
 	}
 
 	public static String refund(){
+		String str = "alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017061207471974&biz_content=%7B%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF%22%2C%22out_trade_no%22%3A%2215orderPay1synull7687%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BA%A4%E6%98%93%E6%A0%87%E9%A2%98%22%2C%22timeout_express%22%3A%225m%22%2C%22total_amount%22%3A%220.01%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=182.92.149.119%3A8080%2Fapp%2Fali%2FpayConfirm&sign=OLCYdnIFneA35PNAwYyfk13QNXhxUGudpudP2tph8Jcqsi01X4gwgUgDtgTXd%2FO96HGBPzB0hjdBsfn5oen9H5tTBHichNu97OkKbD9fJaYlw3Kz536kt3E9yL4HJkFBGMP2L%2B%2FMSEtSyO%2BrzngfJLV7o5inJPp28nYb%2BbvCy1XHjmUAsgs0PNW8PM3hkVI3PwMypz3fIcVXtHydsESD%2F8I1FIHBiSughGorw1zRleHqEMrChatI6igiXSJenhHRvwEYx9Kh92wE0Vcu2mRtB4z1giY7EbbBx4G0DuENCw0LKC6w7wjAe3TkPth6GRBqxZWtnYIJCXNUsNXjSYA0Fg%3D%3D&sign_type=RSA2&timestamp=2017-07-01+17%3A23%3A39&version=1.0\n";
 
 		return "";
 	}
-
-	public static boolean checkAlipayRequest(Map<String,String> params){
-		//获取支付宝POST过来反馈信息
-		boolean flag = false;
-//		Map<String,String> params = new HashMap<>();
-//		Map requestParams = request.getParameterMap();
-//		for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
-//		    String name = (String) iter.next();
-//		    String[] values = (String[]) requestParams.get(name);
-//		    String valueStr = "";
-//		    for (int i = 0; i < values.length; i++) {
-//		        valueStr = (i == values.length - 1) ? valueStr + values[i]
-//		                    : valueStr + values[i] + ",";
-//		 	 }
-//		//乱码解决，这段代码在出现乱码时使用。
-//		//valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
-//		params.put(name, valueStr);
-//		}
-		//切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
-		try {
-			flag = AlipaySignature.rsaCheckV1(params, PropsUtil.getProperty("alipay.publicKey"),
-					PropsUtil.getProperty("alipay.charset"), PropsUtil.getProperty("alipay.signType"));
-		} catch (AlipayApiException e) {
-			logger.error("校验支付宝的请求失败");
-			logger.error(e.getMessage());
-		}
-		return flag;
-	}
-	
 	
 }
