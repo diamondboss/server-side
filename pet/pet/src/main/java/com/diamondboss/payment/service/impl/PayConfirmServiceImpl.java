@@ -28,12 +28,12 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         JSONObject content =  JSONObject.parseObject(result).getJSONObject("alipay_trade_app_pay_response");
         String appId = content.getString("app_id");
         String sellerId = content.getString("seller_id");
-        String tradeNo = content.getString("trade_no");
         if(StringUtils.equals(PropsUtil.getProperty("app_id"), appId)
                 && StringUtils.equals(PropsUtil.getProperty("seller_id"), sellerId)){
             flag = true;
         }
 
+        String tradeNo = content.getString("trade_no");
         Thread queryThread = new Thread(new QueryAlipayTradeStatus(tradeNo));
         queryThread.start();
 
@@ -65,10 +65,7 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
             return "fail";
         }
 
-
-        //TODO 实验
-        Thread queryThread = new Thread(new QueryAlipayTradeStatus(params.get("trade_no")));
-        queryThread.start();
+        String tradeStatus = params.get("trade_status");
 
         // TODO 状态入库
 
