@@ -28,8 +28,8 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         JSONObject content =  JSONObject.parseObject(result).getJSONObject("alipay_trade_app_pay_response");
         String appId = content.getString("app_id");
         String sellerId = content.getString("seller_id");
-        if(StringUtils.equals(PropsUtil.getProperty("app_id"), appId)
-                && StringUtils.equals(PropsUtil.getProperty("seller_id"), sellerId)){
+        if(StringUtils.equals(PropsUtil.getProperty("alipay.appId"), appId)
+                && StringUtils.equals(PropsUtil.getProperty("alipay.sellerId"), sellerId)){
             flag = true;
         }
 
