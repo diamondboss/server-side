@@ -1,5 +1,8 @@
 package com.diamondboss.util.pay.aliPay;
 
+import com.alipay.api.domain.AlipayTradeRefundModel;
+import com.alipay.api.request.AlipayTradeRefundRequest;
+import com.alipay.api.response.AlipayTradeRefundResponse;
 import com.diamondboss.threads.QueryAlipayTradeStatus;
 import org.apache.log4j.Logger;
 
@@ -70,10 +73,19 @@ public class Alipay {
 		return tradeStatus;
 	}
 
-	public static String refund(){
-		String str = "alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017061207471974&biz_content=%7B%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%BF%A1%E6%81%AF%22%2C%22out_trade_no%22%3A%2215orderPay1synull7687%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BA%A4%E6%98%93%E6%A0%87%E9%A2%98%22%2C%22timeout_express%22%3A%225m%22%2C%22total_amount%22%3A%220.01%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=182.92.149.119%3A8080%2Fapp%2Fali%2FpayConfirm&sign=OLCYdnIFneA35PNAwYyfk13QNXhxUGudpudP2tph8Jcqsi01X4gwgUgDtgTXd%2FO96HGBPzB0hjdBsfn5oen9H5tTBHichNu97OkKbD9fJaYlw3Kz536kt3E9yL4HJkFBGMP2L%2B%2FMSEtSyO%2BrzngfJLV7o5inJPp28nYb%2BbvCy1XHjmUAsgs0PNW8PM3hkVI3PwMypz3fIcVXtHydsESD%2F8I1FIHBiSughGorw1zRleHqEMrChatI6igiXSJenhHRvwEYx9Kh92wE0Vcu2mRtB4z1giY7EbbBx4G0DuENCw0LKC6w7wjAe3TkPth6GRBqxZWtnYIJCXNUsNXjSYA0Fg%3D%3D&sign_type=RSA2&timestamp=2017-07-01+17%3A23%3A39&version=1.0\n";
-
-		return "";
+	public static boolean refund(String tradeNo){
+		AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+		AlipayTradeRefundModel model = new AlipayTradeRefundModel();
+		model.setTradeNo(tradeNo);
+		boolean refundFlag = false;
+		try {
+			AlipayTradeRefundResponse response = alipayClient.execute(request);
+			refundFlag = response.isSuccess();
+		} catch (AlipayApiException e) {
+			logger.error("支付宝退款错误：");
+			logger.error(e.getMessage());
+		}
+		return refundFlag;
 	}
 
 
