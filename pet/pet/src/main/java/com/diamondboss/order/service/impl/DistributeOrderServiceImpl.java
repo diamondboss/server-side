@@ -42,10 +42,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	 * 订单分配
 	 */
 	@Override
-	public void DistributeOrder(){
+	public void DistributeOrder(OrderUserPojo pojo){
 		
-		// 查询用户订单如果有合伙人id则指定合伙人派单,否则不指定合伙人派单
-		OrderUserPojo pojo = new OrderUserPojo();// TODO 查询
 		if(pojo == null){
 			return;
 		}
@@ -72,7 +70,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			
 			// APP推送用户
 			
-			// 短信推送合伙人
+			// 短信推送用户
 			sendMsgService.sendNotifyMsg("");
 			
 		}else{
