@@ -81,7 +81,12 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         Map<String, Object> sqlMap = new HashMap<>();
         sqlMap.put("id", pojo.getId());
         sqlMap.put("orderUser", pojo.getTableId());
-        sqlMap.put("orderStatus", tradeStatus);
+        if("TRADE_SUCCESS".equals(tradeStatus)){
+        	
+        	sqlMap.put("orderStatus", 2);
+        }else{
+        	sqlMap.put("orderStatus", 1);
+        }
         
         // TODO 状态入库
         payConfirmMapper.updateOrderStatus(sqlMap);
