@@ -88,7 +88,7 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         	sqlMap.put("orderStatus", 1);
         }
         
-        // TODO 状态入库
+        // TODO 异步状态入库
         payConfirmMapper.updateOrderStatus(sqlMap);
         
         // TODO 调起派单流程
