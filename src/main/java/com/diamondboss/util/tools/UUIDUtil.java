@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import com.diamondboss.util.pojo.OutTradeNoPojo;
+
 public class UUIDUtil {
 
 	 public UUIDUtil() { 
@@ -44,16 +46,17 @@ public class UUIDUtil {
     /**
      * 标志 + 用户表 xx + 分隔符 + 对应表id + 随机数
      */
-    public static Map<String, Object> getInfoFromTradeNo(String outTradeNo){
+    public static OutTradeNoPojo getInfoFromTradeNo(String outTradeNo){
     	
     	String[] s = outTradeNo.split("orderPay");
     	String[] st = s[1].split("sy");
     	int len = Integer.valueOf(s[0]) - 10 - st[0].length()  ;
     	
-    	Map<String, Object> map = new HashMap<>();
-    	map.put("tableId", st[0]);
-    	map.put("id", st[1].substring(0, len));
-    	return map;
+    	OutTradeNoPojo pojo = new OutTradeNoPojo();
+    	pojo.setId(st[1].substring(0, len));
+    	pojo.setTableId(st[0]);
+    	
+    	return pojo;
     }
     
     public static void main(String[] args) {
