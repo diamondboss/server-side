@@ -3,7 +3,9 @@
 <mapper namespace="com.diamondboss.payment.repository.PayConfirmMapper" >
 
 	<!-- 查询订单状态  -->
-	<select id="queryOrderStatus">
+	<select id="queryOrderStatus"
+		parameterType="java.util.Map"
+		resultType="java.lang.String">
 		SELECT
 		    order_status
 		FROM
@@ -14,7 +16,8 @@
 	</select>
 
 	<!-- 更新订单状态  -->
-	<update id="updateOrderStatus">
+	<update id="updateOrderStatus"
+		parameterType="java.util.Map">
 		UPDATE
 		    ${orderUser}
 		SET
