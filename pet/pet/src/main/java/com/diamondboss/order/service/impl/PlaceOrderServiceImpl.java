@@ -180,10 +180,10 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         //TODO 组装订单数据
         model.setBody("我是测试数据的描述信息");
-        model.setSubject("我是测试数据的交易标题");
+        model.setSubject("帅总测试专用0.02");
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
-        model.setTotalAmount("0.01");
+        model.setTotalAmount("0.02");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
         String orderInfo = Alipay.getPreOrder(model, notifyUrl);
         
