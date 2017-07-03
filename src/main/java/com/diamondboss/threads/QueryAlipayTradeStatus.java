@@ -26,11 +26,10 @@ public class QueryAlipayTradeStatus implements Runnable {
             // TRADE_SUCCESS（交易支付成功）、TRADE_FINISHED（交易结束，不可退款）
             String tradeStatus =  Alipay.queryTradeStatus(tradeNo);
             logger.info(tradeStatus);
-
             // TODO 更新订单状态
 
             // TODO 决定是否进行派单
-
+            
 
         } catch (InterruptedException e) {
             logger.error("查询支付宝支付状态线程error:"+e.getMessage());
