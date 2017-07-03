@@ -4,7 +4,7 @@ public class UserOrderServiceVo {
 
 	private Long userId;
 	
-	private Long partnerId;
+	private String partnerId;
 
 	private String userName;
 
@@ -45,11 +45,11 @@ public class UserOrderServiceVo {
 		this.userId = userId;
 	}
 	
-	public Long getPartnerId() {
+	public String getPartnerId() {
 		return partnerId;
 	}
 
-	public void setPartnerId(Long partnerId) {
+	public void setPartnerId(String partnerId) {
 		this.partnerId = partnerId;
 	}
 
