@@ -1,5 +1,7 @@
 package com.diamondboss.order.service;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
+
 /**
  * 订单分配
  * 
@@ -9,7 +11,7 @@ package com.diamondboss.order.service;
  */
 public interface DistributeOrderService {
 
-	public void DistributeOrder();
+	public void DistributeOrder(OrderUserPojo pojo);
 	
 	
 }
