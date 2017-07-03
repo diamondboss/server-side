@@ -3,11 +3,16 @@ package com.diamondboss.payment.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.diamondboss.payment.repository.PayConfirmMapper;
 import com.diamondboss.payment.service.IPayConfirmService;
 import com.diamondboss.threads.QueryAlipayTradeStatus;
+import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.tools.PropsUtil;
+import com.diamondboss.util.tools.UUIDUtil;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -21,6 +26,9 @@ import java.util.Map;
 public class PayConfirmServiceImpl implements IPayConfirmService {
     private static final Logger logger = Logger.getLogger(PayConfirmServiceImpl.class);
 
+    @Autowired
+    public PayConfirmMapper payConfirmMapper;
+    
     @Override
     public boolean analysisAliPayResult(String result) {
         boolean flag = false;
@@ -66,9 +74,18 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         }
 
         String tradeStatus = params.get("trade_status");
-
+        String outTradeNo = params.get("out_trade_no");
+        
+        OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+        
+        Map<String, Object> sqlMap = new HashMap<>();
+        sqlMap.put("id", pojo.getId());
+        sqlMap.put("tableId", pojo.getTableId());
+        sqlMap.put("orderStatus", tradeStatus);
+        
         // TODO 状态入库
-
+        payConfirmMapper.updateOrderStatus();
+        
         // TODO 调起派单流程
 
 
