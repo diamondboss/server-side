@@ -6,6 +6,7 @@
 	    <id column="user_id" property="userId" jdbcType="VARCHAR" />
 	    <result column="name" property="userName" jdbcType="VARCHAR" />
 	    <result column="phone_number" property="phoneNum" jdbcType="VARCHAR" />
+	    <result column="partner_id" property="partnerId" jdbcType="VARCHAR" />
 	    <result column="receive_time" property="receiveTime" jdbcType="VARCHAR" />
 	    <result column="return_time" property="returnTime" jdbcType="VARCHAR" />
  	 </resultMap>
