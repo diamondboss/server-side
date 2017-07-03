@@ -137,6 +137,7 @@ public class LoginController {
 			app.setRetnCode(0);
 		}else{
 			app.setRetnCode(1);
+			app.setRetnDesc("未找到数据哦~");
 		}
 		return app;
 	}
