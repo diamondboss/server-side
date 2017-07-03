@@ -13,6 +13,7 @@ import java.util.UUID;
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.repository.ParterInfoMapper;
 import com.diamondboss.util.pojo.OrderUserPojo;
+import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.pojo.ParterInfoPojo;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.tools.UUIDUtil;
@@ -248,12 +249,12 @@ public class SubmitOrderServiceImpl implements ISubmitOrderService{
 		
 		String outTradeNo = "123";
 		
-		Map<String, Object> map = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+		OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
 		
 		// 更新用户登录表(下单时间、下单数量、下单数量+1)
 		//submitOrderMapper.updateUserLogin(userId);
 		// 更新订单表
-		submitOrderMapper.updateUserOrder(map);
+		submitOrderMapper.updateUserOrder(null);
 		// 检查合适的合伙人
 		List partnerList = getPartnerList("");
 		
