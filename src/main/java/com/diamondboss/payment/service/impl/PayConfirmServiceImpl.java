@@ -3,6 +3,7 @@ package com.diamondboss.payment.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.diamondboss.order.service.impl.DistributeOrderServiceImpl;
 import com.diamondboss.payment.repository.PayConfirmMapper;
 import com.diamondboss.payment.service.IPayConfirmService;
 import com.diamondboss.threads.QueryAlipayTradeStatus;
@@ -28,6 +29,9 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
 
     @Autowired
     public PayConfirmMapper payConfirmMapper;
+    
+    @Autowired
+    private DistributeOrderServiceImpl distributeOrderServiceImpl;
     
     @Override
     public boolean analysisAliPayResult(String result) {
@@ -88,10 +92,11 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         	sqlMap.put("orderStatus", 1);
         }
         
-        // TODO 异步状态入库
+        // TODO 异步通知状态入库
         payConfirmMapper.updateOrderStatus(sqlMap);
         
         // TODO 调起派单流程
+        distributeOrderServiceImpl.DistributeOrder(null);
 
 
         return "success";
