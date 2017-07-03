@@ -21,6 +21,12 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	@Override
 	public void grabOrder(GrabOrderBo bo){
 		
+		// 查询合伙人抢单表
+		// 根据partnerId抢单
+		
+		
+		
+		
 		String date = "";
 		String partnerId = "";// APP 传入
 		String userId = "";// 表中获取
