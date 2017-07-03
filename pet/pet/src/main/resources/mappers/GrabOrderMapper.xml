@@ -6,7 +6,7 @@
 	<update id="updateUserLogin"
 		parameterType="java.lang.String">
 		UPDATE
-		    user_login_info
+		    user_login
 		SET
 		    order_num = order_num - 1 
 		WHERE
