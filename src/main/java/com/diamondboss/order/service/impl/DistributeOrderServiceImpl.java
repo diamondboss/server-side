@@ -1,16 +1,21 @@
 package com.diamondboss.order.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.diamondboss.constants.PetConstants;
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.repository.DistributeOrderMapper;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.DistributeOrderService;
+import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.TableUtils;
 
@@ -40,7 +45,16 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	public void DistributeOrder(){
 		
 		// 查询用户订单如果有合伙人id则指定合伙人派单,否则不指定合伙人派单
+		OrderUserPojo pojo = new OrderUserPojo();// TODO 查询
+		if(pojo == null){
+			return;
+		}
 		
+		if(pojo.getPartnerId() != null || !"".equals(pojo.getPartnerId())){
+			appointPartner(pojo);
+		}else{
+			randomPartner(pojo);
+		}
 		
 		
 	}
@@ -48,16 +62,17 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	/**
 	 * 指定合伙人派单
 	 */
-	private void appointPartner(){
+	private void appointPartner(OrderUserPojo pojo){
 		
 		// 检查合伙人是否满足要求
-		if(checkOrderCountsOfPartner("","")){
+		if(checkOrderCountsOfPartner(pojo.getPartnerId(), 
+				pojo.getOrderDate())){
 			
 			// 支付宝或微信退款
 			
 			// APP推送用户
 			
-			// 短信推送用户
+			// 短信推送合伙人
 			sendMsgService.sendNotifyMsg("");
 			
 		}else{
@@ -79,11 +94,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	/**
 	 * 不指定合伙人派单
 	 */
-	private void randomPartner(){
+	private void randomPartner(OrderUserPojo pojo){
 		
 		// 查询合适的合伙人
+		getPartnerList(pojo.getCommunityId(), pojo.getOrderDate());
 		
-		// APP推送抢单信息
+		// APP推送合伙人抢单信息
 	}
 
 	/**
@@ -114,5 +130,27 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		return counts < riseNo ? false : true;
 	}
 
+	/**
+	 * 查询小区可接单的合伙人
+	 * @param commId
+	 * @return
+	 */
+	private List<PartnerInfoPojo> getPartnerList(String CommunityId, String orderDate){
+		List<PartnerInfoPojo> partnerList = new ArrayList();
+		// 1、根据社区id查询有几个合伙人
+		List<PartnerInfoPojo> partners = null;
+//				parterInfoMapper.queryPartnerByCommunityId(CommunityId);
+
+		if (!CollectionUtils.isEmpty(partners)){
+			for (PartnerInfoPojo pojo : partners){
+				// 2、确认合伙人的订单是否已满
+				if (!checkOrderCountsOfPartner(pojo.getId(), orderDate)) {
+					partnerList.add(pojo);
+				}
+			}
+
+		}
+		return partnerList;
+	}
 	
 }

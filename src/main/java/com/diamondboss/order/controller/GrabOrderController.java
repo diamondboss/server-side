@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.diamondboss.constants.PetInfoConstants;
 import com.diamondboss.order.service.IGrabOrderService;
+import com.diamondboss.order.vo.GrabOrderVo;
 import com.diamondboss.util.bo.GrabOrderBo;
 
 @Controller
@@ -18,7 +19,7 @@ public class GrabOrderController {
 	@Autowired
 	private IGrabOrderService grabOrderService;
 	
-	public void grabOrder(){
+	public void grabOrder(GrabOrderVo vo){
 		
 		log.info(PetInfoConstants.PARTNER_GRAB_ORDER);
 		
