@@ -21,6 +21,12 @@ public class PetConstants {
     public static final String PARTNER_WALLET_DETAIL = "partner_wallet_detail_";
     
     /**
+     * 抢单信息表名称
+     */
+    public static final String GRAD_ORDER_INFO_TABLE_PREFIX = "grad_Order_info_";
+    
+    
+    /**
      *  新建订单/未支付
      */
     public static final String ORDER_STATUS_UNPAID = "0";
