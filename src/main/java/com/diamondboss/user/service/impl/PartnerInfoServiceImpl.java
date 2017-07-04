@@ -1,5 +1,6 @@
 package com.diamondboss.user.service.impl;
 
+import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.repository.PartnerInfoMapper;
 import com.diamondboss.user.service.PartnerInfoService;
 import com.diamondboss.user.vo.ResponsePartnerOfCommunityVo;
@@ -18,6 +19,11 @@ public class PartnerInfoServiceImpl implements PartnerInfoService{
 	@Override
 	public List<ResponsePartnerOfCommunityVo> queryPartnerOfCommunityList(String communityName) {
 		return partnerInfoMapper.queryPartnerOfCommunityList(communityName);
+	}
+
+	@Override
+	public PartnerInfoPojo queryPhoneOfPartner(String partnerId) {
+		return partnerInfoMapper.queryInfoByPartnerId(partnerId);
 	}
 
 }

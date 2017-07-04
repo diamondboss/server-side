@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
@@ -28,7 +29,8 @@ public class SendMsgServiceImpl implements ISendMsgService {
 	private static final String verifyUrl = PropsUtil.getProperty("rongyun.verifyUrl");
 	private static final String sendNotifyUrl = PropsUtil.getProperty("rongyun.sendNotifyUrl");
 	private static final String verifyTemplateId = PropsUtil.getProperty("rongyun.verifyTemplateId");
-	private static final String notifyTemplateId = PropsUtil.getProperty("rongyun.notifyTemplateId");
+	private static final String notifyTemplateIdForSuccess = PropsUtil.getProperty("rongyun.notifyTemplateId.success");
+	private static final String notifyTemplateIdForFail = PropsUtil.getProperty("rongyun.notifyTemplateId.fail");
 	private static final String RYGetTokenUri = PropsUtil.getProperty("rongyun.RYGetToken");
 	
 	private static final String RYAppSecret = PropsUtil.getProperty("rongyun.RYAppSecret");
@@ -73,15 +75,22 @@ public class SendMsgServiceImpl implements ISendMsgService {
 	}
 
 	@Override
-	public SmsReturnInfo sendNotifyMsg(OrderUserPojo pojo) {
+	public SmsReturnInfo sendNotifyMsg(SendNotifySmsInfoVo sendSmsInfo, int flag) {
 		//随机数（不限长度）
 		String nonce = StringTools.getRandomForSix(); // 获取随机数
 		//时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数。
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		//数据签名
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
-
-		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, pojo, notifyTemplateId, sendNotifyUrl);
+		
+		SmsReturnInfo smsReturnInfo = new SmsReturnInfo();
+		
+		if(flag == 0){ 
+			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForSuccess, sendNotifyUrl);
+		}else{
+			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForFail, sendNotifyUrl);
+		}
+		
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
 			logger.info("通知类短信发送成功");
 		}

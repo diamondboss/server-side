@@ -2,6 +2,7 @@ package com.diamondboss.util.push.rongyun.service;
 
 
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 
@@ -38,10 +39,11 @@ public interface ISendMsgService {
 	 *
 	 * @Title: sendNotifyMsg
 	 * @Description: 通知类短信发送方法，phone为短信接收人手机号
-	 * @param:
+	 * @param: sendSmsInfo:发送信息需要的额信息
+	 * @param: flag ：成功或失败的短信标识. 0为成功，1为失败
 	 * @throws
 	 */
-	SmsReturnInfo sendNotifyMsg(OrderUserPojo pojo);
+	SmsReturnInfo sendNotifyMsg(SendNotifySmsInfoVo sendSmsInfo, int flag);
 	
 	/**
 	 * 
