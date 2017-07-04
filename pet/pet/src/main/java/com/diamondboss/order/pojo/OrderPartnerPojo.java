@@ -71,6 +71,11 @@ public class OrderPartnerPojo {
 	private String partnerId;
 	
 	/**
+	 * 合伙人姓名
+	 */
+	private String partnerName;
+
+	/**
 	 * 订单日期
 	 */
 	private String orderDate;
@@ -94,6 +99,46 @@ public class OrderPartnerPojo {
 	 * 更新时间
 	 */
 	private String updateTime;
+	
+	private String commounityId;
+	
+	private String outTradeNo;
+	
+	private String tradeNo;
+	
+	private String payType;
+
+	public String getCommounityId() {
+		return commounityId;
+	}
+
+	public void setCommounityId(String commounityId) {
+		this.commounityId = commounityId;
+	}
+
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
+	}
+
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
 
 	/**
 	 * 主键
@@ -269,6 +314,14 @@ public class OrderPartnerPojo {
 	 */
 	public void setPartnerId(String partnerId) {
 		this.partnerId = partnerId;
+	}
+	
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
 	}
 
 	/**

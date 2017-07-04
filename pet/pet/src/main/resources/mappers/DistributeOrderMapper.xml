@@ -22,7 +22,12 @@
 		        order_date,
 		        order_status,
 		        amt,
-		        effective,
+		        partner_name,
+		        commounity_id,
+		        out_trade_no,
+		        trade_no,
+		        pay_type,
+		        effective
 		    )
 		    VALUES
 		    (
@@ -39,6 +44,11 @@
 		        #{orderDate},
 		        #{orderStatus},
 		        #{amt},
+		        #{partnerName},
+		        #{commounityId},
+		        #{outTradeNo},
+		        #{tradeNo},
+		        #{payType},
 		        '1'
 		    )
 	</insert>

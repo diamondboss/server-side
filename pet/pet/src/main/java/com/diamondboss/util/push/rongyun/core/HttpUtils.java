@@ -27,7 +27,7 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String sendPost(Map params, String requestUrl, int flag) throws IOException {
-        byte[] requestBytes;
+        byte[] requestBytes = null;
         if (flag == 1){
             byte[] params1 = ("sessionId=" + params.get("sessionId") + "&").getBytes("utf-8"); // 将参数转为二进制流
             byte[] params2 = ("code=" + params.get("code")).getBytes("utf-8"); // 将参数转为二进制流
@@ -44,7 +44,7 @@ public class HttpUtils {
 			System.arraycopy(params1, 0, requestBytes, 0, params1.length);
 			System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
 			System.arraycopy(params3, 0, requestBytes, params1.length + params2.length, params3.length);
-		} else {
+		} else if(flag == 2){
 			byte[] params1 = ("userId=" + params.get("userId") + "&").getBytes("utf-8"); // 将参数转为二进制流
 			byte[] params2 = ("name=" + params.get("name") + "&").getBytes("utf-8"); // 将参数转为二进制流
 			byte[] params3 = ("portraitUri=" + params.get("portraitUri")).getBytes("utf-8"); // 将参数转为二进制流
@@ -53,6 +53,21 @@ public class HttpUtils {
 			System.arraycopy(params1, 0, requestBytes, 0, params1.length);
 			System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
 			System.arraycopy(params3, 0, requestBytes, params1.length + params2.length, params3.length);
+		}else if(flag == 3){
+			byte[] params1 = ("region=" + params.get("region") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params2 = ("mobile=" + params.get("mobile") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params3 = ("templateId=" + params.get("templateId") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params4 = ("p1=" + params.get("p1") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params5 = ("p2=" + params.get("p2") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params6 = ("p3=" + params.get("p3") + "&").getBytes("utf-8"); // 将参数转为二进制流
+
+			requestBytes = new byte[params1.length + params2.length + params3.length + params4.length + params5.length + params6.length];
+			System.arraycopy(params1, 0, requestBytes, 0, params1.length);
+			System.arraycopy(params2, 0, requestBytes, params1.length, params2.length);
+			System.arraycopy(params3, 0, requestBytes, params1.length + params2.length, params3.length);
+			System.arraycopy(params4, 0, requestBytes, params1.length + params2.length + params3.length, params4.length);
+			System.arraycopy(params5, 0, requestBytes, params1.length + params2.length + params3.length + params4.length, params5.length);
+			System.arraycopy(params6, 0, requestBytes, params1.length + params2.length + params3.length + params4.length + params5.length, params6.length);
 		}
 
         

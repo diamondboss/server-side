@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
@@ -72,7 +73,7 @@ public class SendMsgServiceImpl implements ISendMsgService {
 	}
 
 	@Override
-	public SmsReturnInfo sendNotifyMsg(String phone) {
+	public SmsReturnInfo sendNotifyMsg(OrderUserPojo pojo) {
 		//随机数（不限长度）
 		String nonce = StringTools.getRandomForSix(); // 获取随机数
 		//时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数。
@@ -80,7 +81,7 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		//数据签名
 		String strHash = SHA1Utils.hex_sha1(RYAppSecret + nonce + timestamp);
 
-		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.send(appKey, nonce, timestamp, strHash, phone, notifyTemplateId, sendNotifyUrl);
+		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, pojo, notifyTemplateId, sendNotifyUrl);
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
 			logger.info("通知类短信发送成功");
 		}

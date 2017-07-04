@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.util.push.rongyun.service.impl.SendMsgServiceImpl;
 
 
@@ -25,7 +26,13 @@ public class TestSms {
 	
 	@Test
 	public void testSendNotifyMsg(){
-		sMSSendService.sendNotifyMsg("18701997602");
+		OrderUserPojo pojo =  new OrderUserPojo();
+		pojo.setPhone("18238954989");
+		pojo.setUserName("小黄");
+		pojo.setOrderDate("2017-07-04");
+		pojo.setPartnerName("'博文阿姨'");
+		
+		sMSSendService.sendNotifyMsg(pojo);
 	}
 
 

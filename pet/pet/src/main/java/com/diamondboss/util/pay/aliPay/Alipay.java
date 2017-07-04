@@ -77,6 +77,7 @@ public class Alipay {
 		AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
 		AlipayTradeRefundModel model = new AlipayTradeRefundModel();
 		model.setTradeNo(tradeNo);
+		model.setRefundAmount("0.01");
 		boolean refundFlag = false;
 		try {
 			AlipayTradeRefundResponse response = alipayClient.execute(request);

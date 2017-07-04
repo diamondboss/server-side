@@ -1,6 +1,7 @@
 package com.diamondboss.util.push.rongyun.service;
 
 
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 
@@ -40,7 +41,7 @@ public interface ISendMsgService {
 	 * @param:
 	 * @throws
 	 */
-	SmsReturnInfo sendNotifyMsg(String phone);
+	SmsReturnInfo sendNotifyMsg(OrderUserPojo pojo);
 	
 	/**
 	 * 
