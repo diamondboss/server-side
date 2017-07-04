@@ -3,6 +3,7 @@ package com.diamondboss.payment.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.service.impl.DistributeOrderServiceImpl;
 import com.diamondboss.payment.repository.PayConfirmMapper;
 import com.diamondboss.payment.service.IPayConfirmService;
@@ -94,9 +95,9 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         
         // TODO 异步通知状态入库
         payConfirmMapper.updateOrderStatus(sqlMap);
-        
+        OrderUserPojo userPojo = payConfirmMapper.queryUserOrderById(sqlMap);
         // TODO 调起派单流程
-        distributeOrderServiceImpl.DistributeOrder(null);
+        distributeOrderServiceImpl.DistributeOrder(userPojo);
 
 
         return "success";
