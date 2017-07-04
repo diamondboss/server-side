@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.Constants;
@@ -182,7 +183,7 @@ public class SmsSenderUtils {
 	 * @return
 	 */
 	public static SmsReturnInfo sendNotifyMsg(String appKey, String nonce, String timestamp, String hash, 
-			OrderUserPojo pojo, String templateId, String requestUrl){
+			SendNotifySmsInfoVo sendSmsInfo, String templateId, String requestUrl){
 		SmsReturnInfo smsReturnInfo = new SmsReturnInfo();
 		try {
 			//将发送参数appKey + nonce + Timestamp + hash 放入到request请求头中
@@ -193,11 +194,11 @@ public class SmsSenderUtils {
 			params.put("hash", hash);
 
 			params.put("region", "86");
-			params.put("mobile", pojo.getPhone());
+			params.put("mobile", sendSmsInfo.getPhone());
 			params.put("templateId", templateId);
-			params.put("p1", pojo.getUserName());
-			params.put("p2", pojo.getOrderDate());
-			params.put("p3", pojo.getPartnerName());
+			params.put("p1", sendSmsInfo.getUserName());
+			params.put("p2", sendSmsInfo.getOrderDate());
+			params.put("p3", sendSmsInfo.getPartnerName());
 			
 			//发送
 			String result = HttpUtils.sendPost(params, requestUrl, 3);
@@ -222,7 +223,7 @@ public class SmsSenderUtils {
 		} catch (Exception e) {
 			smsReturnInfo.setCode(StatusCode.ERROR_CODE);
 			smsReturnInfo.setSuccess(false);
-			logger.error("短信平台发送异常！发送手机号：" + pojo.getPhone() );
+			logger.error("短信平台发送异常！发送手机号：" + sendSmsInfo.getPhone() );
 			logger.error(e.getMessage());
 
 		}

@@ -15,7 +15,9 @@ import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.repository.DistributeOrderMapper;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.DistributeOrderService;
+import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
+import com.diamondboss.user.service.PartnerInfoService;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.TableUtils;
@@ -38,6 +40,9 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	
 	@Autowired
 	private ISendMsgService sendMsgService;
+	
+	@Autowired
+	private PartnerInfoService partnerInfoService;
 	
 	/**
 	 * 订单分配
@@ -63,6 +68,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	 */
 	private void appointPartner(OrderUserPojo pojo){
 		
+		//组装发送通知短信Vo
+		SendNotifySmsInfoVo sendSmsInfo = new SendNotifySmsInfoVo();
+		sendSmsInfo.setUserName(pojo.getUserName());
+		sendSmsInfo.setPartnerName(pojo.getPartnerName());
+		sendSmsInfo.setOrderDate(pojo.getOrderDate());
+		
 		// 检查合伙人是否满足要求
 		if(checkOrderCountsOfPartner(pojo.getPartnerId(), 
 				pojo.getOrderDate())){
@@ -72,12 +83,11 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			}else{
 				//TODO 微信退款
 			}
+			// APP推送用户（暂无）
 			
-			// APP推送用户
-			
-			// 短信推送用户
-			sendMsgService.sendNotifyMsg(pojo);
-			
+			// 短信推送用户（订单没有匹配成功的短信）
+			sendSmsInfo.setPhone(pojo.getPhone());
+			sendMsgService.sendNotifyMsg(sendSmsInfo, 0);
 		}else{
 			
 			// 满足-插入合伙人订单表;更新用户订单
@@ -88,10 +98,15 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			updatePojo.setPartnerId(pojo.getPartnerId());
 			updatePojo.setOrderStatus(PetConstants.ORDER_STATUS_RECEIVED);
 			distributeOrderMapper.updateOrderUser(updatePojo);
-			// APP推送用户/合伙人
+			// APP推送用户/合伙人(暂无)
+			
+			
+			//查询到合伙人的手机号
+			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());
 			
 			// 短信推送合伙人
-			sendMsgService.sendNotifyMsg(pojo);
+			sendSmsInfo.setPhone(partnerInfoPojo.getPhoneNumber());
+			sendMsgService.sendNotifyMsg(sendSmsInfo, 1);
 		}
 		
 	}

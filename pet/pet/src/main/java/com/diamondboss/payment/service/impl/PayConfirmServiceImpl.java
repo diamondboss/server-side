@@ -92,12 +92,12 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         sqlMap.put("id", pojo.getId());
         sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + pojo.getTableId());
         if("TRADE_SUCCESS".equals(tradeStatus)){
-        	sqlMap.put("orderStatus", 2);
+        	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
         	sqlMap.put("outTradeNo", outTradeNo);
         	sqlMap.put("tradeNo", tradeNo);
         	sqlMap.put("payType", 0);
         }else{
-        	sqlMap.put("orderStatus", 1);
+        	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_FAILURE);
         	sqlMap.put("outTradeNo", outTradeNo);
         	sqlMap.put("tradeNo", tradeNo);
         	sqlMap.put("payType", 0);

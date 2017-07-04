@@ -2,6 +2,7 @@ package com.diamondboss.user.service;
 
 import java.util.List;
 
+import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.vo.ResponsePartnerOfCommunityVo;
 
 public interface PartnerInfoService {
@@ -13,4 +14,10 @@ public interface PartnerInfoService {
 	 */
 	public List<ResponsePartnerOfCommunityVo> queryPartnerOfCommunityList(String communityName);
 	
+	/**
+	 * 根据合伙人id，返回合伙人的信息
+	 * @param partnerId
+	 * @return
+	 */
+	public PartnerInfoPojo queryPhoneOfPartner(String partnerId);
 }

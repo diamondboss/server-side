@@ -29,4 +29,6 @@ public interface PartnerInfoMapper {
 	 */
 	public List<ResponsePartnerOfCommunityVo> queryPartnerOfCommunityList(String communityName);
 	
+	
+	
 }
