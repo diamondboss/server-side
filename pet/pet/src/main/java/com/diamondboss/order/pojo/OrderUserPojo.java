@@ -116,6 +116,21 @@ public class OrderUserPojo {
 	private String communityId;
 	
 	/**
+	 * 我们自己的订单号
+	 */
+	private String outTradeNo;
+	
+	/**
+	 * 第三方订单号
+	 */
+	private String tradeNo;
+	
+	/**
+	 * 支付方式
+	 */
+	private String payType;
+	
+	/**
 	 * 主键
 	 * @return
 	 */
@@ -387,21 +402,84 @@ public class OrderUserPojo {
 		this.updateTime = updateTime;
 	}
 	
+	/**
+	 * 表名
+	 * @return
+	 */
 	public String getOrderUser() {
 		return orderUser;
 	}
 
+	/**
+	 * 表名
+	 * @param orderUser
+	 */
 	public void setOrderUser(String orderUser) {
 		this.orderUser = orderUser;
 	}
 
+	/**
+	 * 小区id
+	 * @return
+	 */
 	public String getCommunityId() {
 		return communityId;
 	}
 
+	/**
+	 * 小区id
+	 * @param communityId
+	 */
 	public void setCommunityId(String communityId) {
 		this.communityId = communityId;
 	}
-	
+
+	/**
+	 * 我们自己的订单号
+	 * @return
+	 */
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+
+	/**
+	 * 我们自己的订单号
+	 * @param outTradeNo
+	 */
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
+	}
+
+	/**
+	 * 第三方订单号
+	 * @return
+	 */
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	/**
+	 * 第三方订单号
+	 * @param tradeNo
+	 */
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
+
+	/**
+	 * 支付方式
+	 * @return
+	 */
+	public String getPayType() {
+		return payType;
+	}
+
+	/**
+	 * 支付方式
+	 * @param payType
+	 */
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
 	
 }

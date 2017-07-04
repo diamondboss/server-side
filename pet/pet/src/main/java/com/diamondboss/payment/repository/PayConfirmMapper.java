@@ -2,6 +2,8 @@ package com.diamondboss.payment.repository;
 
 import java.util.Map;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
+
 public interface PayConfirmMapper {
 
 	/**
@@ -14,4 +16,8 @@ public interface PayConfirmMapper {
 	 */
 	public void updateOrderStatus(Map<String, Object> map);
 	
+	/**
+	 * 根据id查询用户订单
+	 */
+	public OrderUserPojo queryUserOrderById(Map<String, Object> map);
 }
