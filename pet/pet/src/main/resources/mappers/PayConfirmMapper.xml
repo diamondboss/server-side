@@ -27,5 +27,37 @@
 			AND effective = '1'
 	</update>
 
+	<!-- 根据id查询用户订单 -->
+	<select id="queryUserOrderById"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.order.pojo.OrderUserPojo">
+		SELECT
+		    id AS id,
+		    receive_time AS receiveTime,
+		    return_time AS returnTime,
+		    pet_name AS petName,
+		    sex AS sex,
+		    age AS age,
+		    phone AS phone,
+		    user_name AS userName,
+		    remark AS remark,
+		    user_id AS userId,
+		    partner_id AS partnerId,
+		    partner_name partnerName,
+		    order_date orderDate,
+		    order_status orderStatus,
+		    amt AS amt,
+		    varieties AS varieties,
+		    out_trade_no AS outTradeNo,
+		    trade_no AS tradeNo,
+		    pay_type AS payType,
+		    effective AS effective
+		FROM
+		    ${orderUser}
+		WHERE
+		    id = #{id}
+			AND effective = '1'
+	</select>
 
 </mapper>
+
