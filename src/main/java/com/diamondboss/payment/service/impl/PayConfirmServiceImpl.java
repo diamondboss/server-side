@@ -3,6 +3,7 @@ package com.diamondboss.payment.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.service.impl.DistributeOrderServiceImpl;
 import com.diamondboss.payment.repository.PayConfirmMapper;
@@ -77,20 +78,29 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         if(!flag){
             return "fail";
         }
-
+        
+        //交易状态
         String tradeStatus = params.get("trade_status");
+        //我们自己的订单Id
         String outTradeNo = params.get("out_trade_no");
+        //支付宝的订单Id
+        String tradeNo = params.get("trade_no");
         
         OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
         
         Map<String, Object> sqlMap = new HashMap<>();
         sqlMap.put("id", pojo.getId());
-        sqlMap.put("orderUser", pojo.getTableId());
+        sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + pojo.getTableId());
         if("TRADE_SUCCESS".equals(tradeStatus)){
-        	
         	sqlMap.put("orderStatus", 2);
+        	sqlMap.put("outTradeNo", outTradeNo);
+        	sqlMap.put("tradeNo", tradeNo);
+        	sqlMap.put("payType", 0);
         }else{
         	sqlMap.put("orderStatus", 1);
+        	sqlMap.put("outTradeNo", outTradeNo);
+        	sqlMap.put("tradeNo", tradeNo);
+        	sqlMap.put("payType", 0);
         }
         
         // TODO 异步通知状态入库

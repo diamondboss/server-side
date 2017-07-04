@@ -21,7 +21,10 @@
 		UPDATE
 		    ${orderUser}
 		SET
-		    order_status = #{orderStatus}
+		    order_status = #{orderStatus},
+		    out_trade_no = #{outTradeNo},
+		    trade_no = #{tradeNo},
+		    pay_type = #{payType}
 		WHERE
 		    id = #{id}
 			AND effective = '1'

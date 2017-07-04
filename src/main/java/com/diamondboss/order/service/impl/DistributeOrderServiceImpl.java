@@ -16,6 +16,7 @@ import com.diamondboss.order.repository.DistributeOrderMapper;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.DistributeOrderService;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
+import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.TableUtils;
 
@@ -65,26 +66,32 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		// 检查合伙人是否满足要求
 		if(checkOrderCountsOfPartner(pojo.getPartnerId(), 
 				pojo.getOrderDate())){
-			
 			// 支付宝或微信退款
+			if(StringUtils.contains(pojo.getPayType(), "0")){
+				Alipay.refund(pojo.getTradeNo());
+			}else{
+				//TODO 微信退款
+			}
 			
 			// APP推送用户
 			
 			// 短信推送用户
-			sendMsgService.sendNotifyMsg("");
+			sendMsgService.sendNotifyMsg(pojo);
 			
 		}else{
 			
 			// 满足-插入合伙人订单表;更新用户订单
-			distributeOrderMapper.insertOrderPartner(null);
+			distributeOrderMapper.insertOrderPartner(pojo);
 			
-			distributeOrderMapper.updateOrderUser(null);
-			
+			OrderUserPojo updatePojo = new OrderUserPojo();
+			updatePojo.setId(pojo.getId());
+			updatePojo.setPartnerId(pojo.getPartnerId());
+			updatePojo.setOrderStatus(PetConstants.ORDER_STATUS_RECEIVED);
+			distributeOrderMapper.updateOrderUser(updatePojo);
 			// APP推送用户/合伙人
 			
-			
 			// 短信推送合伙人
-			sendMsgService.sendNotifyMsg("");
+			sendMsgService.sendNotifyMsg(pojo);
 		}
 		
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.Constants;
@@ -168,5 +169,63 @@ public class SmsSenderUtils {
 		
 		
 		return ryGetTokenReturnInfo;
+	}
+	
+	
+	/**
+	 *
+	 * @param appKey
+	 * @param nonce
+	 * @param timestamp
+	 * @param hash
+	 * @param mobile
+	 * @return
+	 */
+	public static SmsReturnInfo sendNotifyMsg(String appKey, String nonce, String timestamp, String hash, 
+			OrderUserPojo pojo, String templateId, String requestUrl){
+		SmsReturnInfo smsReturnInfo = new SmsReturnInfo();
+		try {
+			//将发送参数appKey + nonce + Timestamp + hash 放入到request请求头中
+			Map<String, Object> params = new HashMap<>();
+			params.put("appKey", appKey);
+			params.put("nonce", nonce);
+			params.put("timestamp", timestamp);
+			params.put("hash", hash);
+
+			params.put("region", "86");
+			params.put("mobile", pojo.getPhone());
+			params.put("templateId", templateId);
+			params.put("p1", pojo.getUserName());
+			params.put("p2", pojo.getOrderDate());
+			params.put("p3", pojo.getPartnerName());
+			
+			//发送
+			String result = HttpUtils.sendPost(params, requestUrl, 3);
+
+			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
+			String code = obj.get("code").getAsString();
+			String sessionId = obj.get("sessionId").getAsString();
+			if(code != null && StringUtils.equals(Constants.SUCCES, code)){
+				//接收返回结果，并处理
+				logger.info("短信发送返回状态码："+ code);
+				logger.info("短信发送sessionId："+ sessionId);
+				smsReturnInfo.setCode(StatusCode.SUCCESS_CODE);
+				smsReturnInfo.setSessionId(sessionId);
+				smsReturnInfo.setSuccess(true);
+			}else{
+				//接收返回结果，并处理
+				logger.info("短信发送返回状态码："+ code);
+				smsReturnInfo.setCode(StatusCode.ERROR_CODE);
+				smsReturnInfo.setSuccess(false);
+			}
+			return smsReturnInfo;  // 发送成功
+		} catch (Exception e) {
+			smsReturnInfo.setCode(StatusCode.ERROR_CODE);
+			smsReturnInfo.setSuccess(false);
+			logger.error("短信平台发送异常！发送手机号：" + pojo.getPhone() );
+			logger.error(e.getMessage());
+
+		}
+		return smsReturnInfo;
 	}
 }

@@ -116,21 +116,21 @@ public class OrderUserPojo {
 	private String communityId;
 	
 	/**
-	 * 我们自己的订单号
+	 *系统内订单Id
 	 */
 	private String outTradeNo;
 	
 	/**
-	 * 第三方订单号
+	 * 第三方交易Id
 	 */
 	private String tradeNo;
 	
 	/**
-	 * 支付方式
+	 * 付款方式（0：支付宝  1：微信  2：其他）
 	 */
 	private String payType;
-	
-	/**
+
+	/*
 	 * 主键
 	 * @return
 	 */
@@ -481,5 +481,30 @@ public class OrderUserPojo {
 	public void setPayType(String payType) {
 		this.payType = payType;
 	}
+	
+	public OrderPartnerPojo userPojoToPrderPojo(OrderUserPojo pojo){
+		OrderPartnerPojo partnerPojo = new OrderPartnerPojo();
+		partnerPojo.setId(pojo.getId());
+		partnerPojo.setReceiveTime(pojo.getReceiveTime());
+		partnerPojo.setReturnTime(pojo.getReturnTime());
+		partnerPojo.setPetName(pojo.getPetName());
+		partnerPojo.setSex(pojo.getSex());
+		partnerPojo.setAge(pojo.getAge());
+		partnerPojo.setPhone(pojo.getPhone());
+		partnerPojo.setUserName(pojo.getUserName());
+		partnerPojo.setRemark(pojo.getRemark());
+		partnerPojo.setUserId(pojo.getUserId());
+		partnerPojo.setPartnerId(pojo.getPartnerId());
+		partnerPojo.setPartnerName(pojo.getPartnerName());
+		partnerPojo.setOrderDate(pojo.getOrderDate());
+		partnerPojo.setAmt(pojo.getAmt());
+		partnerPojo.setCommounityId(pojo.getCommunityId());
+		partnerPojo.setOutTradeNo(pojo.getOutTradeNo());
+		partnerPojo.setTradeNo(pojo.getTradeNo());
+		partnerPojo.setPayType(pojo.getPayType());
+		
+		return partnerPojo;
+	}
+	
 	
 }
