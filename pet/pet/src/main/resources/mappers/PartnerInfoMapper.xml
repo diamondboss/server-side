@@ -26,7 +26,7 @@
 		    partner_info
 		WHERE
 			parter_id = #{parterId}
-			effective = '1'
+			AND effective = '1'
 	</select>
 	
 	<!-- 根据小区名字，返回该小区的所有合伙人  -->

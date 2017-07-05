@@ -20,7 +20,7 @@
 		    ${orderPartner}
 		WHERE
 			partner_id = #{partnerId}
-			AND order_date = #{orderDate}
+			AND order_date &gt;= #{orderDate}
 			AND order_status = '4'
 			AND effective = '1'
 	</select>
