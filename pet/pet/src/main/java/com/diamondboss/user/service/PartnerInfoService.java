@@ -20,4 +20,10 @@ public interface PartnerInfoService {
 	 * @return
 	 */
 	public PartnerInfoPojo queryPhoneOfPartner(String partnerId);
+	
+	/**
+	 * 根据合伙人id查询到具体某个合伙人信息
+	 * @return
+	 */
+	public PartnerInfoPojo queryPartnerInfo(String partnerId);
 }
