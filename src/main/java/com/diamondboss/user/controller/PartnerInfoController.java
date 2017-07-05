@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
 import com.diamondboss.user.vo.RequestPartnerOfCommunityVo;
 import com.diamondboss.user.vo.ResponsePartnerOfCommunityVo;
@@ -34,10 +35,12 @@ public class PartnerInfoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryInfo" ,method = RequestMethod.POST)
-	public APPResponseBody query(HttpServletRequest request) {
+	public APPResponseBody query(String partnerId) {
+		
+		PartnerInfoPojo pojo = partnerInfoService.queryPartnerInfo(partnerId);
 		
 		APPResponseBody app = new APPResponseBody();
-		app.setData("");
+		app.setData(pojo);
 		app.setRetnCode(0);
 		return app;
 	}
