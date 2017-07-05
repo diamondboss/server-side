@@ -118,7 +118,7 @@ public class QueryOrderController {
 	}
 	
 	/**
-	 * 查询用户订单列表
+	 * 查询合伙人订单列表
 	 * 
 	 * @param userId
 	 * @return
@@ -128,7 +128,7 @@ public class QueryOrderController {
 		
 		APPResponseBody app = new APPResponseBody();
 		
-		UserOrderListVo vo = orderService.queryUserOrderList(partnerId);
+		UserOrderListVo vo = orderService.queryPartnerOrderList(partnerId);
 		
 		app.setData(vo);
 		app.setRetnCode(0);

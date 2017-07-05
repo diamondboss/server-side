@@ -37,5 +37,9 @@ public interface UserOrderServiceMapper {
 	 */
 	public List<UserOrderListPojo> queryUserOrderList(Map<String, Object> map);
 	
-	
+	/**
+	 * 查询合伙人订单列表
+	 * @param userId
+	 */
+	public List<UserOrderListPojo> queryPartnerOrderList(Map<String, Object> map);
 }

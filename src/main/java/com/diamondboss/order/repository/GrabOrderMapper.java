@@ -1,12 +1,28 @@
 package com.diamondboss.order.repository;
 
+import java.util.List;
 import java.util.Map;
 
-import com.diamondboss.util.pojo.OrderPartnerPojo;
-import com.diamondboss.util.pojo.OrderUserPojo;
+import com.diamondboss.order.pojo.GrabOrderPojo;
+import com.diamondboss.order.vo.GrabOrderVo;
 
 public interface GrabOrderMapper {
 
+	/**
+	 * 根据合伙人id查询合伙人抢单信息
+	 */
+	public List<GrabOrderVo> queryGrabOrderByPartnerId(Map<String, Object> param);
+	
+	/**
+	 * 根据id查询用户抢单信息
+	 */
+	public GrabOrderPojo queryGrabOrderUserId(Map<String, Object> param);
+	
+	/**
+	 * 根据id更新用户抢单信息
+	 */
+	public void updateGrabOrderUserId(Map<String, Object> param);
+	
 	/**
 	 * 更新用户登录表
 	 * @return
@@ -17,13 +33,13 @@ public interface GrabOrderMapper {
 	 * 更新用户订单表
 	 * @return
 	 */
-	public int updateOrderUser(OrderUserPojo pojo);
+	public int updateOrderUser(GrabOrderPojo pojo);
 	
 	/**
-	 * 更新合伙人订单表
+	 * 插入合伙人订单表
 	 * @return
 	 */
-	public int insertOrderPartner(OrderPartnerPojo pojo);
+	public int insertOrderPartner(GrabOrderPojo pojo);
 	
 	/**
 	 * 查询合伙人能容纳数量

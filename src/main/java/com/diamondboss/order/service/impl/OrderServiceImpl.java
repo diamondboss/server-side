@@ -247,7 +247,7 @@ public class OrderServiceImpl implements IOrderService {
 		param.put("orderUser", TableUtils.getOrderTableName(
 				Long.valueOf(partnerId), PetConstants.ORDER_PARTNER_TABLE_PREFIX));
 		
-		List<UserOrderListPojo> list = userOrderServiceMapper.queryUserOrderList(param);
+		List<UserOrderListPojo> list = userOrderServiceMapper.queryPartnerOrderList(param);
 		UserOrderListVo vo = new UserOrderListVo(list);
 		return vo;
 	}

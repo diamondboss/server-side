@@ -1,72 +1,70 @@
 package com.diamondboss.order.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.diamondboss.constants.PetConstants;
+import com.diamondboss.order.pojo.GrabOrderPojo;
 import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.service.IGrabOrderService;
-import com.diamondboss.util.bo.GrabOrderBo;
-import com.diamondboss.util.pojo.OrderPartnerPojo;
-import com.diamondboss.util.pojo.OrderUserPojo;
+import com.diamondboss.order.vo.GrabOrderVo;
 import com.diamondboss.util.tools.TableUtils;
 
 @Service
 public class GrabOrderServiceImpl implements IGrabOrderService{
 
+	@Autowired
 	private GrabOrderMapper grabOrder;
 	
 	@Override
-	public void grabOrder(GrabOrderBo bo){
+	public int grabOrder(GrabOrderVo vo){
 		
 		// 查询合伙人抢单表
-		// 根据partnerId抢单
-		
-		
-		
-		
-		String date = "";
-		String partnerId = "";// APP 传入
-		String userId = "";// 表中获取
-		String orderUserId = "";// 表中获取
-		String userTableId = ""; // UUID获取
-		String partnerTableId = ""; // UUID获取
-		
+		String tableId = TableUtils.getOrderTableName(Long.valueOf(vo.getPartnerId()), 
+				PetConstants.GRAB_ORDER_INFO_TABLE_PREFIX);
+		Map<String, Object> param = new HashMap<>();
+		param.put("grabOrderTable", tableId);
+		param.put("id", vo.getId());
+		GrabOrderPojo pojo = grabOrder.queryGrabOrderUserId(param);
 		
 		// 检查自己是否能接单
-		if(cheakSelfOrderNum(bo.getPartnerId(), bo.getDate())){
-			return; // 接单数量已满,接单失败
+		if(cheakSelfOrderNum(pojo.getPartnerId(), pojo.getOrderDate())){
+			return 3; // 接单数量已满,接单失败
 		}
 		
-		OrderUserPojo userPojo = new OrderUserPojo();
-		userPojo.setId(orderUserId);
-		userPojo.setPartnerId(partnerId);
-		userPojo.setUserId(userId);
-		userPojo.setOrderStatus("1");
-		userPojo.setOrderUser(userTableId);
-		
+		pojo.setUserTableId((PetConstants.ORDER_USER_TABLE_PREFIX) + pojo.getUserTableId());
 		// 更新用户订单表
-		int i = updateOrderUser(bo);
-		
-		if(i==0){
-			return;
+		int i = grabOrder.updateOrderUser(pojo);
+		if(i==0){// 如果更新失败,则返回
+			grabOrder.updateGrabOrderUserId(param);
+			return 2;
 		}
-		
-		OrderPartnerPojo partnerPojo = new OrderPartnerPojo();
-		partnerPojo.setOrderUser(userTableId);
-		partnerPojo.setOrderPartner(partnerTableId);
-		partnerPojo.setId(orderUserId);
 		
 		// 插入合伙人表
-		grabOrder.insertOrderPartner(partnerPojo);
+		pojo.setPartnerTableId(TableUtils.getOrderTableName(Long.valueOf(pojo.getPartnerId()), 
+				PetConstants.ORDER_PARTNER_TABLE_PREFIX));
+		grabOrder.insertOrderPartner(pojo);
 		
 		// 更新用户登录表
-		grabOrder.updateUserLogin(userId);
+		grabOrder.updateUserLogin(pojo.getUserId());
 		
 		// 推送用户
+		return 0;
+	}
+	
+	@Override
+	public List<GrabOrderVo> queryOrder(GrabOrderVo vo){
 		
+		Map<String, Object> param = new HashMap<>();
+		param.put("partnerId", vo.getPartnerId());
+		param.put("grabOrder", TableUtils.getOrderTableName(Long.valueOf(vo.getPartnerId()), 
+				PetConstants.GRAB_ORDER_INFO_TABLE_PREFIX));
+		
+		return grabOrder.queryGrabOrderByPartnerId(param);
 	}
 	
 	/**
@@ -85,8 +83,6 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		map.put("partnerId", partnerId);
 		map.put("orderDate", orderDate);
 		map.put("orderPartner", orderPartner);
-		map.put("orderStatus", "1");
-		map.put("effective", "1");
 		
 		// 查询合伙人能容纳数量
 		int total = grabOrder.querySelfOrdertotal(partnerId);
@@ -102,18 +98,4 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		
 	}
 	
-	private int updateOrderUser(GrabOrderBo bo){
-		
-		OrderUserPojo userPojo = new OrderUserPojo();
-		userPojo.setId(bo.getOrderUserId());
-		userPojo.setPartnerId(bo.getPartnerId());
-		userPojo.setUserId(bo.getUserId());
-		userPojo.setOrderStatus("1");
-		userPojo.setOrderUser(bo.getUserTableId());
-		
-		// 更新用户订单表
-		int i = grabOrder.updateOrderUser(userPojo);
-		
-		return i;
-	}
 }
