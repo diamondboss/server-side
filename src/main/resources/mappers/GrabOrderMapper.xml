@@ -2,6 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.diamondboss.order.repository.GrabOrderMapper" >
 
+	<select id="queryGrabOrderByPartnerId"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.order.vo.GrabOrderVo">
+		SELECT
+		    id AS id,
+		    receive_time AS receiveTime,
+		    return_time AS returnTime,
+		    pet_name AS petName,
+		    sex AS sex,
+		    age AS age,
+		    phone AS phone,
+		    user_name AS userName,
+		    remark AS remark,
+		    partner_name AS partnerName,
+		    order_date AS orderDate,
+		    order_status AS orderStatus,
+		    amt AS amt,
+		    varieties AS varieties
+		FROM
+		    ${grabOrder}
+		WHERE
+			partner_id = #{partnerId}
+			AND effective = '1'
+	</select>
+
+	<!-- 根据id查询用户抢单信息 -->
+	<select id="queryGrabOrderUserId"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.order.pojo.GrabOrderPojo">
+		SELECT
+		    user_id AS userId,
+		    user_table_id AS userTableId,
+		    partner_id AS partnerId,
+		    partner_name AS partnerName,
+		    user_key_id	AS userKeyId,
+		    order_date AS orderDate
+		FROM
+		    ${grabOrderTable}
+		WHERE
+		    id = #{id}
+		    AND effective = '1'
+	</select>
+
+	<!-- 根据id更新用户抢单信息  -->
+	<update id="updateGrabOrderUserId"
+		parameterType="java.util.Map">
+		UPDATE
+		    ${grabOrderTable}
+		SET
+		    effective =  '0'
+		WHERE
+		    id = #{id}
+		    AND effective = '1'
+	</update>
+
 	<!-- 更新用户登录表 -->
 	<update id="updateUserLogin"
 		parameterType="java.lang.String">
@@ -16,25 +71,28 @@
 
 	<!-- 更新用户订单表  -->
 	<update id="updateOrderUser" 
-		parameterType="com.diamondboss.util.pojo.OrderUserPojo">
+		parameterType="com.diamondboss.order.pojo.GrabOrderPojo">
 		UPDATE
-		    ${orderUser}
+		    ${userTableId}
 		SET
-		    user_id =  #{userId},
+		    partner_name =  #{partnerName},
 		    partner_id = #{partnerId},
-		    order_status = #{orderStatus}
+		    order_status = '4'
 		WHERE
-		    id = #{id}
-		    AND  effective =  '1'
+		    id = #{userKeyId}
+		    AND order_status = '2'
+		    AND effective =  '1'
 	</update>
 
-	<!-- 更新合伙人订单表  -->
+	<!-- 插入合伙人订单表  -->
 	<insert id="insertOrderPartner"
-		parameterType="com.diamondboss.util.pojo.OrderPartnerPojo">
+		parameterType="com.diamondboss.order.pojo.GrabOrderPojo">
 		INSERT
 		INTO
-		    ${orderPartner}
+		    ${partnerTableId}
 		    (
+		        receive_time,
+		        return_time,
 		        pet_name,
 		        sex,
 		        age,
@@ -43,12 +101,19 @@
 		        remark,
 		        user_id,
 		        partner_id,
+		        partner_name,
 		        order_date,
 		        order_status,
 		        amt,
-		        effective,
+		        varieties,
+		        out_trade_no,
+		        trade_no,
+		        pay_type,
+		        effective
 		    )
 		SELECT
+		    receive_time,
+		    return_time,
 		    pet_name,
 		    sex,
 		    age,
@@ -57,14 +122,19 @@
 		    remark,
 		    user_id,
 		    partner_id,
+		    partner_name,
 		    order_date,
 		    order_status,
 		    amt,
-		    effective
+		    varieties,
+		    out_trade_no,
+		    trade_no,
+		    pay_type,
+		    '1'
 		FROM
-		    ${orderUser}
+		    ${userTableId}
 		WHERE
-			id = #{id}
+			id = #{userKeyId}
 	</insert>
 
 	<!-- 查询合伙人能容纳数量  -->
@@ -90,8 +160,8 @@
 		WHERE
 		    partner_id = #{partnerId}
 		    AND order_date = #{orderDate}
-		    AND order_status = #{orderStatus}
-		    AND effective = #{effective}
+		    AND order_status != '6'
+		    AND effective = '1'
 	</select>
 
 
