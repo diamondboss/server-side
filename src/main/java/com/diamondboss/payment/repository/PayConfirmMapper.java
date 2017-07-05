@@ -20,4 +20,11 @@ public interface PayConfirmMapper {
 	 * 根据id查询用户订单
 	 */
 	public OrderUserPojo queryUserOrderById(Map<String, Object> map);
+	
+	/**
+	 * 根据交易Id查询订单状态
+	 * @param tradeNo
+	 * @return
+	 */
+	public String queryOrderState(String tradeNo);
 }

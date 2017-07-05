@@ -48,7 +48,8 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         }
 
         String tradeNo = content.getString("trade_no");
-        Thread queryThread = new Thread(new QueryAlipayTradeStatus(tradeNo));
+        
+        Thread queryThread = new Thread(new QueryAlipayTradeStatus(tradeNo, payConfirmMapper));
         queryThread.start();
 
         return flag;
@@ -112,4 +113,9 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
 
         return "success";
     }
+
+	@Override
+	public String queryOrderState(String tradeNo) {
+		return payConfirmMapper.queryOrderState(tradeNo);
+	}
 }

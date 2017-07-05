@@ -24,4 +24,11 @@ public interface IPayConfirmService {
      * @return
      */
     String alipayConfirm(Map<String, String[]> requestParams) throws AlipayApiException;
+    
+    /**
+     * 根据订单号，返回该订单的状态
+     * @param tradeNo
+     * @return
+     */
+    public String queryOrderState(String tradeNo);
 }

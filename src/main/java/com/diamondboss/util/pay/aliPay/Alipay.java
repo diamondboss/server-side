@@ -91,10 +91,10 @@ public class Alipay {
 
 
 	public static void main(String[] args){
-		Thread queryThread = new Thread(new QueryAlipayTradeStatus("2017070221001004940279085648"));
-		queryThread.start();
+		//Thread queryThread = new Thread(new QueryAlipayTradeStatus("2017070221001004940279085648"));
+		//queryThread.start();
 
-		System.out.println(queryThread.getName());
+		//System.out.println(queryThread.getName());
 	}
 	
 }
