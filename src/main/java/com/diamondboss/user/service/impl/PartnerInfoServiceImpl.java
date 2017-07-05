@@ -25,5 +25,16 @@ public class PartnerInfoServiceImpl implements PartnerInfoService{
 	public PartnerInfoPojo queryPhoneOfPartner(String partnerId) {
 		return partnerInfoMapper.queryInfoByPartnerId(partnerId);
 	}
+	
+	/**
+	 * 根据合伙人id查询到具体某个合伙人信息
+	 * @return
+	 */
+	@Override
+	public PartnerInfoPojo queryPartnerInfo(String partnerId){
+		
+		PartnerInfoPojo pojo = partnerInfoMapper.queryInfoByPartnerId(partnerId);
+		return pojo;
+	}
 
 }
