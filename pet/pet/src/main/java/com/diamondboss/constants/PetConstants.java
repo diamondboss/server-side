@@ -23,7 +23,7 @@ public class PetConstants {
     /**
      * 抢单信息表名称
      */
-    public static final String GRAD_ORDER_INFO_TABLE_PREFIX = "grad_Order_info_";
+    public static final String GRAB_ORDER_INFO_TABLE_PREFIX = "grab_order_info_";
     
     
     /**
