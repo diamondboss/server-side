@@ -132,12 +132,13 @@ public class LoginController {
 		String today = LocalDate.now().toString();
 		List<UserOrderServiceVo> userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
 		
-		if(userOrder != null){
+		if(userOrder == null || userOrder.size() == 0){
+			app.setData("");
+			app.setRetnCode(0);
+			app.setRetnDesc("未找到数据哦~");
+		} else{
 			app.setData(userOrder);
 			app.setRetnCode(0);
-		}else{
-			app.setRetnCode(1);
-			app.setRetnDesc("未找到数据哦~");
 		}
 		return app;
 	}
