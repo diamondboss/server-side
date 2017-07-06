@@ -20,7 +20,16 @@ public class UUIDUtil {
         String s = UUID.randomUUID().toString(); 
         //去掉“-”符号 
         return s.substring(0,8)+s.substring(9,13)+s.substring(14,18)+s.substring(19,23)+s.substring(24); 
-    } 
+    }
+
+
+    /**
+     * 生成一个uuid
+     * @return
+     */
+    public static String uuid(){
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
     
     /** 
      * 通过UUID获得一个8位用户标识
