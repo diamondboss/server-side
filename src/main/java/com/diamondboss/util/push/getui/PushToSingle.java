@@ -10,11 +10,13 @@ import com.gexin.rp.sdk.template.style.Style0;
 
 public class PushToSingle {
     //采用"Java SDK 快速入门"， "第二步 获取访问凭证 "中获得的应用配置，用户可以自行替换
-    private static String appId = "";
-    private static String appKey = "";
-    private static String masterSecret = "";
+    private static String appId = "wDV62wDmLT6zpGoL5gsHC";
+    private static String appKey = "Z1eOXz6SSNAoSXNV7h4UP8";
+    private static String masterSecret = "awbor2tbZG6SpwyiGoLvo3";
 
-    static String CID = "";
+    static String CID = "51c8493dc5fd556739899fa99ce61688";
+    
+    //static String CID = "5ab36124aa9991a95310d94db92a2ef3";
     //别名推送方式
     // static String Alias = "";
     static String host = "http://sdk.open.api.igexin.com/apiex.htm";
