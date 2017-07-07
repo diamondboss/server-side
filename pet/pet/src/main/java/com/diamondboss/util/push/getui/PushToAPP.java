@@ -11,9 +11,10 @@ import com.gexin.rp.sdk.template.style.Style0;
 
 public class PushToAPP {
     //采用"Java SDK 快速入门"， "第二步 获取访问凭证 "中获得的应用配置，用户可以自行替换
-    private static String appId = "";
-    private static String appKey = "";
-    private static String masterSecret = "";
+	private static String appId = "wDV62wDmLT6zpGoL5gsHC";
+	private static String appKey = "Z1eOXz6SSNAoSXNV7h4UP8";
+	private static String masterSecret = "awbor2tbZG6SpwyiGoLvo3";
+	
     static String host = "http://sdk.open.api.igexin.com/apiex.htm";
 
     public static void main(String[] args) throws Exception {
