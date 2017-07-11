@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.diamondboss.order.repository.CommunityMapper" >
-  <resultMap id="BaseResultMap" type="com.diamondboss.util.pojo.CommunityPojo" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="province" property="province" jdbcType="VARCHAR" />
-    <result column="city" property="city" jdbcType="VARCHAR" />
-    <result column="area" property="area" jdbcType="VARCHAR" />
-    <result column="street" property="street" jdbcType="VARCHAR" />
-    <result column="community_name" property="communityName" jdbcType="VARCHAR" />
-    <result column="effective" property="effective" jdbcType="BIT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, province, city, area, street, community_name, effective, create_time, 
-    update_time
-  </sql>
-  
-  
   <!-- 根据小区名字查找小区Id  -->
   <select id="queryCommunityId"
 		parameterType="java.lang.String"
@@ -25,7 +8,7 @@
 		SELECT
 		    id AS communityId,
 		    community_name AS communityName
-		FROM
+		FROMs
 		    community
 		WHERE
 			community_name = #{communityName} and
