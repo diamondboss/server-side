@@ -11,12 +11,6 @@ import com.diamondboss.util.vo.CommunityVo;
  *
  */
 public interface ICommunityService {
-
-	/**
-	 * 查询小区
-	 * @return
-	 */
-	public List<CommunityVo> queryCommunitys();
 	
 	/**
 	 * 根据小区名字，获得小区的Id
