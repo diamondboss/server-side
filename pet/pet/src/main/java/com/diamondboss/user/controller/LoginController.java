@@ -2,6 +2,7 @@ package com.diamondboss.user.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,14 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.user.pojo.PartnerLoginPojo;
+import com.diamondboss.user.pojo.UserInfoPojo;
 import com.diamondboss.user.pojo.UserLoginPojo;
 import com.diamondboss.user.service.PartnerLoginService;
+import com.diamondboss.user.service.UserInfoService;
 import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.user.vo.IndexOrderOfUserVo;
 import com.diamondboss.user.vo.LoginVo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
+import com.diamondboss.util.tools.UUIDUtil;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.UserOrderServiceVo;
 
@@ -44,6 +48,9 @@ public class LoginController {
 	
 	@Autowired
 	private ISendMsgService sendMsgService; 
+	
+	@Autowired
+	private UserInfoService userInfoService;
 	
 	/**
 	 * 用户/合伙人登录
@@ -78,16 +85,35 @@ public class LoginController {
 		if (partnerLogin == null) {
 			userLogin = userLoginService.login(vo);
 			if (userLogin == null) {
-				if (userLoginService.insertUser(vo) < 1) {
+				Map<String, Integer> responseMap = userLoginService.insertUser(vo);
+				log.info("id = "  + responseMap.get("id"));
+				if (responseMap.get("result") < 1) {
 					userLogin.setUserType("0");
 					log.info("登录失败");
 					app.setRetnCode(1);
 					return app;
+				}else{
+					UserInfoPojo UserInfoPojo = new UserInfoPojo();
+					UserInfoPojo.setUserId(String.valueOf(responseMap.get("id")));
+					UserInfoPojo.setName(UUIDUtil.getOrderIdByUUID());
+					UserInfoPojo.setPhoneNumber("");
+					UserInfoPojo.setAge("");
+					UserInfoPojo.setSex("");
+					UserInfoPojo.setAddress("");
+					UserInfoPojo.setIndustry("");
+					UserInfoPojo.setRemark("");
+					
+					if(userInfoService.inputUserInfo(UserInfoPojo) < 1){
+						log.info("生成默认用户信息保存失败,UserId：" + String.valueOf(responseMap.get("id")));
+						app.setRetnCode(1);
+						return app;
+					}
+					
 				}
 			}
 			userLogin = userLoginService.login(vo);
 			
-			if(userLoginService.selectUserClientId(userLogin.getId(), vo.getClientId()) < 1){
+			/*if(userLoginService.selectUserClientId(userLogin.getId(), vo.getClientId()) < 1){
 				log.info("User clientId不存在，开始写入");
 				if(userLoginService.insertUserClientId(userLogin.getId(), vo.getClientId()) < 1){
 					userLogin.setUserType("0");
@@ -96,21 +122,21 @@ public class LoginController {
 					return app;
 				}
 				log.info("User clientId写入成功! ^_^");
-			}
+			}*/
 			
 			userLogin.setUserType("0");
 			log.info("登录成功");
 			app.setRetnCode(0);
 			app.setData(userLogin);
 			return app;
-		}else{
+		}/*else{
 			if(partnerLoginService.insertPartnerClientId(partnerLogin.getId() , vo.getClientId()) < 1){
 				userLogin.setUserType("0");
 				log.info("Partner clientId获取失败");
 				app.setRetnCode(1);
 				return app;
 			}
-		}
+		}*/
 		log.info("登录成功");
 		partnerLogin.setUserType("1");
 		app.setRetnCode(0);

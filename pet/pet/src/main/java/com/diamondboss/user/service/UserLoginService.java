@@ -1,5 +1,7 @@
 package com.diamondboss.user.service;
 
+import java.util.Map;
+
 import com.diamondboss.user.pojo.UserLoginPojo;
 import com.diamondboss.user.vo.LoginVo;
 
@@ -17,7 +19,7 @@ public interface UserLoginService {
 	 * @param vo
 	 * @return
 	 */
-	public int insertUser(LoginVo vo);
+	public Map<String, Integer> insertUser(LoginVo vo);
 	
 	/**
 	 * 插入用户的clientId到userClientId表

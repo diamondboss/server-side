@@ -21,6 +21,16 @@ public class LoginVo {
 	 * 客户端ID
 	 */
 	private String clientId;
+	
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public LoginVo(){
 		

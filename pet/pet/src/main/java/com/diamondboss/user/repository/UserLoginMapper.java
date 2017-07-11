@@ -3,6 +3,7 @@ package com.diamondboss.user.repository;
 import java.util.Map;
 
 import com.diamondboss.user.pojo.UserLoginPojo;
+import com.diamondboss.user.vo.LoginVo;
 
 public interface UserLoginMapper {
 	
@@ -14,7 +15,7 @@ public interface UserLoginMapper {
 	/**
 	 * 登录插入
 	 */
-	public int insertUserLoginByPhone(String phoneNumber);
+	public int insertUserLoginByPhone(LoginVo vo);
 	
 	/**
 	 * 插入用户的clientId到userClientId表

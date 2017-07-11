@@ -31,9 +31,14 @@ public class UserLoginServiceImpl implements UserLoginService{
 	}
 
 	@Override
-	public int insertUser(LoginVo vo) {
-		int result = userLoginMapper.insertUserLoginByPhone(vo.getPhone());
-		return result;
+	public Map<String, Integer> insertUser(LoginVo vo) {
+		int result = userLoginMapper.insertUserLoginByPhone(vo);
+		
+		Map<String, Integer> responseMap = new HashMap<>();
+		responseMap.put("result", result);
+		responseMap.put("id", vo.getId());
+		
+		return responseMap;
 	}
 
 	@Override
