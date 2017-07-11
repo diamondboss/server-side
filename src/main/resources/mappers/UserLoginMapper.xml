@@ -19,7 +19,7 @@
 	</select>
 
 	<!-- 登录插入 -->
-	<insert id="insertUserLoginByPhone" parameterType="java.lang.String">
+	<insert id="insertUserLoginByPhone" parameterType="com.diamondboss.user.vo.LoginVo" useGeneratedKeys="true" keyProperty="id">
 		INSERT
 		INTO
 		    user_login
@@ -31,7 +31,7 @@
 		    )
 		    VALUES
 		    (
-		        #{phoneNumber},
+		        #{phone},
 		        0,
 		        0,
 		        '1'

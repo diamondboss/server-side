@@ -8,7 +8,7 @@
 		SELECT
 		    id AS communityId,
 		    community_name AS communityName
-		FROMs
+		FROM
 		    community
 		WHERE
 			community_name = #{communityName} and
