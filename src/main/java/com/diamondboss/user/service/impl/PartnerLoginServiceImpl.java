@@ -62,4 +62,29 @@ public class PartnerLoginServiceImpl implements PartnerLoginService{
 		return userOrder;
 
 	}
+	
+	/**
+	 * 插入合伙人clientId
+	 */
+	@Override
+	public int insertPartnerClientId(String partnerId, String clientId) {
+		Map<String, String> param = new HashMap<>();
+		param.put("partnerId", partnerId);
+		param.put("clientId", clientId);
+		
+		return partnerLoginMapper.insertPartnerClientId(param);
+	}
+
+	/**
+	 * 查询合伙人的clientId到partnerClientId表是否已经存在
+	 * @param vo
+	 * @return
+	 */
+	public int selectPartnerClientId(String partnerId, String clientId) {
+		Map<String, String> param = new HashMap<>();
+		param.put("partnerId", partnerId);
+		param.put("clientId", clientId);
+		
+		return partnerLoginMapper.selectPartnerClientId(param);
+	}
 }

@@ -17,6 +17,11 @@ public class LoginVo {
 	 */
 	private String sessionId;
 	
+	/**
+	 * 客户端ID
+	 */
+	private String clientId;
+
 	public LoginVo(){
 		
 	}
@@ -45,9 +50,11 @@ public class LoginVo {
 		this.sessionId = sessionId;
 	}
 	
-	
-	
-	
-	
-	
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}	
 }

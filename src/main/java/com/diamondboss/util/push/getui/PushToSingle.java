@@ -14,7 +14,7 @@ public class PushToSingle {
     private static String appKey = "Z1eOXz6SSNAoSXNV7h4UP8";
     private static String masterSecret = "awbor2tbZG6SpwyiGoLvo3";
 
-    static String CID = "51c8493dc5fd556739899fa99ce61688";
+    static String CID = "f53275699241101c98b9b73064077917";
     
     //static String CID = "5ab36124aa9991a95310d94db92a2ef3";
     //别名推送方式
@@ -48,6 +48,7 @@ public class PushToSingle {
             System.out.println("服务器响应异常");
         }
     }
+    
     public static LinkTemplate linkTemplateDemo() {
         LinkTemplate template = new LinkTemplate();
         // 设置APPID与APPKEY

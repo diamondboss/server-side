@@ -87,10 +87,10 @@ public class PetInfoController {
 		//默认一条宠物记录，除了用户id，其他都为空
 		InputPetInfoVo inputVo =  new InputPetInfoVo();
 		inputVo.setUserId(vo.getUserId());
-		inputVo.setName("");
-		inputVo.setAge("空");
-		inputVo.setSex(9); //9为默认，新纪录没性别
-		inputVo.setVarieties("");
+		inputVo.setName("");	//名字默认为空
+		inputVo.setAge("99"); //99默认
+		inputVo.setSex("1"); //9为默认，新纪录没性别
+		inputVo.setVarieties(""); //品种默认为空
 		
 		int result = petInfoService.inputPetInfo(inputVo);
 		

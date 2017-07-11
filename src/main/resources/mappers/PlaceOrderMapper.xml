@@ -11,7 +11,7 @@
 		FROM
 		    partner_login
 	 	WHERE
-	 		id = #{PartnerId}
+	 		id = #{partnerId}
 	 		AND effective ='1' 
 	</select>
 
