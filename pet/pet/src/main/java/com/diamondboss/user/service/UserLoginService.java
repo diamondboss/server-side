@@ -19,4 +19,18 @@ public interface UserLoginService {
 	 */
 	public int insertUser(LoginVo vo);
 	
+	/**
+	 * 插入用户的clientId到userClientId表
+	 * @param vo
+	 * @return
+	 */
+	public int insertUserClientId(String userId, String clientId);
+	
+	/**
+	 * 查询用户的clientId到userClientId表是否已经存在
+	 * @param vo
+	 * @return
+	 */
+	public int selectUserClientId(String userId, String clientId);
+	
 }

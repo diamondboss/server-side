@@ -72,9 +72,11 @@ public class LoginController {
 			return app;
 		}
 */
+		UserLoginPojo userLogin =  new UserLoginPojo();
+		
 		PartnerLoginPojo partnerLogin = partnerLoginService.login(vo);
 		if (partnerLogin == null) {
-			UserLoginPojo userLogin = userLoginService.login(vo);
+			userLogin = userLoginService.login(vo);
 			if (userLogin == null) {
 				if (userLoginService.insertUser(vo) < 1) {
 					userLogin.setUserType("0");
@@ -85,11 +87,29 @@ public class LoginController {
 			}
 			userLogin = userLoginService.login(vo);
 			
+			if(userLoginService.selectUserClientId(userLogin.getId(), vo.getClientId()) < 1){
+				log.info("User clientId不存在，开始写入");
+				if(userLoginService.insertUserClientId(userLogin.getId(), vo.getClientId()) < 1){
+					userLogin.setUserType("0");
+					log.info("User clientId写入失败");
+					app.setRetnCode(1);
+					return app;
+				}
+				log.info("User clientId写入成功! ^_^");
+			}
+			
 			userLogin.setUserType("0");
 			log.info("登录成功");
 			app.setRetnCode(0);
 			app.setData(userLogin);
 			return app;
+		}else{
+			if(partnerLoginService.insertPartnerClientId(partnerLogin.getId() , vo.getClientId()) < 1){
+				userLogin.setUserType("0");
+				log.info("Partner clientId获取失败");
+				app.setRetnCode(1);
+				return app;
+			}
 		}
 		log.info("登录成功");
 		partnerLogin.setUserType("1");

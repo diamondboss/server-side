@@ -1,5 +1,8 @@
 package com.diamondboss.user.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +34,23 @@ public class UserLoginServiceImpl implements UserLoginService{
 	public int insertUser(LoginVo vo) {
 		int result = userLoginMapper.insertUserLoginByPhone(vo.getPhone());
 		return result;
+	}
+
+	@Override
+	public int insertUserClientId(String userId, String clientId) {
+		Map<String, String> param = new HashMap<>();
+		param.put("userId", userId);
+		param.put("clientId", clientId);
+		
+		return userLoginMapper.insertUserClientId(param);
+	}
+
+	@Override
+	public int selectUserClientId(String userId, String clientId) {
+		Map<String, String> param = new HashMap<>();
+		param.put("userId", userId);
+		param.put("clientId", clientId);
+		
+		return userLoginMapper.insertUserClientId(param);
 	}
 }

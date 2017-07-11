@@ -1,5 +1,7 @@
 package com.diamondboss.user.repository;
 
+import java.util.Map;
+
 import com.diamondboss.user.pojo.UserLoginPojo;
 
 public interface UserLoginMapper {
@@ -14,7 +16,17 @@ public interface UserLoginMapper {
 	 */
 	public int insertUserLoginByPhone(String phoneNumber);
 	
+	/**
+	 * 插入用户的clientId到userClientId表
+	 * @param map
+	 * @return
+	 */
+	public int insertUserClientId(Map<String, String> map);
 	
-	
-	
+	/**
+	 * 查询用户的clientId到userClientId表是否已经存在
+	 * @param map
+	 * @return
+	 */
+	public int selectUserClientId(Map<String, String> map);
 }

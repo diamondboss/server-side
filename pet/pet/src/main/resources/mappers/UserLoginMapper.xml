@@ -37,5 +37,34 @@
 		        '1'
 		    );
 	</insert>
+	
+	<!-- 登录client -->
+	<insert id="insertUserClientId" parameterType="java.util.Map">
+		INSERT
+		INTO
+		    user_client_id
+		    (
+		        user_id,
+		        client_id,
+		        effective
+		    )
+		    VALUES
+		    (
+		        #{userId},
+		        #{clientId},
+		        '1'
+		    );
+	</insert>
+	
+	<!-- partnerClientId查询  -->
+	<select id="selectUserClientId"
+		parameterType="java.util.Map" >
+		SELECT count(*)
+		FROM user_client_id
+		WHERE
+			user_id = #{userId},
+			client_id = #{clientId},
+			AND A.effective = '1'
+	</select>
 
 </mapper>

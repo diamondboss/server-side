@@ -24,7 +24,7 @@ public class InputPetInfoVo {
 	/**
 	 * 宠物性别
 	 */
-	private int sex;
+	private String sex;
 	
 	/**
 	 * 宠物品种
@@ -59,11 +59,11 @@ public class InputPetInfoVo {
 		this.age = age;
 	}
 
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 

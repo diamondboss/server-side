@@ -22,4 +22,18 @@ public interface PartnerLoginService {
 	 */
 	public List<UserOrderServiceVo> queryUserOrderService(String userId, String orderDate);
 	
+	/**
+	 * 插入合伙人的clientId到partnerClientId表
+	 * @param vo
+	 * @return
+	 */
+	public int insertPartnerClientId(String partner, String clientId);
+	
+	/**
+	 * 查询合伙人的clientId到partnerClientId表是否已经存在
+	 * @param vo
+	 * @return
+	 */
+	public int selectPartnerClientId(String partnerId, String clientId);
+	
 }

@@ -18,6 +18,36 @@
 			A.phone_number = #{phoneNumber}
 			AND A.effective = '1'
 	</select>
+	
+	
+		<!-- 登录client -->
+	<insert id="insertPartnerClientId" parameterType="java.util.Map">
+		INSERT
+		INTO
+		    partner_client_id
+		    (
+		        partner_id,
+		        client_id,
+		        effective
+		    )
+		    VALUES
+		    (
+		        #{userId},
+		        #{clientId},
+		        '1'
+		    );
+	</insert>
+	
+		<!-- userClientId查询  -->
+	<select id="selectPartnerClientId"
+		parameterType="java.util.Map" >
+		SELECT count(*)
+		FROM partner_client_id
+		WHERE
+			partner_id = #{partnerId},
+			client_id = #{clientId},
+			AND A.effective = '1'
+	</select>
 
 
 
