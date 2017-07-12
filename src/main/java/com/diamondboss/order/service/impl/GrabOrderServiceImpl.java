@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import com.diamondboss.util.tools.TableUtils;
 @Service
 public class GrabOrderServiceImpl implements IGrabOrderService{
 
+	private static final Logger log = Logger.getLogger(GrabOrderServiceImpl.class);
+	
 	@Autowired
 	private GrabOrderMapper grabOrder;
 	
@@ -33,6 +36,7 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		
 		// 检查自己是否能接单
 		if(cheakSelfOrderNum(pojo.getPartnerId(), pojo.getOrderDate())){
+			log.info("合伙人:" + pojo.getPartnerId() + "接单数已满");
 			return 3; // 接单数量已满,接单失败
 		}
 		
@@ -41,6 +45,9 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		int i = grabOrder.updateOrderUser(pojo);
 		if(i==0){// 如果更新失败,则返回
 			grabOrder.updateGrabOrderUserId(param);
+			log.info("合伙人:" + pojo.getPartnerId() + "更新订单失败");
+			log.info("订单表:" + tableId);
+			log.info("订单主键:" + vo.getId());
 			return 2;
 		}
 		
