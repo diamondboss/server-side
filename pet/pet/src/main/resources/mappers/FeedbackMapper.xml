@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.support.repository.FeedbackMapper" >
+
+	<insert id="insertFeedbac"
+		parameterType="com.diamondboss.support.vo.FeedbackVo">
+		INSERT
+		INTO
+		    feedback
+		    (
+		        feedback,
+		        phone,
+		        status,
+		        effective
+		    )
+		    VALUES
+		    (
+		        #{feedback},
+		        #{phone},
+		        0,
+		        '1'
+		    )
+	</insert>
+
+</mapper>
