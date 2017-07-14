@@ -8,6 +8,7 @@ import com.gexin.rp.sdk.base.impl.Target;
 import com.gexin.rp.sdk.exceptions.RequestException;
 import com.gexin.rp.sdk.http.IGtPush;
 import com.gexin.rp.sdk.template.LinkTemplate;
+import com.gexin.rp.sdk.template.TransmissionTemplate;
 import com.gexin.rp.sdk.template.style.Style0;
 
 public class PushToSingle {
@@ -23,7 +24,7 @@ public class PushToSingle {
  
     public static void pushToSingle(Map<String, String> map){
         IGtPush push = new IGtPush(host, appKey, masterSecret);
-        LinkTemplate template = linkTemplateDemo(map);
+        TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate();
         SingleMessage message = new SingleMessage();
         message.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
