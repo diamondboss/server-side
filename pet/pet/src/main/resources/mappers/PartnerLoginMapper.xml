@@ -20,7 +20,7 @@
 	</select>
 	
 	
-		<!-- 登录client -->
+	<!-- 登录client -->
 	<insert id="insertPartnerClientId" parameterType="java.util.Map">
 		INSERT
 		INTO
@@ -38,7 +38,7 @@
 		    );
 	</insert>
 	
-		<!-- userClientId查询  -->
+	<!-- partnerClientId查询  -->
 	<select id="selectPartnerClientId"
 		parameterType="java.util.Map" >
 		SELECT count(*)
@@ -48,7 +48,15 @@
 			client_id = #{clientId},
 			AND A.effective = '1'
 	</select>
-
+	
+	<!-- partnerClientId查询  -->
+	<select id="selectPartnerCID" parameterType="java.util.Map">
+		SELECT client_id
+		FROM partner_client_id
+		WHERE
+			partner_id = #{partnerId},
+			AND A.effective = '1'
+	</select>
 
 
 </mapper>

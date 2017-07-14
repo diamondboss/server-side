@@ -58,4 +58,12 @@ public class UserLoginServiceImpl implements UserLoginService{
 		
 		return userLoginMapper.insertUserClientId(param);
 	}
+
+	@Override
+	public String selectUserClientId(String userId) {
+		Map<String, String> param = new HashMap<>();
+		param.put("userId", userId);
+		
+		return userLoginMapper.selectUserCID(param);
+	}
 }

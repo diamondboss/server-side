@@ -18,7 +18,9 @@ import com.diamondboss.order.service.DistributeOrderService;
 import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
+import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.util.pay.aliPay.Alipay;
+import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.TableUtils;
 
@@ -43,6 +45,9 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	
 	@Autowired
 	private PartnerInfoService partnerInfoService;
+	
+	@Autowired
+	private UserLoginService userLoginService;
 	
 	/**
 	 * 订单分配
@@ -83,8 +88,14 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			}else{
 				//TODO 微信退款
 			}
-			// APP推送用户（暂无）
+			// APP推送用户
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("CID", userLoginService.selectUserClientId(pojo.getUserId()));
+			map.put("tiele", "订单派送失败");
+			map.put("text", "抱歉，您的订单派送失败！");
+			map.put("url", "http://www.baidu.com");
 			
+			PushToSingle.pushToSingle(map);
 			// 短信推送用户（订单没有匹配成功的短信）
 			sendSmsInfo.setPhone(pojo.getPhone());
 			sendMsgService.sendNotifyMsg(sendSmsInfo, 0);
@@ -98,8 +109,14 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			updatePojo.setPartnerId(pojo.getPartnerId());
 			updatePojo.setOrderStatus(PetConstants.ORDER_STATUS_RECEIVED);
 			distributeOrderMapper.updateOrderUser(updatePojo);
-			// APP推送用户/合伙人(暂无)
+			// APP推送用户/合伙人
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("CID", userLoginService.selectUserClientId(pojo.getUserId()));
+			map.put("tiele", "您有新的订单");
+			map.put("text", "你有新的订单产生，点击查看");
+			map.put("url", "http://www.baidu.com");
 			
+			PushToSingle.pushToSingle(map);
 			
 			//查询到合伙人的手机号
 			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());

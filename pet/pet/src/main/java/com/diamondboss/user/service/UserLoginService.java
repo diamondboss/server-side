@@ -35,4 +35,11 @@ public interface UserLoginService {
 	 */
 	public int selectUserClientId(String userId, String clientId);
 	
+	/**
+	 * 通过userId查出用户的CID
+	 * @param userId
+	 * @return
+	 */
+	public String selectUserClientId(String userId);
+	
 }
