@@ -36,4 +36,11 @@ public interface PartnerLoginService {
 	 */
 	public int selectPartnerClientId(String partnerId, String clientId);
 	
+	/**
+	 * 根据合伙人Id，查询到他的CID
+	 * @param vo
+	 * @return
+	 */
+	public String selectPartnerClientId(String partnerId);
+	
 }

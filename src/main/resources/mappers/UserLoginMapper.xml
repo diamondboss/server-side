@@ -56,7 +56,7 @@
 		    );
 	</insert>
 	
-	<!-- partnerClientId查询  -->
+	<!-- userClientId查询  -->
 	<select id="selectUserClientId"
 		parameterType="java.util.Map" >
 		SELECT count(*)
@@ -66,5 +66,18 @@
 			client_id = #{clientId},
 			AND A.effective = '1'
 	</select>
+	
+	
+	
+	<!-- userClientId查询  -->
+	<select id="selectUserCID" parameterType="java.util.Map">
+		SELECT client_id
+		FROM user_client_id
+		WHERE
+			user_id = #{userId},
+			AND A.effective = '1'
+	</select>
+	
+	
 
 </mapper>

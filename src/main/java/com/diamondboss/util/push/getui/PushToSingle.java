@@ -1,5 +1,7 @@
 package com.diamondboss.util.push.getui;
 
+import java.util.Map;
+import com.diamondboss.util.tools.PropsUtil;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
@@ -10,20 +12,18 @@ import com.gexin.rp.sdk.template.style.Style0;
 
 public class PushToSingle {
     //采用"Java SDK 快速入门"， "第二步 获取访问凭证 "中获得的应用配置，用户可以自行替换
-    private static String appId = "wDV62wDmLT6zpGoL5gsHC";
-    private static String appKey = "Z1eOXz6SSNAoSXNV7h4UP8";
-    private static String masterSecret = "awbor2tbZG6SpwyiGoLvo3";
+    private static String appId = PropsUtil.getProperty("getui.appId");
+    private static String appKey = PropsUtil.getProperty("getui.appKey");
+    private static String masterSecret = PropsUtil.getProperty("getui.masterSecret");
+	
 
-    static String CID = "f53275699241101c98b9b73064077917";
-    
-    //static String CID = "5ab36124aa9991a95310d94db92a2ef3";
     //别名推送方式
     // static String Alias = "";
-    static String host = "http://sdk.open.api.igexin.com/apiex.htm";
-
-    public static void main(String[] args) throws Exception {
+    static String host = PropsUtil.getProperty("getui.host");
+ 
+    public static void pushToSingle(Map<String, String> map){
         IGtPush push = new IGtPush(host, appKey, masterSecret);
-        LinkTemplate template = linkTemplateDemo();
+        LinkTemplate template = linkTemplateDemo(map);
         SingleMessage message = new SingleMessage();
         message.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
@@ -33,7 +33,7 @@ public class PushToSingle {
         message.setPushNetWorkType(0);
         Target target = new Target();
         target.setAppId(appId);
-        target.setClientId(CID);
+        target.setClientId(map.get("CID"));
         //target.setAlias(Alias);
         IPushResult ret = null;
         try {
@@ -49,7 +49,7 @@ public class PushToSingle {
         }
     }
     
-    public static LinkTemplate linkTemplateDemo() {
+    public static LinkTemplate linkTemplateDemo(Map<String, String> map) {
         LinkTemplate template = new LinkTemplate();
         // 设置APPID与APPKEY
         template.setAppId(appId);
@@ -57,12 +57,12 @@ public class PushToSingle {
 
         Style0 style = new Style0();
         // 设置通知栏标题与内容
-        style.setTitle("请输入通知栏标题");
-        style.setText("请输入通知栏内容");
+        style.setTitle(map.get("title"));
+        style.setText(map.get("text"));
         // 配置通知栏图标
         style.setLogo("icon.png");
         // 配置通知栏网络图标
-        style.setLogoUrl("");
+        style.setLogoUrl("http://zfxue-test.oss-cn-shanghai.aliyuncs.com/dbmap/logo.jpg");
         // 设置通知是否响铃，震动，或者可清除
         style.setRing(true);
         style.setVibrate(true);
@@ -70,7 +70,7 @@ public class PushToSingle {
         template.setStyle(style);
 
         // 设置打开的网址地址
-        template.setUrl("http://www.baidu.com");
+        template.setUrl(map.get("url"));
         return template;
     }
 }

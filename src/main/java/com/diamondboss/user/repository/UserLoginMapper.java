@@ -30,4 +30,11 @@ public interface UserLoginMapper {
 	 * @return
 	 */
 	public int selectUserClientId(Map<String, String> map);
+	
+	/**
+	 * 通过userId查出用户的CID
+	 * @param map
+	 * @return
+	 */
+	public String selectUserCID(Map<String, String> map);
 }

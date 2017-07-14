@@ -26,4 +26,11 @@ public interface PartnerLoginMapper {
 	 */
 	public int selectPartnerClientId(Map<String, String> map);
 	
+	/**
+	 * 查询合伙人的clientId到partnerClientId表是否已经存在
+	 * @param map
+	 * @return
+	 */
+	public String selectPartnerCID(Map<String, String> map);
+	
 }

@@ -87,4 +87,12 @@ public class PartnerLoginServiceImpl implements PartnerLoginService{
 		
 		return partnerLoginMapper.selectPartnerClientId(param);
 	}
+
+	@Override
+	public String selectPartnerClientId(String partnerId) {
+		Map<String, String> param = new HashMap<>();
+		param.put("partnerId", partnerId);
+		
+		return partnerLoginMapper.selectPartnerCID(param);
+	}
 }
