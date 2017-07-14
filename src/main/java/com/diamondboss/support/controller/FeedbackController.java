@@ -18,13 +18,13 @@ import com.diamondboss.util.vo.APPResponseBody;
  *  
  */
 @Controller
-@RequestMapping("/feedback")
+@RequestMapping("/userOther")
 public class FeedbackController {
 
 	@Autowired
 	private FeedbackService feedbackService;
 	
-	@RequestMapping(value = "/submit", method = RequestMethod.POST)
+	@RequestMapping(value = "/userFeedBack", method = RequestMethod.POST)
 	public @ResponseBody APPResponseBody submitFeedback(FeedbackVo vo){
 		
 		feedbackService.submitFeedback(vo);
