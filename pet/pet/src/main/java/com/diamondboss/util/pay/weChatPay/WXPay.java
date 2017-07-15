@@ -25,16 +25,6 @@ public class WXPay {
     private static final String payKey= PropsUtil.getProperty("WXPay.payKey");
     private static final String tradeType= PropsUtil.getProperty("WXPay.tradeType");
 
-//    public static void main(String[] args){
-//        WXPayDto wxPayDto = new WXPayDto();
-//        wxPayDto.setBody("呆萌博士-宠物托管费用");
-//        wxPayDto.setNotifyUrl(PropsUtil.getProperty("WXPay.notifyUrl"));
-//        wxPayDto.setOutTradeNo(UUIDUtil.uuid());
-//        wxPayDto.setIp("127.0.0.1");
-//        wxPayDto.setFee(1);
-//
-//        System.out.println(JSONObject.toJSONString( sendPreOrder(wxPayDto)));
-//    }
 
     public static Map<String, Object> sendPreOrder(WXPayDto weChatPayDto){
 
@@ -66,12 +56,91 @@ public class WXPay {
         try {
             response = HttpUtils.doPost(url, requestXML.asXML());
         } catch (Exception e) {
-            logger.error("preOrder error: orderId:" + orderId + ", url:" + url);
+            logger.error("preOrder error, orderId:" + orderId + ", url:" + url);
             return null;
         }
         return analysisPreOrderResponse(orderId, nonceStr, response);
 
     }
+
+    /**
+     * 查询支付结果
+     * @param outTradeNo
+     * @return SUCCESS—支付成功
+     *         REFUND—转入退款
+     *         NOTPAY—未支付
+     *         CLOSED—已关闭
+     *         REVOKED—已撤销（刷卡支付）
+     *         USERPAYING--用户支付中
+     *         PAYERROR--支付失败(其他原因，如银行返回失败)
+     */
+    public static String queryTradeStatus(String outTradeNo){
+        Document requestXML = DocumentHelper.createDocument();
+        Element root = requestXML.addElement("xml");
+
+        root.addElement("appid").setText(appId);
+        root.addElement("mch_id").setText(mchID);
+        root.addElement("nonce_str").setText(UUIDUtil.uuid());
+        root.addElement("out_trade_no").setText(outTradeNo);
+        root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
+
+        String url = PropsUtil.getProperty("WXPay.orderQuery");
+        String response;
+        try {
+            response = HttpUtils.doPost(url, requestXML.asXML());
+        } catch (Exception e) {
+            logger.error("queryTradeStatus error, outTradeNo: " + outTradeNo + ", url: " + url);
+            return null;
+        }
+        // 解析回复信息
+        try {
+            Document responseXML = DocumentHelper.parseText(response);
+            Element returnCodeElement = responseXML.getRootElement().element("return_code");
+            Element resultCodeElement = responseXML.getRootElement().element("result_code");
+            Element returnMsgElement = responseXML.getRootElement().element("return_msg");
+
+            if (returnCodeElement == null) {
+                return null;
+            }
+
+            String returnCode = returnCodeElement.getText();
+            if (returnCode == null) {
+                return null;
+            }
+
+            // 查询失败（通信异常）
+            if (returnCode.equals("FAIL")) {
+                // 没有返回信息
+                if (returnMsgElement == null) {
+                    logger.error("queryTradeStatus error,查询失败（通信异常),outTradeNo:"+ outTradeNo +", returnMsg is null");
+                    return null;
+                }
+                String returnMsg = returnMsgElement.getText();
+                logger.error("queryTradeStatus error,查询失败（通信异常),outTradeNo:"+ outTradeNo +", errorMsg:"+ returnMsg);
+                return null;
+            }
+
+            // 请求成功
+            if (returnCode.equals("SUCCESS")) {
+                logger.info("queryTradeStatus success,returnCode is SUCCESS,outTradeNo:"+ outTradeNo);
+                if (!WXPayUtils.checkSign(responseXML, payKey)) { // 校验签名
+                    logger.info("queryTradeStatus success,checkSign failed,outTradeNo:"+ outTradeNo);
+                    return null;
+                }
+
+                if (resultCodeElement == null) {
+                    return null;
+                }
+               return resultCodeElement.getText();
+            }
+
+        } catch (DocumentException ex) {
+            logger.error("parse response xml error.", ex);
+            return null;
+        }
+        return null;
+    }
+
 
     private static Map<String, Object> analysisPreOrderResponse(String orderId, String nonceStr, String response) {
         // 解析回复信息
