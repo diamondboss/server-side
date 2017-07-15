@@ -12,9 +12,9 @@ import java.util.*;
 /**
  * Created by liuzifu on 2017/7/6.
  */
-public class WeChatUtils {
+public class WXPayUtils {
 
-    private static final Logger logger = Logger.getLogger(WeChatUtils.class);
+    private static final Logger logger = Logger.getLogger(WXPayUtils.class);
     /**
      * 生成微信支付使用的nonce
      * @return

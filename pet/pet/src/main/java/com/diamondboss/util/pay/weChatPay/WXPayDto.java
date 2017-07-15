@@ -1,7 +1,7 @@
 package com.diamondboss.util.pay.weChatPay;
 
 
-public class WeChatPayDto {
+public class WXPayDto {
 
     /**
      * 内部订单号
@@ -31,6 +31,10 @@ public class WeChatPayDto {
      * 微信回调接口地址
      */
     private String notifyUrl;
+    /**
+     * 微信回调接口地址
+     */
+    private String outTradeNo;
 
     public String getNotifyUrl() {
         return notifyUrl;
@@ -86,5 +90,13 @@ public class WeChatPayDto {
 
     public void setAttach(String attach) {
         this.attach = attach;
+    }
+
+    public String getOutTradeNo() {
+        return outTradeNo;
+    }
+
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 }
