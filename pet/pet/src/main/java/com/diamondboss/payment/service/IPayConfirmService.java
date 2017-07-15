@@ -19,16 +19,17 @@ public interface IPayConfirmService {
     boolean analysisAliPayResult(String result);
 
     /**
-     *
+     * 接受支付宝异步通知
      * @param requestParams
      * @return
      */
     String alipayConfirm(Map<String, String[]> requestParams) throws AlipayApiException;
-    
+
     /**
-     * 根据订单号，返回该订单的状态
-     * @param tradeNo
+     * 接受微信支付异步通知
+     * @param requestParams
      * @return
      */
-    public String queryOrderState(String tradeNo);
+    String wxpayConfirm(Map<String, String> requestParams);
+
 }

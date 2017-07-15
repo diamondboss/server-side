@@ -53,7 +53,6 @@ public class WXPay {
         // 随机字符串
         root.addElement("nonce_str").setText(UUIDUtil.uuid());
         root.addElement("body").setText(weChatPayDto.getBody());
-        // 使用uuid做订单号，预防价格变动导致的订单重复问题
         root.addElement("out_trade_no").setText(weChatPayDto.getOutTradeNo());
         root.addElement("total_fee").setText(String.valueOf(weChatPayDto.getFee()));
         root.addElement("spbill_create_ip").setText(weChatPayDto.getIp());
@@ -62,10 +61,7 @@ public class WXPay {
 
         root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
 
-//        logger.info("orderId:"+orderId+", requestXml:"+requestXML.asXML());
-
         String url = PropsUtil.getProperty("WXPay.unifiedOrderUrl");
-
         String response;
         try {
             response = HttpUtils.doPost(url, requestXML.asXML());
@@ -73,7 +69,11 @@ public class WXPay {
             logger.error("preOrder error: orderId:" + orderId + ", url:" + url);
             return null;
         }
+        return analysisPreOrderResponse(orderId, nonceStr, response);
 
+    }
+
+    private static Map<String, Object> analysisPreOrderResponse(String orderId, String nonceStr, String response) {
         // 解析回复信息
         try {
             Document responseXML = DocumentHelper.parseText(response);
@@ -190,8 +190,6 @@ public class WXPay {
             logger.error("parse response xml error.", ex);
             return null;
         }
-
         return null;
-
     }
 }
