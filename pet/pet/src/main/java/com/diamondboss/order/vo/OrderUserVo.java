@@ -114,10 +114,39 @@ public class OrderUserVo {
 	 */
 	private String communityId;
 	
+	/**
+	 * 用户ip
+	 */
+	private String userIp;
+	
+	/**
+	 * 用户ip
+	 * @return
+	 */
+	public String getUserIp() {
+		return userIp;
+	}
+
+	/**
+	 * 用户ip
+	 * @param userIp
+	 */
+	public void setUserIp(String userIp) {
+		this.userIp = userIp;
+	}
+
+	/**
+	 * 品种
+	 * @return
+	 */
 	public String getVarieties() {
 		return varieties;
 	}
 
+	/**
+	 * 品种
+	 * @param varieties
+	 */
 	public void setVarieties(String varieties) {
 		this.varieties = varieties;
 	}
