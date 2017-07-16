@@ -20,6 +20,8 @@ import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
 import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.util.pay.aliPay.Alipay;
+import com.diamondboss.util.pay.weChatPay.WXPay;
+import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
 import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.TableUtils;
@@ -85,8 +87,13 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			// 支付宝或微信退款
 			if(StringUtils.contains(pojo.getPayType(), "0")){
 				Alipay.refund(pojo.getTradeNo());
-			}else{
+			}else if(StringUtils.contains(pojo.getPayType(), "1")){
+				WXPayReFundDTO dto = new WXPayReFundDTO();
+				dto.setOutTradeNo(pojo.getOutTradeNo());
+				dto.setTotalFee(pojo.getAmt());
+				dto.setRefundFee(pojo.getAmt());
 				//TODO 微信退款
+				WXPay.refund(dto);
 			}
 			// APP推送用户
 			Map<String, String> map = new HashMap<String, String>();

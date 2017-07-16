@@ -1,5 +1,7 @@
 package com.diamondboss.util.pay.weChatPay;
 
+import java.math.BigDecimal;
+
 public class WXPayReFundDTO {
 	
 	/**
@@ -10,12 +12,12 @@ public class WXPayReFundDTO {
 	/**
 	 * 订单金额
 	 */
-	private String totalFee;
+	private BigDecimal totalFee;
 	
 	/**
 	 * 退款金额
 	 */
-	private String refundFee;
+	private BigDecimal refundFee;
 	
 	/**
 	 * 回调地址
@@ -30,19 +32,19 @@ public class WXPayReFundDTO {
 		this.outTradeNo = outTradeNo;
 	}
 
-	public String getTotalFee() {
+	public BigDecimal getTotalFee() {
 		return totalFee;
 	}
 
-	public void setTotalFee(String totalFee) {
+	public void setTotalFee(BigDecimal totalFee) {
 		this.totalFee = totalFee;
 	}
 
-	public String getRefundFee() {
+	public BigDecimal getRefundFee() {
 		return refundFee;
 	}
 
-	public void setRefundFee(String refundFee) {
+	public void setRefundFee(BigDecimal refundFee) {
 		this.refundFee = refundFee;
 	}
 
