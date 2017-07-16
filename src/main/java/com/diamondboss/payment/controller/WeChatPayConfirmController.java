@@ -1,9 +1,12 @@
 package com.diamondboss.payment.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.payment.service.IPayConfirmService;
 import com.diamondboss.util.pay.aliPay.EnumAlipayResult;
 import com.diamondboss.util.pay.weChatPay.WXPayUtils;
+import com.diamondboss.util.pojo.OutTradeNoPojo;
+import com.diamondboss.util.tools.UUIDUtil;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.util.vo.CheckAliPayVo;
 import com.diamondboss.util.vo.CheckWXPayResultVo;
@@ -113,7 +116,7 @@ public class WeChatPayConfirmController {
     
     @ResponseBody
     @RequestMapping("/checkWXPayResult")
-    public APPResponseBody analysisPayResult(CheckWXPayResultVo vo, HttpServletRequest request){
+    public APPResponseBody checkWXPayResult(CheckWXPayResultVo vo, HttpServletRequest request){
         APPResponseBody app = new APPResponseBody();
 
         if (StringUtils.isBlank(vo.getOutTradeNo()) || StringUtils.isBlank(vo.getOutTradeNo())){
@@ -121,17 +124,16 @@ public class WeChatPayConfirmController {
             app.setRetnCode(1);
             return app;
         }
-
-        boolean flag = true;
-       
-        if(flag){
-            app.setRetnCode(0);
-            app.setRetnDesc("支付成功");
-        } else {
-            app.setRetnCode(1);
-            app.setRetnDesc("支付失败");
-        }
-
+        
+        logger.info("----------outTradeNo:" + vo.getOutTradeNo());
+        if(StringUtils.contains("SUCCESS", payConfirmService.queryUserOrderOfWX(vo.getOutTradeNo()))){
+        	logger.info("查询服务端订单状态是成功");
+        	 app.setRetnCode(0);
+             app.setRetnDesc("支付成功");
+         } else {
+             app.setRetnCode(1);
+             app.setRetnDesc("支付失败");
+         }
         return app;
     }
 }
