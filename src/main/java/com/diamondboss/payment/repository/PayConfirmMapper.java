@@ -17,6 +17,11 @@ public interface PayConfirmMapper {
 	public void updateOrderStatus(Map<String, Object> map);
 	
 	/**
+	 * 更新订单状态-微信支付
+	 */
+	public int updateOrderStatusByWXPay(Map<String, Object> map);
+	
+	/**
 	 * 根据id查询用户订单
 	 */
 	public OrderUserPojo queryUserOrderById(Map<String, Object> map);
