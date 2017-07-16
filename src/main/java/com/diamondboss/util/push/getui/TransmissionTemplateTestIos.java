@@ -31,9 +31,9 @@ public class TransmissionTemplateTestIos {
 	    //payload.setAlertMsg(getDictionaryAlertMsg());
 
 	    // 添加多媒体资源
-	    payload.addMultiMedia(new MultiMedia().setResType(MultiMedia.MediaType.video)
+	   /* payload.addMultiMedia(new MultiMedia().setResType(MultiMedia.MediaType.video)
 	                .setResUrl("http://ol5mrj259.bkt.clouddn.com/test2.mp4")
-	                .setOnlyWifi(true));
+	                .setOnlyWifi(true));*/
 
 	    template.setAPNInfo(payload);
 	    return template;
