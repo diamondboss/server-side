@@ -30,6 +30,6 @@ public interface IPayConfirmService {
      * @param requestParams
      * @return
      */
-    String wxpayConfirm(Map<String, String> requestParams);
+    public Map<String, String> wxpayConfirm(Map<String, String> requestParams);
 
 }

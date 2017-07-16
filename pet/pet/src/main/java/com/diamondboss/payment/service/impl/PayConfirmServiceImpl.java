@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -125,40 +126,45 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
      * @return
      */
     @Override
-    public String wxpayConfirm(Map<String, String> requestParams){
+    public Map<String, String> wxpayConfirm(Map<String, String> requestParams){
     	
-          //交易状态
-//          String tradeStatus = requestParams.get("trade_status");
-////          //我们自己的订单Id
-////          String outTradeNo = params.get("out_trade_no");
-////          //支付宝的订单Id
-////          String tradeNo = params.get("trade_no");
-//          
-//          OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
-//          
-//          Map<String, Object> sqlMap = new HashMap<>();
-//          sqlMap.put("id", pojo.getId());
-//          sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + pojo.getTableId());
-//          if("TRADE_SUCCESS".equals(tradeStatus)){
-//          	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
-//          	sqlMap.put("outTradeNo", outTradeNo);
-//          	sqlMap.put("tradeNo", tradeNo);
-//          	sqlMap.put("payType", 0);
-//          }else{
-//          	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_FAILURE);
-//          	sqlMap.put("outTradeNo", outTradeNo);
-//          	sqlMap.put("tradeNo", tradeNo);
-//          	sqlMap.put("payType", 0);
-//          }
-//          
-//          // TODO 异步通知状态入库
-//          payConfirmMapper.updateOrderStatus(sqlMap);
-//          OrderUserPojo userPojo = payConfirmMapper.queryUserOrderById(sqlMap);
-//          // TODO 调起派单流程
-//          distributeOrderServiceImpl.DistributeOrder(userPojo);
-
-
-          return "success";
-    }
+    	Map<String, String> result = new HashMap<>();
+    	
+    	// 订单编号
+    	String outTradeNo = requestParams.get("outTradeNo");
+    	// 支付金额
+    	BigDecimal totalFee = new BigDecimal(requestParams.get("totalFee"));
+    	String amt = totalFee.divide(new BigDecimal("100")).toString();
+      
+    	// 微信的订单编号
+    	String wxOrder = requestParams.get("wxOrder");
+      
+    	OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+      
+    	Map<String, Object> sqlMap = new HashMap<>();
+    	sqlMap.put("id", pojo.getId());
+    	sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + pojo.getTableId());
+    	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
+    	sqlMap.put("outTradeNo", outTradeNo);
+    	sqlMap.put("tradeNo", wxOrder);
+    	sqlMap.put("payType", 1);
+    	sqlMap.put("amt", amt);
+      
+    	// 异步通知状态入库
+    	int i = payConfirmMapper.updateOrderStatusByWXPay(sqlMap);
+    	if(i==0){
+    		result.put("return_code", "FAIL");
+    		result.put("return_msg", "参数格式校验错误");
+    		return result;
+    	}else{
+    		OrderUserPojo userPojo = payConfirmMapper.queryUserOrderById(sqlMap);
+    		// 调起派单流程
+    		distributeOrderServiceImpl.DistributeOrder(userPojo);
+    		result.put("return_code", "SUCCESS");
+    		result.put("return_msg", "OK");
+    		return result;
+    	}
+    	
+	}
     
 }
