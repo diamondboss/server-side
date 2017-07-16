@@ -47,7 +47,9 @@ public class WeChatPayConfirmController {
         }
 
         // TODO: 2017/7/15 入库更新
-        payConfirmService.wxpayConfirm(ret);
+        ret = payConfirmService.wxpayConfirm(ret);
+        WXPayUtils.callBack(response, ret);
+        return;
         // 订单支付已成功，获取订单信息，检查数据库中的订单状态等，并给微信服务器返回success
 //        try {
 //            ret.put("return_code", "SUCCESS");
