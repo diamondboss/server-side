@@ -62,5 +62,21 @@
 			AND effective = '1'
 	</select>
 
+	<!-- 更新订单状态-微信支付  -->
+	<update id="updateOrderStatusByWXPay"
+		parameterType="java.util.Map">
+		UPDATE
+		    ${orderUser}
+		SET
+		    order_status = #{orderStatus},
+		    out_trade_no = #{outTradeNo},
+		    trade_no = #{tradeNo},
+		    pay_type = #{payType}
+		WHERE
+		    id = #{id}
+		    AND amt = #{amt}
+			AND effective = '1'
+	</update>
+
 </mapper>
 
