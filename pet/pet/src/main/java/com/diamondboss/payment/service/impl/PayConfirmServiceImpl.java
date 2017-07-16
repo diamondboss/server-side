@@ -9,6 +9,7 @@ import com.diamondboss.order.service.impl.DistributeOrderServiceImpl;
 import com.diamondboss.payment.repository.PayConfirmMapper;
 import com.diamondboss.payment.service.IPayConfirmService;
 import com.diamondboss.threads.QueryAlipayTradeStatus;
+import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.UUIDUtil;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriUtils;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -165,6 +167,27 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
     		return result;
     	}
     	
+	}
+
+	@Override
+	public String queryUserOrderOfWX(String outTradeNo) {
+		
+		OutTradeNoPojo outTradeNoPojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+
+		Map<String, Object> sqlMap = new HashMap<>();
+		sqlMap.put("id", outTradeNoPojo.getId());
+		sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + outTradeNoPojo.getTableId());
+		
+		OrderUserPojo userPojo = payConfirmMapper.queryUserOrderById(sqlMap);
+
+		String result = "";
+		logger.info("查询服务端订单状态：" + userPojo.getOrderStatus());
+		if(!StringUtils.contains(userPojo.getOrderStatus(), PetConstants.ORDER_STATUS_PAY_SUCCESS)){
+			logger.info("查询服务端订单状态为非成功，去支付宝查");
+			result = WXPay.queryTradeStatus(outTradeNo);
+		};
+
+		return result;
 	}
     
 }

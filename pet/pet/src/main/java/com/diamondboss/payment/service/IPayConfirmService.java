@@ -1,6 +1,7 @@
 package com.diamondboss.payment.service;
 
 import com.alipay.api.AlipayApiException;
+import com.diamondboss.order.pojo.OrderUserPojo;
 
 import java.util.Map;
 
@@ -31,5 +32,11 @@ public interface IPayConfirmService {
      * @return
      */
     public Map<String, String> wxpayConfirm(Map<String, String> requestParams);
+    
+    /**
+     * 查询库中微信支付结果
+     * @return
+     */
+    public String queryUserOrderOfWX(String outTradeNo);
 
 }

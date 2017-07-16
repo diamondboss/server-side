@@ -57,7 +57,7 @@ public class AppAliOrderPayConfirmController {
             app.setRetnCode(1);
             return app;
         }
-
+        
         boolean flag = false;
         if (StringUtils.equals(EnumAlipayResult.SUCCESS.status, vo.getResultStatus())){
                 flag = payConfirmService.analysisAliPayResult(vo.getResult());
