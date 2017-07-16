@@ -183,7 +183,7 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
 		String result = "";
 		logger.info("查询服务端订单状态：" + userPojo.getOrderStatus());
 		if(!StringUtils.contains(userPojo.getOrderStatus(), PetConstants.ORDER_STATUS_PAY_SUCCESS)){
-			logger.info("查询服务端订单状态为非成功，去支付宝查");
+			logger.info("查询服务端订单状态为非成功，去微信查");
 			result = WXPay.queryTradeStatus(outTradeNo);
 		};
 

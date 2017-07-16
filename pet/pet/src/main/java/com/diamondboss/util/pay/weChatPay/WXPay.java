@@ -261,4 +261,151 @@ public class WXPay {
         }
         return null;
     }
+    
+    /**
+     * 退款
+     * @param wXPayReFundDto
+     * @return
+     */
+    public static Map<String, Object> refund(WXPayReFundDTO wXPayReFundDto){
+		logger.info("weChat refund--->outTradeNo:" + wXPayReFundDto.getOutTradeNo() + ", totalFee:"
+				+ wXPayReFundDto.getTotalFee() + ", refundFee:" + wXPayReFundDto.getRefundFee() + ", notifyUrl:"
+				+ wXPayReFundDto.getNotifyUrl());
+
+		String nonceStr = WXPayUtils.createNonceStr();
+
+		Document requestXML = DocumentHelper.createDocument();
+		Element root = requestXML.addElement("xml");
+
+		root.addElement("appid").setText(appId);
+		// 商户自定义数据
+		root.addElement("mch_id").setText(mchID);
+		// 随机字符串
+		root.addElement("nonce_str").setText(UUIDUtil.uuid());
+
+		root.addElement("out_trade_no").setText(wXPayReFundDto.getOutTradeNo());
+		root.addElement("total_fee").setText(String.valueOf(wXPayReFundDto.getTotalFee()));
+		root.addElement("refund_fee").setText(String.valueOf(wXPayReFundDto.getRefundFee()));
+		root.addElement("notify_url").setText(wXPayReFundDto.getNotifyUrl());
+
+		root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
+		
+
+        String url = PropsUtil.getProperty("WXPay.unifiedOrderUrl");
+        String response;
+        try {
+            response = HttpUtils.doPost(url, requestXML.asXML());
+        } catch (Exception e) {
+            logger.error("weChat refund--->outTradeNo:" + wXPayReFundDto.getOutTradeNo() + ", url:" + url);
+            return null;
+        }
+		return analysisRefundResponse(wXPayReFundDto.getOutTradeNo(), nonceStr, response);
+    }
+    
+    /**
+     * 查询退款结果
+     * @param outTradeNo
+     * @return
+     */
+    public static String queryRefundStatus(String outTradeNo){
+		Document requestXML = DocumentHelper.createDocument();
+		Element root = requestXML.addElement("xml");
+
+		return "";
+    }
+    
+    /**
+     * 微信退款响应处理
+     * @param orderId
+     * @param nonceStr
+     * @param response
+     * @return
+     */
+    private static Map<String, Object> analysisRefundResponse(String outTradeNo,String nonceStr, String response) {
+		try {
+			Document responseXML = DocumentHelper.parseText(response);
+			Element returnCodeElement = responseXML.getRootElement().element("return_code");
+			Element returnMsgElement = responseXML.getRootElement().element("return_msg");
+			Element resultCodeElement = responseXML.getRootElement().element("result_code");
+			
+			// Element errorCodeElement =
+			// responseXML.getRootElement().element("err_code");
+			// Element errorCodeDesElement =
+			// responseXML.getRootElement().element("err_code_des");
+
+			if (returnCodeElement == null) {
+				return null;
+			}
+
+			String returnCode = returnCodeElement.getText();
+			if (returnCode == null) {
+				return null;
+			}
+			
+			// 退款失败（通信异常）
+			if (returnCode.equals("FAIL")) {
+				// 没有返回信息
+				if (returnMsgElement == null) {
+					logger.error("refund error,退款失败（通信异常),outTradeNo:" + outTradeNo + ", returnMsg is null");
+					return null;
+				}
+				String returnMsg = returnMsgElement.getText();
+				logger.error("refund error,退款失败（通信异常),outTradeNo:" + outTradeNo + ", errorMsg:" + returnMsg);
+				return null;
+			}
+
+			// 请求成功
+			if (returnCode.equals("SUCCESS")) {
+				logger.info("refund success,returnCode is SUCCESS,outTradeNo:" + outTradeNo);
+				if (!WXPayUtils.checkSign(responseXML, payKey)) { // 校验签名
+					logger.info("refund success,checkSign failed,outTradeNo:" + outTradeNo);
+					return null;
+				}
+				if (resultCodeElement == null) {
+					return null;
+				}
+				String resultCode = resultCodeElement.getText();
+				// 退款成功
+				if (resultCode.equals("SUCCESS")) {
+					logger.info("preOrder success,resultCode is success,outTradeNo:" + outTradeNo);
+					
+                    Map<String, String> paySignMap = new TreeMap<>();
+
+                    paySignMap.put("appid", appId);
+                    paySignMap.put("noncestr", nonceStr);
+                    paySignMap.put("package", "Sign=WXPay");
+                    paySignMap.put("partnerid", mchID);
+
+                    logger.info("APP请求成功, paySignMap:{}"+ paySignMap);
+					
+                    StringBuffer paySignSB = new StringBuffer();
+                    for (Map.Entry<String, String> entry : paySignMap.entrySet()) {
+                        paySignSB.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+                    }
+                    paySignSB.append("key=").append(payKey);
+                    String paySign = WXPayUtils.md5(paySignSB.toString()).toUpperCase();
+
+                    Map<String, Object> result = new HashMap<>();
+                    result.put("appid", appId);
+                    result.put("partnerid", mchID);
+                    result.put("package", "Sign=WXPay");
+                    result.put("nonceStr", nonceStr);
+                    result.put("sign", paySign);
+
+                    logger.info("refund success, outTradeNo:"+ outTradeNo +", result:"+ JSONObject.toJSONString(result));
+                    return result;
+				}else if (resultCode.equals("FAIL")) {
+                    logger.info("refund failed,resultCode is FAIL,outTradeNo:"+ outTradeNo);
+                    
+                    return null;
+				}
+			}
+		} catch (DocumentException ex) {
+			logger.error("refund parse response xml error.", ex);
+			return null;
+		}
+
+		return null;
+    }
+    
 }
