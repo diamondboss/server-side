@@ -114,8 +114,8 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         return "success";
     }
 
-	@Override
-	public String queryOrderState(String tradeNo) {
-		return payConfirmMapper.queryOrderState(tradeNo);
-	}
+//	@Override
+//	public String queryOrderState(String tradeNo) {
+//		return payConfirmMapper.queryOrderState(tradeNo);
+//	}
 }
