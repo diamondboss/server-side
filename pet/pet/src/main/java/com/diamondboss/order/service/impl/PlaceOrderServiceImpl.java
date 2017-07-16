@@ -18,7 +18,10 @@ import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
 import com.diamondboss.order.vo.OrderUserVo;
+import com.diamondboss.order.vo.WXPayOrderSubmitVo;
 import com.diamondboss.util.pay.aliPay.Alipay;
+import com.diamondboss.util.pay.weChatPay.WXPay;
+import com.diamondboss.util.pay.weChatPay.WXPayDto;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.tools.UUIDUtil;
@@ -197,6 +200,41 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	    return alipayOrderSubmitVo;
 	}
 	
-	
+	/**
+	 * 微信支付-签名生成订单信息
+	 * @param vo
+	 */
+	@Override
+	public Map<String, Object> combinationOrderInfoWXPay(OrderUserPojo pojo){
+		
+		String notifyUrl = PropsUtil.getProperty("WXPay.notifyUrl");
+		
+		//表Id，tableId。
+		int tableId =  Integer.valueOf(pojo.getUserId()) / 100 + 1;
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(pojo.getUserId()),
+				PetConstants.ORDER_USER_TABLE_PREFIX);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("tableName", tableName);
+		map.put("userId", pojo.getUserId());
+		map.put("orderDate", LocalDate.now().toString());
+		
+		//订单主键ID
+		String idKey = pojo.getId();
+		String value = UUIDUtil.makeTradeNo(tableId, idKey);
+		WXPayDto wxPayDto = new WXPayDto();
+		wxPayDto.setBody("呆萌博士-宠物托管费用");
+		wxPayDto.setNotifyUrl(notifyUrl);
+		wxPayDto.setOutTradeNo(value);
+		wxPayDto.setOrderId(value);
+		wxPayDto.setIp("220.112.121.93");
+		wxPayDto.setFee(1);
+		Map<String, Object> resultMap = WXPay.sendPreOrder(wxPayDto);
+		resultMap.put("outTradeNo", value);
+		
+		return resultMap;
+				
+	}
 	
 }

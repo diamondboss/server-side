@@ -1,6 +1,7 @@
 package com.diamondboss.order.controller;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class PlaceOrderController {
 	private PlaceOrderService placeOrderService;
 	
 	/**
-	 * 用户下单-指定合伙人
+	 * 支付宝支付-用户下单-指定合伙人
 	 * 
 	 * @param request
 	 * @return 
@@ -40,11 +41,11 @@ public class PlaceOrderController {
 		
 		APPResponseBody app = new APPResponseBody();
 		int currentHour = LocalDateTime.now().getHour();
-		if (21 < currentHour || currentHour < 4){
-			app.setData("夜间21点至次日凌晨5点不可下单");
-			app.setRetnCode(1);
-			return app;
-		}
+//		if (21 < currentHour || currentHour < 4){
+//			app.setData("夜间21点至次日凌晨5点不可下单");
+//			app.setRetnCode(1);
+//			return app;
+//		}
 		OrderUserPojo pojo = vo.voToPojo(vo);
 		
 		boolean is = placeOrderService.appointPartner(pojo);
@@ -68,7 +69,7 @@ public class PlaceOrderController {
 	}
 	
 	/**
-	 * 用户下单-不指定合伙人
+	 * 支付宝支付-用户下单-不指定合伙人
 	 * 
 	 * @param request
 	 * @return
@@ -79,11 +80,11 @@ public class PlaceOrderController {
 		
 		APPResponseBody app = new APPResponseBody();
 		int currentHour = LocalDateTime.now().getHour();
-		if (21 < currentHour || currentHour < 4){
-			app.setData("夜间21点至次日凌晨5点不可下单");
-			app.setRetnCode(1);
-			return app;
-		}	
+//		if (21 < currentHour || currentHour < 4){
+//			app.setData("夜间21点至次日凌晨5点不可下单");
+//			app.setRetnCode(1);
+//			return app;
+//		}	
 		
 		OrderUserPojo pojo = vo.voToPojo(vo);
 		boolean is = placeOrderService.randomPartner(pojo);
@@ -105,4 +106,87 @@ public class PlaceOrderController {
 		return app;
 	
 	}
+	
+	
+	/**
+	 * 微信支付-用户下单-指定合伙人
+	 * 
+	 * @param request
+	 * @return 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/appointWXPay", method = RequestMethod.POST)
+	public APPResponseBody appointWXPay(OrderUserVo vo) {
+		
+		APPResponseBody app = new APPResponseBody();
+		int currentHour = LocalDateTime.now().getHour();
+//		if (21 < currentHour || currentHour < 4){
+//			app.setData("夜间21点至次日凌晨5点不可下单");
+//			app.setRetnCode(1);
+//			return app;
+//		}
+		OrderUserPojo pojo = vo.voToPojo(vo);
+		
+		boolean is = placeOrderService.appointPartner(pojo);
+		
+		if(is){
+			
+			// 签名生成订单信息
+			Map<String, Object> resultMap = placeOrderService.combinationOrderInfoWXPay(pojo);
+			
+			app.setData(resultMap);
+			app.setRetnCode(0);
+		}else{
+			AlipayOrderSubmitVo orderIsNull = new AlipayOrderSubmitVo();
+			app.setData(orderIsNull);
+			app.setRetnDesc("该合伙人订单已满");
+			app.setRetnCode(1);
+		}
+		
+		return app;
+	
+	}
+	
+	/**
+	 * 微信支付-用户下单-不指定合伙人
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/randomWXPay", method = RequestMethod.POST)
+	public APPResponseBody randomWXPay(OrderUserVo vo) {
+		
+		APPResponseBody app = new APPResponseBody();
+		int currentHour = LocalDateTime.now().getHour();
+//		if (21 < currentHour || currentHour < 4){
+//			app.setData("夜间21点至次日凌晨5点不可下单");
+//			app.setRetnCode(1);
+//			return app;
+//		}	
+		
+		OrderUserPojo pojo = vo.voToPojo(vo);
+		boolean is = placeOrderService.randomPartner(pojo);
+		
+		if(is){
+			
+			// 签名生成订单信息
+			Map<String, Object> resultMap = placeOrderService.combinationOrderInfoWXPay(pojo);
+			
+			app.setData(resultMap);
+			app.setRetnCode(0);
+		}else{
+			AlipayOrderSubmitVo orderIsNull = new AlipayOrderSubmitVo();
+			app.setData(orderIsNull);
+			app.setRetnDesc("该合伙人订单已满");
+			app.setRetnCode(1);
+		}
+		
+		return app;
+	
+	}
+	
 }
+
+
+
