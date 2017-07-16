@@ -1,13 +1,21 @@
 package com.diamondboss.payment.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.diamondboss.payment.service.IPayConfirmService;
+import com.diamondboss.util.pay.aliPay.EnumAlipayResult;
 import com.diamondboss.util.pay.weChatPay.WXPayUtils;
+import com.diamondboss.util.vo.APPResponseBody;
+import com.diamondboss.util.vo.CheckAliPayVo;
+import com.diamondboss.util.vo.CheckWXPayResultVo;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,15 +41,16 @@ public class WeChatPayConfirmController {
         Document requestXML;
         String requestBody = WXPayUtils.getRequestBody(request);
         try {
-            logger.debug("微信支付通知:" + requestBody);
+            logger.info("微信支付通知:" + requestBody);
             requestXML = DocumentHelper.parseText(requestBody); // 解析成XML
             ret = WXPayUtils.checkXmlAndPayResult(requestXML);
+            logger.info("微信支付通知解析结果：" + JSONObject.toJSONString(ret));
             if (!ret.get("return_code").equals("SUCCESS")) {
                 WXPayUtils.callBack(response, ret);
                 return;
             }
         } catch (Exception ex) {
-            logger.debug("微信支付通知,处理出错"+ ex);
+            logger.info("微信支付通知,处理出错"+ ex);
             WXPayUtils.callBack(response, ret);
             return;
         }
@@ -65,14 +74,14 @@ public class WeChatPayConfirmController {
 //                orderMap = redisClient.getMap(RedisKey.order(orderId));
 //            } catch (Exception e) {
 //                orderMap = null;
-//                LogUtils.ERROR.debug("get order from redis failed due to", e);
+//                LogUtils.ERROR.info("get order from redis failed due to", e);
 //            }
 //
 //            if (orderMap == null || orderMap.isEmpty()) {
 //                boolean isExisted = orderService.checkChargeOrder(orderId);
 //                if (!isExisted) {
 //                    WeChatUtils.callBack(resp, ret);
-//                    log.debug("batch:{},App充值订单支付通知, orderId:{} does not exist", batch, orderId);
+//                    log.info("batch:{},App充值订单支付通知, orderId:{} does not exist", batch, orderId);
 //                    return;
 //                }
 //            }
@@ -90,7 +99,7 @@ public class WeChatPayConfirmController {
 //
 //                YunLogger.yun.metric("User.Notify.WeChat", 0.0, logMap);
 //            } catch (Exception e) {
-//                LogUtils.ERROR.debug("record User.Notify.WeChat failed due to", e);
+//                LogUtils.ERROR.info("record User.Notify.WeChat failed due to", e);
 //            }
 //
 //            WeChatUtils.callBack(resp, ret);
@@ -100,5 +109,29 @@ public class WeChatPayConfirmController {
 //            WeChatUtils.callBack(resp, ret);
 //            return;
 //        }
+    }
+    
+    @ResponseBody
+    @RequestMapping("/checkWXPayResult")
+    public APPResponseBody analysisPayResult(CheckWXPayResultVo vo, HttpServletRequest request){
+        APPResponseBody app = new APPResponseBody();
+
+        if (StringUtils.isBlank(vo.getOutTradeNo()) || StringUtils.isBlank(vo.getOutTradeNo())){
+            app.setRetnDesc("参数缺失");
+            app.setRetnCode(1);
+            return app;
+        }
+
+        boolean flag = true;
+       
+        if(flag){
+            app.setRetnCode(0);
+            app.setRetnDesc("支付成功");
+        } else {
+            app.setRetnCode(1);
+            app.setRetnDesc("支付失败");
+        }
+
+        return app;
     }
 }
