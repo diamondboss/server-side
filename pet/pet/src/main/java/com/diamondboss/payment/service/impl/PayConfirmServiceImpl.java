@@ -118,4 +118,47 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
 //	public String queryOrderState(String tradeNo) {
 //		return payConfirmMapper.queryOrderState(tradeNo);
 //	}
+    
+    /**
+     * 接受微信支付异步通知
+     * @param requestParams
+     * @return
+     */
+    @Override
+    public String wxpayConfirm(Map<String, String> requestParams){
+    	
+          //交易状态
+//          String tradeStatus = requestParams.get("trade_status");
+////          //我们自己的订单Id
+////          String outTradeNo = params.get("out_trade_no");
+////          //支付宝的订单Id
+////          String tradeNo = params.get("trade_no");
+//          
+//          OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+//          
+//          Map<String, Object> sqlMap = new HashMap<>();
+//          sqlMap.put("id", pojo.getId());
+//          sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + pojo.getTableId());
+//          if("TRADE_SUCCESS".equals(tradeStatus)){
+//          	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
+//          	sqlMap.put("outTradeNo", outTradeNo);
+//          	sqlMap.put("tradeNo", tradeNo);
+//          	sqlMap.put("payType", 0);
+//          }else{
+//          	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_FAILURE);
+//          	sqlMap.put("outTradeNo", outTradeNo);
+//          	sqlMap.put("tradeNo", tradeNo);
+//          	sqlMap.put("payType", 0);
+//          }
+//          
+//          // TODO 异步通知状态入库
+//          payConfirmMapper.updateOrderStatus(sqlMap);
+//          OrderUserPojo userPojo = payConfirmMapper.queryUserOrderById(sqlMap);
+//          // TODO 调起派单流程
+//          distributeOrderServiceImpl.DistributeOrder(userPojo);
+
+
+          return "success";
+    }
+    
 }
