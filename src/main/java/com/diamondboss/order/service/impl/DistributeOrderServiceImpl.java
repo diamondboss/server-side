@@ -24,6 +24,7 @@ import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
 import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
+import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
 
 /**
@@ -92,6 +93,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				dto.setOutTradeNo(pojo.getOutTradeNo());
 				dto.setTotalFee(pojo.getAmt());
 				dto.setRefundFee(pojo.getAmt());
+				dto.setNotifyUrl(PropsUtil.getProperty("WXPay.refund"));
 				//TODO 微信退款
 				WXPay.refund(dto);
 			}

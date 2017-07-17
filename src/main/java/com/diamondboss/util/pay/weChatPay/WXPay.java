@@ -299,7 +299,7 @@ public class WXPay {
             logger.error("weChat refund--->outTradeNo:" + wXPayReFundDto.getOutTradeNo() + ", url:" + url);
             return null;
         }
-		return analysisRefundResponse(wXPayReFundDto.getOutTradeNo(), nonceStr, response);
+		return analysisRefundResponse(wXPayReFundDto.getOutTradeNo(), nonceStr, response); 
     }
     
     /**
