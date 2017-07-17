@@ -47,10 +47,10 @@ public class PartnerWithdrawalsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/querySummaryInfo" ,method = RequestMethod.POST)
-	public APPResponseBody querySummaryInfo(String partnerId){
+	public APPResponseBody querySummaryInfo(PartnerWalletVo vo){
 		
 		
-		String value = withdrawalsService.querySummaryInfo(partnerId);
+		String value = withdrawalsService.querySummaryInfo(vo.getPartnerId());
 		APPResponseBody app = new APPResponseBody();
 		app.setData(value);
 		app.setRetnCode(0);

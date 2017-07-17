@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,8 +92,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			}else if(StringUtils.contains(pojo.getPayType(), "1")){
 				WXPayReFundDTO dto = new WXPayReFundDTO();
 				dto.setOutTradeNo(pojo.getOutTradeNo());
-				dto.setTotalFee(pojo.getAmt());
-				dto.setRefundFee(pojo.getAmt());
+				dto.setTotalFee(pojo.getAmt().multiply(new BigDecimal(100)));
+				dto.setRefundFee(pojo.getAmt().multiply(new BigDecimal(100)));
 				dto.setNotifyUrl(PropsUtil.getProperty("WXPay.refund"));
 				//TODO 微信退款
 				WXPay.refund(dto);
