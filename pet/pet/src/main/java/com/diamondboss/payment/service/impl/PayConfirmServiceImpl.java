@@ -51,8 +51,9 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         }
 
         String tradeNo = content.getString("trade_no");
+        String outTradeNo = content.getString("out_trade_no");
         
-        Thread queryThread = new Thread(new QueryAlipayTradeStatus(tradeNo, payConfirmMapper));
+        Thread queryThread = new Thread(new QueryAlipayTradeStatus(tradeNo, outTradeNo, payConfirmMapper, distributeOrderServiceImpl));
         queryThread.start();
 
         return flag;
