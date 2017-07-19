@@ -17,8 +17,6 @@ import com.diamondboss.order.pojo.RaiseNumberPojo;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
-import com.diamondboss.order.vo.OrderUserVo;
-import com.diamondboss.order.vo.WXPayOrderSubmitVo;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayDto;
@@ -192,7 +190,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         model.setSubject("帅总测试专用0.02");
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
-        model.setTotalAmount("0.02");
+        
+        model.setTotalAmount(getAmtByPet(
+				pojo.getVarieties(), pojo.getAge()));
+        
+//        model.setTotalAmount("0.02");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
         String orderInfo = Alipay.getPreOrder(model, notifyUrl);
         
@@ -235,12 +237,28 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		wxPayDto.setOutTradeNo(value);
 		wxPayDto.setOrderId(value);
 		wxPayDto.setIp("220.112.121.93");
-		wxPayDto.setFee(1);
+		wxPayDto.setFee(Integer.valueOf(getAmtByPet(
+				pojo.getVarieties(), pojo.getAge())));
+//		wxPayDto.setFee(1);
 		Map<String, Object> resultMap = WXPay.sendPreOrder(wxPayDto);
 		resultMap.put("outTradeNo", value);
 		
 		return resultMap;
 				
+	}
+	
+	
+	private String getAmtByPet(String varieties, String age){
+		
+		Map<String, Object> param = new HashMap<>();
+		
+		param.put("varieties", varieties);
+		param.put("age", age);
+		String amt = placeOrderMapper.getAmtByPet(param);
+		if(null == amt || "".equals(amt)){
+			return "20";
+		}
+		return amt;
 	}
 	
 }
