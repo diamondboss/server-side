@@ -104,4 +104,19 @@
 		AND A.order_date = ${orderDate}
 		AND A.effective = "1"
 	</select>
+	
+	<!-- 根据宠物信息查询托管金额  -->
+	<select id="getAmtByPet"
+		parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT
+		    amt AS amt
+		FROM
+		    dog_price
+		WHERE
+			varieties = #{varieties}
+			AND age = #{age}
+			AND effective = '1'
+	</select>
+	
 </mapper>
