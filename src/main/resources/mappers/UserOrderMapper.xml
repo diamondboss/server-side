@@ -42,22 +42,21 @@
 	<select id="queryPartnerOrderService"
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.util.vo.PartnerOrderServiceVo" >
-		SELECT
-		    B.id AS partnerId,
-		    B.name AS partnerName,
-		    B.phoneNumber AS phoneNum,
-			(
-				SELECT count(*)
-				FROM ${tableName} A
-				WHERE A.partner_id = #{partnerId}
-				AND A.effective = '1'
-			) AS orderCount
-		FROM
-		    ${tableName} A INNER JOIN parter_info B ON A.partner_id = B.id
-		WHERE
-			A.partner_id = #{partnerId}
-			AND A.effective = '1'
-		GROUP BY A.partner_id
+			SELECT
+			    B.parter_id AS partnerId,
+			    B.name AS partnerName,
+			    B.phone_number AS phoneNum,
+				(
+					SELECT COUNT(*)
+					FROM ${tableName} A
+					WHERE A.partner_id = #{partnerId}
+					AND A.effective = '1'
+				) AS orderCount
+			FROM
+			    partner_info B 
+			WHERE
+				B.parter_id = #{partnerId}
+				AND B.effective = '1'
 	</select>
 	
 	
