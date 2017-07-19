@@ -83,6 +83,12 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		if(i==0){
 			return false;
 		}
+		//TODO：给用户所在小区所有的合伙人推送抢单通知
+		
+		//1.查询出所在小区所有的合伙人clientId
+		
+		//2.调用个推向指定群组推通知方法
+		
 		return true;
 	}
 	
