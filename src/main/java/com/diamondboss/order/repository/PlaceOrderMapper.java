@@ -46,12 +46,11 @@ public interface PlaceOrderMapper {
 	 */
 	public String queryOrderPartnerId(Map<String, Object> map);
 	
-//	/**
-//	 * 查询合伙人接单数量
-//	 * @param communityId
-//	 */
-//	public int querNumByPartnerId(Map<String, Object> map);
-	
-	
+	/**
+	 * 根据宠物信息查询托管金额
+	 * @param param
+	 * @return
+	 */
+	public String getAmtByPet(Map<String, Object> param);
 	
 }
