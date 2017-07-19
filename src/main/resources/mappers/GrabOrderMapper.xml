@@ -142,11 +142,11 @@
 		parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		SELECT 
-			raiseNumber 
+			order_num 
 		FROM 
-			parter_info 
+			partner_login 
 		WHERE 
-			id = #{id}
+			id = #{partnerId}
 	</select>
 
 	<!-- 查询合伙人接单数量 -->
