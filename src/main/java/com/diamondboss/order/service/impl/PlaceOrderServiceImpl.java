@@ -189,7 +189,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         //TODO 组装订单数据
-        model.setBody("我是测试数据的描述信息");
+        model.setBody("呆萌博士-宠物托管费用");
         model.setSubject("帅总测试专用0.02");
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
@@ -241,7 +241,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		wxPayDto.setOrderId(value);
 		wxPayDto.setIp("220.112.121.93");
 		wxPayDto.setFee(Integer.valueOf(getAmtByPet(
-				pojo.getVarieties(), pojo.getAge())));
+				pojo.getVarieties(), pojo.getAge()))*100);
 //		wxPayDto.setFee(1);
 		Map<String, Object> resultMap = WXPay.sendPreOrder(wxPayDto);
 		resultMap.put("outTradeNo", value);
