@@ -188,9 +188,8 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		String idKey = pojo.getId();
 
         AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
-        //TODO 组装订单数据
         model.setBody("呆萌博士-宠物托管费用");
-        model.setSubject("帅总测试专用0.02");
+        model.setSubject("呆萌博士-宠物托管费用");
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
         
