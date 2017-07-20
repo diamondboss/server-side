@@ -20,7 +20,7 @@ public class PushList {
 
     static String host = "http://sdk.open.api.igexin.com/apiex.htm";
     
-    public void pushListToUser(List<PartnerClientVo> pertnerClientList) {
+    public static void pushListToUser(List<PartnerClientVo> pertnerClientList) {
         // 配置返回每个用户返回用户状态，可选
         System.setProperty("gexin_pushList_needDetails", "true");
         // 配置返回每个别名及其对应cid的用户状态，可选

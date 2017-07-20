@@ -119,4 +119,15 @@
 			AND effective = '1'
 	</select>
 	
+	<!-- 查询某小区所有合伙人的clientId  -->
+	<select id="queryPartnerClient"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.order.vo.PartnerClientVo">
+			SELECT  partner_id AS partnerId,
+					client_id AS clientId
+			FROM partner_client_id A LEFT JOIN partner_info B 
+			ON A.partner_id = B.parter_id
+			WHERE B.community_id = #{communityId}
+	</select>
+	
 </mapper>
