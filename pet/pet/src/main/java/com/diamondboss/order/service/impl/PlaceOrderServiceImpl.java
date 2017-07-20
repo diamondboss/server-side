@@ -17,6 +17,7 @@ import com.diamondboss.order.pojo.RaiseNumberPojo;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.PlaceOrderService;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
+import com.diamondboss.order.vo.PartnerClientVo;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayDto;
@@ -84,7 +85,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		//TODO：给用户所在小区所有的合伙人推送抢单通知
 		
 		//1.查询出所在小区所有的合伙人clientId
-		
+		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
 		//2.调用个推向指定群组推通知方法
 		
 		return true;
