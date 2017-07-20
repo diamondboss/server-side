@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.pojo.RaiseNumberPojo;
+import com.diamondboss.order.vo.PartnerClientVo;
 
 /**
  * 
@@ -52,5 +53,12 @@ public interface PlaceOrderMapper {
 	 * @return
 	 */
 	public String getAmtByPet(Map<String, Object> param);
+	
+	/**
+	 * 查出某小区所有合伙人的clientId
+	 * @param communityId
+	 * @return
+	 */
+	public List<PartnerClientVo> queryPartnerClient(String communityId);
 	
 }
