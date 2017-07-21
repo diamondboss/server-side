@@ -26,6 +26,7 @@ public class UserOrderListVo{
 		for(UserOrderListPojo i:pojo){
 			
 			if(PetConstants.ORDER_STATUS_FINISH.equals(i.getOrderStatus())){// 已完成订单
+				i.setPartnerNameOfOrder(i.getPartnerName());
 				
 				i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
 						+ "：" + i.getPartnerName());
@@ -34,6 +35,8 @@ public class UserOrderListVo{
 				
 			}else if(PetConstants.ORDER_STATUS_RECEIVED.equals(i.getOrderStatus())){// 已接单订单
 				
+				i.setPartnerNameOfOrder(i.getPartnerName());
+				
 				i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
 						+ "：" + i.getPartnerName());
 				
@@ -41,11 +44,14 @@ public class UserOrderListVo{
 				
 			}else if(PetConstants.ORDER_STATUS_EXCEPTION.equals(i.getOrderStatus())){// 异常订单
 				
+				i.setPartnerNameOfOrder(i.getPartnerName());
+				
 				i.setPartnerName(PetInfoConstants.ORDER_CUSTOMER_SERVICE);
 				
 				underway.add(i);// 加入进行中订单队列
 				
 			}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
+				i.setPartnerNameOfOrder(i.getPartnerName());
 				
 				i.setPartnerName(PetInfoConstants.ORDER_DISTRIBUTE);
 				
@@ -53,13 +59,13 @@ public class UserOrderListVo{
 				
 		
 			}else if(PetConstants.ORDER_STATUS_PAY_FAILURE.equals(i.getOrderStatus())){// 支付失败订单
-				
+				i.setPartnerNameOfOrder(i.getPartnerName());
 				i.setPartnerName(PetInfoConstants.ORDER_PAY_FAILURE);
 				
 				canceled.add(i);// 加入已取消订单队列
 				
 			}else if(PetConstants.ORDER_STATUS_UNPAID.equals(i.getOrderStatus())){// 未支付订单
-				
+				i.setPartnerNameOfOrder(i.getPartnerName());
 				i.setPartnerName(PetInfoConstants.ORDER_UNPAID);
 				
 				canceled.add(i);// 加入已取消订单队列
