@@ -25,6 +25,11 @@ public class UserOrderListPojo{
 	private String returnTime;
 	
 	/**
+	 * 用户名
+	 */
+	private String userName;
+
+	/**
 	 * 订单金额
 	 */
 	private String amt;
@@ -134,6 +139,14 @@ public class UserOrderListPojo{
 	 */
 	public void setAmt(String amt) {
 		this.amt = amt;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	public String getPartnerId() {
