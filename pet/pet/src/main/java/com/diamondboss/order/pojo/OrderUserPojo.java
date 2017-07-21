@@ -130,7 +130,12 @@ public class OrderUserPojo {
 	 */
 	private String payType;
 
-	/*
+	/**
+	 * 是否携带宠物食物
+	 */
+	private String dogFood;
+	
+	/**
 	 * 主键
 	 * @return
 	 */
@@ -482,6 +487,22 @@ public class OrderUserPojo {
 		this.payType = payType;
 	}
 	
+	/**
+	 * 是否携带宠物食物 0-否 1-是
+	 * @return
+	 */
+	public String getDogFood() {
+		return dogFood;
+	}
+
+	/**
+	 * 是否携带宠物食物 0-否 1-是
+	 * @param dogFood
+	 */
+	public void setDogFood(String dogFood) {
+		this.dogFood = dogFood;
+	}
+
 	public OrderPartnerPojo userPojoToPrderPojo(OrderUserPojo pojo){
 		OrderPartnerPojo partnerPojo = new OrderPartnerPojo();
 		partnerPojo.setId(pojo.getId());
