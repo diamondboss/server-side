@@ -1,9 +1,14 @@
 package com.diamondboss.order.vo;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.util.tools.TableUtils;
 
 /**
@@ -123,6 +128,9 @@ public class OrderUserVo {
 	 * 用户ip
 	 */
 	private String userIp;
+	
+	@Autowired
+	public PlaceOrderMapper placeOrderMapper;
 	
 	/**
 	 * 用户ip
@@ -482,12 +490,32 @@ public class OrderUserVo {
 		}
 		pojo.setOrderDate(vo.getOrderDate());
 		pojo.setOrderStatus("0");
-		pojo.setAmt(new BigDecimal("0.01"));
+
+		pojo.setAmt(new BigDecimal(getAmtByPet(
+				pojo.getVarieties(), pojo.getAge(), pojo.getDogFood())));
 		pojo.setOrderUser(tableName);
 		
 		if(vo.getPartnerName() != null){
 			pojo.setPartnerName(vo.getPartnerName());
 		}
 		return pojo;
+	}
+	
+	private String getAmtByPet(String varieties, String age, String dogFood){
+		
+		Map<String, Object> param = new HashMap<>();
+		
+		param.put("varieties", varieties);
+		param.put("age", age);
+		String amt = placeOrderMapper.getAmtByPet(param);
+		if(null == amt || "".equals(amt)){
+			return "20";
+		}
+		if("0".equals(dogFood)){
+			
+			return "" + (new BigDecimal(amt).add(new BigDecimal("5")) );
+			
+		}
+		return amt;
 	}
 }

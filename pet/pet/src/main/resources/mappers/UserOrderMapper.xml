@@ -22,7 +22,7 @@
 		    A.partner_id AS partnerId,
 		    A.receive_time AS receiveTime,
 		    A.return_time AS returnTime,
-		    A.dogFood AS dogFood
+		    A.dogFood AS dogFood,
 		    (
 				SELECT count(*)
 				FROM ${tableName} A
