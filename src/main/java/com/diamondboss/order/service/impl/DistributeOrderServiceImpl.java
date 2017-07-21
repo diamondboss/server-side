@@ -68,8 +68,6 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		}else{
 			randomPartner(pojo);
 		}
-		
-		
 	}
 	
 	/**
