@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -192,9 +193,8 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
         model.setSubject("呆萌博士-宠物托管费用");
         model.setOutTradeNo(UUIDUtil.makeTradeNo(tableId, idKey));// 订单编号
         model.setTimeoutExpress(PropsUtil.getProperty("alipay.timeoutExpress"));
-        
         model.setTotalAmount(getAmtByPet(
-				pojo.getVarieties(), pojo.getAge()));
+				pojo.getVarieties(), pojo.getAge(), pojo.getDogFood()));
         
 //        model.setTotalAmount("0.02");
         model.setProductCode(PropsUtil.getProperty("alipay.productCode"));
@@ -239,8 +239,9 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		wxPayDto.setOutTradeNo(value);
 		wxPayDto.setOrderId(value);
 		wxPayDto.setIp("220.112.121.93");
-		wxPayDto.setFee(Integer.valueOf(getAmtByPet(
-				pojo.getVarieties(), pojo.getAge()))*100);
+		wxPayDto.setFee(Integer.valueOf((new BigDecimal(getAmtByPet(
+				pojo.getVarieties(), pojo.getAge(), pojo.getDogFood()))
+				.multiply(new BigDecimal("100"))).setScale(0).toString()));
 //		wxPayDto.setFee(1);
 		Map<String, Object> resultMap = WXPay.sendPreOrder(wxPayDto);
 		resultMap.put("outTradeNo", value);
@@ -250,7 +251,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	}
 	
 	
-	private String getAmtByPet(String varieties, String age){
+	private String getAmtByPet(String varieties, String age, String dogFood){
 		
 		Map<String, Object> param = new HashMap<>();
 		
@@ -259,6 +260,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		String amt = placeOrderMapper.getAmtByPet(param);
 		if(null == amt || "".equals(amt)){
 			return "20";
+		}
+		if("0".equals(dogFood)){
+			
+			return "" + (new BigDecimal(amt).add(new BigDecimal("5")) );
+			
 		}
 		return amt;
 	}
