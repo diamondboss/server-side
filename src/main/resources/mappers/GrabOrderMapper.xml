@@ -19,6 +19,7 @@
 		    order_date AS orderDate,
 		    order_status AS orderStatus,
 		    amt AS amt,
+		    dogFood AS dogFood,
 		    varieties AS varieties
 		FROM
 		    ${grabOrder}
@@ -109,6 +110,7 @@
 		        out_trade_no,
 		        trade_no,
 		        pay_type,
+		        dogFood,
 		        effective
 		    )
 		SELECT
@@ -130,6 +132,7 @@
 		    out_trade_no,
 		    trade_no,
 		    pay_type,
+		    dogFood,
 		    '1'
 		FROM
 		    ${userTableId}

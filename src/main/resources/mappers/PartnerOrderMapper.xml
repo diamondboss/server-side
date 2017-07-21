@@ -15,6 +15,7 @@
 		    age AS age,
 		    phone AS phone,
 		    user_name AS userName,
+		    dogFood AS dogFood,
 		    remark AS remark
 		FROM
 		    ${orderPartner}
@@ -38,6 +39,7 @@
 		    age AS age,
 		    phone AS phone,
 		    user_name AS userName,
+		    dogFood AS dogFood,
 		    remark AS remark
 		FROM
 		    ${orderPartner}
