@@ -67,7 +67,7 @@ public class OrderUserVo {
 	/**
 	 * 备注
 	 */
-	private String remark;
+	private String remark = " ";
 	
 	/**
 	 * 用户id
@@ -98,6 +98,11 @@ public class OrderUserVo {
 	 * 金额
 	 */
 	private BigDecimal amt;
+	
+	/**
+	 * 宠物食物
+	 */
+	private String dogFood;
 	
 	/**
 	 * 创建时间
@@ -431,6 +436,22 @@ public class OrderUserVo {
 		this.communityId = communityId;
 	}
 
+	/**
+	 * 是否携带宠物食物 0-否 1-是
+	 * @return
+	 */
+	public String getDogFood() {
+		return dogFood;
+	}
+
+	/**
+	 * 是否携带宠物食物 0-否 1-是
+	 * @param dogFood
+	 */
+	public void setDogFood(String dogFood) {
+		this.dogFood = dogFood;
+	}
+
 	public OrderUserPojo voToPojo(OrderUserVo vo){
 		
 		OrderUserPojo pojo = new  OrderUserPojo();
@@ -453,7 +474,7 @@ public class OrderUserVo {
 		pojo.setRemark(vo.getRemark());
 		pojo.setUserId(vo.getUserId());
 		pojo.setCommunityId(vo.getCommunityId());
-		
+		pojo.setDogFood(vo.getDogFood());
 		
 		
 		if(vo.getPartnerId() != null){
