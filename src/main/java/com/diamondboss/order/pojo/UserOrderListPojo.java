@@ -40,6 +40,11 @@ public class UserOrderListPojo{
 	private String partnerName;
 	
 	/**
+	 * 合伙人姓名(订单详情)
+	 */
+	private String partnerNameOfOrder;
+
+	/**
 	 * 合伙人电话
 	 */
 	private String partnerPhone;
@@ -155,12 +160,28 @@ public class UserOrderListPojo{
 		this.partnerName = partnerName;
 	}
 	
+	public String getPartnerNameOfOrder() {
+		return partnerNameOfOrder;
+	}
+
+	public void setPartnerNameOfOrder(String partnerNameOfOrder) {
+		if(partnerNameOfOrder == null){
+			this.partnerNameOfOrder = partnerNameOfOrder;
+		}else{
+			this.partnerNameOfOrder = partnerNameOfOrder;
+		}
+	}
+	
 	public String getPartnerPhone() {
 		return partnerPhone;
 	}
 
 	public void setPartnerPhone(String partnerPhone) {
-		this.partnerPhone = partnerPhone;
+		if(partnerPhone == null){
+			this.partnerPhone = "";
+		}else{
+			this.partnerPhone = partnerPhone;
+		}
 	}
 
 	/**
