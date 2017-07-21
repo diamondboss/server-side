@@ -86,6 +86,19 @@ public class GrabOrderVo {
 	private String amt;
 	
 	/**
+	 * 是否携带狗粮
+	 */
+	private String dogFood;
+	
+	public String getDogFood() {
+		return dogFood;
+	}
+
+	public void setDogFood(String dogFood) {
+		this.dogFood = dogFood;
+	}
+
+	/**
 	 * 主键id
 	 * @return
 	 */

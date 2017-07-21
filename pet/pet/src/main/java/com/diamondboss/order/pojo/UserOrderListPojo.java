@@ -75,6 +75,19 @@ public class UserOrderListPojo{
 	private String petName;
 	
 	/**
+	 * 是否携带狗粮
+	 */
+	private String dogFood;
+	
+	public String getDogFood() {
+		return dogFood;
+	}
+
+	public void setDogFood(String dogFood) {
+		this.dogFood = dogFood;
+	}
+
+	/**
 	 * 订单编号
 	 * @return
 	 */

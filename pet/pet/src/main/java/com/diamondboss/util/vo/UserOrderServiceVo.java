@@ -16,6 +16,18 @@ public class UserOrderServiceVo {
 
 	private String orderCount;
 	
+	private String dogFood;
+	
+	public String getDogFood() {
+		return dogFood;
+	}
+
+
+	public void setDogFood(String dogFood) {
+		this.dogFood = dogFood;
+	}
+
+
 	public UserOrderServiceVo(){
 		
 	}

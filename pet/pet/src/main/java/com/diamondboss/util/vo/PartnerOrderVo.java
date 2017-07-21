@@ -47,6 +47,19 @@ public class PartnerOrderVo {
 	 */
 	private String remark;
 	
+	/**
+	 * 是否携带狗粮
+	 */
+	private String dogFood;
+	
+	public String getDogFood() {
+		return dogFood;
+	}
+
+	public void setDogFood(String dogFood) {
+		this.dogFood = dogFood;
+	}
+
 	public PartnerOrderVo(){
 		
 	}
