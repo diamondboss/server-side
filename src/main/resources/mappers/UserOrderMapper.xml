@@ -82,26 +82,28 @@
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.order.pojo.UserOrderListPojo">
 		SELECT
-		    id AS id,
-		    receive_time AS receiveTime,
-		    return_time AS returnTime,
-		    pet_name AS petName,
-		    sex AS sex,
-		    age AS age,
-		    varieties AS varieties,
-		    partner_name AS partnerName,
-		    remark AS remark,
-		    order_date AS orderDate,
-		    order_status AS orderStatus,
-		    amt AS amt,
-		    dogFood AS dogFood,
-		    create_time AS createTime
+		    A.id AS id,
+		    A.receive_time AS receiveTime,
+		    A.return_time AS returnTime,
+		    A.pet_name AS petName,
+		    A.sex AS sex,
+		    A.age AS age,
+		    A.varieties AS varieties,
+		    A.partner_id AS partnerId,
+		    A.partner_name AS partnerName,
+		    B.phone_number AS partnerPhone,
+		    A.remark AS remark,
+		    A.order_date AS orderDate,
+		    A.order_status AS orderStatus,
+		    A.amt AS amt,
+		    A.dogFood AS dogFood,
+		    A.create_time AS createTime
 		FROM
-		    ${orderUser}
+		    ${orderUser} A Left Join partner_info B ON A.partner_id = B.parter_id
 		WHERE
-		    user_id = #{userId}
-		    AND effective = '1'
-		ORDER BY create_time DESC
+		    A.user_id = #{userId}
+		    AND A.effective = '1'
+		ORDER BY A.create_time DESC
 	</select>
 	  	
 	  	<!-- 查询合伙人订单列表  -->

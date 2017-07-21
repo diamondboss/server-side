@@ -30,10 +30,22 @@ public class UserOrderListPojo{
 	private String amt;
 	
 	/**
+	 * 合伙人Id
+	 */
+	private String partnerId;
+
+	/**
 	 * 合伙人姓名
 	 */
 	private String partnerName;
 	
+	/**
+	 * 合伙人电话
+	 */
+	private String partnerPhone;
+	
+	
+
 	/**
 	 * 订单状态
 	 */
@@ -118,6 +130,14 @@ public class UserOrderListPojo{
 	public void setAmt(String amt) {
 		this.amt = amt;
 	}
+	
+	public String getPartnerId() {
+		return partnerId;
+	}
+
+	public void setPartnerId(String partnerId) {
+		this.partnerId = partnerId;
+	}
 
 	/**
 	 * 合伙人姓名
@@ -133,6 +153,14 @@ public class UserOrderListPojo{
 	 */
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
+	}
+	
+	public String getPartnerPhone() {
+		return partnerPhone;
+	}
+
+	public void setPartnerPhone(String partnerPhone) {
+		this.partnerPhone = partnerPhone;
 	}
 
 	/**
