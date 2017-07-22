@@ -92,6 +92,12 @@ public class QueryOrderController {
 		Map<String, String> map = orderService.NumByPartnerOrder(partnerId);
 		partnerOrder.setNumByPartnerOrder(map.get("num") + "/" + map.get("total"));
 		
+		if(Integer.valueOf(map.get("num")) - Integer.valueOf(map.get("total")) == 0){
+			partnerOrder.setAppointmentFlag("1");
+		}else{
+			partnerOrder.setAppointmentFlag("0");
+		}
+		
 		app.setData(partnerOrder);
 		app.setRetnCode(0);
 		

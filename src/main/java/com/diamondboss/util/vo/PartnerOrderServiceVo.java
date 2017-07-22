@@ -2,15 +2,35 @@ package com.diamondboss.util.vo;
 
 public class PartnerOrderServiceVo {
 
+	/**
+	 * 合伙人Id
+	 */
 	private Long partnerId;
 
+	/**
+	 * 合伙人姓名
+	 */
 	private String partnerName;
 
+	/**
+	 * 手机号
+	 */
 	private String phoneNum;
 
+	/**
+	 * 历史订单数
+	 */
 	private String orderCount;
 	
+	/**
+	 * 合伙人名下订单情况
+	 */
 	private String numByPartnerOrder;
+	
+	/**
+	 * 是否可以预约   0：可以    1：不可以
+	 */
+	private String appointmentFlag;
 
 	public PartnerOrderServiceVo(){
 		
@@ -55,5 +75,13 @@ public class PartnerOrderServiceVo {
 
 	public void setNumByPartnerOrder(String numByPartnerOrder) {
 		this.numByPartnerOrder = numByPartnerOrder;
+	}
+	
+	public String getAppointmentFlag() {
+		return appointmentFlag;
+	}
+
+	public void setAppointmentFlag(String appointmentFlag) {
+		this.appointmentFlag = appointmentFlag;
 	}
 }
