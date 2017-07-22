@@ -16,6 +16,7 @@ import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.repository.DistributeOrderMapper;
 import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.DistributeOrderService;
+import com.diamondboss.order.vo.PartnerClientVo;
 import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
@@ -23,6 +24,7 @@ import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
+import com.diamondboss.util.push.getui.PushList;
 import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
@@ -145,6 +147,10 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		getPartnerList(pojo.getCommunityId(), pojo.getOrderDate());
 		
 		// APP推送合伙人抢单信息
+		//1.查询出所在小区所有的合伙人clientId
+		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
+		//2.调用个推向指定群组推通知方法
+		PushList.pushListToUser(partnerClientList);
 	}
 
 	/**
