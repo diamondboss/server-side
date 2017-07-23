@@ -96,7 +96,7 @@ public class LoginController {
 					UserInfoPojo UserInfoPojo = new UserInfoPojo();
 					UserInfoPojo.setUserId(String.valueOf(responseMap.get("id")));
 					UserInfoPojo.setName(UUIDUtil.getOrderIdByUUID());
-					UserInfoPojo.setPhoneNumber("");
+					UserInfoPojo.setPhoneNumber(vo.getPhone());
 					UserInfoPojo.setAge("");
 					UserInfoPojo.setSex("");
 					UserInfoPojo.setAddress("");
