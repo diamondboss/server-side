@@ -52,10 +52,21 @@ public class PartnerOrderVo {
 	 */
 	private String dogFood;
 	
+	/**
+	 * 状态
+	 */
+	private String orderStatus;
+	
+	private String userId;
+	
+	private String varieties;
+	
+	private String orderDate;
+	
 	public String getDogFood() {
 		return dogFood;
 	}
-
+	
 	public void setDogFood(String dogFood) {
 		this.dogFood = dogFood;
 	}
@@ -135,5 +146,38 @@ public class PartnerOrderVo {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getVarieties() {
+		return varieties;
+	}
+
+	public void setVarieties(String varieties) {
+		this.varieties = varieties;
+	}
+
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+	
 	
 }
