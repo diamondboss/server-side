@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.user.repository.PartnerConfirmOrderMapper" >
+
+	<!-- 更新合伙人订单状态已接收  -->
+	<update id="updatePartnerOrderForReceive"
+		parameterType="com.diamondboss.user.pojo.PartnerConfirmOrderPojo">
+		UPDATE
+	    	${partnerTable}
+		SET
+		    receive_time = #{time},
+		    order_status = 5
+		WHERE
+		    out_trade_no = #{outTradeNo}
+		    AND order_status = '4'
+		    AND effective =  '1'
+	</update>
+	
+	<!-- 更新用户订单状态已接收  -->
+	<update id="updateUserOrderForReceive"
+		parameterType="com.diamondboss.user.pojo.PartnerConfirmOrderPojo">
+		UPDATE
+	    	${userTable}
+		SET
+		    receive_time = #{time},
+		    order_status = 5
+		WHERE
+		    out_trade_no = #{outTradeNo}
+		    AND order_status = '4'
+		    AND effective =  '1'
+	</update>
+	
+	<!-- 更新合伙人状态已送还 -->
+	<update id="updatePartnerOrderForGiveBack"
+		parameterType="com.diamondboss.user.pojo.PartnerConfirmOrderPojo">
+		UPDATE
+	    	${partnerTable}
+		SET
+		    return_time = #{time},
+		    order_status = 6
+		WHERE
+		    out_trade_no = #{outTradeNo}
+		    AND order_status = '5'
+		    AND effective =  '1'
+	</update>
+
+	<!-- 更新用户状态已送还 -->
+	<update id="updateUserOrderForGiveBack"
+		parameterType="com.diamondboss.user.pojo.PartnerConfirmOrderPojo">
+		UPDATE
+	    	${userTable}
+		SET
+		    return_time = #{time},
+		    order_status = 6
+		WHERE
+		    out_trade_no = #{outTradeNo}
+		    AND order_status = '5'
+		    AND effective =  '1'
+	</update>
+
+</mapper>
