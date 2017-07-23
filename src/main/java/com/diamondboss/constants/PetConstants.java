@@ -52,9 +52,12 @@ public class PetConstants {
     public static final String ORDER_STATUS_RECEIVED = "4";
 
     /**
-     * 已完成
+     * 已接到宠物
      */
-    public static final String ORDER_STATUS_FINISH = "5";
+    public static final String ORDER_STATUS_FINISH_RECEIVE = "5";
 
-    
+    /**
+     * 已送还宠物
+     */
+    public static final String ORDER_STATUS_FINISH_GIVEBACK = "6";
 }
