@@ -113,7 +113,7 @@
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.order.pojo.UserOrderListPojo">
 		SELECT
-		    id AS id,
+		    out_trade_no AS id,
 		    receive_time AS receiveTime,
 		    return_time AS returnTime,
 		    user_id AS userId,
