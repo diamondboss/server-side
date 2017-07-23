@@ -68,6 +68,8 @@ public class PetInfoController {
 	public APPResponseBody queryPetInfo(PetInfoRequstVo vo,HttpServletRequest request) {
 		APPResponseBody app = new APPResponseBody();
 		
+		PetInfoPojo petInfo = new PetInfoPojo();
+		
 		if(vo.getUserId() == null){
 			log.info("请求参数非法，userId为空");
 			app.setRetnCode(1);
@@ -75,7 +77,7 @@ public class PetInfoController {
 			return app;
 		}
 		
-		PetInfoPojo petInfo = petInfoService.queryPetInfo(vo.getUserId());
+		petInfo = petInfoService.queryPetInfo(vo.getUserId());
 		
 		if(petInfo != null){
 			log.info("查询成功，petInfo：" + petInfo);
@@ -88,7 +90,7 @@ public class PetInfoController {
 		InputPetInfoVo inputVo =  new InputPetInfoVo();
 		inputVo.setUserId(vo.getUserId());
 		inputVo.setName("");	//名字默认为空
-		inputVo.setAge("99"); //99默认
+		inputVo.setAge("0"); //99默认
 		inputVo.setSex("1"); //9为默认，新纪录没性别
 		inputVo.setVarieties(""); //品种默认为空
 		
@@ -99,11 +101,13 @@ public class PetInfoController {
 			app.setRetnCode(1);
 			app.setRetnDesc("处理异常");
 			return app;
+		}else{
+			petInfo = petInfoService.queryPetInfo(vo.getUserId());
+			log.info("处理成功，用户Id: " + vo.getUserId());
+			app.setData(petInfo);
+			app.setRetnCode(0);
+			return app;
 		}
-		
-		log.info("处理成功，用户Id: " + vo.getUserId());
-		app.setRetnCode(0);
-		return app;
 	}
 	
 	/**

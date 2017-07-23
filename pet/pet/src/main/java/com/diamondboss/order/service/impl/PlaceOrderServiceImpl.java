@@ -78,6 +78,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 			return false;
 		}
 		
+		pojo.setAmt(new BigDecimal(getAmtByPet(pojo.getVarieties(), pojo.getAge(),pojo.getDogFood())));
 		// 插入用户订单表
 		int i = placeOrderMapper.insertUserOrder(pojo);
 		
