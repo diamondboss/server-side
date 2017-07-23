@@ -50,7 +50,7 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 			log.info("订单主键:" + vo.getId());
 			return 2;
 		}
-		
+		grabOrder.updateGrabOrderUserId(param);
 		// 插入合伙人表
 		pojo.setPartnerTableId(TableUtils.getOrderTableName(Long.valueOf(pojo.getPartnerId()), 
 				PetConstants.ORDER_PARTNER_TABLE_PREFIX));
