@@ -92,7 +92,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		//1.查询出所在小区所有的合伙人clientId
 		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
 		//2.调用个推向指定群组推通知方法
-		PushList.pushListToUser(partnerClientList);
+		//PushList.pushListToUser(partnerClientList);
 		
 		return true;
 	}
@@ -114,7 +114,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 
 		// 查询合伙人的当日订单数量
 		Map<String, Object> params = new HashMap<>();
-		params.put("orderPartner", tableName);
+		params.put("tableName", tableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", orderDate);
 		params.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);

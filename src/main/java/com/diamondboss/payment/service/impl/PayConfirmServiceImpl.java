@@ -82,6 +82,8 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
             return "fail";
         }
         
+        logger.info("支付宝返回验签通过");
+        
         //交易状态
         String tradeStatus = params.get("trade_status");
         //我们自己的订单Id
@@ -105,6 +107,8 @@ public class PayConfirmServiceImpl implements IPayConfirmService {
         	sqlMap.put("tradeNo", tradeNo);
         	sqlMap.put("payType", 0);
         }
+        
+        logger.info("支付宝开始更新数据库");
         
         // TODO 异步通知状态入库
         payConfirmMapper.updateOrderStatus(sqlMap);

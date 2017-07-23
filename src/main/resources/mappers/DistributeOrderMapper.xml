@@ -22,8 +22,8 @@
 		        order_date,
 		        order_status,
 		        amt,
+		        varieties,
 		        partner_name,
-		        commounity_id,
 		        out_trade_no,
 		        trade_no,
 		        pay_type,
@@ -45,8 +45,8 @@
 		        #{orderDate},
 		        #{orderStatus},
 		        #{amt},
+		        #{varieties},
 		        #{partnerName},
-		        #{commounityId},
 		        #{outTradeNo},
 		        #{tradeNo},
 		        #{payType},
@@ -62,7 +62,7 @@
 		    ${orderUser}
 		SET
 		    partner_id = #{partnerId},
-		    order_status = #{orderStatus},
+		    order_status = #{orderStatus}
 		WHERE
 		    id = #{id}
 		    AND effective = '1'

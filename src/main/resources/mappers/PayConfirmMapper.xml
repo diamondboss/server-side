@@ -54,6 +54,7 @@
 		    out_trade_no AS outTradeNo,
 		    trade_no AS tradeNo,
 		    pay_type AS payType,
+		    dogFood AS dogFood,
 		    effective AS effective
 		FROM
 		    ${orderUser}

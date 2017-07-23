@@ -109,6 +109,11 @@ public class OrderUserPojo {
 	 * 表名
 	 */
 	private String orderUser;
+	
+	/**
+	 * 合伙人表名
+	 */
+	private String orderPartner;
 
 	/**
 	 * 小区id
@@ -421,6 +426,14 @@ public class OrderUserPojo {
 	 */
 	public void setOrderUser(String orderUser) {
 		this.orderUser = orderUser;
+	}
+	
+	public String getOrderPartner() {
+		return orderPartner;
+	}
+
+	public void setOrderPartner(String orderPartner) {
+		this.orderPartner = orderPartner;
 	}
 
 	/**

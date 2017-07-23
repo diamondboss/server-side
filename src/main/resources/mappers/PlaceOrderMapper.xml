@@ -22,7 +22,7 @@
 		SELECT
 			COUNT(1)
 		FROM
-		    ${orderPartner}
+		    ${tableName}
 		WHERE
 			partner_id = #{partnerId}
 			AND order_date = #{orderDate}
