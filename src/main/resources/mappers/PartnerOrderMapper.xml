@@ -15,6 +15,10 @@
 		    age AS age,
 		    phone AS phone,
 		    user_name AS userName,
+		   	order_status AS orderStatus,
+		    order_date AS orderDate,
+		    varieties AS varieties,
+		    user_id AS userId,
 		    dogFood AS dogFood,
 		    remark AS remark
 		FROM
