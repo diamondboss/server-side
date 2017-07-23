@@ -25,7 +25,8 @@ public class UserOrderListVo{
 		
 		for(UserOrderListPojo i:pojo){
 			
-			if(PetConstants.ORDER_STATUS_FINISH.equals(i.getOrderStatus())){// 已完成订单
+			if(PetConstants.ORDER_STATUS_FINISH_RECEIVE.equals(i.getOrderStatus())
+					|| PetConstants.ORDER_STATUS_FINISH_GIVEBACK.equals(i.getOrderStatus())){// 已完成订单
 				i.setPartnerNameOfOrder(i.getPartnerName());
 				
 				i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
