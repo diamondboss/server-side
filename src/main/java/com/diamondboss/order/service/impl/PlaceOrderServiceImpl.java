@@ -117,6 +117,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		params.put("orderPartner", tableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", orderDate);
+		params.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
 		int counts = placeOrderMapper.queryCountsByPartnerAndDate(params);// 当前订单数量
 		
 		int riseNo = placeOrderMapper.queryPartnerCondition(partnerId);// 可接受订单数量
