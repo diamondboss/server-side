@@ -51,9 +51,19 @@ public class UserOrderListVo{
 				
 				underway.add(i);// 加入进行中订单队列
 				
-			}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
+			}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus()) && i.getPartnerId() != null){// 已接单
+				
+				String partnerName = i.getPartnerName();
 				i.setPartnerNameOfOrder(i.getPartnerName());
 				
+				i.setPartnerName(PetInfoConstants.ORDER_READY + partnerName);
+				
+				underway.add(i);// 加入进行中订单队列
+				
+		
+			}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
+				i.setPartnerNameOfOrder("订单派发中");
+				i.setPartnerPhone("电话：将在派单成功后显示");
 				i.setPartnerName(PetInfoConstants.ORDER_DISTRIBUTE);
 				
 				underway.add(i);// 加入进行中订单队列

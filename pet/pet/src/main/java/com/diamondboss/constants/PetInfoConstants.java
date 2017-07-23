@@ -23,6 +23,11 @@ public class PetInfoConstants {
 	public final static String ORDER_DISTRIBUTE = "订单派发中";
 	
 	/**
+	 * 已接单
+	 */
+	public final static String ORDER_READY = "已接单：";
+	
+	/**
 	 * 订单支付失败
 	 */
 	public final static String ORDER_PAY_FAILURE = "订单支付失败";
