@@ -9,7 +9,7 @@
 		SELECT
 		    A.id AS id,
 		    B.name AS name,
-		    A.phone_number AS phoneNum
+		    A.phone_number AS phoneNumber
 		FROM
 		    partner_login A 
 		INNER JOIN partner_info B 
