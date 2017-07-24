@@ -58,7 +58,7 @@
 	<!-- master连接池参数 -->
 	  <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
         <constructor-arg index="0" ref="jedisPoolConfig" />
-        <constructor-arg index="1" value="182.92.149.119:6379"/>
+        <constructor-arg index="1" value="182.92.82.60:6379"/>
         <constructor-arg index="2" value="6379"  type="int" />
         <constructor-arg index="3" value="60000" type="int" />
     </bean>
