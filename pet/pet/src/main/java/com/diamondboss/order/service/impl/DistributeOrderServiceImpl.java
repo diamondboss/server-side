@@ -104,7 +104,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			// 支付宝或微信退款
 			if(StringUtils.contains(pojo.getPayType(), "0")){
 				logger.info("调起支付宝退款");
-				Alipay.refund(pojo.getTradeNo());
+				if(Alipay.refund(pojo.getTradeNo())){
+					logger.info("支付宝退款成功！ ^_^ 订单号：" + pojo.getTradeNo());
+				}else{
+					logger.info("支付宝退款失败！订单号：" + pojo.getTradeNo());
+				}
+				
 			}else if(StringUtils.contains(pojo.getPayType(), "1")){
 				logger.info("调起微信退款");
 				WXPayReFundDTO dto = new WXPayReFundDTO();
@@ -116,11 +121,11 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				WXPay.refund(dto);
 			}
 			// APP推送用户
-			Map<String, String> map = new HashMap<String, String>();
+			/*Map<String, String> map = new HashMap<String, String>();
 			map.put("CID", userLoginService.selectUserClientId(pojo.getUserId()));
 			map.put("tiele", "订单派送失败");
 			map.put("text", "抱歉，您的订单派送失败！");
-			map.put("url", "http://www.baidu.com");
+			map.put("url", "http://www.baidu.com");*/
 			
 			//PushToSingle.pushToSingle(map);
 			// 短信推送用户（订单没有匹配成功的短信）
