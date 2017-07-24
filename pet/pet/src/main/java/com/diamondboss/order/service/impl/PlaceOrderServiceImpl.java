@@ -155,12 +155,14 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 			total += Integer.valueOf(i.getorderNum());// 总数
 			
 			// 查询合伙人的当日订单数量
-			String tableName = TableUtils.getOrderTableName(Long.valueOf(i.getId()), 
+			String tableName = TableUtils.getOrderTableName(Long.valueOf(i.getPartnerId()), 
 					PetConstants.ORDER_PARTNER_TABLE_PREFIX);
 			Map<String, Object> params = new HashMap<>();
-			params.put("orderPartner", tableName);
-			params.put("partnerId", i.getId());
+			params.put("tableName", tableName);
+			params.put("partnerId", i.getPartnerId());
 			params.put("orderDate", orderDate);
+			params.put("orderStatus", "2");
+			
 			num += 	placeOrderMapper.queryCountsByPartnerAndDate(params);
 		}
 		

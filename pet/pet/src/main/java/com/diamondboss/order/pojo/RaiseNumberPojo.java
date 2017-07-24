@@ -16,28 +16,24 @@ public class RaiseNumberPojo {
 	/**
 	 * 合伙人id
 	 */
-	private String id; 
-	
+	private String partnerId; 
+
 	/**
 	 * 合伙人可接单数
 	 */
 	private String orderNum;
 
 	/**
-	 * 合伙人id
+	 * 合伙人Id
 	 * @return
 	 */
-	public String getId() {
-		return id;
+	public String getPartnerId() {
+		return partnerId;
 	}
 
-	/**
-	 * 合伙人id
-	 * @param id
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+	public void setPartnerId(String partnerId) {
+		this.partnerId = partnerId;
+	}	
 
 	/**
 	 * 合伙人可接单数

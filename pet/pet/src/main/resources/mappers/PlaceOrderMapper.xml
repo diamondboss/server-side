@@ -82,7 +82,7 @@
 		parameterType="java.lang.String"
 		resultType="com.diamondboss.order.pojo.RaiseNumberPojo">
 		SELECT
-		    B.id AS id, 
+		    B.parter_id AS partnerId, 
 		    B.order_num AS orderNum
 		FROM
 		    community A
