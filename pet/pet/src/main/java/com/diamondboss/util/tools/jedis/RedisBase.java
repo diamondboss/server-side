@@ -65,15 +65,9 @@ public class RedisBase {
 	 * 
 	 * @return
 	 */
-	public Jedis getJedis() {
-		//生产服务器redis 内网
-		//String redisip = "10.8.20.209";
-		
-		// 生产服务器redis 外网
-//		String redisip = "106.75.198.27";
-		
+	public Jedis getJedis() {	
 		//测试服务器redis
-		String redisip = "182.92.149.119";
+		String redisip = "182.92.82.60";
 		
 		jedis =  RedisUtil.getJedis(redisip);
 	

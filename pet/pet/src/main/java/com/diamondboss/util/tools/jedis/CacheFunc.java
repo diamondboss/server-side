@@ -68,14 +68,7 @@ public class CacheFunc {
 		if(jedisPool==null){
 			synchronized(CacheFunc.class){
 				if(jedisPool==null){
-					//生产服务器缓�?  内网
-//					setJedisPool("10.8.20.209:6379","atx@7wixs");
-					//生产服务器缓�?  外网
-//					setJedisPool("106.75.198.27:6379","atx@7wixs");
-					
-					// 测试服务器缓�?
-//					setJedisPool("121.42.50.253:6378","leishantest");
-					setJedisPool("182.92.149.119:6379","pet123456");
+					setJedisPool("182.92.82.60:6379","pet123456");
 				}
 			}
 		}
@@ -98,8 +91,7 @@ public class CacheFunc {
 		if(jedisSentinelPool==null){
 			synchronized(CacheFunc.class){
 				if(jedisSentinelPool==null){
-					setJedisSentinelPool("182.92.149.119:6379","pet123456");
-//					setJedisSentinelPool("45.249.246.215:6378","leishantest");
+					setJedisSentinelPool("182.92.82.60:6379","pet123456");
 				}
 			}
 		}
