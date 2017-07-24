@@ -1,7 +1,10 @@
 package com.diamondboss.payment.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.order.service.impl.DistributeOrderServiceImpl;
+import com.diamondboss.payment.repository.PayConfirmMapper;
 import com.diamondboss.payment.service.IPayConfirmService;
 import com.diamondboss.util.pay.aliPay.EnumAlipayResult;
 import com.diamondboss.util.pay.weChatPay.WXPayUtils;
@@ -36,6 +39,12 @@ public class WeChatPayConfirmController {
     private static Logger logger = Logger.getLogger(WeChatPayConfirmController.class);
     @Autowired
     IPayConfirmService payConfirmService;
+    
+    @Autowired
+    public PayConfirmMapper payConfirmMapper;
+    
+    @Autowired
+    private DistributeOrderServiceImpl distributeOrderServiceImpl;
 
     @RequestMapping("/payConfirm")
     public void payConfirm(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -61,57 +70,40 @@ public class WeChatPayConfirmController {
         // TODO: 2017/7/15 入库更新
         //ret = payConfirmService.wxpayConfirm(ret);
         WXPayUtils.callBack(response, ret);
-        return;
+        
         // 订单支付已成功，获取订单信息，检查数据库中的订单状态等，并给微信服务器返回success
-//        try {
-//            ret.put("return_code", "SUCCESS");
-//            ret.put("return_msg", "OK");
-//
-//            String orderId = ret.get("cysOrder");
-//            String tradeNo = ret.get("wxOrder");
-//            String openId = ret.get("openId");
-//
-//            // 检查redis中的订单状态
-//            Map<String, String> orderMap;
-//            try {
-//                orderMap = redisClient.getMap(RedisKey.order(orderId));
-//            } catch (Exception e) {
-//                orderMap = null;
-//                LogUtils.ERROR.info("get order from redis failed due to", e);
-//            }
-//
-//            if (orderMap == null || orderMap.isEmpty()) {
-//                boolean isExisted = orderService.checkChargeOrder(orderId);
-//                if (!isExisted) {
-//                    WeChatUtils.callBack(resp, ret);
-//                    log.info("batch:{},App充值订单支付通知, orderId:{} does not exist", batch, orderId);
-//                    return;
-//                }
-//            }
-//
-//            orderService.sendPaymentMqMsg(orderId, tradeNo, openId);
-//            //orderService.recordPay(orderId, tradeNo);
-//
-//            try {
-//                // 记录日志
-//                Map<String, Object> logMap = new HashMap<>();
-//                logMap.put("orderId", orderId);
-//                logMap.put("openId", openId);
-//                logMap.put("transactionId", tradeNo);
-//                logMap.put("notifyTime", new Date());
-//
-//                YunLogger.yun.metric("User.Notify.WeChat", 0.0, logMap);
-//            } catch (Exception e) {
-//                LogUtils.ERROR.info("record User.Notify.WeChat failed due to", e);
-//            }
-//
-//            WeChatUtils.callBack(resp, ret);
-//            return;
-//        } catch (Exception ex) {
-//            log.warn("batch:{}, App充值订单支付通知,保存数据出错", batch, ex);
-//            WeChatUtils.callBack(resp, ret);
-//            return;
-//        }
+        //交易状态
+        String tradeStatus = ret.get("return_code");
+        //我们自己的订单Id
+        String outTradeNo = ret.get("outTradeNo");
+        //微信	的订单Id
+        String tradeNo = ret.get("wxOrder");
+        
+        OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(outTradeNo);
+        
+        Map<String, Object> sqlMap = new HashMap<>();
+        sqlMap.put("id", pojo.getId());
+        sqlMap.put("orderUser", PetConstants.ORDER_USER_TABLE_PREFIX + pojo.getTableId());
+        if("SUCCESS".equals(tradeStatus)){
+        	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
+        	sqlMap.put("outTradeNo", outTradeNo);
+        	sqlMap.put("tradeNo", tradeNo);
+        	sqlMap.put("payType", 1);
+        }else{
+        	sqlMap.put("orderStatus", PetConstants.ORDER_STATUS_PAY_FAILURE);
+        	sqlMap.put("outTradeNo", outTradeNo);
+        	sqlMap.put("tradeNo", tradeNo);
+        	sqlMap.put("payType", 1);
+        }
+        
+        logger.info("支付宝开始更新数据库");
+        
+        // TODO 异步通知状态入库
+        payConfirmMapper.updateOrderStatus(sqlMap);
+        OrderUserPojo userPojo = payConfirmMapper.queryUserOrderById(sqlMap);
+        // TODO 调起派单流程
+        distributeOrderServiceImpl.DistributeOrder(userPojo);
+        return;
     }
     
     @ResponseBody
