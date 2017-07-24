@@ -243,7 +243,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		logger.info("合伙人订单情况：" + String.valueOf(counts) +  "/" + String.valueOf(riseNo));
 		
 		// 小于饲养上限，则为可用
-		return counts < riseNo ? false : true;
+		return counts < riseNo ? true : false;
 	}
 
 	/**
