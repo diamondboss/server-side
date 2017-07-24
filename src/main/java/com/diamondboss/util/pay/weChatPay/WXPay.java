@@ -1,6 +1,7 @@
 package com.diamondboss.util.pay.weChatPay;
 
 import com.alibaba.fastjson.JSONObject;
+import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.tools.HttpUtils;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.UUIDUtil;
@@ -284,10 +285,14 @@ public class WXPay {
 		root.addElement("nonce_str").setText(UUIDUtil.uuid());
 
 		root.addElement("out_trade_no").setText(wXPayReFundDto.getOutTradeNo());
+		
+		OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(wXPayReFundDto.getOutTradeNo());
+		root.addElement("out_refund_no").setText(UUIDUtil.makeTradeNo(Integer.valueOf(pojo.getTableId()), pojo.getId()));
+		
 		root.addElement("total_fee").setText(String.valueOf(wXPayReFundDto.getTotalFee()));
 		root.addElement("refund_fee").setText(String.valueOf(wXPayReFundDto.getRefundFee()));
-		root.addElement("notify_url").setText(wXPayReFundDto.getNotifyUrl());
-
+		root.addElement("transaction_id").setText("");
+		
 		root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
 		
 
@@ -297,6 +302,7 @@ public class WXPay {
             response = HttpUtils.doPost(url, requestXML.asXML());
         } catch (Exception e) {
             logger.error("weChat refund--->outTradeNo:" + wXPayReFundDto.getOutTradeNo() + ", url:" + url);
+            logger.info(e.getMessage());
             return null;
         }
 		return analysisRefundResponse(wXPayReFundDto.getOutTradeNo(), nonceStr, response); 
