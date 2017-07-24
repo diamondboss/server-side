@@ -291,7 +291,7 @@ public class WXPay {
 		root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
 		
 
-        String url = PropsUtil.getProperty("WXPay.unifiedOrderUrl");
+        String url = wXPayReFundDto.getNotifyUrl();
         String response;
         try {
             response = HttpUtils.doPost(url, requestXML.asXML());
