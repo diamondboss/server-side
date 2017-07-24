@@ -30,6 +30,8 @@ public class Alipay {
 			PropsUtil.getProperty("alipay.appId"), PropsUtil.getProperty("alipay.app.privateKey"),
 			PropsUtil.getProperty("alipay.format"), PropsUtil.getProperty("alipay.charset"),
 			PropsUtil.getProperty("alipay.publicKey"), PropsUtil.getProperty("alipay.signType"));
+	
+	private static String notifyUrl = PropsUtil.getProperty("alipay.method_refund");
 
 	/**
 	 * 获得支付订单
@@ -75,39 +77,27 @@ public class Alipay {
 		}
 		return tradeStatus;
 	}
-
+	
 	/**
 	 * 支付宝退款
 	 * @param tradeNo
-	 * @param amt
 	 * @return
-	 * @throws AlipayApiException
 	 */
-	public static boolean refund(String tradeNo,BigDecimal amt){
-		logger.info("进入支付宝退款方法");
-		logger.info("进入支付宝退款方法--订单号--" + tradeNo);
+	public static boolean refund(String tradeNo, BigDecimal amt){
+		AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+		AlipayTradeRefundModel model = new AlipayTradeRefundModel();
+		model.setTradeNo(tradeNo);
+		model.setRefundAmount(String.valueOf(amt));
 		
-	    AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
-	    request.setBizContent("{" +
-	            "    \"trade_no\":\"" + tradeNo+ "\"," +
-	            "    \"refund_amount\":"+String.valueOf(amt)+"," +
-	            "    \"refund_reason\":\"正常退款\"," +
-	            "  }");
-	    
-	    boolean refundFlag = false;
-	    try{
-	    	AlipayTradeRefundResponse response = alipayClient.execute(request);
-	    	refundFlag = response.isSuccess();
-	    }catch(Exception e){
-	    	logger.info(e.getMessage());
-	    }
-	    
-	    if(refundFlag){
-	    	logger.info("支付宝退款成功！ ^_^ ^_^ ^_^");
-	    } else {
-	        logger.info("退款失败");
-	    }
-		
+		request.setBizModel(model);
+		boolean refundFlag = false;
+		try {
+			AlipayTradeRefundResponse response = alipayClient.execute(request);
+			refundFlag = response.isSuccess();
+		} catch (AlipayApiException e) {
+			logger.error("退款异常");
+			logger.error(e.getMessage());
+		}
 		return refundFlag;
 	}
 
