@@ -104,7 +104,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			// 支付宝或微信退款
 			if(StringUtils.contains(pojo.getPayType(), "0")){
 				logger.info("调起支付宝退款");
-				if(Alipay.refund(pojo.getTradeNo())){
+				if(Alipay.refund(pojo.getTradeNo(), pojo.getAmt())){
 					logger.info("支付宝退款成功！ ^_^ 订单号：" + pojo.getTradeNo());
 				}else{
 					logger.info("支付宝退款失败！订单号：" + pojo.getTradeNo());

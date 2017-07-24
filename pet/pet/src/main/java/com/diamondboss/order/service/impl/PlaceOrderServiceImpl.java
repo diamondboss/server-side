@@ -123,7 +123,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		int riseNo = placeOrderMapper.queryPartnerCondition(partnerId);// 可接受订单数量
 		
 		// 小于饲养上限，则为可用
-		return counts < riseNo ? false : true;
+		return counts < riseNo ? true : false;
 	}
 
 	/**
