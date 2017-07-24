@@ -74,10 +74,14 @@ public class Alipay {
 	}
 
 	public static boolean refund(String tradeNo){
+		logger.info("进入支付宝退款方法");
+		logger.info("进入支付宝退款方法--订单号--" + tradeNo);
 		AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
 		AlipayTradeRefundModel model = new AlipayTradeRefundModel();
 		model.setTradeNo(tradeNo);
 		model.setRefundAmount("0.01");
+		
+		
 		boolean refundFlag = false;
 		try {
 			AlipayTradeRefundResponse response = alipayClient.execute(request);
