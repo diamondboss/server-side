@@ -114,8 +114,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				logger.info("调起微信退款");
 				WXPayReFundDTO dto = new WXPayReFundDTO();
 				dto.setOutTradeNo(pojo.getOutTradeNo());
-				dto.setTotalFee(pojo.getAmt().multiply(new BigDecimal(100)));
-				dto.setRefundFee(pojo.getAmt().multiply(new BigDecimal(100)));
+				dto.setTotalFee(pojo.getAmt().multiply(new BigDecimal(100)).setScale(0));
+				dto.setRefundFee(pojo.getAmt().multiply(new BigDecimal(100)).setScale(0));
 				dto.setNotifyUrl(PropsUtil.getProperty("WXPay.refund"));
 				//TODO 微信退款
 				WXPay.refund(dto);
