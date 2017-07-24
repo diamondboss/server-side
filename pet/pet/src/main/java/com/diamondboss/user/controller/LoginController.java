@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,17 +68,22 @@ public class LoginController {
 		
 		log.info("登录");
 		
-		// 短信验证码
-		SmsReturnInfo info = sendMsgService.verifyCode(
-				vo.getSessionId(), vo.getCode());
-		
-		if (false == info.getSuccess()) {
-			app.setData(vo);
-			app.setRetnCode(1);
-			app.setRetnDesc("验证码校验错误");
-			log.info("短信验证码校验错误，手机号：" + vo.getPhone());
-			return app;
+		if(StringUtils.equals(vo.getPhone(), "18238954989")){
+			//系统白名单用户，直接跳过验证码！
+		}else{
+			// 短信验证码
+			SmsReturnInfo info = sendMsgService.verifyCode(
+					vo.getSessionId(), vo.getCode());
+			
+			if (false == info.getSuccess()) {
+				app.setData(vo);
+				app.setRetnCode(1);
+				app.setRetnDesc("验证码校验错误");
+				log.info("短信验证码校验错误，手机号：" + vo.getPhone());
+				return app;
+			}
 		}
+		
 
 		UserLoginPojo userLogin =  new UserLoginPojo();
 		
