@@ -71,7 +71,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			return;
 		}
 		
-		if(pojo.getPartnerId() != null || !"".equals(pojo.getPartnerId())){
+		logger.info("parnterId:" + pojo.getPartnerId());
+		if(StringUtils.isNotBlank(pojo.getPartnerId())){
 			appointPartner(pojo);
 		}else{
 			randomPartner(pojo);
@@ -131,7 +132,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			// 短信推送用户（订单没有匹配成功的短信）
 			sendSmsInfoToUser.setPhone(pojo.getPhone());
 			logger.info("发送短信，用户手机号：" + pojo.getPhone());
-			sendMsgService.sendNotifyMsg(sendSmsInfoToUser, 0);
+			sendMsgService.sendNotifyMsg(sendSmsInfoToUser, 1);
 			
 		}else{
 			
@@ -243,7 +244,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		logger.info("合伙人订单情况：" + String.valueOf(counts) +  "/" + String.valueOf(riseNo));
 		
 		// 小于饲养上限，则为可用
-		return counts < riseNo ? true : false;
+		return counts < riseNo ? false : true;
 	}
 
 	/**
