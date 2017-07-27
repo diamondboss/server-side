@@ -143,6 +143,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			logger.info("合伙人表名：" + pojo.getOrderPartner());
 			logger.info("品种：" + pojo.getVarieties());
 			try{
+				pojo.setOrderStatus("4");
 				distributeOrderMapper.insertOrderPartner(pojo);
 
 				OrderUserPojo updatePojo = new OrderUserPojo();
