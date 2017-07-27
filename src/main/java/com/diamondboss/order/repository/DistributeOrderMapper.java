@@ -1,5 +1,7 @@
 package com.diamondboss.order.repository;
 
+import java.util.Map;
+
 import com.diamondboss.order.pojo.OrderUserPojo;
 
 public interface DistributeOrderMapper {
@@ -21,4 +23,10 @@ public interface DistributeOrderMapper {
 	 */
 	public int updateOrderUser(OrderUserPojo pojo);
 	
+	/**
+	 * 插入合伙人抢单信息
+	 * @param pojo
+	 * @return
+	 */
+	public int insertGrabOrderInfo(Map<String, Object> param);
 }
