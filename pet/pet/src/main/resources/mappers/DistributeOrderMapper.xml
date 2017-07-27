@@ -107,7 +107,7 @@
 		    user_id,
 		    #{userKeyId},
 		    #{userTableId},
-		    partner_id,
+		    #{partnerId},
 		    partner_name,
 		    order_date,
 		    order_status,
