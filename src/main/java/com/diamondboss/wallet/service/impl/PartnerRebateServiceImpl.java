@@ -2,6 +2,9 @@ package com.diamondboss.wallet.service.impl;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.util.tools.TableUtils;
@@ -16,9 +19,10 @@ import com.diamondboss.wallet.service.PartnerRebateService;
  * @since 2017-06-28
  *  
  */
+@Service
 public class PartnerRebateServiceImpl implements PartnerRebateService{
 
-	
+	@Autowired
 	private PartnerRebateMapper partnerRebateMapper;
 	
 	@Override
