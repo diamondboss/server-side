@@ -1,5 +1,7 @@
 package com.diamondboss.util.tools.jedis;
 
+import com.diamondboss.util.tools.PropsUtil;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -32,7 +34,7 @@ public class RedisAPI {
            // config.setMaxWait(1000 * 100);
             //在borrow�?个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；
             config.setTestOnBorrow(false);
-            pool = new JedisPool(config, "182.92.82.60", 6379);
+            pool = new JedisPool(config, PropsUtil.getProperty("Server.URL"), 6379);
         }
         return pool;
     }
