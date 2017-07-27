@@ -19,18 +19,16 @@ import com.diamondboss.order.repository.PlaceOrderMapper;
 import com.diamondboss.order.service.DistributeOrderService;
 import com.diamondboss.order.vo.PartnerClientVo;
 import com.diamondboss.order.vo.SendNotifySmsInfoVo;
-import com.diamondboss.payment.service.impl.PayConfirmServiceImpl;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
-import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
-import com.diamondboss.util.push.getui.PushList;
-import com.diamondboss.util.push.getui.PushToSingle;
+import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.util.tools.UUIDUtil;
 
 /**
  * 订单分配
@@ -53,9 +51,6 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	
 	@Autowired
 	private PartnerInfoService partnerInfoService;
-	
-	@Autowired
-	private UserLoginService userLoginService;
 	
 	private static final Logger logger = Logger.getLogger(DistributeOrderServiceImpl.class);
 	
@@ -201,11 +196,35 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		logger.info("进入不指定合伙人--订单分配");
 		
 		// 查询合适的合伙人
-		getPartnerList(pojo.getCommunityId(), pojo.getOrderDate());
+		List<PartnerClientVo> list = getPartnerList(pojo.getCommunityId(), pojo.getOrderDate());
+		
+		if(list == null || list.size() == 0){
+			
+			return;// 无合适合伙人,等待系统自动处理，插入异常信息
+		}
 		
 		// APP推送合伙人抢单信息
+		// 插入合伙人抢单表
+		Map<String, Object> param = new HashMap<>();
+		OutTradeNoPojo tradeNoPojo = UUIDUtil.getInfoFromTradeNo(pojo.getOutTradeNo());
+		param.put("userKeyId",tradeNoPojo.getId());
+		param.put("userTableId", 
+				PetConstants.ORDER_USER_TABLE_PREFIX + tradeNoPojo.getTableId());
+		
+		for(PartnerClientVo i :list){
+			
+			param.put("partnerTableId", 
+			TableUtils.getOrderTableName(Long.valueOf(i.getPartnerId()), 
+					PetConstants.ORDER_PARTNER_TABLE_PREFIX));
+			distributeOrderMapper.insertGrabOrderInfo(param);
+			
+			
+		}
+		
 		//1.查询出所在小区所有的合伙人clientId
-		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
+//		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
+		// TODO 有问题 获取的合伙人可能不合适
+		
 		//2.调用个推向指定群组推通知方法
 		//PushList.pushListToUser(partnerClientList);
 	}
@@ -252,16 +271,16 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	 * @param commId
 	 * @return
 	 */
-	private List<PartnerInfoPojo> getPartnerList(String CommunityId, String orderDate){
-		List<PartnerInfoPojo> partnerList = new ArrayList();
+	private List<PartnerClientVo> getPartnerList(String CommunityId, String orderDate){
+		List<PartnerClientVo> partnerList = new ArrayList<>();
 		// 1、根据社区id查询有几个合伙人
-		List<PartnerInfoPojo> partners = null;
-//				parterInfoMapper.queryPartnerByCommunityId(CommunityId);
+		List<PartnerClientVo> partners = 
+				placeOrderMapper.queryPartnerClient(CommunityId);
 
 		if (!CollectionUtils.isEmpty(partners)){
-			for (PartnerInfoPojo pojo : partners){
+			for (PartnerClientVo pojo : partners){
 				// 2、确认合伙人的订单是否已满
-				if (!checkOrderCountsOfPartner(pojo.getId(), orderDate)) {
+				if (!checkOrderCountsOfPartner(pojo.getPartnerId(), orderDate)) {
 					partnerList.add(pojo);
 				}
 			}
