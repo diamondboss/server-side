@@ -5,15 +5,39 @@ import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.tools.HttpUtils;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.UUIDUtil;
+import com.mysql.jdbc.log.LogUtils;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-
+import org.springframework.http.HttpEntity;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.net.ssl.SSLContext;
 
 /**
  * Created by liuzifu on 2017/7/6.
@@ -282,7 +306,7 @@ public class WXPay {
 		// 商户自定义数据
 		root.addElement("mch_id").setText(mchID);
 		// 随机字符串
-		root.addElement("nonce_str").setText(UUIDUtil.uuid());
+		root.addElement("nonce_str").setText(nonceStr);
 
 		root.addElement("out_trade_no").setText(wXPayReFundDto.getOutTradeNo());
 		
@@ -307,6 +331,195 @@ public class WXPay {
         }
 		return analysisRefundResponse(wXPayReFundDto.getOutTradeNo(), nonceStr, response); 
     }
+    
+    /**
+     * 退款新接口
+     * @param wXPayReFundDto
+     * @return
+     */
+    @SuppressWarnings("deprecation")
+	public static Map<String, Object> refund1(WXPayReFundDTO wXPayReFundDto){
+
+        Document requestXML = DocumentHelper.createDocument();
+        Element root = requestXML.addElement("xml");
+
+        String nonceStr = WXPayUtils.createNonceStr();
+        
+        root.addElement("appid").setText(appId);
+        root.addElement("mch_id").setText(mchID);
+        root.addElement("nonce_str").setText(nonceStr);
+        root.addElement("transaction_id").setText("");
+
+        OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(wXPayReFundDto.getOutTradeNo());
+        root.addElement("out_refund_no").setText(UUIDUtil.makeTradeNo(Integer.valueOf(pojo.getTableId()), pojo.getId()));
+        root.addElement("total_fee").setText(String.valueOf(wXPayReFundDto.getTotalFee()));
+        root.addElement("refund_fee").setText(String.valueOf(wXPayReFundDto.getRefundFee()));
+
+        root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
+        
+        logger.debug("wxReFund, requestXml:{}");
+
+        String reuqestXml = root.asXML();
+        KeyStore keyStore = null;
+        try {
+            keyStore = KeyStore.getInstance("PKCS12");
+        } catch (KeyStoreException e) {
+        	logger.info("wechat key error");
+            return null;
+        }
+        FileInputStream instream = null;// 放退款证书的路径
+        try {
+            instream = new FileInputStream("configs/h5_apiclient_cert.p12");
+        } catch (FileNotFoundException e) {
+        	logger.info("wechat cert error");
+            return null;
+        }
+        try {
+            keyStore.load(instream, mchID.toCharArray());
+        } catch (CertificateException | NoSuchAlgorithmException | IOException e) {
+        	logger.info("wechat key load cert error");
+            return null;
+        } finally {
+            try {
+                instream.close();
+            } catch (IOException e) {
+            	logger.info(e.getMessage());
+            }
+        }
+        SSLContext sslcontext = null;
+        try {
+            sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, mchID.toCharArray())
+                    .build();
+        } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | UnrecoverableKeyException e) {
+        	logger.info("wechat sslcontext error");
+            return null;
+        }
+        @SuppressWarnings("deprecation")
+		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1" }, null,
+                SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+        CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
+        String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+
+        try {
+            HttpPost httpPost = new HttpPost(wXPayReFundDto.getNotifyUrl());// 退款接口
+
+            System.out.println("executing request" + httpPost.getRequestLine());
+            StringEntity reqEntity = new StringEntity(reuqestXml);
+            // 设置类型
+            reqEntity.setContentType("application/x-www-form-urlencoded");
+            httpPost.setEntity(reqEntity);
+            CloseableHttpResponse resp = httpclient.execute(httpPost);
+            try {
+                HttpEntity entity = (HttpEntity) resp.getEntity();
+                if (entity != null) {
+                    BufferedReader bufferedReader = new BufferedReader(
+                            new InputStreamReader(((org.apache.http.HttpEntity) entity).getContent(), "UTF-8"));
+                    String text;
+                    while ((text = bufferedReader.readLine()) != null) {
+                        response += text;
+                    }
+
+                }
+                EntityUtils.consume((org.apache.http.HttpEntity) entity);
+            } finally {
+                resp.close();
+            }
+        } catch (UnsupportedEncodingException | ClientProtocolException e) {
+        	logger.info("send refund request error ", e);
+            logger.info("send refund request error");
+            return null;
+        } catch (IOException e) {
+        	logger.info("send refund request error ", e);
+            logger.info("send refund request error");
+            return null;
+        } finally {
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.info("refund response" + response);
+
+        // 解析回复信息
+        try {
+            Document responseXML = DocumentHelper.parseText(response);
+            Element returnCodeElement = responseXML.getRootElement().element("return_code");
+            Element resultCodeElement = responseXML.getRootElement().element("result_code");
+            Element returnMsgElement = responseXML.getRootElement().element("return_msg");
+            Element errorCodeElement = responseXML.getRootElement().element("err_code");
+            Element errorCodeDesElement = responseXML.getRootElement().element("err_code_des");
+
+            if (returnCodeElement == null) {
+            	logger.info("send refund result is null");
+                return null;
+            }
+
+            String returnCode = returnCodeElement.getText();
+
+            if (returnCode == null) {
+            	logger.info("send refund return code is null");
+                return null;
+            }
+
+            // 下单失败（通信异常）
+            if (returnCode.equals("FAIL")) {
+                // 没有返回信息
+                if (returnMsgElement == null) {
+                	logger.info("refund error,退押金失败（通信异常) returnMsg is null");
+                    logger.info("send refund return code is fail and returnMsgElement is null");
+                    return null;
+                }
+                String returnMsg = returnMsgElement.getText();
+                logger.info("refund error 退押金失败（通信异常)");
+                return null;
+            }
+
+            // 请求成功
+            if (returnCode.equals("SUCCESS")) {
+                logger.info("refund success,returnCode is SUCCESS");
+                if (!WXPayUtils.checkSign(responseXML, payKey)) { // 校验签名
+                	logger.info("refund success,checkSign failed");
+                    logger.info("refund success,checkSign failed");
+                    return null;
+                }
+
+                if (resultCodeElement == null) {
+                	logger.info("resultCodeElement is null");
+                    return null;
+                }
+                String resultCode = resultCodeElement.getText();
+                // 下单成功
+                if (resultCode.equals("SUCCESS")) {
+                	logger.info("refund success,resultCode is success");
+                    return null;
+                } else if (resultCode.equals("FAIL")) {
+                	logger.info("refund failed,resultCode is FAIL");
+
+                    if (errorCodeElement == null) {
+                    	logger.info("errorCodeElement is null");
+                        return null;
+                    }
+                    String errorCode = errorCodeElement.getText();
+                    String errorCodeDes = null;
+                    if (errorCodeDesElement != null) {
+                        errorCodeDes = errorCodeDesElement.getText();
+                    }
+                    return null;
+                }
+            }
+
+        } catch (DocumentException ex) {
+        	logger.info("parse response xml error.");
+        	logger.info("parse response xml error");
+            return null;
+        }
+
+        logger.info("resultCode is error");	
+    	
+    	return null;
+    }
+    
     
     /**
      * 查询退款结果
