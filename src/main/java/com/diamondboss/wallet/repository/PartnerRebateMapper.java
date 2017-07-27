@@ -23,4 +23,11 @@ public interface PartnerRebateMapper {
 	 */
 	public int insertPartnerWalletDetail(PartnerWalletPojo Pojo);
 	
+	/**
+	 * 返佣
+	 * @param Pojo
+	 * @return
+	 */
+	public int insertPartnerWallet(PartnerWalletPojo Pojo);
+	
 }
