@@ -19,6 +19,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.SortingParams;
 import redis.clients.util.SafeEncoder;
 import com.alibaba.fastjson.JSONObject;
+import com.diamondboss.util.tools.PropsUtil;
 
 /**
  * @author Mr.hu
@@ -67,7 +68,7 @@ public class RedisBase {
 	 */
 	public Jedis getJedis() {	
 		//测试服务器redis
-		String redisip = "182.92.82.60";
+		String redisip = PropsUtil.getProperty("Server.URL");
 		
 		jedis =  RedisUtil.getJedis(redisip);
 	

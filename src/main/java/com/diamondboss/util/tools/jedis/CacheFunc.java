@@ -15,6 +15,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisSentinelPool;
 import com.alibaba.fastjson.JSONObject;
+import com.diamondboss.util.tools.PropsUtil;
 
 
 @Service("cacheFunc")
@@ -68,7 +69,7 @@ public class CacheFunc {
 		if(jedisPool==null){
 			synchronized(CacheFunc.class){
 				if(jedisPool==null){
-					setJedisPool("182.92.82.60:6379","pet123456");
+					setJedisPool(PropsUtil.getProperty("Server.URL") + ":6379","pet123456");
 				}
 			}
 		}
@@ -91,7 +92,7 @@ public class CacheFunc {
 		if(jedisSentinelPool==null){
 			synchronized(CacheFunc.class){
 				if(jedisSentinelPool==null){
-					setJedisSentinelPool("182.92.82.60:6379","pet123456");
+					setJedisSentinelPool(PropsUtil.getProperty("Server.URL") + ":6379","pet123456");
 				}
 			}
 		}
