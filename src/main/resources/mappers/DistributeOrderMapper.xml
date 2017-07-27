@@ -44,7 +44,7 @@
 		        #{partnerId},
 		        #{orderDate},
 		        #{orderStatus},
-		        #{amt},
+		        #{amt}*0.8,
 		        #{varieties},
 		        #{partnerName},
 		        #{outTradeNo},
