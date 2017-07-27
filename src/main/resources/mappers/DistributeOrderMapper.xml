@@ -68,4 +68,60 @@
 		    AND effective = '1'
 	</update>
 
+	<!-- 插入合伙人抢单信息  -->
+	<insert id="insertGrabOrderInfo"
+		parameterType="java.util.Map">
+		INSERT
+		INTO
+		    ${partnerTableId}
+		    (
+		        receive_time,
+		        return_time,
+		        pet_name,
+		        sex,
+		        age,
+		        phone,
+		        user_name,
+		        remark,
+		        user_id,
+		        user_key_id,
+		        user_table_id,
+		        partner_id,
+		        partner_name,
+		        order_date,
+		        order_status,
+		        amt,
+		        varieties,
+		        dogFood,
+		        effective
+		    )
+		SELECT
+		    receive_time,
+		    return_time,
+		    pet_name,
+		    sex,
+		    age,
+		    phone,
+		    user_name,
+		    remark,
+		    user_id,
+		    #{userKeyId},
+		    #{userTableId},
+		    partner_id,
+		    partner_name,
+		    order_date,
+		    order_status,
+		    amt*0.8,
+		    varieties,
+		    out_trade_no,
+		    trade_no,
+		    pay_type,
+		    dogFood,
+		    '1'
+		FROM
+		    ${userTableId}
+		WHERE
+			id = #{userKeyId}
+	</insert>
+	
 </mapper>
