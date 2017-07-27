@@ -1,7 +1,5 @@
 package com.diamondboss.util.tools;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
