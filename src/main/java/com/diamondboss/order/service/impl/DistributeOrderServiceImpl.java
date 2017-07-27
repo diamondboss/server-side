@@ -214,6 +214,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		
 		for(PartnerClientVo i :list){
 			
+			param.put("partnerId", i.getPartnerId());
 			param.put("partnerTableId", 
 			TableUtils.getOrderTableName(Long.valueOf(i.getPartnerId()), 
 					PetConstants.ORDER_PARTNER_TABLE_PREFIX));
