@@ -282,8 +282,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		if (!CollectionUtils.isEmpty(partners)){
 			for (PartnerClientVo pojo : partners){
 				// 2、确认合伙人的订单是否已满
-				if (!checkOrderCountsOfPartner(pojo.getPartnerId(), orderDate)) {
 					partnerList.add(pojo);
+					if (!checkOrderCountsOfPartner(pojo.getPartnerId(), orderDate)) {
 				}
 			}
 
