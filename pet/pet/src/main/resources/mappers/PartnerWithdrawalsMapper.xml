@@ -72,5 +72,23 @@
 		    )
 	</insert>
 
-
+	<insert id="insertPartnerWallet"
+		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		INSERT
+		INTO
+		    partner_wallet
+		    (
+		        partner_id,
+		        amt,
+		        effective
+		    )
+		    VALUES
+		    (
+		        #{partnerId},
+		        #{amt},
+		        '1'
+		    )
+	</insert>
+	
+	
 </mapper>
