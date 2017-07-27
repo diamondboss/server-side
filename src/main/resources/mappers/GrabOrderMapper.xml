@@ -127,7 +127,7 @@
 		    partner_name,
 		    order_date,
 		    order_status,
-		    amt,
+		    amt*0.8,
 		    varieties,
 		    out_trade_no,
 		    trade_no,
