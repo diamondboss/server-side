@@ -26,7 +26,7 @@
 		WHERE
 			partner_id = #{partnerId}
 			AND order_date &gt;= #{orderDate}
-			AND order_status = '4'
+			AND (order_status = '4' OR order_status = '5')
 			AND effective = '1'
 	</select>
 
