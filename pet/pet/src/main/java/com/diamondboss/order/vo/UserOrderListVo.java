@@ -1,11 +1,15 @@
 package com.diamondboss.order.vo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.constants.PetInfoConstants;
 import com.diamondboss.order.pojo.UserOrderListPojo;
+import com.diamondboss.util.pojo.OutTradeNoPojo;
+import com.diamondboss.util.tools.UUIDUtil;
 
 
 /**
