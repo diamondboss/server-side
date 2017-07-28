@@ -107,7 +107,7 @@
 		    remark,
 		    user_id,
 		    #{userKeyId},
-		    #{userTableId},
+		    #{tableId},
 		    #{partnerId},
 		    partner_name,
 		    order_date,
