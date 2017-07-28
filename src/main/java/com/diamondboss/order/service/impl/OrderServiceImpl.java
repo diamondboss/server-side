@@ -129,7 +129,7 @@ public class OrderServiceImpl implements IOrderService {
 				Long.valueOf(userId), PetConstants.ORDER_USER_TABLE_PREFIX));
 		
 		List<UserOrderListPojo> list = userOrderServiceMapper.queryUserOrderList(param);
-		UserOrderListVo vo = new UserOrderListVo(list);
+		UserOrderListVo vo = new UserOrderListVo(list,0);
 		return vo;
 	}
 
@@ -148,7 +148,7 @@ public class OrderServiceImpl implements IOrderService {
 				Long.valueOf(partnerId), PetConstants.ORDER_PARTNER_TABLE_PREFIX));
 		
 		List<UserOrderListPojo> list = userOrderServiceMapper.queryPartnerOrderList(param);
-		UserOrderListVo vo = new UserOrderListVo(list);
+		UserOrderListVo vo = new UserOrderListVo(list,1);
 		return vo;
 	}
 	
