@@ -33,8 +33,14 @@ public class UserOrderListVo{
 					|| PetConstants.ORDER_STATUS_FINISH_GIVEBACK.equals(i.getOrderStatus())){// 已完成订单
 				i.setPartnerNameOfOrder(i.getPartnerName());
 				
-				i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
-						+ "：" + i.getPartnerName());
+				
+				
+				if(i.getPartnerName() == null){
+					i.setPartnerName("已接单");
+				}else{
+					i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
+							+ "：" + i.getPartnerName());
+				}
 				
 				finish.add(i);// 加入已完成订单队列
 				
@@ -59,7 +65,6 @@ public class UserOrderListVo{
 				
 				String partnerName = i.getPartnerName();
 				i.setPartnerNameOfOrder(i.getPartnerName());
-				
 				i.setPartnerName(PetInfoConstants.ORDER_READY + partnerName);
 				
 				underway.add(i);// 加入进行中订单队列

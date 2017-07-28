@@ -127,8 +127,9 @@
 	<select id="queryPartnerClient"
 		parameterType="java.lang.String"
 		resultType="com.diamondboss.order.vo.PartnerClientVo">
-			SELECT  partner_id AS partnerId,
-					client_id AS clientId
+			SELECT  B.partner_id AS partnerId,
+					B.name AS partnerName,
+					A.client_id AS clientId
 			FROM partner_client_id A LEFT JOIN partner_info B 
 			ON A.partner_id = B.parter_id
 			WHERE B.community_id = #{communityId}

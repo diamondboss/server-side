@@ -12,6 +12,11 @@ public class PartnerClientVo {
 	private String partnerId;
 	
 	/**
+	 * 合伙人姓名
+	 */
+	private String partnerName;
+
+	/**
 	 * 客户端Id（合伙人）
 	 */
 	private String clientId;
@@ -22,6 +27,14 @@ public class PartnerClientVo {
 
 	public void setPartnerId(String partnerId) {
 		this.partnerId = partnerId;
+	}
+	
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
 	}
 
 	public String getClientId() {
