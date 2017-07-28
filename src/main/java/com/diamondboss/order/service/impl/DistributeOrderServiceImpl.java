@@ -199,6 +199,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		// 查询合适的合伙人
 		List<PartnerClientVo> list = getPartnerList(pojo.getCommunityId(), pojo.getOrderDate());
 		
+		logger.info("合适的合伙人数量："  + list.size());
+		
 		if(list == null || list.size() == 0){
 			
 			return;// 无合适合伙人,等待系统自动处理，插入异常信息
@@ -212,13 +214,18 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		param.put("userTableId", 
 				PetConstants.ORDER_USER_TABLE_PREFIX + tradeNoPojo.getTableId());
 		
+		logger.info("------" + param);
 		for(PartnerClientVo i :list){
 			
 			param.put("partnerId", i.getPartnerId());
 			param.put("partnerTableId", 
 			TableUtils.getOrderTableName(Long.valueOf(i.getPartnerId()), 
 					PetConstants.ORDER_PARTNER_TABLE_PREFIX));
-			distributeOrderMapper.insertGrabOrderInfo(param);
+			try{
+				distributeOrderMapper.insertGrabOrderInfo(param);
+			}catch(Exception e){
+				logger.info("插入抢单表异常：" + e.getMessage());
+			}
 			
 			
 		}
@@ -275,10 +282,13 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	 */
 	private List<PartnerClientVo> getPartnerList(String CommunityId, String orderDate){
 		List<PartnerClientVo> partnerList = new ArrayList<>();
+		logger.info("根据社区id查询有几个合伙人，社区ID：" + CommunityId);
 		// 1、根据社区id查询有几个合伙人
 		List<PartnerClientVo> partners = 
 				placeOrderMapper.queryPartnerClient(CommunityId);
 
+		
+		logger.info("合伙人数量：" + partners.size());
 		if (!CollectionUtils.isEmpty(partners)){
 			for (PartnerClientVo pojo : partners){
 				// 2、确认合伙人的订单是否已满
