@@ -47,6 +47,12 @@ public class GrabOrderPojo {
 	 * 订单日期
 	 */
 	private String orderDate;
+	
+	/**
+	 * 小区Id
+	 */
+	private String communityId;
+
 
 	/**
 	 * 用户id
@@ -142,6 +148,14 @@ public class GrabOrderPojo {
 
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
+	}
+	
+	public String getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
 	}
 	
 }
