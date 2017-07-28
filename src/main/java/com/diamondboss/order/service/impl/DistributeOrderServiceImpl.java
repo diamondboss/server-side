@@ -221,7 +221,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			param.put("partnerId", i.getPartnerId());
 			param.put("partnerTableId", 
 			TableUtils.getOrderTableName(Long.valueOf(i.getPartnerId()), 
-					PetConstants.ORDER_PARTNER_TABLE_PREFIX));
+					PetConstants.GRAB_ORDER_INFO_TABLE_PREFIX));
 			try{
 				distributeOrderMapper.insertGrabOrderInfo(param);
 			}catch(Exception e){
