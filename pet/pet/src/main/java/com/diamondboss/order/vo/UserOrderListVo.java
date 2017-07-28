@@ -25,77 +25,104 @@ public class UserOrderListVo{
 		
 	}
 	
-	public UserOrderListVo(List<UserOrderListPojo> pojo){
+	public UserOrderListVo(List<UserOrderListPojo> pojo, int flag){
 		
-		for(UserOrderListPojo i:pojo){
-			
-			if(PetConstants.ORDER_STATUS_FINISH_RECEIVE.equals(i.getOrderStatus())
-					|| PetConstants.ORDER_STATUS_FINISH_GIVEBACK.equals(i.getOrderStatus())){// 已完成订单
-				i.setPartnerNameOfOrder(i.getPartnerName());
-				
-				
-				
-				if(i.getPartnerName() == null){
-					i.setPartnerName("已接单");
-				}else{
-					i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
-							+ "：" + i.getPartnerName());
+			if(0 == flag){
+				for(UserOrderListPojo i:pojo){
+					
+					if(PetConstants.ORDER_STATUS_FINISH_RECEIVE.equals(i.getOrderStatus())
+							|| PetConstants.ORDER_STATUS_FINISH_GIVEBACK.equals(i.getOrderStatus())){// 已完成订单
+						i.setPartnerNameOfOrder(i.getPartnerName());	
+						i.setPartnerName("已接单");
+						
+						finish.add(i);// 加入已完成订单队列
+					}else if(PetConstants.ORDER_STATUS_RECEIVED.equals(i.getOrderStatus())){// 已接单订单
+						
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
+								+ "：" + i.getPartnerName());
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_EXCEPTION.equals(i.getOrderStatus())){// 异常订单
+						
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_CUSTOMER_SERVICE);
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus()) && i.getPartnerId() != null){// 已接单
+						
+						String partnerName = i.getPartnerName();
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_READY + partnerName);
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
+						i.setPartnerNameOfOrder("订单派发中");
+						i.setPartnerPhone("电话：将在派单成功后显示");
+						i.setPartnerName(PetInfoConstants.ORDER_DISTRIBUTE);
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_PAY_FAILURE.equals(i.getOrderStatus())){// 支付失败订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_PAY_FAILURE);
+						
+						canceled.add(i);// 加入已取消订单队列
+					}else if(PetConstants.ORDER_STATUS_UNPAID.equals(i.getOrderStatus())){// 未支付订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_UNPAID);
+						
+						canceled.add(i);// 加入已取消订单队列
+					}else{
+						canceled.add(i);// 加入已取消订单队列
+					}
 				}
-				
-				finish.add(i);// 加入已完成订单队列
-				
-			}else if(PetConstants.ORDER_STATUS_RECEIVED.equals(i.getOrderStatus())){// 已接单订单
-				
-				i.setPartnerNameOfOrder(i.getPartnerName());
-				
-				i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
-						+ "：" + i.getPartnerName());
-				
-				underway.add(i);// 加入进行中订单队列
-				
-			}else if(PetConstants.ORDER_STATUS_EXCEPTION.equals(i.getOrderStatus())){// 异常订单
-				
-				i.setPartnerNameOfOrder(i.getPartnerName());
-				
-				i.setPartnerName(PetInfoConstants.ORDER_CUSTOMER_SERVICE);
-				
-				underway.add(i);// 加入进行中订单队列
-				
-			}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus()) && i.getPartnerId() != null){// 已接单
-				
-				String partnerName = i.getPartnerName();
-				i.setPartnerNameOfOrder(i.getPartnerName());
-				i.setPartnerName(PetInfoConstants.ORDER_READY + partnerName);
-				
-				underway.add(i);// 加入进行中订单队列
-				
-		
-			}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
-				i.setPartnerNameOfOrder("订单派发中");
-				i.setPartnerPhone("电话：将在派单成功后显示");
-				i.setPartnerName(PetInfoConstants.ORDER_DISTRIBUTE);
-				
-				underway.add(i);// 加入进行中订单队列
-				
-		
-			}else if(PetConstants.ORDER_STATUS_PAY_FAILURE.equals(i.getOrderStatus())){// 支付失败订单
-				i.setPartnerNameOfOrder(i.getPartnerName());
-				i.setPartnerName(PetInfoConstants.ORDER_PAY_FAILURE);
-				
-				canceled.add(i);// 加入已取消订单队列
-				
-			}else if(PetConstants.ORDER_STATUS_UNPAID.equals(i.getOrderStatus())){// 未支付订单
-				i.setPartnerNameOfOrder(i.getPartnerName());
-				i.setPartnerName(PetInfoConstants.ORDER_UNPAID);
-				
-				canceled.add(i);// 加入已取消订单队列
-				
-			}else{
-				
-				canceled.add(i);// 加入已取消订单队列
-			}
-			
-			
+			}else if(1 == flag){
+				for(UserOrderListPojo i:pojo){
+					
+					if(PetConstants.ORDER_STATUS_FINISH_RECEIVE.equals(i.getOrderStatus())
+							|| PetConstants.ORDER_STATUS_FINISH_GIVEBACK.equals(i.getOrderStatus())){// 已完成订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
+									+ "：" + i.getPartnerName());
+						
+						finish.add(i);// 加入已完成订单队列
+					}else if(PetConstants.ORDER_STATUS_RECEIVED.equals(i.getOrderStatus())){// 已接单订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
+								+ "：" + i.getPartnerName());
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_EXCEPTION.equals(i.getOrderStatus())){// 异常订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_CUSTOMER_SERVICE);
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus()) && i.getPartnerId() != null){// 已接单
+						String partnerName = i.getPartnerName();
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_READY + partnerName);
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
+						i.setPartnerNameOfOrder("订单派发中");
+						i.setPartnerPhone("电话：将在派单成功后显示");
+						i.setPartnerName(PetInfoConstants.ORDER_DISTRIBUTE);
+						
+						underway.add(i);// 加入进行中订单队列
+					}else if(PetConstants.ORDER_STATUS_PAY_FAILURE.equals(i.getOrderStatus())){// 支付失败订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_PAY_FAILURE);
+						
+						canceled.add(i);// 加入已取消订单队列
+					}else if(PetConstants.ORDER_STATUS_UNPAID.equals(i.getOrderStatus())){// 未支付订单
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName(PetInfoConstants.ORDER_UNPAID);
+						
+						canceled.add(i);// 加入已取消订单队列
+					}else{
+						canceled.add(i);// 加入已取消订单队列
+					}
+			}	
 		}
 	}
 	
