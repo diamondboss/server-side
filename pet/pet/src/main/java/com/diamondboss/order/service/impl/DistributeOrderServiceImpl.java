@@ -211,6 +211,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		Map<String, Object> param = new HashMap<>();
 		OutTradeNoPojo tradeNoPojo = UUIDUtil.getInfoFromTradeNo(pojo.getOutTradeNo());
 		param.put("userKeyId",tradeNoPojo.getId());
+		param.put("tableId",tradeNoPojo.getTableId());
 		param.put("userTableId", 
 				PetConstants.ORDER_USER_TABLE_PREFIX + tradeNoPojo.getTableId());
 		
