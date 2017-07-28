@@ -33,14 +33,13 @@ public class UserOrderListVo{
 					if(PetConstants.ORDER_STATUS_FINISH_RECEIVE.equals(i.getOrderStatus())
 							|| PetConstants.ORDER_STATUS_FINISH_GIVEBACK.equals(i.getOrderStatus())){// 已完成订单
 						i.setPartnerNameOfOrder(i.getPartnerName());	
-						i.setPartnerName("已接单");
+						i.setPartnerName("已完成订单");
 						
 						finish.add(i);// 加入已完成订单队列
 					}else if(PetConstants.ORDER_STATUS_RECEIVED.equals(i.getOrderStatus())){// 已接单订单
 						
 						i.setPartnerNameOfOrder(i.getPartnerName());
-						i.setPartnerName(PetInfoConstants.ORDER_PARTNER_NAME 
-								+ "：" + i.getPartnerName());
+						i.setPartnerName("已接单");
 						
 						underway.add(i);// 加入进行中订单队列
 					}else if(PetConstants.ORDER_STATUS_EXCEPTION.equals(i.getOrderStatus())){// 异常订单
@@ -53,7 +52,7 @@ public class UserOrderListVo{
 						
 						String partnerName = i.getPartnerName();
 						i.setPartnerNameOfOrder(i.getPartnerName());
-						i.setPartnerName(PetInfoConstants.ORDER_READY + partnerName);
+						i.setPartnerName("已接单");
 						
 						underway.add(i);// 加入进行中订单队列
 					}else if(PetConstants.ORDER_STATUS_PAY_SUCCESS.equals(i.getOrderStatus())){// 派单中订单
