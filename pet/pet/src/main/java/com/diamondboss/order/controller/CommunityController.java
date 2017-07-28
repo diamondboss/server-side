@@ -46,6 +46,7 @@ public class CommunityController {
 			app.setRetnCode(0);
 			return app;
 		}
+		
 		app.setData("");
 		app.setRetnCode(1);
 		app.setRetnDesc("当前小区未开放，敬请期待");
