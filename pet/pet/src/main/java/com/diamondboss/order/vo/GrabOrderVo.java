@@ -46,8 +46,8 @@ public class GrabOrderVo {
 	/**
 	 * 电话
 	 */
-	private String phone;
-	
+	private String userPhone;
+
 	/**
 	 * 用户姓名
 	 */
@@ -198,16 +198,12 @@ public class GrabOrderVo {
 	 * 电话
 	 * @return
 	 */
-	public String getPhone() {
-		return phone;
+	public String getUserPhone() {
+		return userPhone;
 	}
 
-	/**
-	 * 电话
-	 * @param phone
-	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 
 	/**
