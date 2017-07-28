@@ -112,6 +112,7 @@
 		        trade_no,
 		        pay_type,
 		        dogFood,
+		        community_id,
 		        effective
 		    )
 		SELECT
@@ -134,6 +135,7 @@
 		    trade_no,
 		    pay_type,
 		    dogFood,
+		    community_id,
 		    '1'
 		FROM
 		    ${userTableId}
