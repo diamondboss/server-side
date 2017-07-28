@@ -84,7 +84,7 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	private Boolean cheakSelfOrderNum(String partnerId, String orderDate){
 		
 		String orderPartner = TableUtils.getOrderTableName(Long.valueOf(partnerId),
-				PetConstants.ORDER_USER_TABLE_PREFIX);
+				PetConstants.ORDER_PARTNER_TABLE_PREFIX);
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("partnerId", partnerId);
