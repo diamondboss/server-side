@@ -12,7 +12,7 @@
 		    pet_name AS petName,
 		    sex AS sex,
 		    age AS age,
-		    phone AS phone,
+		    phone AS userPhone,
 		    user_name AS userName,
 		    remark AS remark,
 		    partner_name AS partnerName,
