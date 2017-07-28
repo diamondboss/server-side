@@ -1,0 +1,15 @@
+alter table order_user_1 add community_id varchar(20) not Null;
+alter table order_user_2 add community_id varchar(20) not Null;
+alter table order_user_3 add community_id varchar(20) not Null;
+alter table order_user_4 add community_id varchar(20) not Null;
+
+alter table order_partner_1 add community_id varchar(20) not Null;
+alter table order_partner_2 add community_id varchar(20) not Null;
+alter table order_partner_3 add community_id varchar(20) not Null;
+alter table order_partner_4 add community_id varchar(20) not Null;
+
+alter table grab_order_info_1 add community_id varchar(20) not Null;
+alter table grab_order_info_2 add community_id varchar(20) not Null;
+alter table grab_order_info_3 add community_id varchar(20) not Null;
+alter table grab_order_info_4 add community_id varchar(20) not Null;
+
