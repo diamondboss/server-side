@@ -93,6 +93,7 @@
 		        amt,
 		        varieties,
 		        dogFood,
+		        community_id,
 		        effective
 		    )
 		SELECT
@@ -114,6 +115,7 @@
 		    amt*0.8,
 		    varieties,
 		    dogFood,
+		    community_id,
 		    '1'
 		FROM
 		    ${userTableId}
