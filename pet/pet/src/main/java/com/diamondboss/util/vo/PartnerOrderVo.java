@@ -63,6 +63,16 @@ public class PartnerOrderVo {
 	
 	private String orderDate;
 	
+	private String outTradeNo;
+	
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
+	}
+
 	public String getDogFood() {
 		return dogFood;
 	}

@@ -20,6 +20,7 @@
 		    varieties AS varieties,
 		    user_id AS userId,
 		    dogFood AS dogFood,
+		    out_trade_no AS outTradeNo,
 		    remark AS remark
 		FROM
 		    ${orderPartner}
