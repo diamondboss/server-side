@@ -53,6 +53,7 @@
 		        order_status,
 		        amt,
 		        dogFood,
+		        community_id,
 		        effective
 		    )
 		    VALUES
@@ -73,6 +74,7 @@
 		        #{orderStatus},
 		        #{amt},
 		        #{dogFood},
+		        #{communityId},
 		        '1'
 		    )
 	</insert>

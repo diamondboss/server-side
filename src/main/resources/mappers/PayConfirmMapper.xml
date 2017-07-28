@@ -55,6 +55,7 @@
 		    trade_no AS tradeNo,
 		    pay_type AS payType,
 		    dogFood AS dogFood,
+		    community_id AS communityId,
 		    effective AS effective
 		FROM
 		    ${orderUser}
