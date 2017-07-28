@@ -113,9 +113,6 @@
 		    order_status,
 		    amt*0.8,
 		    varieties,
-		    out_trade_no,
-		    trade_no,
-		    pay_type,
 		    dogFood,
 		    '1'
 		FROM
