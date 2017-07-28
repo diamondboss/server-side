@@ -65,7 +65,10 @@ public class UserOrderListPojo{
 	 */
 	private String partnerPhone;
 	
-	
+	/**
+	 * 订单号
+	 */
+	private String outTradeNo;
 
 	/**
 	 * 订单状态
@@ -222,6 +225,14 @@ public class UserOrderListPojo{
 		}else{
 			this.partnerPhone = partnerPhone;
 		}
+	}
+	
+	public String getOutTradeNo() {
+		return outTradeNo;
+	}
+
+	public void setOutTradeNo(String outTradeNo) {
+		this.outTradeNo = outTradeNo;
 	}
 
 	/**
