@@ -109,7 +109,7 @@
 		    #{userKeyId},
 		    #{tableId},
 		    #{partnerId},
-		    partner_name,
+		    #{partnerName},
 		    order_date,
 		    order_status,
 		    amt*0.8,
