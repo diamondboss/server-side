@@ -38,6 +38,7 @@
 		    partner_id AS partnerId,
 		    partner_name AS partnerName,
 		    user_key_id	AS userKeyId,
+		    community_id AS communityId,
 		    order_date AS orderDate
 		FROM
 		    ${grabOrderTable}
