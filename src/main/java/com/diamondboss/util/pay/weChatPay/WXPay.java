@@ -343,6 +343,7 @@ public class WXPay {
     @SuppressWarnings("deprecation")
 	public static Map<String, Object> refund(WXPayReFundDTO wXPayReFundDto){
 
+    	logger.info("微信退款开始");
         Document requestXML = DocumentHelper.createDocument();
         Element root = requestXML.addElement("xml");
 
@@ -360,32 +361,33 @@ public class WXPay {
 
         root.addElement("sign").setText(WXPayUtils.createSign(requestXML, payKey));
         
-        logger.debug("wxReFund, requestXml:{}");
+        logger.debug("wxReFund, requestXml：" + root);
 
         String reuqestXml = root.asXML();
         KeyStore keyStore = null;
         try {
             keyStore = KeyStore.getInstance("PKCS12");
+            logger.info("获取微信退款证书类型完成");
         } catch (KeyStoreException e) {
         	logger.info("wechat key error");
-            return null;
         }
         FileInputStream instream = null;// 放退款证书的路径
         try {
-            instream = new FileInputStream(getPath("/configs/wxpay/apiclient_cert.p12"));
+            instream = new FileInputStream("/configs/wxpay/apiclient_cert.p12");
         	//instream = new FileInputStream(getPath("D:\\warTest\\apiclient_cert.p12"));
+            logger.info("获取微信退款证书路径完成");
         } catch (FileNotFoundException e) {
         	logger.info("wechat cert error");
-            return null;
         }
         try {
             keyStore.load(instream, mchID.toCharArray());
+            logger.info("微信秘钥载入成功");
         } catch (CertificateException | NoSuchAlgorithmException | IOException e) {
         	logger.info("wechat key load cert error");
-            return null;
         } finally {
             try {
                 instream.close();
+                logger.info("关闭流");
             } catch (IOException e) {
             	logger.info(e.getMessage());
             }
@@ -394,9 +396,9 @@ public class WXPay {
         try {
             sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, mchID.toCharArray())
                     .build();
+            logger.info("获取SSL完成");
         } catch (NoSuchAlgorithmException | KeyManagementException | KeyStoreException | UnrecoverableKeyException e) {
         	logger.info("wechat sslcontext error");
-            return null;
         }
         @SuppressWarnings("deprecation")
 		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1" }, null,
@@ -405,48 +407,60 @@ public class WXPay {
         String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
         try {
+        	logger.info("发送退款接口");
+        	logger.info("退款接口，请求URL：" + wXPayReFundDto.getNotifyUrl());
             HttpPost httpPost = new HttpPost(wXPayReFundDto.getNotifyUrl());// 退款接口
 
-            System.out.println("executing request" + httpPost.getRequestLine());
+            logger.info("executing request" + httpPost.getRequestLine());
             StringEntity reqEntity = new StringEntity(reuqestXml);
             // 设置类型
             reqEntity.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(reqEntity);
             CloseableHttpResponse resp = httpclient.execute(httpPost);
             try {
+            	logger.info("开始返回写入文件");
                 HttpEntity entity = (HttpEntity) resp.getEntity();
                 if (entity != null) {
+                	logger.info("entity不为空，继续写");
                     BufferedReader bufferedReader = new BufferedReader(
                             new InputStreamReader(((org.apache.http.HttpEntity) entity).getContent(), "UTF-8"));
                     String text;
                     while ((text = bufferedReader.readLine()) != null) {
                         response += text;
                     }
+                    logger.info("response" + response);
+                    logger.info("写完毕");
 
+                }else{
+                	logger.info("entity空");
                 }
                 EntityUtils.consume((org.apache.http.HttpEntity) entity);
-            } finally {
+            } catch(Exception e){
+            	logger.info("异常了：" + e.getMessage());
+            }finally {
+            	logger.info("resp关闭");
                 resp.close();
             }
         } catch (UnsupportedEncodingException | ClientProtocolException e) {
         	logger.info("send refund request error ", e);
             logger.info("send refund request error");
-            return null;
         } catch (IOException e) {
         	logger.info("send refund request error ", e);
             logger.info("send refund request error");
-            return null;
         } finally {
             try {
+            	logger.info("http关闭");
                 httpclient.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        
         logger.info("refund response" + response);
 
         // 解析回复信息
         try {
+        	logger.info("解析回复信息");
             Document responseXML = DocumentHelper.parseText(response);
             Element returnCodeElement = responseXML.getRootElement().element("return_code");
             Element resultCodeElement = responseXML.getRootElement().element("result_code");
@@ -456,67 +470,62 @@ public class WXPay {
 
             if (returnCodeElement == null) {
             	logger.info("send refund result is null");
-                return null;
-            }
+			}
 
-            String returnCode = returnCodeElement.getText();
-
-            if (returnCode == null) {
+			String returnCode = returnCodeElement.getText();
+			
+			if (returnCode == null) {
             	logger.info("send refund return code is null");
-                return null;
             }
+			
+			 if (resultCodeElement == null) {
+             	logger.info("resultCodeElement is null");
+             }
 
-            // 下单失败（通信异常）
-            if (returnCode.equals("FAIL")) {
-                // 没有返回信息
-                if (returnMsgElement == null) {
-                	logger.info("refund error,退款失败（通信异常) returnMsg is null");
-                    logger.info("send refund return code is fail and returnMsgElement is null");
-                    return null;
-                }
-                String returnMsg = returnMsgElement.getText();
-                logger.info("refund error 退款失败（通信异常)");
-                return null;
-            }
+			// 下单失败（通信异常）
+			if (returnCode.equals("FAIL")) {
+				// 没有返回信息
+				if (returnMsgElement == null) {
+					logger.info("refund error,退款失败（通信异常) returnMsg is null");
+					logger.info("send refund return code is fail and returnMsgElement is null");
+				}
+				String returnMsg = returnMsgElement.getText();
+				logger.info("refund error 退款失败（通信异常)");
+			}
 
-            // 请求成功
-            if (returnCode.equals("SUCCESS")) {
-                logger.info("refund success,returnCode is SUCCESS");
-                if (!WXPayUtils.checkSign(responseXML, payKey)) { // 校验签名
-                	logger.info("refund success,checkSign failed");
-                    logger.info("refund success,checkSign failed");
-                    return null;
-                }
+			logger.info("return_code：" + returnCodeElement.getText());
+			logger.info("result_code：" + resultCodeElement.getText());
+			logger.info("return_msg：" + returnMsgElement.getText());
+          
+			// 请求成功
+			if (returnCode.equals("SUCCESS")) {
+				logger.info("refund success,returnCode is SUCCESS");
+				if (!WXPayUtils.checkSign(responseXML, payKey)) { // 校验签名
+					logger.info("refund success,checkSign failed");
+					logger.info("refund success,checkSign failed");
+				}
 
-                if (resultCodeElement == null) {
-                	logger.info("resultCodeElement is null");
-                    return null;
-                }
-                String resultCode = resultCodeElement.getText();
-                // 下单成功
-                if (resultCode.equals("SUCCESS")) {
-                	logger.info("refund success,resultCode is success");
-                    return null;
-                } else if (resultCode.equals("FAIL")) {
-                	logger.info("refund failed,resultCode is FAIL");
+				String resultCode = resultCodeElement.getText();
+				// 下单成功
+				if (resultCode.equals("SUCCESS")) {
+					logger.info("refund success,resultCode is success");
+				} else if (resultCode.equals("FAIL")) {
+					logger.info("refund failed,resultCode is FAIL");
 
-                    if (errorCodeElement == null) {
-                    	logger.info("errorCodeElement is null");
-                        return null;
-                    }
-                    String errorCode = errorCodeElement.getText();
-                    String errorCodeDes = null;
-                    if (errorCodeDesElement != null) {
-                        errorCodeDes = errorCodeDesElement.getText();
-                    }
-                    return null;
-                }
-            }
+					if (errorCodeElement == null) {
+						logger.info("errorCodeElement is null");
+					}
+					String errorCode = errorCodeElement.getText();
+					String errorCodeDes = null;
+					if (errorCodeDesElement != null) {
+						errorCodeDes = errorCodeDesElement.getText();
+					}
+				}
+			}
 
-        } catch (DocumentException ex) {
+		} catch (DocumentException ex) {
         	logger.info("parse response xml error.");
         	logger.info("parse response xml error");
-            return null;
         }
 
         logger.info("resultCode is error");	
