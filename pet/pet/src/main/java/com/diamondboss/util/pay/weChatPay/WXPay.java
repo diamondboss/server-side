@@ -469,12 +469,12 @@ public class WXPay {
             if (returnCode.equals("FAIL")) {
                 // 没有返回信息
                 if (returnMsgElement == null) {
-                	logger.info("refund error,退押金失败（通信异常) returnMsg is null");
+                	logger.info("refund error,退款失败（通信异常) returnMsg is null");
                     logger.info("send refund return code is fail and returnMsgElement is null");
                     return null;
                 }
                 String returnMsg = returnMsgElement.getText();
-                logger.info("refund error 退押金失败（通信异常)");
+                logger.info("refund error 退款失败（通信异常)");
                 return null;
             }
 
