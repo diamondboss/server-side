@@ -117,13 +117,13 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		params.put("tableName", tableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", orderDate);
-		params.put("orderStatus", PetConstants.ORDER_STATUS_PAY_SUCCESS);
+		params.put("orderStatus", PetConstants.ORDER_STATUS_RECEIVED);
 		int counts = placeOrderMapper.queryCountsByPartnerAndDate(params);// 当前订单数量
 		
 		int riseNo = placeOrderMapper.queryPartnerCondition(partnerId);// 可接受订单数量
 		
 		// 小于饲养上限，则为可用
-		return counts < riseNo ? false : true;
+		return counts < riseNo ? true : false;
 	}
 
 	/**

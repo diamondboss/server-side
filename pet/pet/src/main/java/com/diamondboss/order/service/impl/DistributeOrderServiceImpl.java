@@ -265,7 +265,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		params.put("tableName", tableName);
 		params.put("partnerId", partnerId);
 		params.put("orderDate", orderDate);
-		params.put("orderStatus", "2");
+		params.put("orderStatus", "4");
 		
 		int counts = placeOrderMapper.queryCountsByPartnerAndDate(params);// 当前订单数量
 		logger.info("counts:" + counts);

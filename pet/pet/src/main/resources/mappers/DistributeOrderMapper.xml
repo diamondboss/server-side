@@ -28,6 +28,7 @@
 		        trade_no,
 		        pay_type,
 		        dogFood,
+		        community_id,
 		        effective
 		    )
 		    VALUES
@@ -51,6 +52,7 @@
 		        #{tradeNo},
 		        #{payType},
 		        #{dogFood},
+		        #{communityId},
 		        '1'
 		    )
 	</insert>
