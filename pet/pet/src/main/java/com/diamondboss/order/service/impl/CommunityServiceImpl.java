@@ -1,8 +1,7 @@
 package com.diamondboss.order.service.impl;
 
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.diamondboss.order.repository.CommunityMapper;
@@ -17,7 +16,7 @@ import com.diamondboss.order.vo.CommunityResponseVo;
 @Service(value = "communityService")
 public class CommunityServiceImpl implements ICommunityService {
 
-	@Resource
+	@Autowired
 	private CommunityMapper communityMapper;
 
 	@Override
