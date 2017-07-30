@@ -25,6 +25,7 @@ public class QueryAlipayTradeStatus implements Runnable {
     		DistributeOrderServiceImpl distributeOrderServiceImpl) {
         this.tradeNo = tradeNo;
         this.outTradeNo = outTradeNo;
+        this.payConfirmMapper = payConfirmMapper;
         this.distributeOrderServiceImpl = distributeOrderServiceImpl;
     }
     
