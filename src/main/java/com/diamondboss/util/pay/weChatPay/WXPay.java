@@ -295,7 +295,7 @@ public class WXPay {
      * @param wXPayReFundDto
      * @return
      */
-    public static Map<String, Object> refund(WXPayReFundDTO wXPayReFundDto){
+    public static Map<String, Object> refund1(WXPayReFundDTO wXPayReFundDto){
 		logger.info("weChat refund--->outTradeNo:" + wXPayReFundDto.getOutTradeNo() + ", totalFee:"
 				+ wXPayReFundDto.getTotalFee() + ", refundFee:" + wXPayReFundDto.getRefundFee() + ", notifyUrl:"
 				+ wXPayReFundDto.getNotifyUrl());
@@ -341,7 +341,7 @@ public class WXPay {
      * @return
      */
     @SuppressWarnings("deprecation")
-	public static Map<String, Object> refund1(WXPayReFundDTO wXPayReFundDto){
+	public static Map<String, Object> refund(WXPayReFundDTO wXPayReFundDto){
 
         Document requestXML = DocumentHelper.createDocument();
         Element root = requestXML.addElement("xml");
