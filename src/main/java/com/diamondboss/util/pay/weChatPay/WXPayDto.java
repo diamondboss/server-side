@@ -3,7 +3,7 @@ package com.diamondboss.util.pay.weChatPay;
 
 public class WXPayDto {
 
-    /**
+	/**
      * 内部订单号
      */
     private String orderId;
@@ -35,7 +35,7 @@ public class WXPayDto {
      * 微信回调接口地址
      */
     private String outTradeNo;
-
+    
     public String getNotifyUrl() {
         return notifyUrl;
     }

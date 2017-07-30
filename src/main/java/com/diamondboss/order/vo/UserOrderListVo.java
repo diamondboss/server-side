@@ -71,6 +71,11 @@ public class UserOrderListVo{
 						i.setPartnerName(PetInfoConstants.ORDER_UNPAID);
 						
 						canceled.add(i);// 加入已取消订单队列
+					}else if(PetConstants.ORDER_STATUS_REFUND.equals(i.getOrderStatus())){//已退款
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName("已退款");
+						
+						canceled.add(i);// 加入已取消订单队列
 					}else{
 						canceled.add(i);// 加入已取消订单队列
 					}
@@ -116,6 +121,11 @@ public class UserOrderListVo{
 					}else if(PetConstants.ORDER_STATUS_UNPAID.equals(i.getOrderStatus())){// 未支付订单
 						i.setPartnerNameOfOrder(i.getPartnerName());
 						i.setPartnerName(PetInfoConstants.ORDER_UNPAID);
+						
+						canceled.add(i);// 加入已取消订单队列
+					}else if(PetConstants.ORDER_STATUS_REFUND.equals(i.getOrderStatus())){//已退款
+						i.setPartnerNameOfOrder(i.getPartnerName());
+						i.setPartnerName("已退款");
 						
 						canceled.add(i);// 加入已取消订单队列
 					}else{

@@ -102,6 +102,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				logger.info("调起支付宝退款");
 				if(Alipay.refund(pojo.getTradeNo(), pojo.getAmt())){
 					logger.info("支付宝退款成功！ ^_^ 订单号：" + pojo.getTradeNo());
+					
+					try{
+						updateUserStateOfRefund(pojo);
+					}catch(Exception e){
+						logger.info("退款后【支付宝】更新用户订单状态异常：" + e.getMessage());
+					}
 				}else{
 					logger.info("支付宝退款失败！订单号：" + pojo.getTradeNo());
 				}
@@ -109,12 +115,25 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			}else if(StringUtils.contains(pojo.getPayType(), "1")){
 				logger.info("调起微信退款");
 				WXPayReFundDTO dto = new WXPayReFundDTO();
+				dto.setUserId(pojo.getUserId());
 				dto.setOutTradeNo(pojo.getOutTradeNo());
 				dto.setTotalFee(pojo.getAmt().multiply(new BigDecimal(100)).setScale(0));
 				dto.setRefundFee(pojo.getAmt().multiply(new BigDecimal(100)).setScale(0));
 				dto.setNotifyUrl(PropsUtil.getProperty("WXPay.refund"));
 				//TODO 微信退款
-				WXPay.refund(dto);
+				Map result = WXPay.refund(dto);
+				if("SUCCESS".equals(result.get("result"))){
+					logger.info("微信退款成功");
+					try{
+						updateUserStateOfRefund(pojo);
+					}catch(Exception e){
+						logger.info("退款后【微信】更新用户订单状态异常：" + e.getMessage());
+					}
+					
+					logger.info("进入指定合伙人--订单分配--更新数据库订单信息成功");
+				}else{
+					logger.info("微信退款失败");
+				}
 			}
 			// APP推送用户
 			/*Map<String, String> map = new HashMap<String, String>();
@@ -301,6 +320,25 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 
 		}
 		return partnerList;
+	}
+	
+	/**
+	 * 退款后更新用户订单的状态为7：已退款
+	 * @param pojo
+	 */
+	private void updateUserStateOfRefund(OrderUserPojo pojo){
+		OrderUserPojo updatePojo = new OrderUserPojo();
+		updatePojo.setId(pojo.getId());
+		updatePojo.setPartnerId(pojo.getPartnerId());
+		updatePojo.setOrderStatus(PetConstants.ORDER_STATUS_REFUND);
+		
+		String orderUser = TableUtils.getOrderTableName(Long.valueOf(pojo.getUserId()),
+				PetConstants.ORDER_USER_TABLE_PREFIX);
+		updatePojo.setOrderUser(orderUser);
+		
+		logger.info("用户表名：" + orderUser);
+		
+		distributeOrderMapper.updateOrderUser(updatePojo);
 	}
 	
 }

@@ -1,12 +1,17 @@
 package com.diamondboss.util.pay.weChatPay;
 
 import com.alibaba.fastjson.JSONObject;
+import com.diamondboss.constants.PetConstants;
+import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.order.repository.DistributeOrderMapper;
 import com.diamondboss.util.pojo.OutTradeNoPojo;
 import com.diamondboss.util.tools.HttpUtils;
 import com.diamondboss.util.tools.PropsUtil;
+import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.tools.UUIDUtil;
 import com.mysql.jdbc.log.LogUtils;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -21,7 +26,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.springframework.http.HttpEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,12 +52,17 @@ import javax.net.ssl.SSLContext;
  * Created by liuzifu on 2017/7/6.
  */
 public class WXPay {
+	
+	@Autowired
+	private DistributeOrderMapper distributeOrderMapper;
+	
     private static final Logger logger = Logger.getLogger(WXPay.class);
 
     private static final String appId= PropsUtil.getProperty("WXPay.appId");
     private static final String mchID= PropsUtil.getProperty("WXPay.mchId");
     private static final String payKey= PropsUtil.getProperty("WXPay.payKey");
     private static final String tradeType= PropsUtil.getProperty("WXPay.tradeType");
+    
 
 
     public static Map<String, Object> sendPreOrder(WXPayDto weChatPayDto){
@@ -341,9 +352,11 @@ public class WXPay {
      * @return
      */
     @SuppressWarnings("deprecation")
-	public static Map<String, Object> refund(WXPayReFundDTO wXPayReFundDto){
+	public static Map<String, String> refund(WXPayReFundDTO wXPayReFundDto){
 
     	logger.info("微信退款开始");
+    	Map<String, String> result = new HashMap<>();
+    	
         Document requestXML = DocumentHelper.createDocument();
         Element root = requestXML.addElement("xml");
 
@@ -353,6 +366,7 @@ public class WXPay {
         root.addElement("mch_id").setText(mchID);
         root.addElement("nonce_str").setText(nonceStr);
         root.addElement("transaction_id").setText("");
+        root.addElement("out_trade_no").setText(wXPayReFundDto.getOutTradeNo());
 
         OutTradeNoPojo pojo = UUIDUtil.getInfoFromTradeNo(wXPayReFundDto.getOutTradeNo());
         root.addElement("out_refund_no").setText(UUIDUtil.makeTradeNo(Integer.valueOf(pojo.getTableId()), pojo.getId()));
@@ -417,9 +431,10 @@ public class WXPay {
             reqEntity.setContentType("application/x-www-form-urlencoded");
             httpPost.setEntity(reqEntity);
             CloseableHttpResponse resp = httpclient.execute(httpPost);
+            
             try {
             	logger.info("开始返回写入文件");
-                HttpEntity entity = (HttpEntity) resp.getEntity();
+                HttpEntity entity = resp.getEntity();
                 if (entity != null) {
                 	logger.info("entity不为空，继续写");
                     BufferedReader bufferedReader = new BufferedReader(
@@ -496,7 +511,7 @@ public class WXPay {
 			logger.info("return_code：" + returnCodeElement.getText());
 			logger.info("result_code：" + resultCodeElement.getText());
 			logger.info("return_msg：" + returnMsgElement.getText());
-          
+         
 			// 请求成功
 			if (returnCode.equals("SUCCESS")) {
 				logger.info("refund success,returnCode is SUCCESS");
@@ -509,9 +524,11 @@ public class WXPay {
 				// 下单成功
 				if (resultCode.equals("SUCCESS")) {
 					logger.info("refund success,resultCode is success");
+					
+					result.put("result", "SUCCESS");
 				} else if (resultCode.equals("FAIL")) {
 					logger.info("refund failed,resultCode is FAIL");
-
+					result.put("result", "FAIL");
 					if (errorCodeElement == null) {
 						logger.info("errorCodeElement is null");
 					}
@@ -530,7 +547,7 @@ public class WXPay {
 
         logger.info("resultCode is error");	
     	
-    	return null;
+    	return result;
     }
     
     private static File getPath(String path) {
