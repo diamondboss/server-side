@@ -24,6 +24,7 @@ import org.dom4j.Element;
 import org.springframework.http.HttpEntity;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -371,8 +372,8 @@ public class WXPay {
         }
         FileInputStream instream = null;// 放退款证书的路径
         try {
-            //instream = new FileInputStream("configs/h5_apiclient_cert.p12");
-        	instream = new FileInputStream("D:\\warTest\\apiclient_cert.p12" );
+            instream = new FileInputStream(getPath("/configs/wxpay/apiclient_cert.p12"));
+        	//instream = new FileInputStream(getPath("D:\\warTest\\apiclient_cert.p12"));
         } catch (FileNotFoundException e) {
         	logger.info("wechat cert error");
             return null;
@@ -521,6 +522,16 @@ public class WXPay {
         logger.info("resultCode is error");	
     	
     	return null;
+    }
+    
+    private static File getPath(String path) {
+        File fDir = new File(PropsUtil.class.getResource("/").getPath());
+        String p = fDir.getAbsolutePath();
+        path = p.replace("\\", "/") + "/" + path;
+        logger.info("证书存放路径：" + path);
+        File file = new File(path);
+        return file;
+
     }
     
     
