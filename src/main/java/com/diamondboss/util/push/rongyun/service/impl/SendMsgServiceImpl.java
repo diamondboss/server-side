@@ -1,11 +1,8 @@
 package com.diamondboss.util.push.rongyun.service.impl;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.util.pojo.RYGetTokenReturnInfo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
@@ -15,7 +12,6 @@ import com.diamondboss.util.push.rongyun.util.SmsSenderUtils;
 import com.diamondboss.util.push.rongyun.util.StringTools;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.SHA1Utils;
-import com.diamondboss.util.tools.jedis.CacheFunc;
 
 @Service(value="msgSendServiceImpl")
 public class SendMsgServiceImpl implements ISendMsgService {
@@ -35,8 +31,8 @@ public class SendMsgServiceImpl implements ISendMsgService {
 	
 	private static final String RYAppSecret = PropsUtil.getProperty("rongyun.RYAppSecret");
 
-	@Resource(name = "cacheFunc")
-	private CacheFunc cacheFunc = null;
+//	@Autowired
+//	private CacheFunc cacheFunc = null;
 
 	/**
 	 * 发送短信验证码
