@@ -5,6 +5,11 @@ import java.math.BigDecimal;
 public class WXPayReFundDTO {
 	
 	/**
+	 * 用户Id
+	 */
+	private String userId;
+
+	/**
 	 * 订单号
 	 */
 	private String outTradeNo;
@@ -23,6 +28,14 @@ public class WXPayReFundDTO {
 	 * 回调地址
 	 */
 	private String notifyUrl;
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getOutTradeNo() {
 		return outTradeNo;

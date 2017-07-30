@@ -27,7 +27,7 @@ public class PetConstants {
     
     
     /**
-     *  新建订单/未支付
+     *  新建订单/未支付/已退款
      */
     public static final String ORDER_STATUS_UNPAID = "0";
     
@@ -60,4 +60,9 @@ public class PetConstants {
      * 已送还宠物
      */
     public static final String ORDER_STATUS_FINISH_GIVEBACK = "6";
+    
+    /**
+     * 已退款
+     */
+    public static final String ORDER_STATUS_REFUND = "7";
 }
