@@ -371,7 +371,8 @@ public class WXPay {
         }
         FileInputStream instream = null;// 放退款证书的路径
         try {
-            instream = new FileInputStream("configs/h5_apiclient_cert.p12");
+            //instream = new FileInputStream("configs/h5_apiclient_cert.p12");
+        	instream = new FileInputStream("D:\\warTest\\apiclient_cert.p12" );
         } catch (FileNotFoundException e) {
         	logger.info("wechat cert error");
             return null;
