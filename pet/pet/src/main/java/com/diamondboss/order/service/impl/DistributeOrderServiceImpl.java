@@ -220,7 +220,6 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				logger.info(e.getMessage());
 			}
 			
-			
 			//查询到合伙人的手机号
 			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());
 			// 短信推送合伙人
@@ -275,8 +274,13 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			}catch(Exception e){
 				logger.info("插入抢单表异常：" + e.getMessage());
 			}
-			
-			
+		}
+		
+		try{
+			partnerRebateService.rebate(pojo);
+		}catch(Exception e){
+			logger.info("更新合伙人钱包金额异常。" + e.getMessage());
+			logger.info(e.getMessage());
 		}
 		
 		//1.查询出所在小区所有的合伙人clientId
