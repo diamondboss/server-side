@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.diamondboss.order.repository.PartnerRebateMapper" >
-	
+	<!-- 插入合伙人钱包明细信息  -->
+  	<insert id="insertPartnerWalletDetail"
+  		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+  		INSERT INTO ${partnerWalletDetail} 
+	  		(
+	  		partner_id, 
+	  		amt, 
+	  		kind, 
+	  		order_date, 
+	  		effective
+	  		)
+		VALUES 
+			(
+			#{partnerId},
+			#{amt},
+			#{kind},
+			#{orderDate},
+			"1")
+  	</insert>
+  	
+  	<!-- 更新用户信息 -->
+  	<update id="updatePartnerWallet" 
+  		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+  		UPDATE
+		    partner_wallet
+		SET
+		   	amt = amt + #{amt}
+		WHERE
+		    partner_id = #{partnerId}
+  	</update>
+  	
+  	<!-- 插入合伙人钱包信息  -->
+  	<insert id="insertPartnerWallet"
+  		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+  		INSERT INTO partner_wallet 
+	  		(
+	  		partner_id, 
+	  		amt,
+	  		effective
+	  		)
+		VALUES 
+			(
+			#{partnerId},
+			#{amt},
+			"1"
+			)
+  	</insert>
+  	
+  	
 </mapper>
