@@ -12,6 +12,7 @@ import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
+import com.diamondboss.wallet.vo.WalletSummaryVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
@@ -58,9 +59,9 @@ public class PartnerWithdrawalsController {
 	public APPResponseBody querySummaryInfo(String partnerId){
 		
 		
-		String value = withdrawalsService.querySummaryInfo(partnerId);
+		WalletSummaryVo vo = withdrawalsService.querySummaryInfo(partnerId);
 		APPResponseBody app = new APPResponseBody();
-		app.setData(value);
+		app.setData(vo);
 		app.setRetnCode(0);
 		return app;
 	}

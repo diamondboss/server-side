@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
+import com.diamondboss.wallet.vo.WalletSummaryVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
@@ -23,7 +24,7 @@ public interface PartnerWithdrawalsService {
 	/**
 	 * 查询钱包汇总
 	 */
-	public String querySummaryInfo(String partnerId);
+	public WalletSummaryVo querySummaryInfo(String partnerId);
 	
 	/**
 	 * 查询钱包明细
