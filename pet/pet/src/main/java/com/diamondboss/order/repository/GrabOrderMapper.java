@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.diamondboss.order.pojo.GrabOrderPojo;
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.vo.GrabOrderVo;
 
 public interface GrabOrderMapper {
@@ -54,4 +55,11 @@ public interface GrabOrderMapper {
 	 * @return
 	 */
 	public int querySelfOrderNum(Map<String, String> map);
+	
+	/**
+	 * 根据ID查询OrderUser
+	 * @param id
+	 * @return
+	 */
+	public OrderUserPojo selectOrderUser(Map<String, String> map);
 }

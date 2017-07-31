@@ -12,7 +12,6 @@ public class GrabOrderPojo {
 	public GrabOrderPojo(){
 		
 	}
-	
 	/**
 	 * 用户表对应的主键
 	 */
@@ -52,7 +51,6 @@ public class GrabOrderPojo {
 	 * 小区Id
 	 */
 	private String communityId;
-
 
 	/**
 	 * 用户id
