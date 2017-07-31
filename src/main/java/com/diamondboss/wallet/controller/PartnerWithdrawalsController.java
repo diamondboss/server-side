@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
+import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
 
 /**
@@ -47,10 +48,10 @@ public class PartnerWithdrawalsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/querySummaryInfo" ,method = RequestMethod.POST)
-	public APPResponseBody querySummaryInfo(PartnerWalletVo vo){
+	public APPResponseBody querySummaryInfo(String partnerId){
 		
 		
-		String value = withdrawalsService.querySummaryInfo(vo.getPartnerId());
+		String value = withdrawalsService.querySummaryInfo(partnerId);
 		APPResponseBody app = new APPResponseBody();
 		app.setData(value);
 		app.setRetnCode(0);
@@ -64,7 +65,7 @@ public class PartnerWithdrawalsController {
 	@RequestMapping(value = "/queryDetailed" ,method = RequestMethod.POST)
 	public APPResponseBody queryDetailed(String partnerId){
 		
-		List<PartnerWalletPojo> list = withdrawalsService.queryDetailed(partnerId);
+		List<PartnerWalletVo> list = withdrawalsService.queryDetailed(partnerId);
 		
 		APPResponseBody app = new APPResponseBody();
 		app.setData(list);
@@ -72,4 +73,18 @@ public class PartnerWithdrawalsController {
 		return app;
 	}
 	
+	/**
+	 * 查询钱包明细
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryTotalDetailed" ,method = RequestMethod.POST)
+	public APPResponseBody queryTotalDetailed(String partnerId){
+		
+		List<PartnerTotalWalletVo> list = withdrawalsService.queryTotalDetailed(partnerId);
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData(list);
+		app.setRetnCode(0);
+		return app;
+	}
 }
