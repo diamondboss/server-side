@@ -26,7 +26,14 @@
 				WHEN kind = '2'
 				THEN CONCAT('-', amt)
 			END AS amt,
-		    order_date AS orderDate
+			CASE
+				WHEN kind = '1'
+				THEN '宠物托管费用'
+				WHEN kind = '2'
+				THEN '申请提现'
+			END AS kind,
+			'已到账' AS status,
+		    order_date AS time
 		FROM
 		    ${partnerWalletDetail}
 		WHERE
