@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.diamondboss.order.repository.PartnerRebateMapper" >
+<mapper namespace="com.diamondboss.wallet.repository.PartnerRebateMapper" >
 	<!-- 插入合伙人钱包明细信息  -->
   	<insert id="insertPartnerWalletDetail"
   		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
