@@ -3,6 +3,8 @@ package com.diamondboss.wallet.repository;
 import java.util.List;
 
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
+import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
+import com.diamondboss.wallet.vo.PartnerWalletVo;
 
 /**
  * 合伙人提现
@@ -32,7 +34,14 @@ public interface PartnerWithdrawalsMapper {
 	 * @param Pojo
 	 * @return
 	 */
-	public List<PartnerWalletPojo> queryPartnerWalletDetailed(PartnerWalletPojo pojo);
+	public List<PartnerWalletVo> queryPartnerWalletDetailed(PartnerWalletPojo pojo);
+	
+	/**
+	 * 根据合伙人id查询钱包明细
+	 * @param Pojo
+	 * @return
+	 */
+	public List<PartnerTotalWalletVo> queryTotalDetailed(PartnerWalletPojo pojo);
 	
 	/**
 	 * 根据合伙人id插入合伙人钱包明细
