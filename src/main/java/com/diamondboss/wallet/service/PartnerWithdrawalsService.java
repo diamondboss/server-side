@@ -28,7 +28,7 @@ public interface PartnerWithdrawalsService {
 	/**
 	 * 查询钱包明细
 	 */
-	public List<PartnerWalletVo> queryDetailed(String partnerId);
+	public List<PartnerTotalWalletVo> queryDetailed(String partnerId);
 	
 	/**
 	 * 查询钱包明细

@@ -72,7 +72,7 @@ public class PartnerWithdrawalsController {
 	@RequestMapping(value = "/queryDetailed" ,method = RequestMethod.POST)
 	public APPResponseBody queryDetailed(String partnerId){
 		
-		List<PartnerWalletVo> list = withdrawalsService.queryDetailed(partnerId);
+		List<PartnerTotalWalletVo> list = withdrawalsService.queryDetailed(partnerId);
 		
 		APPResponseBody app = new APPResponseBody();
 		app.setData(list);

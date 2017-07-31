@@ -34,7 +34,7 @@ public interface PartnerWithdrawalsMapper {
 	 * @param Pojo
 	 * @return
 	 */
-	public List<PartnerWalletVo> queryPartnerWalletDetailed(PartnerWalletPojo pojo);
+	public List<PartnerTotalWalletVo> queryPartnerWalletDetailed(PartnerWalletPojo pojo);
 	
 	/**
 	 * 根据合伙人id查询钱包明细
