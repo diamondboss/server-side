@@ -14,6 +14,7 @@ import com.diamondboss.wallet.repository.PartnerWithdrawalsMapper;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
+import com.diamondboss.wallet.vo.WalletSummaryVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
@@ -57,14 +58,26 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包汇总
 	 */
 	@Override
-	public String querySummaryInfo(String partnerId) {
+	public WalletSummaryVo querySummaryInfo(String partnerId) {
 		
+		WalletSummaryVo vo = new WalletSummaryVo();
 		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryPartnerWallet(partnerId);
+		
 		if(pojo == null || pojo.getAmt() == null){
-			return "0";
+			vo.setAvailableBalance("0");
 		}else{
-			return pojo.getAmt().toString();
+			vo.setAvailableBalance(pojo.getAmt().toString());
 		}
+		
+		PartnerWalletPojo pojo2 = partnerWithdrawalsMapper.queryPartnerWallet(partnerId);
+		
+		if(pojo2 == null || pojo2.getAmt() == null){
+			vo.setRealBalance("0");
+		}else{
+			vo.setRealBalance(pojo.getAmt().toString());
+		}
+		
+		return vo;
 	}
 
 	/**
@@ -107,7 +120,16 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 		
 		String date = LocalDate.now().toString();// 获取当前日期
 
-		String amt = querySummaryInfo(vo.getPartnerId());
+		String amt = "";
+		PartnerWalletPojo pojo = 
+				partnerWithdrawalsMapper.queryPartnerWallet(vo.getPartnerId());
+		
+		if(pojo == null || pojo.getAmt() == null){
+			amt = "0";
+		}else{
+			amt = pojo.getAmt().toString();
+		}	
+		
 		
 		BigDecimal quota = new BigDecimal(amt).subtract(value);// 可提现金额
 		
