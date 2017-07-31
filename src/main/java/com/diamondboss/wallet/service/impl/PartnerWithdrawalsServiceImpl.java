@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.diamondboss.constants.PetConstants;
+import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.repository.PartnerWithdrawalsMapper;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
@@ -31,19 +33,22 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 提现
 	 */
 	@Override
-	public void withdrawals() {
+	public boolean withdrawals(WithdrawalsVo vo) {
 		
-		WithdrawalsVo vo = new WithdrawalsVo();
 		if(isAvailable(vo)){
 			
 			PartnerWalletPojo pojo = voTopojo(vo);
 			
-			partnerWithdrawalsMapper.insertPartnerWalletDetailed(null);
+			partnerWithdrawalsMapper.insertPartnerWalletDetailed(pojo);
 			
-			partnerWithdrawalsMapper.updatePartnerWallet(null);
+			partnerWithdrawalsMapper.updatePartnerWallet(pojo);
+			
+			return true;
 			
 		}else{
+			
 			// 不可提现
+			return false;
 		}
 		
 	}
@@ -101,25 +106,10 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 		BigDecimal value = new BigDecimal(vo.getValue());
 		
 		String date = LocalDate.now().toString();// 获取当前日期
-		 
-		// 查询可提现额度
-		PartnerWalletPojo pojo = 
-				partnerWithdrawalsMapper.queryPartnerWallet(vo.getPartnerId());
+
+		String amt = querySummaryInfo(vo.getPartnerId());
 		
-		if(pojo == null || pojo.getAmt() == null){
-			pojo = new PartnerWalletPojo();
-			pojo.setAmt(new BigDecimal("0"));
-		}
-		
-//		List<PartnerWalletPojo> pojoList = 
-//				partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
-		
-		BigDecimal unavailable = new BigDecimal("0");// 没有超过7天不可提现金额
-//		for(PartnerWalletPojo i:pojoList){
-//			unavailable = unavailable.add(i.getAmt());
-//		}
-		
-		BigDecimal quota = pojo.getAmt().subtract(unavailable);// 可提现金额
+		BigDecimal quota = new BigDecimal(amt).subtract(value);// 可提现金额
 		
 		if(value.compareTo(quota) < 1)
 			return true;
@@ -131,12 +121,13 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	private PartnerWalletPojo voTopojo(WithdrawalsVo vo){
 		
 		PartnerWalletPojo pojo = new PartnerWalletPojo();
-		pojo.setAmt(new BigDecimal("-" + vo.getValue()));
-		pojo.setKind("提现");
+		pojo.setAmt(new BigDecimal(vo.getValue()));
+		pojo.setKind("2");
 		pojo.setOrderDate(LocalDate.now().toString());
 		pojo.setPartnerId(vo.getPartnerId());
-		pojo.setPartnerWalletDetail("");
-		pojo.setStatus("申请提现");
+		pojo.setPartnerWalletDetail(TableUtils.getOrderTableName(
+				Long.valueOf(vo.getPartnerId()), 
+				PetConstants.PARTNER_WALLET_DETAIL));
 		
 		return pojo;
 	}
