@@ -18,7 +18,7 @@
 	<!-- 根据合伙人id查询钱包明细  -->
 	<select id="queryPartnerWalletDetailed"
 		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo"
-		resultType="com.diamondboss.wallet.vo.PartnerWalletVo">
+		resultType="com.diamondboss.wallet.vo.PartnerTotalWalletVo">
 		SELECT
 			CASE
 				WHEN kind = '1'
@@ -33,7 +33,7 @@
 				THEN '申请提现'
 			END AS kind,
 			'已到账' AS status,
-		    order_date AS time
+		    left(create_time,16) AS time
 		FROM
 		    ${partnerWalletDetail}
 		WHERE
