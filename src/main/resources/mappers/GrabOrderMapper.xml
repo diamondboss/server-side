@@ -169,6 +169,21 @@
 		    AND order_status != '6'
 		    AND effective = '1'
 	</select>
+	
+	<!-- 查询UserOrder -->
+	<select id="selectOrderUser"
+		parameterType = "java.util.Map" 
+		resultType = "com.diamondboss.order.pojo.OrderUserPojo">
+		SELECT
+			id AS id,
+		    partner_id AS partnerId,
+		    amt AS amt,
+		    order_date AS orderDate
+		FROM
+		    ${tableName}
+		WHERE
+		    id = #{id}
+	</select>
 
 
 </mapper>

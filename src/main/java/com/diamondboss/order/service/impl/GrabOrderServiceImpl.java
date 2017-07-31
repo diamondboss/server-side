@@ -1,5 +1,6 @@
 package com.diamondboss.order.service.impl;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.GrabOrderPojo;
+import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.service.IGrabOrderService;
 import com.diamondboss.order.vo.GrabOrderVo;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.wallet.service.PartnerRebateService;
 
 @Service
 public class GrabOrderServiceImpl implements IGrabOrderService{
@@ -22,6 +25,9 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	
 	@Autowired
 	private GrabOrderMapper grabOrder;
+	
+	@Autowired
+	private PartnerRebateService partnerRebateService;
 	
 	@Override
 	public int grabOrder(GrabOrderVo vo){
@@ -58,6 +64,21 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		
 		// 更新用户登录表
 		grabOrder.updateUserLogin(pojo.getUserId());
+		
+		try{
+			//抢单后，开始更新合伙人钱包金额
+			log.info("抢单后，开始更新合伙人钱包金额，partnerId=" + vo.getPartnerId());
+			
+			OrderUserPojo orderUserPojo = new OrderUserPojo();
+			orderUserPojo.setPartnerId(vo.getPartnerId());
+			orderUserPojo.setAmt(new BigDecimal(vo.getAmt()));
+			orderUserPojo.setOrderDate(vo.getOrderDate());
+			
+			partnerRebateService.rebate(orderUserPojo);
+		}catch(Exception e){
+			log.info("更新合伙人钱包金额异常。" + e.getMessage());
+			log.info(e.getMessage());
+		}
 		
 		// 推送用户
 		return 0;

@@ -276,13 +276,6 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			}
 		}
 		
-		try{
-			partnerRebateService.rebate(pojo);
-		}catch(Exception e){
-			logger.info("更新合伙人钱包金额异常。" + e.getMessage());
-			logger.info(e.getMessage());
-		}
-		
 		//1.查询出所在小区所有的合伙人clientId
 //		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
 		// TODO 有问题 获取的合伙人可能不合适
