@@ -29,6 +29,7 @@ import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.util.tools.UUIDUtil;
+import com.diamondboss.wallet.service.PartnerRebateService;
 
 /**
  * 订单分配
@@ -51,6 +52,9 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	
 	@Autowired
 	private PartnerInfoService partnerInfoService;
+	
+	@Autowired
+	private PartnerRebateService partnerRebateService;
 	
 	private static final Logger logger = Logger.getLogger(DistributeOrderServiceImpl.class);
 	
@@ -163,7 +167,16 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			logger.info("品种：" + pojo.getVarieties());
 			try{
 				pojo.setOrderStatus("4");
-				distributeOrderMapper.insertOrderPartner(pojo);
+				try{
+					int i = distributeOrderMapper.insertOrderPartner(pojo);
+					if(i == 0){
+						return;
+					}
+				}catch(Exception e){
+					logger.info("插入合伙人订单信息异常。" + e.getMessage());
+					return;
+				}
+				
 
 				OrderUserPojo updatePojo = new OrderUserPojo();
 				updatePojo.setId(pojo.getId());
@@ -174,10 +187,18 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 						PetConstants.ORDER_USER_TABLE_PREFIX);
 				
 				updatePojo.setOrderUser(orderUser);
-				
 				logger.info("用户表名：" + orderUser);
 				
-				distributeOrderMapper.updateOrderUser(updatePojo);
+				try{
+					int i = distributeOrderMapper.updateOrderUser(updatePojo);
+					if(i == 0){
+						return;
+					}
+				}catch(Exception e){
+					logger.info("更新订单信息异常。" + e.getMessage());
+					return;
+				}
+				
 				logger.info("进入指定合伙人--订单分配--更新数据库订单信息成功");
 			}catch(Exception e){
 				logger.info(e.getMessage());
@@ -192,6 +213,13 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			map.put("url", "http://www.baidu.com");*/
 			
 			//PushToSingle.pushToSingle(map);
+			try{
+				partnerRebateService.rebate(pojo);
+			}catch(Exception e){
+				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
+				logger.info(e.getMessage());
+			}
+			
 			
 			//查询到合伙人的手机号
 			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());
