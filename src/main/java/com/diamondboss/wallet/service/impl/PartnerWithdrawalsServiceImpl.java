@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.repository.PartnerWithdrawalsMapper;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
+import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
+import com.diamondboss.wallet.vo.PartnerWalletVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
@@ -64,15 +66,31 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包明细
 	 */
 	@Override
-	public List<PartnerWalletPojo> queryDetailed(String partnerId) {
+	public List<PartnerWalletVo> queryDetailed(String partnerId) {
 		
 		PartnerWalletPojo pojo = new PartnerWalletPojo();
 		pojo.setPartnerId(partnerId);
 		pojo.setPartnerWalletDetail("partner_wallet_detail_1");
-		return partnerWithdrawalsMapper.queryPartnerWalletDetailed(pojo);
+		List<PartnerWalletVo> list = partnerWithdrawalsMapper.queryPartnerWalletDetailed(pojo);
 		
+		return list;
 	}
 
+	/**
+	 * 查询钱包明细
+	 */
+	@Override
+	public List<PartnerTotalWalletVo> queryTotalDetailed(String partnerId){
+		
+		PartnerWalletPojo pojo = new PartnerWalletPojo();
+		pojo.setPartnerId(partnerId);
+		pojo.setPartnerWalletDetail("partner_wallet_detail_1");
+		List<PartnerTotalWalletVo> list = partnerWithdrawalsMapper.queryTotalDetailed(pojo);
+		
+		return list;
+		
+	}
+	
 	/**
 	 * 提现金额是否可用
 	 * @param vo
@@ -93,13 +111,13 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 			pojo.setAmt(new BigDecimal("0"));
 		}
 		
-		List<PartnerWalletPojo> pojoList = 
-				partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
+//		List<PartnerWalletPojo> pojoList = 
+//				partnerWithdrawalsMapper.queryPartnerWalletDetailed(null);
 		
 		BigDecimal unavailable = new BigDecimal("0");// 没有超过7天不可提现金额
-		for(PartnerWalletPojo i:pojoList){
-			unavailable = unavailable.add(i.getAmt());
-		}
+//		for(PartnerWalletPojo i:pojoList){
+//			unavailable = unavailable.add(i.getAmt());
+//		}
 		
 		BigDecimal quota = pojo.getAmt().subtract(unavailable);// 可提现金额
 		
