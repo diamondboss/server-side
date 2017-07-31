@@ -68,8 +68,7 @@
 		UPDATE
 		    partner_wallet
 		SET
-		    partner_id = 0,
-		    amt = amt + #{amt}
+		    amt = amt - #{amt}
 		WHERE
 		    partner_id = #{partnerId}
 			AND effective = '1'
@@ -86,7 +85,7 @@
 		        amt,
 		        kind,
 		        order_date,
-		        effective,
+		        effective
 		    )
 		    VALUES
 		    (
