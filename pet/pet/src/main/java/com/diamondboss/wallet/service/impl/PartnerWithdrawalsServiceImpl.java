@@ -71,12 +71,12 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	 * 查询钱包明细
 	 */
 	@Override
-	public List<PartnerWalletVo> queryDetailed(String partnerId) {
+	public List<PartnerTotalWalletVo> queryDetailed(String partnerId) {
 		
 		PartnerWalletPojo pojo = new PartnerWalletPojo();
 		pojo.setPartnerId(partnerId);
 		pojo.setPartnerWalletDetail("partner_wallet_detail_1");
-		List<PartnerWalletVo> list = partnerWithdrawalsMapper.queryPartnerWalletDetailed(pojo);
+		List<PartnerTotalWalletVo> list = partnerWithdrawalsMapper.queryPartnerWalletDetailed(pojo);
 		
 		return list;
 	}
