@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.util.vo.APPResponseBody;
-import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
+import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
  * 合伙人提现
@@ -33,13 +33,20 @@ public class PartnerWithdrawalsController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/withdrawals" ,method = RequestMethod.POST)
-	public APPResponseBody withdrawals(PartnerWalletVo vo){
+	public APPResponseBody withdrawals(WithdrawalsVo vo){
 		
-		withdrawalsService.withdrawals();
+		boolean is = withdrawalsService.withdrawals(vo);
 		
 		APPResponseBody app = new APPResponseBody();
-		app.setData("");
-		app.setRetnCode(0);
+		
+		if(is){
+			app.setData("提现成功");
+			app.setRetnCode(0);
+		}else{
+			app.setData("提现失败");
+			app.setRetnCode(1);
+		}
+		
 		return app;
 	}
 	

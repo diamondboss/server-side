@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
 import com.diamondboss.wallet.vo.PartnerWalletVo;
+import com.diamondboss.wallet.vo.WithdrawalsVo;
 
 /**
  * 合伙人提现
@@ -17,7 +18,7 @@ public interface PartnerWithdrawalsService {
 	/**
 	 * 提现
 	 */
-	public void withdrawals();
+	public boolean withdrawals(WithdrawalsVo vo);
 	
 	/**
 	 * 查询钱包汇总
