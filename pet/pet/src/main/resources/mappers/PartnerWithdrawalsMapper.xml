@@ -18,14 +18,40 @@
 	<!-- 根据合伙人id查询钱包明细  -->
 	<select id="queryPartnerWalletDetailed"
 		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo"
-		resultType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		resultType="com.diamondboss.wallet.vo.PartnerWalletVo">
 		SELECT
-		    id AS id,
-		    partner_id AS partnerId,
-		    amt AS amt,
-		    kind AS kind,
-		    order_date AS orderDate,
-		    effective AS effective
+			CASE
+				WHEN kind = '1'
+				THEN CONCAT('+', amt)
+				WHEN kind = '2'
+				THEN CONCAT('-', amt)
+			END AS amt,
+		    order_date AS orderDate
+		FROM
+		    ${partnerWalletDetail}
+		WHERE
+			partner_id = #{partnerId}
+			AND effective = '1'
+			AND (kind = '1' OR kind ='2')
+		ORDER BY
+			create_time
+		DESC LIMIT 0,3
+	</select>
+
+		<!-- 根据合伙人id查询钱包明细  -->
+	<select id="queryTotalDetailed"
+		parameterType="com.diamondboss.wallet.pojo.PartnerWalletPojo"
+		resultType="com.diamondboss.wallet.vo.PartnerTotalWalletVo">
+		SELECT
+			CASE
+				WHEN kind = '1'
+				THEN '宠物托管费用'
+				WHEN kind = '2'
+				THEN '申请提现'
+			END AS kind,
+			left(create_time,16) AS time,
+			amt AS amt,
+		    '已到账' AS status
 		FROM
 		    ${partnerWalletDetail}
 		WHERE
