@@ -122,5 +122,19 @@
 		    )
 	</insert>
 	
+	<!-- 查询今日收益 -->
+	<select id="queryEarningsToday"
+		parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT
+			amt AS amt
+		FROM
+		    ${partnerWalletDetail}
+		WHERE
+			partner_id = #{partnerId}
+			AND order_date = #{orderDate}
+			AND kind = '1'
+			AND effective = 1
+	</select>
 	
 </mapper>
