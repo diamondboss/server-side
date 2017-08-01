@@ -71,10 +71,10 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 			
 			OrderUserPojo orderUserPojo = new OrderUserPojo();
 			orderUserPojo.setPartnerId(vo.getPartnerId());
-			orderUserPojo.setAmt(new BigDecimal(vo.getAmt()));
+			orderUserPojo.setAmt(new BigDecimal(Double.valueOf(vo.getAmt())));
 			orderUserPojo.setOrderDate(vo.getOrderDate());
 			
-			partnerRebateService.rebate(orderUserPojo);
+			partnerRebateService.rebate(orderUserPojo, false);
 		}catch(Exception e){
 			log.info("更新合伙人钱包金额异常。" + e.getMessage());
 			log.info(e.getMessage());

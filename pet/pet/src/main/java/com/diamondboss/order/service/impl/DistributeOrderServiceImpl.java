@@ -214,7 +214,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			
 			//PushToSingle.pushToSingle(map);
 			try{
-				partnerRebateService.rebate(pojo);
+				partnerRebateService.rebate(pojo, true);
 			}catch(Exception e){
 				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
 				logger.info(e.getMessage());
