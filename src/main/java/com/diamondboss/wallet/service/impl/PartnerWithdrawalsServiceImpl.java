@@ -16,7 +16,6 @@ import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.repository.PartnerWithdrawalsMapper;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
-import com.diamondboss.wallet.vo.PartnerWalletVo;
 import com.diamondboss.wallet.vo.WalletSummaryVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
@@ -64,28 +63,31 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	public WalletSummaryVo querySummaryInfo(String partnerId) {
 		
 		WalletSummaryVo vo = new WalletSummaryVo();
-		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryPartnerWallet(partnerId);
-		
-		if(pojo == null || pojo.getAmt() == null){
-			vo.setAvailableBalance("0");
-		}else{
-			vo.setAvailableBalance(pojo.getAmt().toString());
-		}
 		
 		PartnerWalletPojo pojo2 = partnerWithdrawalsMapper.queryPartnerWallet(partnerId);
 		
 		if(pojo2 == null || pojo2.getAmt() == null){
 			vo.setRealBalance("0");
 		}else{
-			vo.setRealBalance(pojo.getAmt().toString());
+			vo.setRealBalance(pojo2.getAmt().toString());
 		}
 		
 		Map<String, Object> param = new HashMap<>();
 		param.put("partnerId", partnerId);
-		param.put("orderDate", LocalDate.now().toString());
-		
 		param.put("partnerWalletDetail", TableUtils.getOrderTableName(
 				Long.valueOf(partnerId), PetConstants.PARTNER_WALLET_DETAIL));
+		param.put("orderDate", LocalDate.now().minusDays(3).toString());
+		
+		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryAvailableWallet(param);
+		
+		if(pojo == null || pojo.getAmt() == null){
+			vo.setAvailableBalance(vo.getRealBalance());
+		}else{
+			vo.setAvailableBalance(new BigDecimal(vo.getRealBalance()).
+					subtract(new BigDecimal(pojo.getAmt().toString())).toString());
+		}
+		
+		param.put("orderDate", LocalDate.now().toString());
 		
 		String earningsToday = partnerWithdrawalsMapper.queryEarningsToday(param);
 		if(StringUtils.isBlank(earningsToday)){
@@ -135,26 +137,41 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 	private Boolean isAvailable(WithdrawalsVo vo){
 		
 		BigDecimal value = new BigDecimal(vo.getValue());
+		if(value.compareTo(new BigDecimal("0")) == 0){
+			return false;
+		}
+			
+		WalletSummaryVo walletVo = new WalletSummaryVo();
+		PartnerWalletPojo pojo2 = partnerWithdrawalsMapper.queryPartnerWallet(vo.getPartnerId());
 		
-		String date = LocalDate.now().toString();// 获取当前日期
-
-		String amt = "";
-		PartnerWalletPojo pojo = 
-				partnerWithdrawalsMapper.queryPartnerWallet(vo.getPartnerId());
+		if(pojo2 == null || pojo2.getAmt() == null){
+			walletVo.setRealBalance("0");
+		}else{
+			walletVo.setRealBalance(pojo2.getAmt().toString());
+		}
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("partnerId", vo.getPartnerId());
+		param.put("partnerWalletDetail", TableUtils.getOrderTableName(
+				Long.valueOf(vo.getPartnerId()), PetConstants.PARTNER_WALLET_DETAIL));
+		param.put("orderDate", LocalDate.now().minusDays(3).toString());
+		
+		PartnerWalletPojo pojo = partnerWithdrawalsMapper.queryAvailableWallet(param);
 		
 		if(pojo == null || pojo.getAmt() == null){
-			amt = "0";
+			walletVo.setAvailableBalance(walletVo.getRealBalance());
 		}else{
-			amt = pojo.getAmt().toString();
-		}	
+			walletVo.setAvailableBalance(new BigDecimal(walletVo.getRealBalance()).
+					subtract(new BigDecimal(pojo.getAmt().toString())).toString());
+		}
 		
+		String amt = walletVo.getAvailableBalance();
 		
-		BigDecimal quota = new BigDecimal(amt).subtract(value);// 可提现金额
-		
-		if(value.compareTo(quota) < 1)
+		if(value.compareTo(new BigDecimal(amt)) < 1)
 			return true;
 		
 		return false;
+		
 		
 	}
 	
