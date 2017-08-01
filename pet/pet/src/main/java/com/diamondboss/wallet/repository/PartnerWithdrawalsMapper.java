@@ -1,6 +1,7 @@
 package com.diamondboss.wallet.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
@@ -49,4 +50,12 @@ public interface PartnerWithdrawalsMapper {
 	 * @return
 	 */
 	public int insertPartnerWalletDetailed(PartnerWalletPojo Pojo);
+	
+	/**
+	 * 查询今日收益
+	 * @param partnerId
+	 * @return
+	 */
+	public String queryEarningsToday(Map<String, Object> param);
+	
 }

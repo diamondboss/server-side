@@ -2,8 +2,11 @@ package com.diamondboss.wallet.service.impl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +79,21 @@ public class PartnerWithdrawalsServiceImpl implements PartnerWithdrawalsService{
 		}else{
 			vo.setRealBalance(pojo.getAmt().toString());
 		}
+		
+		Map<String, Object> param = new HashMap<>();
+		param.put("partnerId", partnerId);
+		param.put("orderDate", LocalDate.now().toString());
+		
+		param.put("partnerWalletDetail", TableUtils.getOrderTableName(
+				Long.valueOf(partnerId), PetConstants.PARTNER_WALLET_DETAIL));
+		
+		String earningsToday = partnerWithdrawalsMapper.queryEarningsToday(param);
+		if(StringUtils.isBlank(earningsToday)){
+			vo.setEarningsToday("0");
+		}else{
+			vo.setEarningsToday(earningsToday);
+		}
+		
 		
 		return vo;
 	}
