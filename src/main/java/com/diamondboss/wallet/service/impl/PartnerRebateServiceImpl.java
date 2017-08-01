@@ -26,11 +26,16 @@ public class PartnerRebateServiceImpl implements PartnerRebateService{
 	private PartnerRebateMapper partnerRebateMapper;
 	
 	@Override
-	public void rebate(OrderUserPojo pojo) {
+	public void rebate(OrderUserPojo pojo, boolean flag) {
 		
 		PartnerWalletPojo wallet = new PartnerWalletPojo();
 		wallet.setPartnerId(pojo.getPartnerId());
-		wallet.setAmt(pojo.getAmt().multiply(new BigDecimal("0.8")));
+		if(flag){
+			wallet.setAmt(pojo.getAmt().multiply(new BigDecimal("0.8")));
+		}else{
+			wallet.setAmt(pojo.getAmt());
+		}
+		
 		wallet.setKind("1");
 		wallet.setOrderDate(pojo.getOrderDate());
 		wallet.setPartnerWalletDetail(TableUtils.getOrderTableName(

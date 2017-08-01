@@ -14,6 +14,6 @@ public interface PartnerRebateService {
 	/**
 	 * 返佣
 	 */
-	public void rebate(OrderUserPojo pojo);
+	public void rebate(OrderUserPojo pojo, boolean flag);
 	
 }
