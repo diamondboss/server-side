@@ -29,7 +29,7 @@ public class PartnerInfoController {
 
 
 	/**
-	 * 查询进行中的订单
+	 * 查询合伙人资料
 	 * @param request
 	 * @return
 	 */
