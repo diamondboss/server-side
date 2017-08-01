@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
-import com.diamondboss.wallet.vo.PartnerWalletVo;
 
 /**
  * 合伙人提现
@@ -57,5 +56,12 @@ public interface PartnerWithdrawalsMapper {
 	 * @return
 	 */
 	public String queryEarningsToday(Map<String, Object> param);
+	
+	/**
+	 * 根据合伙人id查询钱包
+	 * @param param
+	 * @return
+	 */
+	public PartnerWalletPojo queryAvailableWallet(Map<String, Object> param);
 	
 }

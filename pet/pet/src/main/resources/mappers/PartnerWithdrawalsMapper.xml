@@ -137,4 +137,19 @@
 			AND effective = 1
 	</select>
 	
+		<!-- 根据合伙人id查询钱包明细  -->
+	<select id="queryAvailableWallet"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		SELECT
+			SUM(amt) AS amt
+		FROM
+		    ${partnerWalletDetail}
+		WHERE
+			partner_id = #{partnerId}
+			AND order_date &lt; #{orderDate}
+			AND kind = '1'
+			AND effective = '1'
+	</select>
+	
 </mapper>

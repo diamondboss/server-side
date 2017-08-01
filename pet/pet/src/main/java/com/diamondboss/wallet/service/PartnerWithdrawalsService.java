@@ -3,7 +3,6 @@ package com.diamondboss.wallet.service;
 import java.util.List;
 
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
-import com.diamondboss.wallet.vo.PartnerWalletVo;
 import com.diamondboss.wallet.vo.WalletSummaryVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
