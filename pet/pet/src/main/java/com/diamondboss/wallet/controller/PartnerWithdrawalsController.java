@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.diamondboss.util.vo.APPResponseBody;
 import com.diamondboss.wallet.service.PartnerWithdrawalsService;
 import com.diamondboss.wallet.vo.PartnerTotalWalletVo;
-import com.diamondboss.wallet.vo.PartnerWalletVo;
 import com.diamondboss.wallet.vo.WalletSummaryVo;
 import com.diamondboss.wallet.vo.WithdrawalsVo;
 
