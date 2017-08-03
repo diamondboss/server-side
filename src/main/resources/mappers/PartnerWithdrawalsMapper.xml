@@ -127,7 +127,7 @@
 		parameterType="java.util.Map"
 		resultType="java.lang.String">
 		SELECT
-			amt AS amt
+			SUM(amt) AS amt
 		FROM
 		    ${partnerWalletDetail}
 		WHERE
