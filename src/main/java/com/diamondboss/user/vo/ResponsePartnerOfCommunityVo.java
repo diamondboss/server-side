@@ -6,9 +6,6 @@ package com.diamondboss.user.vo;
  *
  */
 public class ResponsePartnerOfCommunityVo {
-	
-	private Long id;
-
 	/**
 	 * 合伙人Id
 	 */
@@ -39,14 +36,6 @@ public class ResponsePartnerOfCommunityVo {
 	 */
 	private String latitude;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Long getPartnerId() {
 		return partnerId;
 	}

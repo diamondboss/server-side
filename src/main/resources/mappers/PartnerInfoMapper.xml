@@ -3,8 +3,7 @@
 <mapper namespace="com.diamondboss.user.repository.PartnerInfoMapper" >
 
 	<resultMap id="BaseResultMap" type="com.diamondboss.user.vo.ResponsePartnerOfCommunityVo" >
-	    <id column="id" property="id" jdbcType="VARCHAR" />
-	    <result column="parter_id" property="PartnerId" jdbcType="VARCHAR" />
+	    <id column="parter_id" property="id" jdbcType="VARCHAR" />
 	    <result column="name" property="name" jdbcType="VARCHAR" />
 	    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
 	    <result column="community_id" property="communityId" jdbcType="VARCHAR" />
@@ -38,7 +37,6 @@
 		parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		SELECT  
-				A.id AS id,
 				A.parter_id AS partnerId,
 				A.name AS partnerName,
 				A.phone_number AS phoneNumber,
