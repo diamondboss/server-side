@@ -1,7 +1,5 @@
 package com.diamondboss.user.vo;
 
-import java.math.BigDecimal;
-
 /**
  * 查询小区合伙人信息返回Vo
  * @author xzf
@@ -9,6 +7,8 @@ import java.math.BigDecimal;
  */
 public class ResponsePartnerOfCommunityVo {
 	
+	private Long id;
+
 	/**
 	 * 合伙人Id
 	 */
@@ -32,12 +32,20 @@ public class ResponsePartnerOfCommunityVo {
 	/**
 	 * 经度
 	 */
-	private BigDecimal longitude;
+	private String longitude;
 	
 	/**
 	 * 纬度
 	 */
-	private BigDecimal latitude;
+	private String latitude;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getPartnerId() {
 		return partnerId;
@@ -71,19 +79,19 @@ public class ResponsePartnerOfCommunityVo {
 		this.communityId = communityId;
 	}
 	
-	public BigDecimal getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(BigDecimal longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 
-	public BigDecimal getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(BigDecimal latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
