@@ -38,12 +38,12 @@ public class PartnerWithdrawalsController {
 		boolean is = withdrawalsService.withdrawals(vo);
 		
 		APPResponseBody app = new APPResponseBody();
-		
+		app.setData("");
 		if(is){
-			app.setData("提现成功");
+			app.setRetnDesc("提现成功");
 			app.setRetnCode(0);
 		}else{
-			app.setData("提现失败");
+			app.setRetnDesc("提现失败");
 			app.setRetnCode(1);
 		}
 		
