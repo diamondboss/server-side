@@ -123,6 +123,7 @@
 		    sex AS sex,
 		    age AS age,
 		    varieties AS varieties,
+		    partner_id AS partnerId,
 		    partner_name AS partnerName,
 		    remark AS remark,
 		    order_date AS orderDate,
