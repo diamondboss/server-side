@@ -71,7 +71,7 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 			
 			OrderUserPojo orderUserPojo = new OrderUserPojo();
 			orderUserPojo.setPartnerId(vo.getPartnerId());
-			orderUserPojo.setAmt(new BigDecimal(Double.valueOf(vo.getAmt())));
+			orderUserPojo.setAmt(new BigDecimal(vo.getAmt()));
 			orderUserPojo.setOrderDate(vo.getOrderDate());
 			
 			partnerRebateService.rebate(orderUserPojo, false);
