@@ -28,6 +28,8 @@ public class GrabOrderController {
 	public APPResponseBody grabOrder(GrabOrderVo vo){
 		
 		log.info("test git commit");
+		log.info("test git commit 22222");
+		log.info("test git commit 33333");
 		log.info(PetInfoConstants.PARTNER_GRAB_ORDER);
 		
 		Integer i = grabOrderService.grabOrder(vo);
