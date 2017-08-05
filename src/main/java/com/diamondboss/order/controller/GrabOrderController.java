@@ -27,6 +27,7 @@ public class GrabOrderController {
 	@RequestMapping(value = "/grabOrder", method = RequestMethod.POST)
 	public APPResponseBody grabOrder(GrabOrderVo vo){
 		
+		log.info("test git commit");
 		log.info(PetInfoConstants.PARTNER_GRAB_ORDER);
 		
 		Integer i = grabOrderService.grabOrder(vo);
