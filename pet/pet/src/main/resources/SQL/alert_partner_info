@@ -1,2 +1,2 @@
-ALTER TABLE partner_info ADD longitude VARCHAR(10) NOT NULL;
-ALTER TABLE partner_info ADD latitude VARCHAR(10) NOT NULL;
+ALTER TABLE partner_info ADD longitude decimal(10,6) NOT NULL;
+ALTER TABLE partner_info ADD latitude decimal(10,6) NOT NULL;
