@@ -3,6 +3,7 @@ package com.diamondboss.user.service;
 import java.util.List;
 
 import com.diamondboss.user.pojo.PartnerInfoPojo;
+import com.diamondboss.user.vo.PartnerEnvironmentVo;
 import com.diamondboss.user.vo.ResponsePartnerOfCommunityVo;
 
 public interface PartnerInfoService {
@@ -26,4 +27,11 @@ public interface PartnerInfoService {
 	 * @return
 	 */
 	public PartnerInfoPojo queryPartnerInfo(String partnerId);
+	
+	/**
+	 * 查询合伙人饲养环境
+	 * @return
+	 */
+	public PartnerEnvironmentVo queryEnvironment(String partnerId);
+	
 }

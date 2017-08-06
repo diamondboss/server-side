@@ -103,7 +103,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 	 * @param orderDate
 	 * @return true--不可下单;false--可以下单
 	 */
-	private boolean checkOrderCountsOfPartner(String partnerId, String orderDate){
+	public boolean checkOrderCountsOfPartner(String partnerId, String orderDate){
 		
 		if(StringUtils.isBlank(partnerId)){
 			return true;
