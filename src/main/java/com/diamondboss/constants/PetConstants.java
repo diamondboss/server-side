@@ -16,6 +16,16 @@ public class PetConstants {
     public static final String ORDER_USER_TABLE_PREFIX = "order_user_";
     
     /**
+     * 用户消息表名称
+     */
+    public static final String SMS_USER_TABLE_PREFIX = "sms_user_";
+    
+    /**
+     * 合伙人消息表名称
+     */
+    public static final String SMS_PARTNER_TABLE_PREFIX = "sms_partner_";
+    
+    /**
      * 合伙人钱包表名称
      */
     public static final String PARTNER_WALLET_DETAIL = "partner_wallet_detail_";

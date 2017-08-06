@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.user.repository.SmsCenterMapper" >
+
+	<!-- 插入用户订单 -->
+	<insert id="insertSmsCenter"
+		parameterType="com.diamondboss.user.pojo.SmsCenterPojo">
+		INSERT
+		INTO
+		    ${tableName}
+		    (
+		       user_id,
+		       partner_id,
+		       partner_name,
+		       sms_source,
+		       sms_type_id,
+		       sms_status,
+		       effective
+		    )
+		    VALUES
+		    (
+		        #{userId},
+		        #{partnerId},
+		        #{partnerName},
+		        #{smsSource},
+		        #{smsTypeId},
+		        #{smsStatus}, 
+		        '1'
+		    )
+	</insert>
+	
+	<!-- 查询用户是否有新消息 -->
+	<select id="queryNewSms"
+		parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT
+			COUNT(1)
+		FROM
+		    ${tableName}
+		WHERE
+			user_id = #{userId}
+			AND sms_status = "1"
+			AND effective = '1'
+	</select>
+	
+	<!-- 查询用户消息  -->
+	<select id="querySmsList"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.user.vo.SmsQueryListVo">
+		SELECT
+		    A.user_id AS userId,
+		    A.partner_id AS partnerId,
+		    A.partner_name AS partnerName,
+		    A.sms_source AS smsSource,
+		    A.sms_type_id AS smsTypeId,
+		    B.sms_title AS smsTitle,
+		    B.sms_context AS smsContext,
+		    A.create_time AS createTime,
+		    A.update_time AS updateTime
+		FROM
+		    ${tableName} A LEFT JOIN sms_type B ON A.sms_type_id = B.id
+		WHERE
+		    user_id = #{userId}
+		    AND effective = '1'
+		ORDER BY A.create_time DESC
+	</select> 	
+	
+	<!-- 更新宠物信息 -->
+ 	<update id="updateSmsStatusForUser" parameterType="java.util.Map">
+ 		UPDATE
+		     ${tableName}
+		SET
+		  	sms_status = "0"
+		WHERE
+		    user_id = #{userId}
+		    AND effective = '1'
+ 	</update>
+
+</mapper>
