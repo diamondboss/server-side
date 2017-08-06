@@ -101,8 +101,8 @@
 		FROM
 		    ${tableName} A LEFT JOIN sms_type B ON A.sms_type_id = B.id
 		WHERE
-		    A.partner_id = #{partnerId}
-		    AND effective = '1'
+		    A.user_id = #{userId}
+		    AND A.effective = '1'
 		ORDER BY A.create_time DESC
 	</select>
 	
@@ -124,7 +124,7 @@
 		    ${tableName} A LEFT JOIN sms_type B ON A.sms_type_id = B.id
 		WHERE
 		    A.partner_id= #{partnerId}
-		    AND effective = '1'
+		    AND A.effective = '1'
 		ORDER BY A.create_time DESC
 	</select> 	
 	

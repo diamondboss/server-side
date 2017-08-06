@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.user.pojo.SmsCenterPojo;
@@ -13,6 +14,7 @@ import com.diamondboss.user.service.SmsCenterService;
 import com.diamondboss.user.vo.SmsQueryListVo;
 import com.diamondboss.util.tools.TableUtils;
 
+@Service
 public class SmsCenterServiceImpl implements SmsCenterService {
 	
 	@Autowired
