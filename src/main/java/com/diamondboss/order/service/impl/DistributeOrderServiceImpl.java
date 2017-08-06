@@ -245,8 +245,17 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			smsCenterPojo.setSmsSource("1");
 			smsCenterPojo.setSmsTypeId("3000015");
 			smsCenterPojo.setSmsStatus("1");
-			
 			smsCenterService.insertSmsForUser(smsCenterPojo);
+			
+			//插入合伙人消息pojo
+			SmsCenterPojo partnerPojo = new SmsCenterPojo();
+			smsCenterPojo.setUserId(pojo.getUserId());
+			smsCenterPojo.setPartnerId(pojo.getPartnerId());
+			smsCenterPojo.setPartnerName(pojo.getPartnerName());
+			smsCenterPojo.setSmsSource("1");
+			smsCenterPojo.setSmsTypeId("3000018");
+			smsCenterPojo.setSmsStatus("1");
+			smsCenterService.insertSmsForPartner(partnerPojo);
 			
 			//查询到合伙人的手机号
 			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());

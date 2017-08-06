@@ -20,11 +20,42 @@ public class SmsCenterServiceImpl implements SmsCenterService {
 
 	@Override
 	public int insertSmsForUser(SmsCenterPojo pojo) {
-		return 0;
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(pojo.getUserId()), 
+				PetConstants.SMS_USER_TABLE_PREFIX);
+		
+		Map<String, String> map =  new HashMap<>();
+		map.put("userId", pojo.getUserId());
+		map.put("partnerId", pojo.getPartnerId());
+		map.put("parrtnerName", pojo.getPartnerName());
+		map.put("smsSource", pojo.getSmsSource());
+		map.put("smsTypeId", pojo.getSmsTypeId());
+		map.put("smsStatus", pojo.getSmsStatus());
+		map.put("tableName", tableName);
+		
+		return smsCenterMapper.insertSmsCenter(map);
+	}
+	
+	@Override
+	public int insertSmsForPartner(SmsCenterPojo pojo) {
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(pojo.getPartnerId()), 
+				PetConstants.SMS_PARTNER_TABLE_PREFIX);
+		
+		Map<String, String> map =  new HashMap<>();
+		map.put("userId", pojo.getUserId());
+		map.put("partnerId", pojo.getPartnerId());
+		map.put("parrtnerName", pojo.getPartnerName());
+		map.put("smsSource", pojo.getSmsSource());
+		map.put("smsTypeId", pojo.getSmsTypeId());
+		map.put("smsStatus", pojo.getSmsStatus());
+		map.put("tableName", tableName);
+		
+		return smsCenterMapper.insertSmsCenterForPartner(map);
 	}
 
 	@Override
-	public int queryNewSms(String userId) {
+	public int queryNewSmsForUser(String userId) {
 		
 		String tableName = TableUtils.getOrderTableName(Long.valueOf(userId), 
 				PetConstants.SMS_USER_TABLE_PREFIX);
@@ -33,7 +64,20 @@ public class SmsCenterServiceImpl implements SmsCenterService {
 		map.put("tableName", tableName);
 		map.put("userId",userId);
 		
-		return smsCenterMapper.queryNewSms(map);
+		return smsCenterMapper.queryNewSmsForUser(map);
+	}
+	
+	@Override
+	public int queryNewSmsForPartner(String partnerId) {
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(partnerId), 
+				PetConstants.SMS_PARTNER_TABLE_PREFIX);
+
+		Map<String, String> map = new HashMap<>();
+		map.put("tableName", tableName);
+		map.put("partnerId",partnerId);
+		
+		return smsCenterMapper.queryNewSmsForPartner(map);
 	}
 
 	@Override
@@ -46,7 +90,20 @@ public class SmsCenterServiceImpl implements SmsCenterService {
 		map.put("tableName", tableName);
 		map.put("userId",userId);
 		
-		return smsCenterMapper.querySmsList(map);
+		return smsCenterMapper.querySmsListForUser(map);
+	}
+	
+	@Override
+	public List<SmsQueryListVo> querySmsListForPartner(String partnerId) {
+		
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(partnerId), 
+				PetConstants.SMS_PARTNER_TABLE_PREFIX);
+
+		Map<String, String> map = new HashMap<>();
+		map.put("tableName", tableName);
+		map.put("partnerId",partnerId);
+		
+		return smsCenterMapper.querySmsListForPartner(map);
 	}
 
 	@Override
@@ -58,7 +115,19 @@ public class SmsCenterServiceImpl implements SmsCenterService {
 		map.put("tableName", tableName);
 		map.put("userId",userId);
 		
-		return 0;
+		return smsCenterMapper.updateSmsStatusForUser(map);
+	}
+	
+	@Override
+	public int updateSmsStatusForPartner(String partnerId) {
+		String tableName = TableUtils.getOrderTableName(Long.valueOf(partnerId), 
+				PetConstants.SMS_PARTNER_TABLE_PREFIX);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("tableName", tableName);
+		map.put("partnerId",partnerId);
+		
+		return smsCenterMapper.updateSmsStatusForPartner(map);
 	}
 
 }

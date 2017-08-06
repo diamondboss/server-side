@@ -19,11 +19,24 @@ public interface SmsCenterService {
 	public int insertSmsForUser(SmsCenterPojo pojo);
 	
 	/**
-	 * 查询是否有新消息
+	 * 向合伙人消息表中，插入合伙人消息
+	 * @return
+	 */
+	public int insertSmsForPartner(SmsCenterPojo pojo);
+	
+	/**
+	 * 查询用户是否有新消息
 	 * @param userId
 	 * @return
 	 */
-	public int queryNewSms(String userId);
+	public int queryNewSmsForUser(String userId);
+	
+	/**
+	 * 查询合伙人是否有新消息
+	 * @param userId
+	 * @return
+	 */
+	public int queryNewSmsForPartner(String partnerId);
 	
 	/**
 	 * 查询用户的消息列表
@@ -33,9 +46,23 @@ public interface SmsCenterService {
 	public List<SmsQueryListVo> querySmsListForUser(String userId);
 	
 	/**
+	 * 查询合伙人的消息列表
+	 * @param userId
+	 * @return
+	 */
+	public List<SmsQueryListVo> querySmsListForPartner(String partnerId);
+	
+	/**
 	 * 更新用户消息状态为已读
 	 * @param userId
 	 * @return
 	 */
 	public int updateSmsStatusForUser(String userId);
+	
+	/**
+	 * 更新合伙人消息状态为已读
+	 * @param userId
+	 * @return
+	 */
+	public int updateSmsStatusForPartner(String partnerId);
 }

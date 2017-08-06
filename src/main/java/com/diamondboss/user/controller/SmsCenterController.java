@@ -1,5 +1,6 @@
 package com.diamondboss.user.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -40,7 +41,7 @@ public class SmsCenterController {
 		log.info("查询是否有新消息");
 		APPResponseBody app = new APPResponseBody();
 		
-		if(vo.getUserId() == null){
+		if(vo.getUserId() == null && vo.getPartnerId() == null){
 			app.setRetnDesc("参数非法");
 			app.setRetnCode(1);
 			return app;
@@ -48,7 +49,11 @@ public class SmsCenterController {
 		
 		int count = 0;
 		try{
-			count = SmsCenterService.queryNewSms(vo.getUserId());
+			if(vo.getPartnerId() == null){
+				count = SmsCenterService.queryNewSmsForUser(vo.getUserId());
+			}else{
+				count = SmsCenterService.queryNewSmsForPartner(vo.getPartnerId());
+			}
 		}catch(Exception e){
 			log.info("查询是否有新消息,异常：" + e.getMessage());
 		}
@@ -75,18 +80,27 @@ public class SmsCenterController {
 	 * @return 
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/querySmsListOfUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/querySmsList", method = RequestMethod.POST)
 	public APPResponseBody querySmsListOfUser(OrderUserVo vo) {
-		log.info("获取用户消息列表");
+		log.info("获取消息列表");
 		APPResponseBody app = new APPResponseBody();
 		
-		if(vo.getUserId() == null){
+		if(vo.getUserId() == null && vo.getPartnerId() == null){
 			app.setRetnDesc("参数非法");
 			app.setRetnCode(1);
 			return app;
 		}
+		List<SmsQueryListVo> userSmsList = new ArrayList<>();
 		
-		List<SmsQueryListVo> userSmsList = SmsCenterService.querySmsListForUser(vo.getUserId());
+		try{
+			if(vo.getPartnerId() == null){
+				userSmsList = SmsCenterService.querySmsListForUser(vo.getUserId());
+			}else{
+				userSmsList = SmsCenterService.querySmsListForPartner(vo.getPartnerId());
+			}
+		}catch(Exception e){
+			log.info("获取消息列表,异常：" + e.getMessage());
+		}
 		
 		app.setRetnCode(0);
 		app.setData(userSmsList);
@@ -105,14 +119,23 @@ public class SmsCenterController {
 		log.info("更改用户消息的状态");
 		APPResponseBody app = new APPResponseBody();
 		
-		if(vo.getUserId() == null){
+		if(vo.getUserId() == null && vo.getPartnerId() == null){
 			app.setRetnDesc("参数非法");
 			app.setRetnCode(1);
 			return app;
 		}
 		
+		try{
+			if(vo.getPartnerId() == null){
+				SmsCenterService.updateSmsStatusForUser(vo.getUserId());
+			}else{
+				SmsCenterService.updateSmsStatusForPartner(vo.getPartnerId());
+			}
+		}catch(Exception e){
+			log.info("更改用户消息的状态,异常：" + e.getMessage());
+		}
 		
-		
+		app.setRetnCode(0);
 		return app;
 	}
 }
