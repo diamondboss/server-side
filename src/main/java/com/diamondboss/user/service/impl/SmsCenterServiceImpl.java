@@ -29,7 +29,7 @@ public class SmsCenterServiceImpl implements SmsCenterService {
 		Map<String, String> map =  new HashMap<>();
 		map.put("userId", pojo.getUserId());
 		map.put("partnerId", pojo.getPartnerId());
-		map.put("parrtnerName", pojo.getPartnerName());
+		map.put("partnerName", pojo.getPartnerName());
 		map.put("smsSource", pojo.getSmsSource());
 		map.put("smsTypeId", pojo.getSmsTypeId());
 		map.put("smsStatus", pojo.getSmsStatus());
@@ -47,7 +47,7 @@ public class SmsCenterServiceImpl implements SmsCenterService {
 		Map<String, String> map =  new HashMap<>();
 		map.put("userId", pojo.getUserId());
 		map.put("partnerId", pojo.getPartnerId());
-		map.put("parrtnerName", pojo.getPartnerName());
+		map.put("partnerName", pojo.getPartnerName());
 		map.put("smsSource", pojo.getSmsSource());
 		map.put("smsTypeId", pojo.getSmsTypeId());
 		map.put("smsStatus", pojo.getSmsStatus());
