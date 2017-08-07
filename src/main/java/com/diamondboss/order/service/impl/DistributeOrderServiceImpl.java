@@ -76,6 +76,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		}
 		
 		logger.info("parnterId:" + pojo.getPartnerId());
+		logger.info("parnterName:" + pojo.getPartnerName());
 		if(StringUtils.isNotBlank(pojo.getPartnerId())){
 			appointPartner(pojo);
 		}else{
@@ -249,12 +250,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			
 			//插入合伙人消息pojo
 			SmsCenterPojo partnerPojo = new SmsCenterPojo();
-			smsCenterPojo.setUserId(pojo.getUserId());
-			smsCenterPojo.setPartnerId(pojo.getPartnerId());
-			smsCenterPojo.setPartnerName(pojo.getPartnerName());
-			smsCenterPojo.setSmsSource("1");
-			smsCenterPojo.setSmsTypeId("3000018");
-			smsCenterPojo.setSmsStatus("1");
+			partnerPojo.setUserId(pojo.getUserId());
+			partnerPojo.setPartnerId(pojo.getPartnerId());
+			partnerPojo.setPartnerName(pojo.getPartnerName());
+			partnerPojo.setSmsSource("1");
+			partnerPojo.setSmsTypeId("3000018");
+			partnerPojo.setSmsStatus("1");
 			smsCenterService.insertSmsForPartner(partnerPojo);
 			
 			//查询到合伙人的手机号
