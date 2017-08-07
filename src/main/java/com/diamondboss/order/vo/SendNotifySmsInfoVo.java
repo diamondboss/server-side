@@ -18,6 +18,11 @@ public class SendNotifySmsInfoVo {
 	private String userName;
 	
 	/**
+	 * 用户电话
+	 */
+	private String userPhone;
+
+	/**
 	 * 合伙人名字
 	 */
 	private String partnerName;
@@ -41,6 +46,14 @@ public class SendNotifySmsInfoVo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 
 	public String getPartnerName() {

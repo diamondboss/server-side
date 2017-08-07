@@ -40,7 +40,7 @@ public interface ISendMsgService {
 	 * @Title: sendNotifyMsg
 	 * @Description: 通知类短信发送方法，phone为短信接收人手机号
 	 * @param: sendSmsInfo:发送信息需要的额信息
-	 * @param: flag ：成功或失败的短信标识. 0为成功，1为失败
+	 * @param: flag ：成功或失败的短信标识. 0为成功，1为失败 . 
 	 * @throws
 	 */
 	SmsReturnInfo sendNotifyMsg(SendNotifySmsInfoVo sendSmsInfo, int flag);
