@@ -183,7 +183,7 @@ public class SmsSenderUtils {
 	 * @return
 	 */
 	public static SmsReturnInfo sendNotifyMsg(String appKey, String nonce, String timestamp, String hash, 
-			SendNotifySmsInfoVo sendSmsInfo, String templateId, String requestUrl){
+			SendNotifySmsInfoVo sendSmsInfo, String templateId, String requestUrl,int smsType){
 		SmsReturnInfo smsReturnInfo = new SmsReturnInfo();
 		try {
 			//将发送参数appKey + nonce + Timestamp + hash 放入到request请求头中
@@ -196,13 +196,28 @@ public class SmsSenderUtils {
 			params.put("region", "86");
 			params.put("mobile", sendSmsInfo.getPhone());
 			params.put("templateId", templateId);
-			params.put("p1", sendSmsInfo.getUserName());
-			params.put("p2", sendSmsInfo.getOrderDate());
-			params.put("p3", sendSmsInfo.getPartnerName());
 			
-			//发送
-			String result = HttpUtils.sendPost(params, requestUrl, 3);
-
+			String result = "";
+			
+			if(smsType == 0){ //用户成功
+				params.put("p1", sendSmsInfo.getUserName());
+				params.put("p2", sendSmsInfo.getPartnerName());
+				//发送
+				HttpUtils.sendPost(params, requestUrl, 3);
+			}else if(smsType == 1){ //用户失败
+				params.put("p1", sendSmsInfo.getUserName());
+				//发送
+				HttpUtils.sendPost(params, requestUrl, 4);
+			}else if(smsType == 2){ //合伙人成功
+				params.put("p1", sendSmsInfo.getOrderDate());
+				//发送
+				HttpUtils.sendPost(params, requestUrl, 5);
+			}else if(smsType == 3){ //取消预约
+				params.put("p1", sendSmsInfo.getUserPhone());
+				//发送
+				HttpUtils.sendPost(params, requestUrl, 6);
+			}
+			
 			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
 			String code = obj.get("code").getAsString();
 			String sessionId = obj.get("sessionId").getAsString();

@@ -25,8 +25,10 @@ public class SendMsgServiceImpl implements ISendMsgService {
 	private static final String verifyUrl = PropsUtil.getProperty("rongyun.verifyUrl");
 	private static final String sendNotifyUrl = PropsUtil.getProperty("rongyun.sendNotifyUrl");
 	private static final String verifyTemplateId = PropsUtil.getProperty("rongyun.verifyTemplateId");
-	private static final String notifyTemplateIdForSuccess = PropsUtil.getProperty("rongyun.notifyTemplateId.success");
-	private static final String notifyTemplateIdForFail = PropsUtil.getProperty("rongyun.notifyTemplateId.fail");
+	private static final String notifyTemplateIdForUserSuccess = PropsUtil.getProperty("rongyun.notifyTemplateId.user.success");
+	private static final String notifyTemplateIdForUserFail = PropsUtil.getProperty("rongyun.notifyTemplateId.user.fail");
+	private static final String notifyTemplateIdForPartnerSuccess = PropsUtil.getProperty("rongyun.notifyTemplateId.partner.success");
+	private static final String notifyTemplateIdcancel = PropsUtil.getProperty("rongyun.notifyTemplateId.cancel");
 	private static final String RYGetTokenUri = PropsUtil.getProperty("rongyun.RYGetToken");
 	
 	private static final String RYAppSecret = PropsUtil.getProperty("rongyun.RYAppSecret");
@@ -81,10 +83,14 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		
 		SmsReturnInfo smsReturnInfo = new SmsReturnInfo();
 		
-		if(flag == 0){ 
-			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForSuccess, sendNotifyUrl);
-		}else{
-			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForFail, sendNotifyUrl);
+		if(flag == 0){ //用户成功
+			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForUserSuccess, sendNotifyUrl, 01);
+		}else if(flag == 1){ //用户失败
+			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForUserFail, sendNotifyUrl, 1);
+		}else if(flag == 2){ //合伙人成功
+			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdForPartnerSuccess, sendNotifyUrl, 2);
+		}else if(flag == 3){ //取消预约
+			smsReturnInfo  = SmsSenderUtils.sendNotifyMsg(appKey, nonce, timestamp, strHash, sendSmsInfo, notifyTemplateIdcancel, sendNotifyUrl, 3);
 		}
 		
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
