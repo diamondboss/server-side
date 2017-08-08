@@ -28,12 +28,6 @@ public class PartnerConfirmOrderServiceImpl implements PartnerConfirmOrderServic
 		pojo.setUserTable(TableUtils.getOrderTableName(Long.valueOf(vo.getUserId()), 
 				PetConstants.ORDER_USER_TABLE_PREFIX));
 		pojo.setOutTradeNo(vo.getOutTradeNo());
-		LocalDate date = LocalDate.now();
-		date.getMonthValue();
-		date.getDayOfMonth();
-		LocalTime time = LocalTime.now().withNano(0).withSecond(0);
-		
-		pojo.setTime(date.getMonthValue() + "/" + date.getDayOfMonth() + " " + time.toString());
 		
 		// 更新合伙人状态
 		confirmOrderMapper.updatePartnerOrderForReceive(pojo);
@@ -52,13 +46,6 @@ public class PartnerConfirmOrderServiceImpl implements PartnerConfirmOrderServic
 		pojo.setUserTable(TableUtils.getOrderTableName(Long.valueOf(vo.getUserId()), 
 				PetConstants.ORDER_USER_TABLE_PREFIX));
 		pojo.setOutTradeNo(vo.getOutTradeNo());
-		
-		LocalDate date = LocalDate.now();
-		date.getMonthValue();
-		date.getDayOfMonth();
-		LocalTime time = LocalTime.now().withNano(0).withSecond(0);
-		
-		pojo.setTime(date.getMonthValue() + "/" + date.getDayOfMonth() + " " + time.toString());
 		
 		// 更新合伙人状态
 		confirmOrderMapper.updatePartnerOrderForGiveBack(pojo);

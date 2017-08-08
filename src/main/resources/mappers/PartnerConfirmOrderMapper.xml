@@ -8,7 +8,6 @@
 		UPDATE
 	    	${partnerTable}
 		SET
-		    receive_time = #{time},
 		    order_status = 5
 		WHERE
 		    out_trade_no = #{outTradeNo}
@@ -22,7 +21,6 @@
 		UPDATE
 	    	${userTable}
 		SET
-		    receive_time = #{time},
 		    order_status = 5
 		WHERE
 		    out_trade_no = #{outTradeNo}
@@ -36,7 +34,6 @@
 		UPDATE
 	    	${partnerTable}
 		SET
-		    return_time = #{time},
 		    order_status = 6
 		WHERE
 		    out_trade_no = #{outTradeNo}
@@ -50,7 +47,6 @@
 		UPDATE
 	    	${userTable}
 		SET
-		    return_time = #{time},
 		    order_status = 6
 		WHERE
 		    out_trade_no = #{outTradeNo}
