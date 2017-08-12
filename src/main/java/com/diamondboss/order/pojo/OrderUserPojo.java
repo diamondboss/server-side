@@ -485,7 +485,7 @@ public class OrderUserPojo {
 	}
 
 	/**
-	 * 支付方式
+	 * 付款方式（0：支付宝  1：微信  2：其他）
 	 * @return
 	 */
 	public String getPayType() {
@@ -493,7 +493,7 @@ public class OrderUserPojo {
 	}
 
 	/**
-	 * 支付方式
+	 * 付款方式（0：支付宝  1：微信  2：其他）
 	 * @param payType
 	 */
 	public void setPayType(String payType) {

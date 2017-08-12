@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.order.repository.CancelOrderMapper" >
+
+	<!-- 根据订单编号跟用户id查询订单 -->
+	<select id="queryOrderById"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.order.pojo.OrderUserPojo">
+		SELECT
+			id AS id,
+		    receive_time AS receiveTime,
+		    phone AS phone,
+		    partner_id AS partnerId,
+		    order_date AS orderDate, 
+		    order_status AS orderStatus,
+		    amt AS amt,
+		    out_trade_no AS outTradeNo,
+		    user_id AS userId,
+		    trade_no AS tradeNo,
+		    pay_type AS payType,
+		    community_id AS communityId
+		FROM
+		    ${userTable}
+		WHERE
+			id = #{id}
+			AND user_id = #{userId}
+			AND effective = '1'
+	</select>
+
+	<!-- 更新用户订单表  -->
+	<update id="updateUserOrderById"
+		parameterType="java.util.Map">
+		UPDATE
+		     ${userTable}
+		SET
+		    order_status = '7'
+		WHERE
+		    id = #{id}
+			AND user_id = #{userId}
+			AND effective = '1'
+	</update>
+
+	<!-- 更新用户登录表 订单数减少1 -->
+	<update id="updateUserLoginByUserId"
+		parameterType="java.util.Map">
+		UPDATE
+		    user_login
+		SET
+		    order_num = order_num - 1
+		WHERE
+		    id = #{userId}
+			AND effective = '1'
+	</update>
+	
+	<!-- 根据用户订单小区id查询小区下合伙人  -->
+	<select id="queryPartnerId"
+		parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT
+		    parter_id
+		FROM
+		    partner_info
+		WHERE
+			community_id = #{communityId}
+			AND effective = '1'
+	</select>
+	
+	<!-- 更新合伙人抢单表  -->
+	<update id="updateGrabOrderByPartnerId"
+		parameterType="java.util.Map">
+		UPDATE
+		    ${partnerTable}
+		SET
+		    effective = 0
+		WHERE
+		    user_key_id = #{id}
+		    AND user_id = #{userId}
+			AND effective = '1'
+	</update>
+
+	<!-- 更新合伙人订单表  -->
+	<update id="updatePartnerOrder"
+		parameterType="java.util.Map">
+		UPDATE
+		    ${partnerTable}
+		SET
+		    order_status = 7
+		WHERE
+		    out_trade_no = #{outTradeNo}
+		    AND partner_id = #{partnerId}
+			AND effective = '1'
+	</update>
+
+</mapper>

@@ -28,6 +28,14 @@ public class TableUtils {
         return tablePrefix + orderPartnerSuffix;
     }
 
+    /**
+     * 根据合伙人或用户id确定订单信息表名
+     * @param partnerId
+     * @return
+     */
+    public static String getOrderTableName(String partnerId, String tablePrefix){
+    	return getOrderTableName(Long.valueOf(partnerId), tablePrefix);
+    }
 
     public static void main(String[] args){
         System.out.println(getOrderTableName(new Long(1534), PetConstants.ORDER_PARTNER_TABLE_PREFIX));
