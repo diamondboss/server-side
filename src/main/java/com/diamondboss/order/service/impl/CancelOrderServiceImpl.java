@@ -135,7 +135,7 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 		String time = LocalTime.now().plusHours(2).withNano(0).withSecond(0).toString();
 		String[] orderTime = pojo.getReceiveTime().split(" ");
 		if(time.compareTo(orderTime[1]) > 0){
-			return "订单即将取消，不可取消";
+			return "订单已经开始，不可取消";
 		}
 		
 		return "";
