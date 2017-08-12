@@ -30,13 +30,17 @@ public class CancelOrderController {
 	@ResponseBody
 	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
 	public APPResponseBody cancel(CancelOrderVo vo){
-		
-		cancelOrderService.cancelOrder(vo);
-		
 		APPResponseBody app = new APPResponseBody();
-		app.setData("");
-		app.setRetnCode(0);
 		
+		if(cancelOrderService.cancelOrder(vo)){
+			app.setData("取消成功");
+			app.setRetnCode(0);
+			log.info("取消成功");
+		}else{
+			app.setData("取消失败");
+			app.setRetnCode(1);
+			log.info("取消失败");
+		}
 		return app;
 		
 	}
