@@ -1,6 +1,7 @@
 package com.diamondboss.order.service;
 
 import com.diamondboss.order.vo.CancelOrderVo;
+import com.diamondboss.util.vo.APPResponseBody;
 
 /**
  * 用户取消预约
@@ -17,6 +18,6 @@ public interface CancelOrderService {
 	 * @param vo
 	 * @return
 	 */
-	public boolean cancelOrder(CancelOrderVo vo);
+	public APPResponseBody cancelOrder(CancelOrderVo vo);
 	
 }
