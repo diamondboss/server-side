@@ -156,6 +156,27 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			
 			logger.info("进入指定合伙人--订单分配--满足要求--插入合伙人订单");
 			
+			OrderUserPojo updatePojo = new OrderUserPojo();
+			updatePojo.setId(pojo.getId());
+			updatePojo.setPartnerId(pojo.getPartnerId());
+			updatePojo.setOrderStatus(PetConstants.ORDER_STATUS_RECEIVED);
+			
+			String orderUser = TableUtils.getOrderTableName(Long.valueOf(pojo.getUserId()),
+					PetConstants.ORDER_USER_TABLE_PREFIX);
+			
+			updatePojo.setOrderUser(orderUser);
+			logger.info("用户表名：" + orderUser);
+			
+			try{
+				int i = distributeOrderMapper.updateOrderUser(updatePojo);
+				if(i == 0){
+					return;
+				}
+			}catch(Exception e){
+				logger.info("更新订单信息异常。" + e.getMessage());
+				return;
+			}
+			
 			// 满足-插入合伙人订单表;更新用户订单
 			String orderPartner = TableUtils.getOrderTableName(Long.valueOf(pojo.getPartnerId()),
 					PetConstants.ORDER_PARTNER_TABLE_PREFIX);
@@ -174,28 +195,6 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 					}
 				}catch(Exception e){
 					logger.info("插入合伙人订单信息异常。" + e.getMessage());
-					return;
-				}
-				
-
-				OrderUserPojo updatePojo = new OrderUserPojo();
-				updatePojo.setId(pojo.getId());
-				updatePojo.setPartnerId(pojo.getPartnerId());
-				updatePojo.setOrderStatus(PetConstants.ORDER_STATUS_RECEIVED);
-				
-				String orderUser = TableUtils.getOrderTableName(Long.valueOf(pojo.getUserId()),
-						PetConstants.ORDER_USER_TABLE_PREFIX);
-				
-				updatePojo.setOrderUser(orderUser);
-				logger.info("用户表名：" + orderUser);
-				
-				try{
-					int i = distributeOrderMapper.updateOrderUser(updatePojo);
-					if(i == 0){
-						return;
-					}
-				}catch(Exception e){
-					logger.info("更新订单信息异常。" + e.getMessage());
 					return;
 				}
 				
