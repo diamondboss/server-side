@@ -20,7 +20,9 @@ import com.diamondboss.order.service.DistributeOrderService;
 import com.diamondboss.order.vo.PartnerClientVo;
 import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
+import com.diamondboss.user.pojo.SmsCenterPojo;
 import com.diamondboss.user.service.PartnerInfoService;
+import com.diamondboss.user.service.SmsCenterService;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
@@ -56,6 +58,9 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	@Autowired
 	private PartnerRebateService partnerRebateService;
 	
+	@Autowired
+	private SmsCenterService smsCenterService;
+	
 	private static final Logger logger = Logger.getLogger(DistributeOrderServiceImpl.class);
 	
 	/**
@@ -71,6 +76,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		}
 		
 		logger.info("parnterId:" + pojo.getPartnerId());
+		logger.info("parnterName:" + pojo.getPartnerName());
 		if(StringUtils.isNotBlank(pojo.getPartnerId())){
 			appointPartner(pojo);
 		}else{
@@ -97,6 +103,9 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		sendSmsInfoToUser.setUserPhone(pojo.getPhone());
 		sendSmsInfoToUser.setPartnerName(pojo.getPartnerName());
 		sendSmsInfoToUser.setOrderDate(pojo.getOrderDate());
+		
+		//消息pojo
+		SmsCenterPojo smsCenterPojo = new SmsCenterPojo();
 		
 		// 检查合伙人是否满足要求
 		if(checkOrderCountsOfPartner(pojo.getPartnerId(), 
@@ -150,6 +159,17 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			
 			//PushToSingle.pushToSingle(map);
 			// 短信推送用户（订单没有匹配成功的短信）
+			logger.info("插入用户消息");
+			smsCenterPojo.setUserId(pojo.getUserId());
+			smsCenterPojo.setPartnerId(pojo.getPartnerId());
+			smsCenterPojo.setPartnerName(pojo.getPartnerName());
+			smsCenterPojo.setSmsSource("1");
+			smsCenterPojo.setSmsTypeId("3000016");
+			smsCenterPojo.setSmsStatus("1");
+			
+			smsCenterService.insertSmsForUser(smsCenterPojo);
+			logger.info("插入用户消息成功！ ^_^");
+			
 			sendSmsInfoToUser.setPhone(pojo.getPhone());
 			logger.info("发送短信，用户手机号：" + pojo.getPhone());
 			sendMsgService.sendNotifyMsg(sendSmsInfoToUser, 1);
@@ -221,6 +241,24 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
 				logger.info(e.getMessage());
 			}
+			
+			smsCenterPojo.setUserId(pojo.getUserId());
+			smsCenterPojo.setPartnerId(pojo.getPartnerId());
+			smsCenterPojo.setPartnerName(pojo.getPartnerName());
+			smsCenterPojo.setSmsSource("1");
+			smsCenterPojo.setSmsTypeId("3000015");
+			smsCenterPojo.setSmsStatus("1");
+			smsCenterService.insertSmsForUser(smsCenterPojo);
+			
+			//插入合伙人消息pojo
+			SmsCenterPojo partnerPojo = new SmsCenterPojo();
+			partnerPojo.setUserId(pojo.getUserId());
+			partnerPojo.setPartnerId(pojo.getPartnerId());
+			partnerPojo.setPartnerName(pojo.getPartnerName());
+			partnerPojo.setSmsSource("1");
+			partnerPojo.setSmsTypeId("3000018");
+			partnerPojo.setSmsStatus("1");
+			smsCenterService.insertSmsForPartner(partnerPojo);
 			
 			//查询到合伙人的手机号
 			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());
