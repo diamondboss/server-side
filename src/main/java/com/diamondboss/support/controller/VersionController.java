@@ -25,14 +25,24 @@ public class VersionController {
 	public @ResponseBody APPResponseBody getVersion(String s){
 	
 		Map<String, Object> param = new HashMap<>();
-		param.put("version", "1.3.0");
-		param.put("UpdateContent", "1.增加合伙人头像展示");
+		param.put("version", "3");
+		param.put("UpdateContent", "1,修改bug1#2,修改bug2#3,修改bug3");
+		param.put("isMustUpdate","0");
 		
 		
 		APPResponseBody app = new APPResponseBody();
 		app.setData(param);
 		app.setRetnCode(0);
 		return app;
+	}
+	
+	public static void main(String[] args) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("version", "3");
+		param.put("UpdateContent", "1,修改bug1#2,修改bug2#3,修改bug3");
+		param.put("isMustUpdate","0");
+		
+		System.out.println(param);
 	}
 	
 }
