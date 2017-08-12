@@ -88,11 +88,13 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		//组装发送通知短信Vo
 		SendNotifySmsInfoVo sendSmsInfoToPartner = new SendNotifySmsInfoVo();
 		sendSmsInfoToPartner.setUserName(pojo.getUserName());
+		sendSmsInfoToPartner.setUserPhone(pojo.getPhone());
 		sendSmsInfoToPartner.setPartnerName(pojo.getPartnerName());
 		sendSmsInfoToPartner.setOrderDate(pojo.getOrderDate());
 		
 		SendNotifySmsInfoVo sendSmsInfoToUser = new SendNotifySmsInfoVo();
 		sendSmsInfoToUser.setUserName(pojo.getUserName());
+		sendSmsInfoToUser.setUserPhone(pojo.getPhone());
 		sendSmsInfoToUser.setPartnerName(pojo.getPartnerName());
 		sendSmsInfoToUser.setOrderDate(pojo.getOrderDate());
 		
@@ -225,7 +227,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			// 短信推送合伙人
 			sendSmsInfoToPartner.setPhone(partnerInfoPojo.getPhoneNumber());
 			logger.info("发送短信，合伙人手机号：" + partnerInfoPojo.getPhoneNumber());
-			sendMsgService.sendNotifyMsg(sendSmsInfoToPartner, 1);
+			sendMsgService.sendNotifyMsg(sendSmsInfoToPartner, 2);
 			
 			sendSmsInfoToUser.setPhone(pojo.getPhone());
 			logger.info("发送短信，用户手机号：" + pojo.getPhone());
