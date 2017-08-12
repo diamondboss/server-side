@@ -27,6 +27,7 @@ import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
+import com.diamondboss.util.vo.APPResponseBody;
 
 /**
  * 用户取消预约
@@ -59,20 +60,33 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 	 * @return
 	 */
 	@Override
-	public boolean cancelOrder(CancelOrderVo vo) {
+	public APPResponseBody cancelOrder(CancelOrderVo vo) {
+		
+		APPResponseBody app = new APPResponseBody();
 
 		// 1.根据订单编号跟用户id查询订单
 		OrderUserPojo userOrder = queryOrder(vo);
 		
+		String result = cheakOrder(userOrder);
 		// 2.检查订单是否可以取消
-		if(cheakOrder(userOrder)){
-			
+		if(StringUtils.isBlank(result)){
 			// 3.取消预约
-			cancel(userOrder);
-			
+			if(cancel(userOrder)){
+				app.setData("");
+				app.setRetnCode(0);
+				app.setRetnDesc("取消成功");
+			}else{
+				app.setData("");
+				app.setRetnCode(1);
+				app.setRetnDesc("取消失败");
+			}
+		}else{
+			app.setData("");
+			app.setRetnCode(1);
+			app.setRetnDesc(result);
 		}
 		
-		return false;
+		return app;
 	}
 
 	/**
@@ -99,32 +113,32 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 	 * @param pojo 取消预约订单信息
 	 * @return true-可以取消;false-不可取消
 	 */
-	private boolean cheakOrder(OrderUserPojo pojo){
+	private String cheakOrder(OrderUserPojo pojo){
 		
 		// 如果订单状态不是2或4 不可取消
 		if(!"2".equals(pojo.getOrderStatus())&&
 				!"4".equals(pojo.getOrderStatus())){
 			
-			return false;
+			return "当前订单不可取消";
 		}
 		
 		// 如果订单时间大于今日,可以取消
 		String today = LocalDate.now().toString();
 		
 		if(today.compareTo(pojo.getOrderDate()) < 0){
-			return true;
+			return "";
 		}else if(today.compareTo(pojo.getOrderDate()) > 0){
-			return false;
+			return "该订单已完成，不可取消";
 		}
 		
 		// 如果订单还有2个小时不可取消
 		String time = LocalTime.now().plusHours(2).withNano(0).withSecond(0).toString();
 		String[] orderTime = pojo.getReceiveTime().split(" ");
 		if(time.compareTo(orderTime[1]) > 0){
-			return false;
+			return "订单即将取消，不可取消";
 		}
 		
-		return false;
+		return "";
 		
 	}
 	
