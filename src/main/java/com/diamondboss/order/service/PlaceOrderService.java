@@ -4,8 +4,6 @@ import java.util.Map;
 
 import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.vo.AlipayOrderSubmitVo;
-import com.diamondboss.order.vo.OrderUserVo;
-import com.diamondboss.order.vo.WXPayOrderSubmitVo;
 
 /**
  * 用户下单
@@ -41,4 +39,12 @@ public interface PlaceOrderService {
 	 * @param vo
 	 */
 	public Map<String, Object> combinationOrderInfoWXPay(OrderUserPojo pojo);
+	
+	/**
+	 * 确认合伙人是否可以接受订单
+	 * @param partnerId
+	 * @param orderDate
+	 * @return true--不可下单;false--可以下单
+	 */
+	public boolean checkOrderCountsOfPartner(String partnerId, String orderDate);
 }

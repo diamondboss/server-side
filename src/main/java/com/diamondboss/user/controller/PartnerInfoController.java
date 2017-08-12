@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
+import com.diamondboss.user.vo.PartnerEnvironmentVo;
 import com.diamondboss.user.vo.RequestPartnerOfCommunityVo;
 import com.diamondboss.user.vo.ResponsePartnerOfCommunityVo;
 import com.diamondboss.util.vo.APPResponseBody;
@@ -73,5 +74,25 @@ public class PartnerInfoController {
 		app.setRetnCode(0);
 		return app;	
 	}
+	
+	/**
+	 * 查询合伙人饲养环境
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryEnvironment" ,method = RequestMethod.POST)
+	public APPResponseBody queryEnvironment(String partnerId) {
+		
+		PartnerEnvironmentVo pojo = partnerInfoService.queryEnvironment(partnerId);
+		
+		APPResponseBody app = new APPResponseBody();
+		app.setData(pojo);
+		app.setRetnCode(0);
+		return app;
+	}
+	
+	
+	
 	
 }
