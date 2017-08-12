@@ -128,7 +128,7 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 		
 	}
 	
-	private void cancel(OrderUserPojo pojo){
+	private boolean cancel(OrderUserPojo pojo){
 		
 		Map<String, Object> param = new HashMap<>(); 
 		param.put("userId", pojo.getUserId());
@@ -138,7 +138,7 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 		// 更新用户订单表
 		int i = cancelOrder.updateUserOrderById(param);
 		if(i==0){
-			return;
+			return false;
 		}
 		
 		// 更新用户登录表 订单数-1
@@ -151,7 +151,7 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 			List<String> partnerList = cancelOrder.queryPartnerId(param);
 			
 			if(partnerList == null || partnerList.size() ==0){
-				return;
+				return false;
 			}
 			
 			// 更新合伙人抢单表
@@ -182,9 +182,11 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 					updateUserStateOfRefund(pojo);
 				}catch(Exception e){
 					logger.info("退款后【支付宝】更新用户订单状态异常：" + e.getMessage());
+					return false;
 				}
 			}else{
 				logger.info("支付宝退款失败！订单号：" + pojo.getTradeNo());
+				return false;
 			}
 			
 		}else if("1".equals(pojo.getPayType())){
@@ -204,11 +206,13 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 					updateUserStateOfRefund(pojo);
 				}catch(Exception e){
 					logger.info("退款后【微信】更新用户订单状态异常：" + e.getMessage());
+					return false;
 				}
 				
 				logger.info("进入指定合伙人--订单分配--更新数据库订单信息成功");
 			}else{
 				logger.info("微信退款失败");
+				return false;
 			}
 		}
 		
@@ -228,6 +232,7 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 		
 		// 消息推送
 		
+		return true;
 	}
 	
 	/**
