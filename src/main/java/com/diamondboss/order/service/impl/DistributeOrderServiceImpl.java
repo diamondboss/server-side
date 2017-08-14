@@ -53,8 +53,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	@Autowired
 	private PartnerInfoService partnerInfoService;
 	
-	@Autowired
-	private PartnerRebateService partnerRebateService;
+//	@Autowired
+//	private PartnerRebateService partnerRebateService;
 	
 	private static final Logger logger = Logger.getLogger(DistributeOrderServiceImpl.class);
 	
@@ -213,12 +213,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			map.put("url", "http://www.baidu.com");*/
 			
 			//PushToSingle.pushToSingle(map);
-			try{
-				partnerRebateService.rebate(pojo, true);
-			}catch(Exception e){
-				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
-				logger.info(e.getMessage());
-			}
+//			try{
+//				partnerRebateService.rebate(pojo, true);
+//			}catch(Exception e){
+//				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
+//				logger.info(e.getMessage());
+//			}
 			
 			//查询到合伙人的手机号
 			PartnerInfoPojo partnerInfoPojo = partnerInfoService.queryPhoneOfPartner(pojo.getPartnerId());

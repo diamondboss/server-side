@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.diamondboss.constants.PetConstants;
 import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.user.pojo.PartnerConfirmOrderPojo;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 import com.diamondboss.wallet.repository.PartnerRebateMapper;
@@ -26,20 +27,11 @@ public class PartnerRebateServiceImpl implements PartnerRebateService{
 	private PartnerRebateMapper partnerRebateMapper;
 	
 	@Override
-	public void rebate(OrderUserPojo pojo, boolean flag) {
-		
-		PartnerWalletPojo wallet = new PartnerWalletPojo();
-		wallet.setPartnerId(pojo.getPartnerId());
-		if(flag){
-			wallet.setAmt(pojo.getAmt().multiply(new BigDecimal("0.8")));
-		}else{
-			wallet.setAmt(pojo.getAmt());
-		}
+	public void rebate(PartnerWalletPojo wallet) {
 		
 		wallet.setKind("1");
-		wallet.setOrderDate(pojo.getOrderDate());
 		wallet.setPartnerWalletDetail(TableUtils.getOrderTableName(
-				Long.valueOf(pojo.getPartnerId()), PetConstants.PARTNER_WALLET_DETAIL));
+				Long.valueOf(wallet.getPartnerId()), PetConstants.PARTNER_WALLET_DETAIL));
 		
 		partnerRebateMapper.insertPartnerWalletDetail(wallet);
 		

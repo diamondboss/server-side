@@ -61,4 +61,10 @@ public interface PlaceOrderMapper {
 	 */
 	public List<PartnerClientVo> queryPartnerClient(String communityId);
 	
+	/**
+	 * 用户下单更新用户登录表
+	 * @param pojo
+	 * @return
+	 */
+	public int updateUserLogin(OrderUserPojo pojo);
 }
