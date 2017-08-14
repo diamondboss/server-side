@@ -96,8 +96,8 @@
 		    A.sms_type_id AS smsTypeId,
 		    B.sms_title AS smsTitle,
 		    B.sms_context AS smsContext,
-		    A.create_time AS createTime,
-		    A.update_time AS updateTime
+		    left(A.create_time, 16) AS createTime,
+		    left(A.update_time, 16) AS updateTime
 		FROM
 		    ${tableName} A LEFT JOIN sms_type B ON A.sms_type_id = B.id
 		WHERE
@@ -118,8 +118,8 @@
 		    A.sms_type_id AS smsTypeId,
 		    B.sms_title AS smsTitle,
 		    B.sms_context AS smsContext,
-		    A.create_time AS createTime,
-		    A.update_time AS updateTime
+		    left(A.create_time, 16) AS createTime,
+		    left(A.update_time, 16) AS updateTime
 		FROM
 		    ${tableName} A LEFT JOIN sms_type B ON A.sms_type_id = B.id
 		WHERE
