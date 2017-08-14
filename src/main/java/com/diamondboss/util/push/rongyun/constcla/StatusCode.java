@@ -20,4 +20,7 @@ public class StatusCode {
 	public static Integer SIGN_CHALLENGE_FALL = 210;			//签到时候，触发的挑战失败
 	public static Integer PAY_PASSWORD_ERROR = 212;				//支付密码错误
 	
+	public static Integer VERIFIED = 1014;			//验证码已验证过
+	public static Integer VERIFIEY_TIME_OUT = 1015;				//验证超时
+	
 }
