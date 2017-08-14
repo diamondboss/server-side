@@ -1,5 +1,7 @@
 package com.diamondboss.util.push.getui;
 
+import java.util.Map;
+
 import com.diamondboss.util.tools.PropsUtil;
 import com.gexin.rp.sdk.base.payload.APNPayload;
 import com.gexin.rp.sdk.base.payload.MultiMedia;
@@ -11,7 +13,7 @@ public class TransmissionTemplateTestIos {
     private static String appKey = PropsUtil.getProperty("getui.appKey");
     private static String masterSecret = PropsUtil.getProperty("getui.masterSecret");
 	
-	public static TransmissionTemplate getTemplate() {
+	public static TransmissionTemplate getTemplate(Map<String, String> map) {
 	    TransmissionTemplate template = new TransmissionTemplate();
 	    template.setAppId(appId);
 	    template.setAppkey(appKey);
@@ -24,7 +26,7 @@ public class TransmissionTemplateTestIos {
 	    payload.setSound("default");
 	    payload.setCategory("$由客户端定义");
 	    
-	    payload.addCustomMsg("type", "1");
+	    payload.addCustomMsg("type", "10");
 
 	    //简单模式APNPayload.SimpleMsg
 	    payload.setAlertMsg(new APNPayload.SimpleAlertMsg("你好，请打开APP查看哦！"));
@@ -52,9 +54,5 @@ public class TransmissionTemplateTestIos {
 	    alertMsg.setTitleLocKey("TitleLocKey");
 	    alertMsg.addTitleLocArg("TitleLocArg");
 	    return alertMsg;
-	}
-	
-	public static void main(String[] args) {
-		getTemplate();
 	}
 }

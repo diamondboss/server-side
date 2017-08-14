@@ -25,7 +25,7 @@ public class PushToSingle {
  
     public static void pushToSingle(Map<String, String> map){
         IGtPush push = new IGtPush(host, appKey, masterSecret);
-        TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate();
+        TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate(map);
         //LinkTemplate template = PushToSingle.linkTemplateDemo(map);
         SingleMessage message = new SingleMessage();
         message.setOffline(true);

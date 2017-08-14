@@ -27,9 +27,9 @@ public class PushList {
         // System.setProperty("gexin_pushList_needAliasDetails", "true");
         IGtPush push = new IGtPush(host, appKey, masterSecret);
         // 通知透传模板
-        TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate();
+        //TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate();
         ListMessage message = new ListMessage();
-        message.setData(template);
+        //message.setData(template);
         // 设置消息离线，并设置离线时间
         message.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
