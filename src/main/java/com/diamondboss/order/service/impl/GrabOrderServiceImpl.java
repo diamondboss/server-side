@@ -65,20 +65,20 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		// 更新用户登录表
 		grabOrder.updateUserLogin(pojo.getUserId());
 		
-		try{
-			//抢单后，开始更新合伙人钱包金额
-			log.info("抢单后，开始更新合伙人钱包金额，partnerId=" + vo.getPartnerId());
-			
-			OrderUserPojo orderUserPojo = new OrderUserPojo();
-			orderUserPojo.setPartnerId(vo.getPartnerId());
-			orderUserPojo.setAmt(new BigDecimal(vo.getAmt()));
-			orderUserPojo.setOrderDate(vo.getOrderDate());
-			
-			partnerRebateService.rebate(orderUserPojo, false);
-		}catch(Exception e){
-			log.info("更新合伙人钱包金额异常。" + e.getMessage());
-			log.info(e.getMessage());
-		}
+//		try{
+//			//抢单后，开始更新合伙人钱包金额
+//			log.info("抢单后，开始更新合伙人钱包金额，partnerId=" + vo.getPartnerId());
+//			
+//			OrderUserPojo orderUserPojo = new OrderUserPojo();
+//			orderUserPojo.setPartnerId(vo.getPartnerId());
+//			orderUserPojo.setAmt(new BigDecimal(vo.getAmt()));
+//			orderUserPojo.setOrderDate(vo.getOrderDate());
+//			
+//			partnerRebateService.rebate(orderUserPojo, false);
+//		}catch(Exception e){
+//			log.info("更新合伙人钱包金额异常。" + e.getMessage());
+//			log.info(e.getMessage());
+//		}
 		
 		// 推送用户
 		return 0;

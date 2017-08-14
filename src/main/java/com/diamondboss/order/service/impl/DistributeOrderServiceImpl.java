@@ -55,8 +55,8 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	@Autowired
 	private PartnerInfoService partnerInfoService;
 	
-	@Autowired
-	private PartnerRebateService partnerRebateService;
+//	@Autowired
+//	private PartnerRebateService partnerRebateService;
 	
 	@Autowired
 	private SmsCenterService smsCenterService;
@@ -234,12 +234,12 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			map.put("url", "http://www.baidu.com");*/
 			
 			//PushToSingle.pushToSingle(map);
-			try{
-				partnerRebateService.rebate(pojo, true);
-			}catch(Exception e){
-				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
-				logger.info(e.getMessage());
-			}
+//			try{
+//				partnerRebateService.rebate(pojo, true);
+//			}catch(Exception e){
+//				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
+//				logger.info(e.getMessage());
+//			}
 			
 			smsCenterPojo.setUserId(pojo.getUserId());
 			smsCenterPojo.setPartnerId(pojo.getPartnerId());

@@ -1,6 +1,7 @@
 package com.diamondboss.wallet.service;
 
-import com.diamondboss.order.pojo.OrderUserPojo;
+import com.diamondboss.user.pojo.PartnerConfirmOrderPojo;
+import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 
 /**
  * 合伙人返佣
@@ -14,6 +15,6 @@ public interface PartnerRebateService {
 	/**
 	 * 返佣
 	 */
-	public void rebate(OrderUserPojo pojo, boolean flag);
+	public void rebate(PartnerWalletPojo wallet);
 	
 }

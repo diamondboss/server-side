@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.timer.repository.AutoAllocationOrderMapper" >
+
+	<!-- 扫描是否有没处理的用户订单 -->
+	<select id="scanUserOrder"
+		resultType="java.lang.String">
+		SELECT 
+			id 
+		FROM 
+			user_login
+		WHERE
+			order_num &gt; '0'
+		AND effective = '1'
+	</select>
+
+	<!-- 根据用户id查询未完成的订单  -->
+	<select id="queryOrderByUserId"
+		parameterType="java.util.Map"
+		resultType="com.diamondboss.order.pojo.UserOrderListPojo">
+		SELECT
+		    id AS id,
+		    user_id AS userId,
+		    community_id AS communityId
+		FROM
+		    ${userTable}
+		WHERE
+			user_id = #{userId}
+			AND order_status ='2'
+			AND create_time &lt; #{time}
+			AND effective = '1'
+	</select>
+
+	<!-- 插入合伙人订单表  -->
+	<insert id="insertPartnerOrder"
+		parameterType="java.util.Map">
+		INSERT
+		INTO
+		    ${partnerTable}
+		    (
+		        receive_time,
+		        return_time,
+		        pet_name,
+		        sex,
+		        age,
+		        phone,
+		        user_name,
+		        remark,
+		        user_id,
+		        partner_id,
+		        partner_name,
+		        order_date,
+		        order_status,
+		        amt,
+		        varieties,
+		        dogFood,
+		        community_id,
+		        effective
+		    )
+			SELECT
+			    receive_time,
+			    return_time,
+			    pet_name,
+			    sex,
+			    age,
+			    phone,
+			    user_name,
+			    remark,
+			    user_id,
+			    #{partnerId},
+			    #{partnerName},
+			    order_date,
+			    order_status,
+			    amt*0.8,
+			    varieties,
+			    dogFood,
+			    community_id,
+			    '1'
+			FROM
+			    ${userTable}
+			WHERE
+				id = #{userId}
+	</insert>
+
+
+</mapper>

@@ -64,6 +64,7 @@
 		    ${orderUser}
 		SET
 		    partner_id = #{partnerId},
+		    partner_id = #{partnerId},
 		    order_status = #{orderStatus}
 		WHERE
 		    id = #{id}

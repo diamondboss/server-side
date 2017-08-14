@@ -115,6 +115,11 @@ public class UserOrderListPojo{
 	 */
 	private String dogFood;
 	
+	/**
+	 * 小区id
+	 */
+	private String communityId;
+	
 	public String getDogFood() {
 		return dogFood;
 	}
@@ -393,6 +398,14 @@ public class UserOrderListPojo{
 	 */
 	public void setPetName(String petName) {
 		this.petName = petName;
+	}
+
+	public String getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
 	}
 	
 	

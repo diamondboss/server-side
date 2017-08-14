@@ -1,6 +1,7 @@
 package com.diamondboss.user.repository;
 
 import com.diamondboss.user.pojo.PartnerConfirmOrderPojo;
+import com.diamondboss.wallet.pojo.PartnerWalletPojo;
 
 public interface PartnerConfirmOrderMapper {
 
@@ -27,5 +28,12 @@ public interface PartnerConfirmOrderMapper {
 	 * @param pojo
 	 */
 	public void updateUserOrderForGiveBack(PartnerConfirmOrderPojo pojo);
+	
+	/**
+	 * 根据订单编号查询钱包信息
+	 * @param pojo
+	 * @return
+	 */
+	public PartnerWalletPojo queryWalletbyPojo(PartnerConfirmOrderPojo pojo);
 	
 }

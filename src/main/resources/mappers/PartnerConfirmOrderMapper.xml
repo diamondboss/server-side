@@ -54,4 +54,20 @@
 		    AND effective =  '1'
 	</update>
 
+	<!-- 根据订单编号查询钱包信息 -->
+	<select id="queryWalletbyPojo"
+		parameterType="com.diamondboss.user.pojo.PartnerConfirmOrderPojo"
+		resultType="import com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		SELECT
+			partner_id AS partnerId,
+			amt AS amt,
+			order_date AS orderDate
+		FROM
+			${partnerTable}
+		WHERE
+		    out_trade_no = #{outTradeNo}
+		    AND order_status = '6'
+		    AND effective =  '1'
+	</select>
+	
 </mapper>
