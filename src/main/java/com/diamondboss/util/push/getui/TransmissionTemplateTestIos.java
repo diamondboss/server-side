@@ -15,7 +15,7 @@ public class TransmissionTemplateTestIos {
 	    TransmissionTemplate template = new TransmissionTemplate();
 	    template.setAppId(appId);
 	    template.setAppkey(appKey);
-	    template.setTransmissionContent("透传内容");
+	    template.setTransmissionContent("透传测试内容");
 	    template.setTransmissionType(2);
 	    APNPayload payload = new APNPayload();
 	    //在已有数字基础上加1显示，设置为-1时，在已有数字上减1显示，设置为数字时，显示指定数字
@@ -23,9 +23,11 @@ public class TransmissionTemplateTestIos {
 	    payload.setContentAvailable(1);
 	    payload.setSound("default");
 	    payload.setCategory("$由客户端定义");
+	    
+	    payload.addCustomMsg("type", "1");
 
 	    //简单模式APNPayload.SimpleMsg
-	    payload.setAlertMsg(new APNPayload.SimpleAlertMsg("你好，帅总，这是对全部用户发送，请打开APP查看哦！"));
+	    payload.setAlertMsg(new APNPayload.SimpleAlertMsg("你好，请打开APP查看哦！"));
 
 	    //字典模式使用APNPayload.DictionaryAlertMsg
 	    //payload.setAlertMsg(getDictionaryAlertMsg());
@@ -50,5 +52,9 @@ public class TransmissionTemplateTestIos {
 	    alertMsg.setTitleLocKey("TitleLocKey");
 	    alertMsg.addTitleLocArg("TitleLocArg");
 	    return alertMsg;
+	}
+	
+	public static void main(String[] args) {
+		getTemplate();
 	}
 }

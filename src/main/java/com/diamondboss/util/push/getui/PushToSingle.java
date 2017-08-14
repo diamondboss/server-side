@@ -1,5 +1,6 @@
 package com.diamondboss.util.push.getui;
 
+import java.util.HashMap;
 import java.util.Map;
 import com.diamondboss.util.tools.PropsUtil;
 import com.gexin.rp.sdk.base.IPushResult;
@@ -25,6 +26,7 @@ public class PushToSingle {
     public static void pushToSingle(Map<String, String> map){
         IGtPush push = new IGtPush(host, appKey, masterSecret);
         TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate();
+        //LinkTemplate template = PushToSingle.linkTemplateDemo(map);
         SingleMessage message = new SingleMessage();
         message.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
@@ -74,4 +76,14 @@ public class PushToSingle {
         template.setUrl(map.get("url"));
         return template;
     }
+    
+    public static void main(String[] args) {
+    	Map<String, String> map = new HashMap<String, String>();
+		map.put("CID", "17b1cbdf42373506e8d6246cedb8344f");
+		map.put("title", "订单派送失败");
+		map.put("text", "抱歉，您的订单派送失败！");
+		map.put("url", "http://www.baidu.com");
+		
+		pushToSingle(map);
+	}
 }
