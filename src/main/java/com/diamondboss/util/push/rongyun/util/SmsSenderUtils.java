@@ -202,7 +202,7 @@ public class SmsSenderUtils {
 			
 			if(smsType == 0){ //用户成功
 				params.put("p1", sendSmsInfo.getUserName());
-				params.put("p2", sendSmsInfo.getPartnerName());
+				params.put("p3", sendSmsInfo.getPartnerName());
 				//发送
 				HttpUtils.sendPost(params, requestUrl, 3);
 			}else if(smsType == 1){ //用户失败
