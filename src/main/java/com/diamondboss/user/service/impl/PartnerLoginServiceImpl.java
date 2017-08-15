@@ -61,20 +61,25 @@ public class PartnerLoginServiceImpl implements PartnerLoginService{
 		List<UserOrderServiceVo> userOrder = new ArrayList<>();
 		
 		UserOrderServiceVo UserOrderServiceVo = userOrderServiceMapper.queryUserOrderService(map);
-		
-		String tableNameOfPartner = TableUtils.getOrderTableName(Long.valueOf(UserOrderServiceVo.getPartnerId()), PetConstants.ORDER_PARTNER_TABLE_PREFIX);
-		Map<String, String> mapOfPartner = new HashMap<>();
-		mapOfPartner.put("partnerId", UserOrderServiceVo.getPartnerId());
-		mapOfPartner.put("orderDate", orderDate);
-		mapOfPartner.put("tableNameOfPartner", tableNameOfPartner);
-		
-		int orderCount = userOrderServiceMapper.queryOrderCountOfPartner(mapOfPartner);
-		UserOrderServiceVo.setOrderCount(String.valueOf(orderCount));
+		 
+		if(UserOrderServiceVo == null){
+			return userOrder;
+		}else{
+			String tableNameOfPartner = TableUtils.getOrderTableName(Long.valueOf(UserOrderServiceVo.getPartnerId()), PetConstants.ORDER_PARTNER_TABLE_PREFIX);
+			
+			Map<String, String> mapOfPartner = new HashMap<>();
+			mapOfPartner.put("partnerId", UserOrderServiceVo.getPartnerId());
+			mapOfPartner.put("orderDate", orderDate);
+			mapOfPartner.put("tableNameOfPartner", tableNameOfPartner);
+			
+			int orderCount = userOrderServiceMapper.queryOrderCountOfPartner(mapOfPartner);
+			UserOrderServiceVo.setOrderCount(String.valueOf(orderCount));
 
-		userOrder.add(UserOrderServiceVo);
+			userOrder.add(UserOrderServiceVo);
+		}
+	
 		
 		return userOrder;
-
 	}
 	
 	/**
