@@ -12,7 +12,7 @@
 		  B.name AS name
 		FROM
 		    user_login A
-		INNER JOIN user_info B ON A.id = B.user_id
+		LEFT JOIN user_info B ON A.id = B.user_id
 		WHERE
 			A.phone_number = #{phoneNumber}
 			AND A.effective = '1'
