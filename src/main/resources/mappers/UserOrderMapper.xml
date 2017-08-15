@@ -35,7 +35,7 @@
 	<!-- 查询合伙人的历史订单数量 -->
 	<select id="queryOrderCountOfPartner"
 		parameterType="java.util.Map"
-		resultMap="java.lang.Integer" >
+		resultType="java.lang.Integer" >
 		SELECT count(1)
 		FROM ${tableNameOfPartner} A
 		WHERE A.partner_id = #{partnerId}
@@ -62,7 +62,7 @@
 	<!-- 查询合伙人的历史订单数量 -->
 	<select id="queryOrderCountOfPartner2"
 		parameterType="java.util.Map"
-		resultMap="java.lang.Integer" >
+		resultType="java.lang.Integer" >
 		SELECT count(1)
 		FROM ${tableNameOfPartner} A
 		WHERE A.partner_id = #{partnerId}

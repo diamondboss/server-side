@@ -67,6 +67,7 @@ public class PartnerLoginServiceImpl implements PartnerLoginService{
 		mapOfPartner.put("partnerId", UserOrderServiceVo.getPartnerId());
 		mapOfPartner.put("orderDate", orderDate);
 		mapOfPartner.put("tableNameOfPartner", tableNameOfPartner);
+		
 		int orderCount = userOrderServiceMapper.queryOrderCountOfPartner(mapOfPartner);
 		UserOrderServiceVo.setOrderCount(String.valueOf(orderCount));
 
