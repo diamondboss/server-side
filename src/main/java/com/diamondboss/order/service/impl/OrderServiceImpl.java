@@ -44,7 +44,10 @@ public class OrderServiceImpl implements IOrderService {
 		map.put("orderDate", orderDate);
 		map.put("tableName", tableName);
 		
-		List<UserOrderServiceVo> userOrder= userOrderServiceMapper.queryUserOrderService(map);
+		List<UserOrderServiceVo> userOrder = new ArrayList<>();
+		userOrder.add(userOrderServiceMapper.queryUserOrderService(map));
+		
+		
 		
 		Map<String, Object> parmMap = new HashMap<>();
 		parmMap.put("userId", userId);
@@ -77,13 +80,15 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public PartnerOrderServiceVo queryPartnerOrderService(String partnerId) {
 		String tableName = TableUtils.getOrderTableName(Long.valueOf(partnerId),
-				PetConstants.ORDER_USER_TABLE_PREFIX);
+				PetConstants.ORDER_PARTNER_TABLE_PREFIX);
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("partnerId", partnerId);
-		map.put("tableName", tableName);
+		map.put("tableNameOfPartner", tableName);
 		
 		PartnerOrderServiceVo partnerOrder= userOrderServiceMapper.queryPartnerOrderService(map);
+		partnerOrder.setOrderCount(String.valueOf(userOrderServiceMapper.queryOrderCountOfPartner2(map)));
+
 		return partnerOrder;
 	}
 

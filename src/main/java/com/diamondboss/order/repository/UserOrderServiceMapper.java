@@ -15,7 +15,14 @@ public interface UserOrderServiceMapper {
 	 * @param map
 	 * @return
 	 */
-	List<UserOrderServiceVo> queryUserOrderService(Map<String, String> map);
+	UserOrderServiceVo queryUserOrderService(Map<String, String> map);
+	
+	/**
+	 * 查询合伙人订单数量
+	 * @param map
+	 * @return
+	 */
+	int queryOrderCountOfPartner(Map<String, String> map);
 	
 	/**
 	 * 查询合伙人当日订单
@@ -23,6 +30,12 @@ public interface UserOrderServiceMapper {
 	 * @return
 	 */
 	PartnerOrderServiceVo queryPartnerOrderService(Map<String, String> map);
+	/**
+	 * 查询合伙人订单数量2
+	 * @param map
+	 * @return
+	 */
+	int queryOrderCountOfPartner2(Map<String, String> map);
 	
 	/**
 	 * 查询用户的当日合伙人下的宠物订单
