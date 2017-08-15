@@ -57,7 +57,7 @@
 	<!-- 根据订单编号查询钱包信息 -->
 	<select id="queryWalletbyPojo"
 		parameterType="com.diamondboss.user.pojo.PartnerConfirmOrderPojo"
-		resultType="import com.diamondboss.wallet.pojo.PartnerWalletPojo">
+		resultType="com.diamondboss.wallet.pojo.PartnerWalletPojo">
 		SELECT
 			partner_id AS partnerId,
 			amt AS amt,
