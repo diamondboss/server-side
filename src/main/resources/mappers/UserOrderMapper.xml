@@ -53,7 +53,7 @@
 			    A.name AS partnerName,
 			    A.phone_number AS phoneNum
 			FROM
-			    partner_info A LEFT JOIN ${tableNameOfPartner} ON A.parter_id = B.partner_id
+			    partner_info A LEFT JOIN ${tableNameOfPartner} B ON A.parter_id = B.partner_id
 			WHERE
 				A.parter_id = #{partnerId}
 				AND A.effective = '1'
