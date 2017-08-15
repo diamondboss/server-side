@@ -2,6 +2,8 @@ package com.diamondboss.util.push.getui;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 import com.diamondboss.util.tools.PropsUtil;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
@@ -17,6 +19,8 @@ public class PushToSingle {
     private static String appId = PropsUtil.getProperty("getui.appId");
     private static String appKey = PropsUtil.getProperty("getui.appKey");
     private static String masterSecret = PropsUtil.getProperty("getui.masterSecret");
+    
+    private static final Logger logger = Logger.getLogger(PushToSingle.class);
 	
 
     //别名推送方式
@@ -77,13 +81,30 @@ public class PushToSingle {
         return template;
     }
     
+    /**
+     * 个推推送至客户端
+     * @param CID
+     * @param title
+     * @param text
+     * @param type
+     */
+    public static void pushSMSToClient(String CID, String title, String text, String type){
+    	try{
+			// APP推送用户
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("CID", CID);
+			map.put("title",title);
+			map.put("text", text);
+			map.put("type", type);
+			
+			PushToSingle.pushToSingle(map);
+		}catch(Exception e){
+			logger.info("个推推送消息异常--" + title);
+			logger.info(e.getMessage());
+		}
+    }
+    
     public static void main(String[] args) {
-    	Map<String, String> map = new HashMap<String, String>();
-		map.put("CID", "17b1cbdf42373506e8d6246cedb8344f");
-		map.put("title", "订单派送失败");
-		map.put("text", "抱歉，您的订单派送失败！");
-		map.put("url", "http://www.baidu.com");
-		
-		pushToSingle(map);
+		pushSMSToClient("17b1cbdf42373506e8d6246cedb8344f","小黄冲厕所","，截图，截图收到截图发我，冲冲冲冲冲冲冲冲冲冲冲冲","100");
 	}
 }

@@ -21,9 +21,11 @@ import com.diamondboss.order.vo.CancelOrderVo;
 import com.diamondboss.order.vo.SendNotifySmsInfoVo;
 import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.service.PartnerInfoService;
+import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
+import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
@@ -53,6 +55,9 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 	@Autowired
 	private PartnerInfoService partnerInfoService;
 	
+	@Autowired
+	private UserLoginService userLoginService;
+	
 	/**
 	 * 用户取消预约
 	 * 
@@ -72,6 +77,8 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 		if(StringUtils.isBlank(result)){
 			// 3.取消预约
 			if(cancel(userOrder)){
+				
+				
 				app.setData("");
 				app.setRetnCode(0);
 				app.setRetnDesc("取消成功");
@@ -245,6 +252,13 @@ public class CancelOrderServiceImpl implements CancelOrderService{
 		}
 		
 		// 消息推送
+		// 用户的clientId
+		String CID = userLoginService.selectUserClientId(pojo.getUserId());
+		PushToSingle.pushSMSToClient(CID, "订单取消成功", "您的订单已取消成功，支付金额已返还。如有任何疑问，" + "请及时联系我们帮您处理！", "4");
+
+		// 合伙人的clientId
+		String partnerCID = userLoginService.selectPartnerClientId(pojo.getPartnerId());
+		PushToSingle.pushSMSToClient(partnerCID, "订单取消", "您有当前订单取消，请及时查看确认。如有任何疑问，请及时联系我们帮您处理！", "5");
 		
 		return true;
 	}

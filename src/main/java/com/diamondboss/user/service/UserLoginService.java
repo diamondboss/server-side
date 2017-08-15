@@ -42,4 +42,11 @@ public interface UserLoginService {
 	 */
 	public String selectUserClientId(String userId);
 	
+	/**
+	 * 通过userId查出合伙人的CID
+	 * @param userId
+	 * @return
+	 */
+	public String selectPartnerClientId(String partnerId);
+	
 }
