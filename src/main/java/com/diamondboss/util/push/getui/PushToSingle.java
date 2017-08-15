@@ -1,6 +1,9 @@
 package com.diamondboss.util.push.getui;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 import com.diamondboss.util.tools.PropsUtil;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
@@ -16,6 +19,8 @@ public class PushToSingle {
     private static String appId = PropsUtil.getProperty("getui.appId");
     private static String appKey = PropsUtil.getProperty("getui.appKey");
     private static String masterSecret = PropsUtil.getProperty("getui.masterSecret");
+    
+    private static final Logger logger = Logger.getLogger(PushToSingle.class);
 	
 
     //别名推送方式
@@ -24,7 +29,8 @@ public class PushToSingle {
  
     public static void pushToSingle(Map<String, String> map){
         IGtPush push = new IGtPush(host, appKey, masterSecret);
-        TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate();
+        TransmissionTemplate template = TransmissionTemplateTestIos.getTemplate(map);
+        //LinkTemplate template = PushToSingle.linkTemplateDemo(map);
         SingleMessage message = new SingleMessage();
         message.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
@@ -74,4 +80,31 @@ public class PushToSingle {
         template.setUrl(map.get("url"));
         return template;
     }
+    
+    /**
+     * 个推推送至客户端
+     * @param CID
+     * @param title
+     * @param text
+     * @param type
+     */
+    public static void pushSMSToClient(String CID, String title, String text, String type){
+    	try{
+			// APP推送用户
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("CID", CID);
+			map.put("title",title);
+			map.put("text", text);
+			map.put("type", type);
+			
+			PushToSingle.pushToSingle(map);
+		}catch(Exception e){
+			logger.info("个推推送消息异常--" + title);
+			logger.info(e.getMessage());
+		}
+    }
+    
+    public static void main(String[] args) {
+		pushSMSToClient("17b1cbdf42373506e8d6246cedb8344f","小黄冲厕所","，截图，截图收到截图发我，冲冲冲冲冲冲冲冲冲冲冲冲","100");
+	}
 }

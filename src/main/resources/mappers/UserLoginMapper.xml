@@ -79,5 +79,14 @@
 	</select>
 	
 	
+	<!-- partnerClientId查询  -->
+	<select id="selectPartnerCID" parameterType="java.util.Map">
+		SELECT client_id
+		FROM partner_client_id
+		WHERE
+			partner_id = #{partnerId},
+			AND A.effective = '1'
+	</select>
+	
 
 </mapper>

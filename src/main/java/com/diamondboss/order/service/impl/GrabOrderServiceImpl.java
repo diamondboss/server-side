@@ -15,6 +15,8 @@ import com.diamondboss.order.pojo.OrderUserPojo;
 import com.diamondboss.order.repository.GrabOrderMapper;
 import com.diamondboss.order.service.IGrabOrderService;
 import com.diamondboss.order.vo.GrabOrderVo;
+import com.diamondboss.user.service.UserLoginService;
+import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.tools.TableUtils;
 import com.diamondboss.wallet.service.PartnerRebateService;
 
@@ -28,6 +30,10 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 	
 	@Autowired
 	private PartnerRebateService partnerRebateService;
+	
+	@Autowired
+	private UserLoginService userLoginService;
+	
 	
 	@Override
 	public int grabOrder(GrabOrderVo vo){
@@ -65,20 +71,10 @@ public class GrabOrderServiceImpl implements IGrabOrderService{
 		// 更新用户登录表
 		grabOrder.updateUserLogin(pojo.getUserId());
 		
-//		try{
-//			//抢单后，开始更新合伙人钱包金额
-//			log.info("抢单后，开始更新合伙人钱包金额，partnerId=" + vo.getPartnerId());
-//			
-//			OrderUserPojo orderUserPojo = new OrderUserPojo();
-//			orderUserPojo.setPartnerId(vo.getPartnerId());
-//			orderUserPojo.setAmt(new BigDecimal(vo.getAmt()));
-//			orderUserPojo.setOrderDate(vo.getOrderDate());
-//			
-//			partnerRebateService.rebate(orderUserPojo, false);
-//		}catch(Exception e){
-//			log.info("更新合伙人钱包金额异常。" + e.getMessage());
-//			log.info(e.getMessage());
-//		}
+		// APP推送用户
+		//用户的clientId
+		String userCID = userLoginService.selectUserClientId(pojo.getUserId());
+		PushToSingle.pushSMSToClient(userCID, "订单派送成功", "您的订单已派发成功，请及时查看。如有任何疑问，请及时联系我们帮您处理！", "3");
 		
 		// 推送用户
 		return 0;
