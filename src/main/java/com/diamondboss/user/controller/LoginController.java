@@ -23,6 +23,7 @@ import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.user.vo.IndexOrderOfUserVo;
 import com.diamondboss.user.vo.LoginVo;
 import com.diamondboss.util.pojo.SmsReturnInfo;
+import com.diamondboss.util.push.rongyun.constcla.Constants;
 import com.diamondboss.util.push.rongyun.constcla.StatusCode;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.UUIDUtil;
@@ -177,6 +178,9 @@ public class LoginController {
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
 			app.setRetnCode(0);
 			log.info("短信验证码发送成功");
+		}else if(smsReturnInfo != null && smsReturnInfo.getCode() == Integer.valueOf(Constants.USE_TOO_MORE)){
+			app.setRetnCode(1);
+			app.setRetnDesc("发送短信频率过高，请稍后再试");
 		}
 		app.setData(smsReturnInfo);
 		return app;	
