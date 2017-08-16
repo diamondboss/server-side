@@ -1,6 +1,7 @@
 package com.diamondboss.user.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -201,10 +202,11 @@ public class LoginController {
 		APPResponseBody app = new APPResponseBody();
 		
 		String today = LocalDate.now().toString();
-		List<UserOrderServiceVo> userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
+		List<UserOrderServiceVo> userOrder =  new ArrayList<>();
+		userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
 		
 		if(userOrder == null || userOrder.size() == 0){
-			app.setData("");
+			app.setData(userOrder);
 			app.setRetnCode(0);
 			app.setRetnDesc("未找到数据哦~");
 		} else{
