@@ -39,10 +39,11 @@ public class SmsSenderUtils {
 	 * @param mobile
 	 * @return
 	 */
-	public static SmsReturnInfo send(String appKey, String nonce, String timestamp, String hash, String mobile, String templateId, String requestUrl){
+	public static SmsReturnInfo send(String appKey, String nonce, String timestamp, String hash, String mobile,
+			String templateId, String requestUrl) {
 		SmsReturnInfo smsReturnInfo = new SmsReturnInfo();
 		try {
-			//将发送参数appKey + nonce + Timestamp + hash 放入到request请求头中
+			// 将发送参数appKey + nonce + Timestamp + hash 放入到request请求头中
 			Map params = new HashMap();
 			params.put("appKey", appKey);
 			params.put("nonce", nonce);
@@ -53,30 +54,35 @@ public class SmsSenderUtils {
 			params.put("mobile", mobile);
 			params.put("templateId", templateId);
 
-			//发送
+			// 发送
 			String result = HttpUtils.sendPost(params, requestUrl, 0);
 
 			JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
 			String code = obj.get("code").getAsString();
+			if (StringUtils.equals(code, Constants.USE_TOO_MORE)) {
+				smsReturnInfo.setCode(Integer.valueOf(Constants.USE_TOO_MORE));
+				smsReturnInfo.setSuccess(false);
+				return smsReturnInfo; // 发送失败，调用频率过快
+			}
 			String sessionId = obj.get("sessionId").getAsString();
-			if(code != null && StringUtils.equals(Constants.SUCCES, code)){
-				//接收返回结果，并处理
-				logger.info("短信发送返回状态码："+ code);
-				logger.info("短信发送返回验证ID："+ sessionId);
+			if (code != null && StringUtils.equals(Constants.SUCCES, code)) {
+				// 接收返回结果，并处理
+				logger.info("短信发送返回状态码：" + code);
+				logger.info("短信发送返回验证ID：" + sessionId);
 				smsReturnInfo.setCode(StatusCode.SUCCESS_CODE);
 				smsReturnInfo.setSessionId(sessionId);
 				smsReturnInfo.setSuccess(true);
-			}else{
-				//接收返回结果，并处理
-				logger.info("短信发送返回状态码："+ code);
+			} else {
+				// 接收返回结果，并处理
+				logger.info("短信发送返回状态码：" + code);
 				smsReturnInfo.setCode(StatusCode.ERROR_CODE);
 				smsReturnInfo.setSuccess(false);
 			}
-			return smsReturnInfo;  // 发送成功
+			return smsReturnInfo; // 发送成功
 		} catch (Exception e) {
 			smsReturnInfo.setCode(StatusCode.ERROR_CODE);
 			smsReturnInfo.setSuccess(false);
-			logger.error("短信平台发送异常！发送手机号：" + mobile );
+			logger.error("短信平台发送异常！发送手机号：" + mobile);
 			logger.error(e.getMessage());
 
 		}
