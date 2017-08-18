@@ -32,7 +32,7 @@
 		    )
 		    VALUES
 		    (
-		        #{userId},
+		        #{partnerId},
 		        #{clientId},
 		        '1'
 		    );

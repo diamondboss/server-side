@@ -1,6 +1,7 @@
 package com.diamondboss.user.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -134,7 +135,7 @@ public class LoginController {
 			}
 			userLogin = userLoginService.login(vo);
 			
-			/*if(userLoginService.selectUserClientId(userLogin.getId(), vo.getClientId()) < 1){
+			if(userLoginService.selectUserClientId(userLogin.getId(), vo.getClientId()) < 1){
 				log.info("User clientId不存在，开始写入");
 				if(userLoginService.insertUserClientId(userLogin.getId(), vo.getClientId()) < 1){
 					userLogin.setUserType("0");
@@ -143,21 +144,21 @@ public class LoginController {
 					return app;
 				}
 				log.info("User clientId写入成功! ^_^");
-			}*/
+			}
 			
 			userLogin.setUserType("0");
 			log.info("登录成功");
 			app.setRetnCode(0);
 			app.setData(userLogin);
 			return app;
-		}/*else{
+		}else{
 			if(partnerLoginService.insertPartnerClientId(partnerLogin.getId() , vo.getClientId()) < 1){
 				userLogin.setUserType("0");
 				log.info("Partner clientId获取失败");
 				app.setRetnCode(1);
 				return app;
 			}
-		}*/
+		}
 		log.info("登录成功");
 		partnerLogin.setUserType("1");
 		app.setRetnCode(0);
@@ -201,10 +202,11 @@ public class LoginController {
 		APPResponseBody app = new APPResponseBody();
 		
 		String today = LocalDate.now().toString();
-		List<UserOrderServiceVo> userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
+		List<UserOrderServiceVo> userOrder =  new ArrayList<>();
+		userOrder = partnerLoginService.queryUserOrderService(vo.getUserId(), today);
 		
 		if(userOrder == null || userOrder.size() == 0){
-			app.setData("");
+			app.setData(userOrder);
 			app.setRetnCode(0);
 			app.setRetnDesc("未找到数据哦~");
 		} else{
