@@ -135,4 +135,17 @@
 			WHERE B.community_id = #{communityId}
 	</select>
 	
+	<!-- 用户下单更新用户登录表 -->
+	<update id="updateUserLogin"
+		parameterType="com.diamondboss.order.pojo.OrderUserPojo">
+		UPDATE
+		    user_login
+		SET
+		    order_num = order_num + 1,
+		    order_total = order_total + 1
+		WHERE
+		    id = #{userId}
+			AND effective = '1'
+	</update>
+	
 </mapper>

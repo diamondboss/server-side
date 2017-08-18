@@ -62,6 +62,9 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		if(i==0){
 			return false;
 		}
+		
+		placeOrderMapper.updateUserLogin(pojo);
+		
 		return true;
 		
 	}
@@ -87,6 +90,9 @@ public class PlaceOrderServiceImpl implements PlaceOrderService{
 		if(i==0){
 			return false;
 		}
+		
+		placeOrderMapper.updateUserLogin(pojo);
+		
 		//TODO：给用户所在小区所有的合伙人推送抢单通知
 		
 		//1.查询出所在小区所有的合伙人clientId
