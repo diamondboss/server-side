@@ -22,21 +22,25 @@
 		    A.partner_id AS partnerId,
 		    A.receive_time AS receiveTime,
 		    A.return_time AS returnTime,
-		    A.dogFood AS dogFood,
-		    (
-				SELECT count(*)
-				FROM ${tableName} A
-				WHERE A.user_id = #{userId}
-				AND A.order_date = #{orderDate}
-				AND A.effective = '1'
-			) AS orderCount
+		    A.dogFood AS dogFood
 		FROM
-		     ${tableName} A INNER JOIN user_info B ON A.user_id = B.user_id
+		     ${tableName} A LEFT JOIN user_info B ON A.user_id = B.user_id
 		WHERE
 			A.user_id = #{userId}
 			AND A.order_date = #{orderDate}
 			AND A.partner_id is not null
 			AND A.effective = '1'
+	</select>
+	
+	<!-- 查询合伙人的历史订单数量 -->
+	<select id="queryOrderCountOfPartner"
+		parameterType="java.util.Map"
+		resultType="java.lang.Integer" >
+		SELECT count(1)
+		FROM ${tableNameOfPartner} A
+		WHERE A.partner_id = #{partnerId}
+		AND A.order_date = #{orderDate}
+		AND A.effective = '1'
 	</select>
 	
 	
@@ -45,20 +49,24 @@
 		parameterType="java.util.Map"
 		resultType="com.diamondboss.util.vo.PartnerOrderServiceVo" >
 			SELECT
-			    B.parter_id AS partnerId,
-			    B.name AS partnerName,
-			    B.phone_number AS phoneNum,
-				(
-					SELECT COUNT(*)
-					FROM ${tableName} A
-					WHERE A.partner_id = #{partnerId}
-					AND A.effective = '1'
-				) AS orderCount
+			    A.parter_id AS partnerId,
+			    A.name AS partnerName,
+			    A.phone_number AS phoneNum
 			FROM
-			    partner_info B 
+			    partner_info A 
 			WHERE
-				B.parter_id = #{partnerId}
-				AND B.effective = '1'
+				A.parter_id = #{partnerId}
+				AND A.effective = '1'
+	</select>
+	
+	<!-- 查询合伙人的历史订单数量 -->
+	<select id="queryOrderCountOfPartner2"
+		parameterType="java.util.Map"
+		resultType="java.lang.Integer" >
+		SELECT count(1)
+		FROM ${tableNameOfPartner} A
+		WHERE A.partner_id = #{partnerId}
+		AND A.effective = '1'
 	</select>
 	
 	
