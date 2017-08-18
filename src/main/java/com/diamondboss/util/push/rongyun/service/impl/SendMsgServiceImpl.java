@@ -68,6 +68,10 @@ public class SendMsgServiceImpl implements ISendMsgService {
 		SmsReturnInfo smsReturnInfo  = SmsSenderUtils.verifySmsCode(appKey, nonce, timestamp, strHash, verifyUrl ,sessionId, code);
 		if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.SUCCESS_CODE.intValue()){
 			logger.info("短信验证码校验成功");
+		}else if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.VERIFIED.intValue()){
+			logger.info("验证码已验证过");
+		}else if(smsReturnInfo != null && smsReturnInfo.getCode() == StatusCode.VERIFIEY_TIME_OUT.intValue()){
+			logger.info("验证超时");
 		}
 		return smsReturnInfo;
 	}

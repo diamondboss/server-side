@@ -110,8 +110,9 @@ public class SmsSenderUtils {
 				smsReturnInfo.setSuccess(success);
 			}else{
 				//接收返回结果，并处理
-				logger.info("短信校验返回状态码："+ code);
-				smsReturnInfo.setCode(StatusCode.ERROR_CODE);
+				logger.info("短信校验返回码："+ returnCode);
+				smsReturnInfo.setCode(Integer.valueOf(returnCode));
+				smsReturnInfo.setSuccess(success);
 			}
 			return smsReturnInfo;  // 发送成功
 		} catch (Exception e) {
@@ -201,7 +202,7 @@ public class SmsSenderUtils {
 			
 			if(smsType == 0){ //用户成功
 				params.put("p1", sendSmsInfo.getUserName());
-				params.put("p2", sendSmsInfo.getPartnerName());
+				params.put("p3", sendSmsInfo.getPartnerName());
 				//发送
 				HttpUtils.sendPost(params, requestUrl, 3);
 			}else if(smsType == 1){ //用户失败

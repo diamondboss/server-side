@@ -76,11 +76,25 @@ public class LoginController {
 					vo.getSessionId(), vo.getCode());
 			
 			if (false == info.getSuccess()) {
-				app.setData(vo);
-				app.setRetnCode(1);
-				app.setRetnDesc("验证码校验错误");
-				log.info("短信验证码校验错误，手机号：" + vo.getPhone());
-				return app;
+				if(info.getCode() == StatusCode.VERIFIED.intValue()){
+					app.setData(vo);
+					app.setRetnCode(1);
+					app.setRetnDesc("此验证码已校验过，请一分钟后重新获取");
+					log.info("此验证码已校验过，请一分钟后重新获取：" + vo.getPhone());
+					return app;
+				}else if(info.getCode() ==  StatusCode.VERIFIEY_TIME_OUT.intValue()){
+					app.setData(vo);
+					app.setRetnCode(1);
+					app.setRetnDesc("验证码超时，请重新获取");
+					log.info("验证码超时，手机号：" + vo.getPhone());
+					return app;
+				}else{
+					app.setData(vo);
+					app.setRetnCode(1);
+					app.setRetnDesc("验证码校验错误");
+					log.info("短信验证码校验错误，手机号：" + vo.getPhone());
+					return app;
+				}
 			}
 		}
 		
