@@ -23,10 +23,13 @@ import com.diamondboss.user.pojo.PartnerInfoPojo;
 import com.diamondboss.user.pojo.SmsCenterPojo;
 import com.diamondboss.user.service.PartnerInfoService;
 import com.diamondboss.user.service.SmsCenterService;
+import com.diamondboss.user.service.UserLoginService;
 import com.diamondboss.util.pay.aliPay.Alipay;
 import com.diamondboss.util.pay.weChatPay.WXPay;
 import com.diamondboss.util.pay.weChatPay.WXPayReFundDTO;
 import com.diamondboss.util.pojo.OutTradeNoPojo;
+import com.diamondboss.util.push.getui.PushList;
+import com.diamondboss.util.push.getui.PushToSingle;
 import com.diamondboss.util.push.rongyun.service.ISendMsgService;
 import com.diamondboss.util.tools.PropsUtil;
 import com.diamondboss.util.tools.TableUtils;
@@ -55,11 +58,15 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 	@Autowired
 	private PartnerInfoService partnerInfoService;
 	
-//	@Autowired
-//	private PartnerRebateService partnerRebateService;
+	@Autowired
+	private PartnerRebateService partnerRebateService;
+
 	
 	@Autowired
 	private SmsCenterService smsCenterService;
+	
+	@Autowired
+	private UserLoginService userLoginService;
 	
 	private static final Logger logger = Logger.getLogger(DistributeOrderServiceImpl.class);
 	
@@ -150,14 +157,11 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 					logger.info("微信退款失败");
 				}
 			}
-			// APP推送用户
-			/*Map<String, String> map = new HashMap<String, String>();
-			map.put("CID", userLoginService.selectUserClientId(pojo.getUserId()));
-			map.put("tiele", "订单派送失败");
-			map.put("text", "抱歉，您的订单派送失败！");
-			map.put("url", "http://www.baidu.com");*/
+			//用户的clientId
+			String CID = userLoginService.selectUserClientId(pojo.getUserId());
+			PushToSingle.pushSMSToClient(CID, "订单派送失败", "由于您的小区订单已满，本次下单失败。支付金额已返还。如有任何疑问，"
+					+ "请及时联系我们帮您处理！", "1");
 			
-			//PushToSingle.pushToSingle(map);
 			// 短信推送用户（订单没有匹配成功的短信）
 			logger.info("插入用户消息");
 			smsCenterPojo.setUserId(pojo.getUserId());
@@ -225,15 +229,16 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 				logger.info(e.getMessage());
 			}
 			// APP推送用户/合伙人
-			//Map<String, String> map = new HashMap<String, String>();
-			/*String cid = userLoginService.selectUserClientId(pojo.getUserId());
-			map.put("CID = ", cid);
-			logger.info("进入指定合伙人--订单分配--CID：" + cid);
-			map.put("tiele", "您有新的订单");
-			map.put("text", "你有新的订单产生，点击查看");
-			map.put("url", "http://www.baidu.com");*/
+			//用户的clientId
+			String userCID = userLoginService.selectUserClientId(pojo.getUserId());
+			PushToSingle.pushSMSToClient(userCID, "订单派送成功", "您的订单已派发成功，请及时查看。如有任何疑问，请及时联系我们帮您处理！", "0");
 			
-			//PushToSingle.pushToSingle(map);
+			//合伙人的clientId
+			String partnerCID = userLoginService.selectPartnerClientId(pojo.getPartnerId());
+			PushToSingle.pushSMSToClient(partnerCID, "订单派送成功", "您有新订单，请及时查看。如有任何疑问，请及时联系我们帮您处理！", "2");
+			
+
+
 //			try{
 //				partnerRebateService.rebate(pojo, true);
 //			}catch(Exception e){
@@ -316,11 +321,15 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 		}
 		
 		//1.查询出所在小区所有的合伙人clientId
-//		List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
+		//List<PartnerClientVo> partnerClientList = placeOrderMapper.queryPartnerClient(pojo.getCommunityId());
 		// TODO 有问题 获取的合伙人可能不合适
 		
+		Map<String, String> toListMap = new HashMap<>();
+		toListMap.put("title", "附近新单子......");
+		toListMap.put("text", "您的附近有新单子，请注意查看。如有任何疑问，请及时联系我们帮您处理！");
+		toListMap.put("type", "6");
 		//2.调用个推向指定群组推通知方法
-		//PushList.pushListToUser(partnerClientList);
+		PushList.pushListToUser(list, toListMap);
 	}
 
 	/**
