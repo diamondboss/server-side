@@ -9,4 +9,18 @@ package com.diamondboss.petsHotel.service;
  */
 public interface UserOrderService {
 
+	/**
+	 * 预约登记--支付宝
+	 */
+	public void placeOrderAli();
+	
+	/**
+	 * 预约登记--微信
+	 */
+	public void placeOrderWx();
+	
+	/**
+	 * 查询酒店用户订单
+	 */
+	public void queryOrder();
 }

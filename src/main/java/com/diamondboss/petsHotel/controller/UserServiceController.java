@@ -1,5 +1,6 @@
 package com.diamondboss.petsHotel.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,8 @@ import com.diamondboss.util.vo.APPResponseBody;
  * @since 2017-08-16
  *  
  */
+@Controller
+@RequestMapping("/userServiceHotel")
 public class UserServiceController {
 
 	private UserService userService;
@@ -27,21 +30,22 @@ public class UserServiceController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
+	@RequestMapping(value = "/queryHotelList", method = RequestMethod.POST)
 	public APPResponseBody queryHotelList(CancelOrderVo vo){
 		userService.queryHotelList();
+		
 		return null;
 	}
 	
 	/**
-	 * 酒店价格显示
+	 * 酒店服务类目列表。--日托--周托--月托--寄养
 	 * 
 	 * @param vo
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/cancel", method = RequestMethod.POST)
-	public APPResponseBody queryPrice(CancelOrderVo vo){
+	@RequestMapping(value = "/queryServiceList", method = RequestMethod.POST)
+	public APPResponseBody queryServiceList(CancelOrderVo vo){
 		
 		userService.queryPrice("");
 		return null;
