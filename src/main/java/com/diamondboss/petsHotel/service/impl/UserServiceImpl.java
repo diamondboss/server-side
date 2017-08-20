@@ -2,6 +2,11 @@ package com.diamondboss.petsHotel.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.diamondboss.petsHotel.service.UserService;
+import com.diamondboss.petsHotel.vo.HotelListResponseVo;
+
 /**
  * 用户服务类
  * 
@@ -9,14 +14,15 @@ import java.util.List;
  * @since 2017-08-16
  *  
  */
-public class UserServiceImpl {
+@Service
+public class UserServiceImpl implements UserService {
 
 	/**
 	 * 查询酒店列表
 	 * 
 	 * @return 酒店列表
 	 */
-	public List<?> queryHotelList(){
+	public List<HotelListResponseVo> queryHotelList(){
 		
 		
 		return null;

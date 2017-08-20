@@ -2,6 +2,8 @@ package com.diamondboss.petsHotel.service;
 
 import java.util.List;
 
+import com.diamondboss.petsHotel.vo.HotelListResponseVo;
+
 /**
  * 用户服务类
  * 
@@ -16,7 +18,7 @@ public interface UserService {
 	 * 
 	 * @return 酒店列表
 	 */
-	public List<?> queryHotelList();
+	public List<HotelListResponseVo> queryHotelList();
 	
 	/**
 	 * 查询酒店价格
