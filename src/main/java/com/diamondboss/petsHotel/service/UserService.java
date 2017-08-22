@@ -1,9 +1,9 @@
 package com.diamondboss.petsHotel.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.diamondboss.petsHotel.vo.HotelListResponseVo;
-import com.diamondboss.petsHotel.vo.HotelServiceResponseVo;
 
 /**
  * 用户服务类
@@ -27,5 +27,5 @@ public interface UserService {
 	 * @param hotelId 酒店id
 	 * @return 对应酒店价格列表
 	 */
-	public List<HotelServiceResponseVo> queryHotelService(String hotelId);
+	public Map<String, Object> queryHotelService(String hotelId);
 }

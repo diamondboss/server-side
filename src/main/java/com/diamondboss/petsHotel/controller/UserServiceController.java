@@ -2,6 +2,7 @@ package com.diamondboss.petsHotel.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -90,10 +91,12 @@ public class UserServiceController {
 			return app;
 		}
 		
-		List<HotelServiceResponseVo> list = userService.queryHotelService(vo.getHotelId());
+		Map<String, Object> responsemap = userService.queryHotelService(vo.getHotelId());
+		
+		
 		
 		app.setRetnCode(0);
-		app.setData(list);
+		app.setData(responsemap);
 		return app;
 	}
 	
