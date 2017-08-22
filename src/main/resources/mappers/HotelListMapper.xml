@@ -26,4 +26,23 @@
 		WHERE
 			effective = '1'
 	</select>
+	
+	<!-- 查询酒店服务类目-->
+	<select id="queryHotelService" parameterType="java.util.Map" resultType="com.diamondboss.petsHotel.vo.HotelServiceResponseVo">
+		SELECT
+			hotel_id AS hotelId,
+			service_id AS serviceId,
+			service_remark AS serviceRemark,
+			service_name AS serviceName,
+			service_price As servicePrice,
+		    remark_1 AS remark1,
+		    remark_2 AS remark2,
+		    remark_3 AS remark3,
+		    status AS status
+		FROM
+		    hotel_service
+		WHERE
+			hotel_id = #{hotelId} 
+		AND effective = '1'
+	</select>
 </mapper>

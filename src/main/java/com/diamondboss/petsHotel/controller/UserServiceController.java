@@ -3,6 +3,7 @@ package com.diamondboss.petsHotel.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.diamondboss.petsHotel.service.UserService;
 import com.diamondboss.petsHotel.vo.HotelListRequestVo;
 import com.diamondboss.petsHotel.vo.HotelListResponseVo;
 import com.diamondboss.petsHotel.vo.HotelServiceRequestVo;
+import com.diamondboss.petsHotel.vo.HotelServiceResponseVo;
 import com.diamondboss.util.vo.APPResponseBody;
 
 /**
@@ -50,7 +52,7 @@ public class UserServiceController {
 		log.info("查询酒店列表");
 		APPResponseBody app = new APPResponseBody();
 		
-		if(vo.getLongitude() == null || vo.getLatitude() == null){
+		if(StringUtils.isBlank(vo.getLongitude())|| StringUtils.isBlank(vo.getLatitude())){
 			app.setRetnCode(1);
 			app.setRetnDesc("参数非法");
 			return app;
@@ -80,10 +82,22 @@ public class UserServiceController {
 	@ResponseBody
 	@RequestMapping(value = "/queryServiceList", method = RequestMethod.POST)
 	public APPResponseBody queryServiceList(HotelServiceRequestVo vo){
+		log.info("查询酒店类目详情");
+		APPResponseBody app = new APPResponseBody();
+		if(StringUtils.isBlank(vo.getHotelId())){
+			app.setRetnCode(1);
+			app.setRetnDesc("参数非法");
+			return app;
+		}
 		
-		userService.queryPrice("");
-		return null;
+		List<HotelServiceResponseVo> list = userService.queryHotelService(vo.getHotelId());
+		
+		app.setRetnCode(0);
+		app.setData(list);
+		return app;
 	}
+	
+	
 	
 	private static double rad(double d) {
 		return d * Math.PI / 180.0;
