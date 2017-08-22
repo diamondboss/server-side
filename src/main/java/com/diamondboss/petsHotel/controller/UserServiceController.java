@@ -15,6 +15,7 @@ import com.diamondboss.order.vo.CancelOrderVo;
 import com.diamondboss.petsHotel.service.UserService;
 import com.diamondboss.petsHotel.vo.HotelListRequestVo;
 import com.diamondboss.petsHotel.vo.HotelListResponseVo;
+import com.diamondboss.petsHotel.vo.HotelServiceRequestVo;
 import com.diamondboss.util.vo.APPResponseBody;
 
 /**
@@ -78,7 +79,7 @@ public class UserServiceController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryServiceList", method = RequestMethod.POST)
-	public APPResponseBody queryServiceList(CancelOrderVo vo){
+	public APPResponseBody queryServiceList(HotelServiceRequestVo vo){
 		
 		userService.queryPrice("");
 		return null;
