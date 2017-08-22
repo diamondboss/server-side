@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.diamondboss.order.repository.CancelOrderMapper" >
+<mapper namespace="com.diamondboss.petsHotel.repository.UserServiceMapper" >
 
 	<!-- 查询酒店列表 -->
-	<select id="queryHotelList" resultType="com.diamondboss.petsHotel.vo.HotelListResponseVo">
+	<select id="queryHotelList"  resultType="com.diamondboss.petsHotel.vo.HotelListResponseVo">
 		SELECT
 			id AS id,
 		    phone AS phone,
-		    advisory_telephont AS advisoryTelephone,
+		    advisory_telephone AS advisoryTelephone,
 		    hotel_name AS hotelName,
 		    receive_time AS receiveTime,
 		    return_time AS returnTime,
 		    room_num AS roomNum,
 		    address AS address,
 		    picture_num AS pictureNum,
-		    logitude AS logitude,
-		    latiude AS latiude,
-		    remark1 AS remark1,
-		    remark2 AS remark2,
-		    remark3 AS remark3,
-		    remark4 AS remark4,
+		    longitude AS longitude,
+		    latitude AS latitude,
+		    remark_1 AS remark1,
+		    remark_2 AS remark2,
+		    remark_3 AS remark3,
+		    remark_4 AS remark4,
 		    status AS status
 		FROM
 		    hotel_list

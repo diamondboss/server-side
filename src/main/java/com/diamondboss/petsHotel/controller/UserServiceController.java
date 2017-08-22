@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +30,10 @@ public class UserServiceController {
 
 	private static final Logger log = Logger.getLogger(UserServiceController.class);
 	
+	//地球半径
+	private static double EARTH_RADIUS = 6371.393;
+	
+	@Autowired
 	private UserService userService;
 	
 	
@@ -53,8 +58,10 @@ public class UserServiceController {
 		
 		List<HotelListResponseVo> hotel =  new ArrayList<>();
 		for (HotelListResponseVo hotelListVo : hotelList) {
-			if(Distance(Double.valueOf(vo.getLongitude()),Double.valueOf(hotelListVo.getLongitude()),
-					Double.valueOf(vo.getLatitude()),Double.valueOf(hotelListVo.getLatitude())) < 5000){
+			double distance = GetDistance(Double.valueOf(vo.getLatitude()),Double.valueOf(vo.getLongitude()),
+					Double.valueOf(hotelListVo.getLatitude()),Double.valueOf(hotelListVo.getLongitude()));
+			if(distance < 5000){
+				hotelListVo.setDistance(String.valueOf(distance));
 				hotel.add(hotelListVo);
 			}
 		}
@@ -77,35 +84,28 @@ public class UserServiceController {
 		return null;
 	}
 	
-	/** 
-	 * 计算地球上任意两点(经纬度)距离 
-	 *  
-	 * @param long1 
-	 *            第一点经度 
-	 * @param lat1 
-	 *            第一点纬度 
-	 * @param long2 
-	 *            第二点经度 
-	 * @param lat2 
-	 *            第二点纬度 
-	 * @return 返回距离 单位：米 
-	 */  
-	public static double Distance(double long1, double lat1, double long2,  
-	        double lat2) {  
-	    double a, b, R;  
-	    R = 6378137; // 地球半径  
-	    lat1 = lat1 * Math.PI / 180.0;  
-	    lat2 = lat2 * Math.PI / 180.0;  
-	    a = lat1 - lat2;  
-	    b = (long1 - long2) * Math.PI / 180.0;  
-	    double d;  
-	    double sa2, sb2;  
-	    sa2 = Math.sin(a / 2.0);  
-	    sb2 = Math.sin(b / 2.0);  
-	    d = 2  
-	            * R  
-	            * Math.asin(Math.sqrt(sa2 * sa2 + Math.cos(lat1)  
-	                    * Math.cos(lat2) * sb2 * sb2));  
-	    return d;  
-	}  
+	private static double rad(double d) {
+		return d * Math.PI / 180.0;
+	}
+
+	/**
+	 * 计算两个经纬度之间的距离
+	 * 
+	 * @param lat1
+	 * @param lng1
+	 * @param lat2
+	 * @param lng2
+	 * @return
+	 */
+	public static double GetDistance(double lat1, double lng1, double lat2, double lng2) {
+		double radLat1 = rad(lat1);
+		double radLat2 = rad(lat2);
+		double a = radLat1 - radLat2;
+		double b = rad(lng1) - rad(lng2);
+		double s = 2 * Math.asin(Math.sqrt(
+				Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+		s = s * EARTH_RADIUS;
+		s = Math.round(s * 1000);
+		return s;
+	}
 }

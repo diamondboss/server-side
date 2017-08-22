@@ -52,6 +52,11 @@ public class HotelListResponseVo {
 	private String pictureNum;
 	
 	/**
+	 * 距离
+	 */
+	private String distance;
+
+	/**
 	 * 经度
 	 */
 	private String longitude;
@@ -156,6 +161,14 @@ public class HotelListResponseVo {
 
 	public void setPictureNum(String pictureNum) {
 		this.pictureNum = pictureNum;
+	}
+	
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
 	}
 
 	public String getLongitude() {
