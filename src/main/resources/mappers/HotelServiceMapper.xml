@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.diamondboss.petsHotel.repository.HotelServiceMapper" >
+
+	<!-- 根据登录手机号查询酒店信息  -->
+	<select id="queryHotelListByPhone"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.petsHotel.vo.HotelLoginVo">
+		SELECT
+		    id AS hotelId,
+		    phone AS phone,
+		    hotel_name AS hotelName
+		FROM
+		    hotel_list
+		WHERE
+		    phone = #{phone}
+    		AND effective = '1'
+	</select>
+
+	<!-- 根据酒店id查询酒店信息  -->
+	<select id="queryHotelInfoById"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.petsHotel.vo.HotelInfoVo">
+		SELECT
+		    id AS hotelId,
+		    phone AS phone,
+		    advisory_telephone AS advisoryTelephone,
+		    hotel_name AS hotelName,
+		    receive_time AS receiveTime,
+		    return_time AS returnTime,
+		    room_num AS roomNum,
+		    address AS address,
+		    picture_num AS pictureNum,
+		    remark_1 AS remark1,
+		    remark_2 AS remark2,
+		    remark_3 AS remark3,
+		    remark_4 AS remark4,
+		    status AS status
+		FROM
+		    hotel_list
+		WHERE
+		    id = #{hotelId}
+    		AND effective = '1'
+	</select>
+
+	<!-- 根据酒店id查询酒店钱包信息  -->
+	<select id="queryHotelWallet"
+		parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT
+		    amt AS amt
+		FROM
+		    hotel_wallet
+		WHERE
+			hotel_id = #{hotelId}
+			AND effective = '1'
+	</select>
+
+	<!-- 根据酒店id查询酒店钱包明细信息 -->
+	<select id="queryHotelWalletDetail"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.petsHotel.vo.HotelWalletDetail">
+		SELECT
+			CASE
+				WHEN kind = '1'
+				THEN CONCAT('+', amt)
+				WHEN kind IN ('2','3')
+				THEN CONCAT('-', amt)
+			END AS amt,
+			CASE
+				WHEN kind = '1'
+				THEN '宠物托管费用'
+				WHEN kind IN ('2','3')
+				THEN '提现'
+			END AS kind,
+			CASE 
+				WHEN kind = '2'
+				THEN '即将到账' 
+				ELSE '已到账' 
+			END AS status,
+		    left(create_time,16) AS time
+		FROM
+		    hotel_wallet_detail
+		WHERE 
+			hotel_id = #{hotelId}
+			AND effective ='1'
+	</select>
+
+	<!-- 根据酒店id查询酒店订单  -->
+	<select id="queryOrderList"
+		parameterType="java.lang.String"
+		resultType="com.diamondboss.petsHotel.pojo.OrderHotelPojo">
+		SELECT
+		    id AS id,
+		    receive_time AS receiveTime, 
+		    return_time AS returnTime,
+		    pet_name AS petName,
+		    sex AS sex,
+		    age AS age,
+		    phone AS phone,
+		    user_name AS userName,
+		    remark AS remark,
+		    user_id AS userId,
+		    hotel_id AS hotelId,
+		    hotel_name AS hotelName,
+		    service_id AS serviceId,
+		    order_date AS orderDate,
+		    order_status AS orderStatus,
+		    amt AS amt,
+		    out_trade_no AS outTradeNo,
+		    varieties AS varieties,
+		    trade_no AS tradeNo,
+		    pay_type AS payType
+		FROM
+		    order_hotel
+		WHERE
+			hotel_id = #{hotelId}
+			AND effective = '1'
+	</select>
+
+
+
+</mapper>
