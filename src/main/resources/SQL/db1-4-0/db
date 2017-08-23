@@ -1,0 +1,75 @@
+#新增酒店列表
+#create by john 20170820
+
+CREATE TABLE `hotel_list` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `phone` char(11) NOT NULL COMMENT '登录电话',
+  `advisory_telephone` char(11) NOT NULL COMMENT '咨询电话',
+  `hotel_name` varchar(60) NOT NULL COMMENT '酒店名称',
+  `receive_time` char(5) NOT NULL COMMENT '接宠时间',
+  `return_time` char(5) NOT NULL COMMENT '送宠时间',
+  `room_num` varchar(3) NOT NULL COMMENT '酒店房间数量',
+  `address` varchar(180) NOT NULL COMMENT '酒店地址',
+  `picture_num` varchar(3) NOT NULL COMMENT '酒店图片数量',
+  `longitude` decimal(10,6) NOT NULL COMMENT '经度',
+  `latitude` decimal(10,6) NOT NULL COMMENT '纬度',
+  `remark_1` varchar(120) NOT NULL COMMENT '备注1',
+  `remark_2` varchar(90) NOT NULL COMMENT '备注2',
+  `remark_3` varchar(90) NOT NULL COMMENT '备注3',
+  `remark_4` varchar(90) NOT NULL COMMENT '备注4',
+  `status` tinyint(9) NOT NULL COMMENT '状态',
+  `effective` tinyint(1) NOT NULL COMMENT '可用标志',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='酒店列表'
+
+
+#酒店服务功能
+#create by john 20170820
+CREATE TABLE `hotel_service` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `hotel_id` bigint(20) NOT NULL COMMENT '酒店id',
+  `service_id` tinyint(9) NOT NULL COMMENT '服务类别id',
+  `service_remark` varchar(90) NOT NULL COMMENT '服务类别id备注',
+  `service_name` varchar(60) NOT NULL COMMENT '服务名称',
+  `service_price` decimal(10,2) NOT NULL COMMENT '服务价格',
+  `remark_1` varchar(120) NOT NULL COMMENT '备注1',
+  `remark_2` varchar(90) NOT NULL COMMENT '备注2',
+  `remark_3` varchar(90) NOT NULL COMMENT '备注3',
+  `status` tinyint(9) NOT NULL COMMENT '状态',
+  `effective` tinyint(1) NOT NULL COMMENT '可用标志',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='酒店服务功能'
+
+
+#酒店端钱包
+#create by john 20170821
+
+CREATE TABLE `hotel_wallet` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `hotel_id` bigint(20) NOT NULL COMMENT '酒店id',
+  `amt` decimal(10,2) NOT NULL COMMENT '金额',
+  `effective` tinyint(1) NOT NULL COMMENT '可用标志',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='酒店端钱包'
+
+
+#酒店端钱包明细
+#create by john 20170821
+
+CREATE TABLE `hotel_wallet_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `hotel_id` bigint(20) NOT NULL COMMENT '酒店id',
+  `amt` decimal(10,2) NOT NULL COMMENT '金额',
+  `kind` tinyint(9) NOT NULL COMMENT '类型',
+  `order_date` varchar(10) NOT NULL COMMENT '订单日期',
+  `effective` tinyint(1) NOT NULL COMMENT '可用标志',
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='酒店端钱包明细'
