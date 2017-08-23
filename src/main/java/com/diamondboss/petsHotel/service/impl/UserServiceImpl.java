@@ -2,6 +2,7 @@ package com.diamondboss.petsHotel.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService {
 		
 		//第一条数据的服务Id
 		String serviceId2 = list.get(0).getServiceId();
-		List<HotelServiceResponseVo> hotelList = new ArrayList<>();
+		List<HotelServiceResponseVo> hotelList = new LinkedList<>();
 		for (HotelServiceResponseVo hotelServiceResponseVo : list) {
 			if(maps.containsKey(serviceId2)){
 				if(StringUtils.equals(serviceId2, hotelServiceResponseVo.getServiceId())){
