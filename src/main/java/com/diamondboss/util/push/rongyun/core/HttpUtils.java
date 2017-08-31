@@ -58,7 +58,7 @@ public class HttpUtils {
 			byte[] params2 = ("mobile=" + params.get("mobile") + "&").getBytes("utf-8"); // 将参数转为二进制流
 			byte[] params3 = ("templateId=" + params.get("templateId") + "&").getBytes("utf-8"); // 将参数转为二进制流
 			byte[] params4 = ("p1=" + params.get("p1") + "&").getBytes("utf-8"); // 将参数转为二进制流
-			byte[] params5 = ("p2=" + params.get("p2") + "&").getBytes("utf-8"); // 将参数转为二进制流
+			byte[] params5 = ("p3=" + params.get("p3") + "&").getBytes("utf-8"); // 将参数转为二进制流
 			
 			requestBytes = new byte[params1.length + params2.length + params3.length + params4.length  + params5.length];
 			

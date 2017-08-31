@@ -238,12 +238,7 @@ public class DistributeOrderServiceImpl implements DistributeOrderService{
 			PushToSingle.pushSMSToClient(partnerCID, "订单派送成功", "您有新订单，请及时查看。如有任何疑问，请及时联系我们帮您处理！", "2");
 			
 
-//			try{
-//				partnerRebateService.rebate(pojo, true);
-//			}catch(Exception e){
-//				logger.info("更新合伙人钱包金额异常。" + e.getMessage());
-//				logger.info(e.getMessage());
-//			}
+
 			
 			smsCenterPojo.setUserId(pojo.getUserId());
 			smsCenterPojo.setPartnerId(pojo.getPartnerId());

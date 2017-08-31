@@ -148,6 +148,7 @@ public class LoginController {
 			
 			userLogin.setUserType("0");
 			log.info("登录成功");
+			log.info("用户登录成功，登录手机号：" + vo.getPhone());
 			app.setRetnCode(0);
 			app.setData(userLogin);
 			return app;
@@ -159,7 +160,7 @@ public class LoginController {
 				return app;
 			}
 		}
-		log.info("登录成功");
+		log.info("合伙人登录成功，登录手机号：" + partnerLogin.getPhoneNumber());
 		partnerLogin.setUserType("1");
 		app.setRetnCode(0);
 		app.setData(partnerLogin);
